@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import PageTemplate from '../components/PageTemplate';
 
 export default class Calendar extends Component {
-  static propTypes = {
-  }
 
   render() {
     return (
-      <div>
-        Calendar
+      <PageTemplate>
+        <div>
+          Calendar
       </div>
+      </PageTemplate>
     )
   }
 }
