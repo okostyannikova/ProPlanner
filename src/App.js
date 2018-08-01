@@ -10,20 +10,20 @@ import Goal from './pages/Goal';
 import Events from './pages/Events';
 import Event from './pages/Event';
 import Settings from './pages/Settings';
-import Menu from './components/Menu';
+import Navigation from './components/Navigation';
 
 export default class App extends Component {
   render() {
     return (
       <div>
         <Switch>
-          <PrivateRoute exact path='/' component={Menu} />
-          <PrivateRoute path='/calendar' component={Menu} />
-          <PrivateRoute path='/goals/:id' component={Menu} />
-          <PrivateRoute exact path='/goals' component={Menu} />
-          <PrivateRoute path='/events/:id' component={Menu} />
-          <PrivateRoute exact path='/events' component={Menu} />
-          <PrivateRoute path='/settings' component={Menu} />
+          <PrivateRoute exact path='/' component={Navigation} />
+          <PrivateRoute path='/calendar' component={Navigation} />
+          <PrivateRoute path='/goals/:id' component={Navigation} />
+          <PrivateRoute exact path='/goals' component={Navigation} />
+          <PrivateRoute path='/events/:id' component={Navigation} />
+          <PrivateRoute exact path='/events' component={Navigation} />
+          <PrivateRoute path='/settings' component={Navigation} />
         </Switch>
         <Switch>
           <PrivateRoute exact path='/' component={Home} />

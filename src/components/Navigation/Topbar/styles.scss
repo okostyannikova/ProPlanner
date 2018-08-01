@@ -1,0 +1,40 @@
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 24px;
+  background-color: #00BCD4;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
+}
+
+.topbar__logo {
+  margin: 23px 0 15px;
+  a {
+    text-decoration: none;
+  }
+}
+
+.topbar__menu {
+  display: flex;
+}
+
+.topbar__menu-item {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0 27px;
+  height: 60px;
+  &:not(:first-child) {
+    border-left: 1px solid #F0F3F4;
+  }
+}
+
+.topbar__menu-icon {
+  cursor: pointer;
+  &:hover {
+    opacity: 0.75;
+  }
+  path {
+    fill: #FFF;
+  }
+}

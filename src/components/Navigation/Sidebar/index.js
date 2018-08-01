@@ -18,27 +18,27 @@ export default class Menu extends Component {
     return (
       <Nav>
         <NavItem>
-          <NavLink exact to='/' activeStyle={activeColor}>
+          <NavLink exact to="/" activeStyle={activeColor}>
             Home
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to='/calendar' activeStyle={activeColor}>
+          <NavLink to="/calendar" activeStyle={activeColor}>
             Calendar
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to='/goals' activeStyle={activeColor}>
+          <NavLink to="/goals" activeStyle={activeColor}>
             Goals
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to='/events' activeStyle={activeColor}>
+          <NavLink to="/events" activeStyle={activeColor}>
             Events
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to='/settings' activeStyle={activeColor}>
+          <NavLink to="/settings" activeStyle={activeColor}>
             Settings
           </NavLink>
         </NavItem>
