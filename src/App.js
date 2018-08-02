@@ -17,23 +17,23 @@ export default class App extends Component {
     return (
       <div>
         <Switch>
-          <PrivateRoute exact path='/' component={Navigation} />
-          <PrivateRoute path='/calendar' component={Navigation} />
-          <PrivateRoute path='/goals/:id' component={Navigation} />
-          <PrivateRoute exact path='/goals' component={Navigation} />
-          <PrivateRoute path='/events/:id' component={Navigation} />
-          <PrivateRoute exact path='/events' component={Navigation} />
-          <PrivateRoute path='/settings' component={Navigation} />
+          <PrivateRoute exact path="/" component={Navigation} />
+          <PrivateRoute path="/calendar" component={Navigation} />
+          <PrivateRoute path="/goals/:id" component={Navigation} />
+          <PrivateRoute exact path="/goals" component={Navigation} />
+          <PrivateRoute path="/events/:id" component={Navigation} />
+          <PrivateRoute exact path="/events" component={Navigation} />
+          <PrivateRoute path="/settings" component={Navigation} />
         </Switch>
         <Switch>
-          <PrivateRoute exact path='/' component={Home} />
+          <PrivateRoute exact path="/" component={Home} />
           <Route path="/login" component={Login} />
-          <PrivateRoute path='/calendar' component={Calendar} />
-          <PrivateRoute path='/goals/:id' component={Goal} />
-          <PrivateRoute exact path='/goals' component={Goals} />
-          <PrivateRoute path='/events/:id' component={Event} />
-          <PrivateRoute exact path='/events' component={Events} />
-          <PrivateRoute path='/settings' component={Settings} />
+          <PrivateRoute path="/calendar" component={Calendar} />
+          <PrivateRoute path="/goals/:id" component={Goal} />
+          <PrivateRoute exact path="/goals" component={Goals} />
+          <PrivateRoute path="/events/:id" component={Event} />
+          <PrivateRoute exact path="/events" component={Events} />
+          <PrivateRoute path="/settings" component={Settings} />
         </Switch>
       </div>
     );

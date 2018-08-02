@@ -18,11 +18,11 @@ const Topbar = () => (
       <li className="topbar__menu-item">
         <SearchInput />
       </li>
-      <li className="topbar__menu-item">
-        <BellIcon className="topbar__menu-icon" />
+      <li className="topbar__menu-item topbar__menu-icon">
+        <BellIcon />
       </li>
-      <li className="topbar__menu-item">
-        <UpdateIcon className="topbar__menu-icon" />
+      <li className="topbar__menu-item topbar__menu-icon">
+        <UpdateIcon />
       </li>
     </ul>
   </nav>

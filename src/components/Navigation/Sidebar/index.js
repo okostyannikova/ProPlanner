@@ -1,48 +1,53 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import './styles.css';
+import HomeIcon from './Icons/HomeIcon';
+import CalendarIcon from './Icons/CalendarIcon';
+import GoalIcon from './Icons/GoalIcon';
+import SettingsIcon from './Icons/SettingsIcon';
+import UserInfo from './UserInfo';
 
-const Nav = styled.nav`
-  display: flex;
-  justify-content: center;
-`;
+const activeColor = {
+  color: '#00BCD4',
+  backgroundColor: 'rgba(0, 188, 212, 0.15)',
+};
 
-const NavItem = styled.div`
-  padding: 10px;
-`;
-
-const activeColor = { color: 'red' };
-
-export default class Menu extends Component {
+export default class Sidebar extends Component {
   render() {
     return (
-      <Nav>
-        <NavItem>
-          <NavLink exact to="/" activeStyle={activeColor}>
-            Home
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink to="/calendar" activeStyle={activeColor}>
-            Calendar
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink to="/goals" activeStyle={activeColor}>
-            Goals
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink to="/events" activeStyle={activeColor}>
-            Events
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink to="/settings" activeStyle={activeColor}>
-            Settings
-          </NavLink>
-        </NavItem>
-      </Nav>
+      <div className="sidebar">
+        <div className="sidebar__user-info">
+          <UserInfo />
+        </div>
+        <nav className="sidebar__menu">
+          <ul className="sidebar__menu-list">
+            <li className="sidebar__menu-item">
+              <NavLink exact to="/" activeStyle={activeColor}>
+                <HomeIcon />
+                Home
+              </NavLink>
+            </li>
+            <li className="sidebar__menu-item">
+              <NavLink to="/calendar" activeStyle={activeColor}>
+                <CalendarIcon />
+                Calendar
+              </NavLink>
+            </li>
+            <li className="sidebar__menu-item">
+              <NavLink to="/goals" activeStyle={activeColor}>
+                <GoalIcon />
+                Goals list
+              </NavLink>
+            </li>
+            <li className="sidebar__menu-item">
+              <NavLink to="/settings" activeStyle={activeColor}>
+                <SettingsIcon />
+                Settings
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+      </div>
     );
   }
 }

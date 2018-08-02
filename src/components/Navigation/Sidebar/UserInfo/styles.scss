@@ -1,0 +1,41 @@
+.user-info {
+  padding-left: 24px;
+}
+
+.user-info__avatar {
+  position: relative;
+}
+
+.user-info__avatar-wrapper {
+  width: 68px;
+  height: 68px;
+  border: 4px solid #d9d9da;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.user-info__progress {
+  font-size: 9px;
+  font-weight: 700;
+  color: #ffffff;
+  display: inline-block;
+  padding: 1.7px;
+  position: absolute;
+  left: 30px;
+  bottom: -4px;
+  z-index: 20;
+  background-color: #00BCD4;
+  border-radius: 100%;
+}
+
+.user-info__name {
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+.user-info__email {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(52, 70, 98, 0.54);
+  margin: 10px 0 5px;
+}

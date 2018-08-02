@@ -1,4 +1,8 @@
 .topbar {
+  position: fixed;
+  box-sizing: border-box;
+  width: 100%;
+  z-index: 20;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -29,7 +33,7 @@
   }
 }
 
-.topbar__menu-icon {
+.topbar__menu-icon svg {
   cursor: pointer;
   &:hover {
     opacity: 0.75;
