@@ -1,14 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Logo from '../../Logo';
 import SearchInput from '../SearchInput';
-import BellIcon from './BellIcon';
-import UpdateIcon from './UpdateIcon';
-
+import BellIcon from './Icons/BellIcon';
+import UpdateIcon from './Icons/UpdateIcon';
+import MobileMenuIcon from './Icons/MobileMenuIcon';
+import SearchIcon from './Icons/SearchIcon';
 import './styles.css';
 
-const Topbar = () => (
+const Topbar = ({ handleMenuClick }) => (
   <nav className="topbar">
+    <button className="topbar__mobile-menu-btn" type="button" onClick={handleMenuClick}>
+      <MobileMenuIcon />
+    </button>
     <div className="topbar__logo">
       <Link to="/">
         <Logo />
@@ -25,7 +30,14 @@ const Topbar = () => (
         <UpdateIcon />
       </li>
     </ul>
+    <button className="topbat__search-btn" type="button">
+      <SearchIcon />
+    </button>
   </nav>
 );
+
+Topbar.propTypes = {
+  handleMenuClick: PropTypes.func.isRequired,
+};
 
 export default Topbar;

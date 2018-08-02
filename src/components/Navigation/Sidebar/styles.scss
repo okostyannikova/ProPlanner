@@ -22,6 +22,7 @@
   a {
     display: inline-block;
     width: 100%;
+    color: inherit;
     box-sizing: border-box;
     padding: 9px 0 7px 26px;
     &>* {
@@ -38,5 +39,11 @@
   path,
   rect {
     fill: #00BCD4;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .sidebar {
+    padding-top: 41px;
   }
 }
