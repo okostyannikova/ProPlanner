@@ -1,0 +1,9 @@
+@media (max-width: 767.98px) {
+  .nav--hidden {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0s linear 0.3s; }
+  .nav--show {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s; } }

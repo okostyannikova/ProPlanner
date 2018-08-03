@@ -1,0 +1,11 @@
+.search__input {
+  width: 196px;
+  height: 34px;
+  background: url("../../../images/search.svg") 18px 6px no-repeat rgba(253, 253, 255, 0.87);
+  border: none;
+  border-radius: 2px;
+  padding-left: 48px; }
+  .search__input::placeholder {
+    font-family: inherit;
+    font-size: 13px;
+    color: rgba(51, 102, 180, 0.5); }
