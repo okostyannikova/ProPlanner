@@ -1,12 +1,11 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
-import fakeAuth from '../utils/fakeAuth';
-
-import Button from './login/Button.js';
-
-import space from './login/Login_page_bg.png';
-import logo from './login/Logo.svg';
+import './styles.css';
+import fakeAuth from '../../utils/fakeAuth';
+import Button from './Button.js';
+import space from './Login_page_bg.png';
+import logo from './Logo.svg';
 
 const LogoText = styled.p`
   position: relative;
