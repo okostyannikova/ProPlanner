@@ -18,3 +18,15 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+.page-content {
+  padding-top: 75px;
+  padding-left: 225px;
+}
+
+@media (max-width: 767.98px) {
+  .page-content {
+    padding-top: 55px;
+    padding-left: 0;
+  }
+}

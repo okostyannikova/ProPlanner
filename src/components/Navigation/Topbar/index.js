@@ -6,12 +6,11 @@ import SearchInput from '../SearchInput';
 import BellIcon from './Icons/BellIcon';
 import UpdateIcon from './Icons/UpdateIcon';
 import MobileMenuIcon from './Icons/MobileMenuIcon';
-import SearchIcon from './Icons/SearchIcon';
 import './styles.css';
 
-const Topbar = ({ handleMenuClick }) => (
+const Topbar = ({ setButtonRef }) => (
   <nav className="topbar">
-    <button className="topbar__mobile-menu-btn" type="button" onClick={handleMenuClick}>
+    <button className="topbar__mobile-menu-btn" type="button" ref={setButtonRef}>
       <MobileMenuIcon />
     </button>
     <div className="topbar__logo">
@@ -23,21 +22,18 @@ const Topbar = ({ handleMenuClick }) => (
       <li className="topbar__menu-item">
         <SearchInput />
       </li>
-      <li className="topbar__menu-item topbar__menu-icon">
+      <li className="topbar__menu-item">
         <BellIcon />
       </li>
-      <li className="topbar__menu-item topbar__menu-icon">
+      <li className="topbar__menu-item">
         <UpdateIcon />
       </li>
     </ul>
-    <button className="topbat__search-btn" type="button">
-      <SearchIcon />
-    </button>
   </nav>
 );
 
 Topbar.propTypes = {
-  handleMenuClick: PropTypes.func.isRequired,
+  setButtonRef: PropTypes.func.isRequired,
 };
 
 export default Topbar;

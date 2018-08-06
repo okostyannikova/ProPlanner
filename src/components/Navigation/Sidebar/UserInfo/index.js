@@ -20,11 +20,9 @@ export default class UserInfo extends Component {
           <svg>
             <circle
               className="user-info__progress-bar"
-              r="36"
               cx="50%"
               cy="50%"
               strokeDashoffset={-237 - user.progress * 2.37}
-              transform="rotate(-90 38 38)"
             />
           </svg>
           <span className="user-info__progress-nummber">{user.progress}</span>
