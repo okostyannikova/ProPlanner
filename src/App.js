@@ -11,6 +11,7 @@ import Events from './pages/Events';
 import Event from './pages/Event';
 import Settings from './pages/Settings';
 import Navigation from './components/Navigation';
+import Test from './pages/Test';
 
 export default class App extends Component {
   render() {
@@ -35,6 +36,8 @@ export default class App extends Component {
           <PrivateRoute exact path="/events" component={Events} />
           <PrivateRoute path="/settings" component={Settings} />
         </Switch>
+        {/* Тестовый роут */}
+        <Route exact path="/test" component={Test} />
       </div>
     );
   }
