@@ -1,9 +1,22 @@
+$circle-radius: 36px;
+
 .user-info {
   padding-left: 24px;
 }
 
 .user-info__avatar {
   position: relative;
+  width: 76px;
+  height: 76px;
+  svg {
+    position: absolute;
+    width: 76px;
+    height: 76px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+  }
 }
 
 .user-info__avatar-wrapper {
@@ -14,15 +27,24 @@
   overflow: hidden;
 }
 
-.user-info__progress {
+.user-info__progress-bar {
+  fill: none;
+  r: $circle-radius;
+  stroke: #00BCD4;
+  stroke-width: 4px;
+  stroke-dasharray: 237;
+  transform: translate($circle-radius+2, $circle-radius+2) rotate(-90deg) translate(-($circle-radius+2), -($circle-radius+2));
+}
+
+.user-info__progress-nummber {
   font-size: 9px;
   font-weight: 700;
   color: #ffffff;
   display: inline-block;
   padding: 1.7px;
   position: absolute;
-  left: 20px;
-  bottom: -3px;
+  left: 31px;
+  top: -4px;
   z-index: 20;
   background-color: #00BCD4;
   border-radius: 100%;
@@ -41,14 +63,6 @@
 }
 
 @media (max-width: 767.98px) {
-  .user-info__avatar-wrapper {
-    width: 45;
-    height: 45;
-    border: none;
-  }
-  .user-info__progress {
-    font-size: 7px;
-  }
   .user-info__email {
     color: rgba(52, 70, 98, 0.87);
     margin: 5px 0 13px;
