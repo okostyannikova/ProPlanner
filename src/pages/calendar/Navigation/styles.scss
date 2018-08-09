@@ -1,0 +1,82 @@
+@import '../../../styles/variables.scss';
+.calendar-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  li {
+    list-style: none;
+  }
+}
+
+.calendar-nav__prev-btn,
+.calendar-nav__next-btn {
+  width: 10px;
+  height: 17px;
+  position: absolute;
+  top: 4px;
+  border: none;
+  background: center center no-repeat;
+  cursor: pointer;
+}
+
+.calendar-nav__prev-btn {
+  background-image: url('../../../images/arrow-left.png');
+  left: 0;
+}
+
+.calendar-nav__next-btn {
+  background-image: url('../../../images/arrow-right.png');
+  right: 0;
+}
+
+.calendar-nav__label {
+  width: 250px;
+  position: relative;
+  text-align: center;
+  span {
+    text-transform: uppercase;
+    font-size: 20px;
+  }
+}
+
+.calendar-nav__month {
+  font-weight: 500;
+}
+
+.calendar-nav__year {
+  color: $light-text-color;
+  padding-left: 10px;
+}
+
+.calendar-nav__views-btn {
+  width: 102px;
+  height: 45px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: $light-text-color;
+  background-color: #fff;
+  border: none;
+  border-top: $view-bth-border;
+  border-bottom: $view-bth-border;
+  outline: none;
+  cursor: pointer;
+  &:first-child {
+    border-left: $view-bth-border;
+    border-radius: 5px 0 0 5px;
+  }
+  &:last-child {
+    border-right: $view-bth-border;
+    border-radius: 0 5px 5px 0;
+  }
+}
+
+.calendar-nav__views-btn--active {
+  position: relative;
+  z-index: 20;
+  height: 47px;
+  color: $accent-color;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 8px 8px rgba(0, 188, 212, 0.09);
+}

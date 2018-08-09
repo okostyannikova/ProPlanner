@@ -40,11 +40,11 @@ export default class Navigation extends Component {
   render() {
     const { isOpen } = this.state;
     return (
-      <div>
-        <div>
+      <div className="navigation">
+        <div className="navigation-topbar">
           <Topbar setButtonRef={this.setButtonRef} />
         </div>
-        <div className={isOpen ? 'nav--show' : 'nav--hidden'}>
+        <div className={`navigation-sidebar ${isOpen ? 'nav--show' : 'nav--hidden'}`}>
           <Sidebar ref={this.setWrapperRef} />
         </div>
       </div>
