@@ -12,6 +12,13 @@ const activeColor = {
   backgroundColor: 'rgba(0, 188, 212, 0.15)',
 };
 
+const menuItems = [
+  { item: 'Home', to: '/', icon: <HomeIcon />, exact: true },
+  { item: 'Calendar', to: '/calendar', icon: <CalendarIcon /> },
+  { item: 'Goals list', to: '/goals', icon: <GoalIcon /> },
+  { item: 'Settings', to: '/settings', icon: <SettingsIcon /> },
+];
+
 export default class Sidebar extends Component {
   render() {
     return (
@@ -21,30 +28,14 @@ export default class Sidebar extends Component {
         </div>
         <nav className="sidebar__menu">
           <ul className="sidebar__menu-list">
-            <li className="sidebar__menu-item">
-              <NavLink exact to="/" activeStyle={activeColor}>
-                <HomeIcon />
-                Home
-              </NavLink>
-            </li>
-            <li className="sidebar__menu-item">
-              <NavLink to="/calendar" activeStyle={activeColor}>
-                <CalendarIcon />
-                Calendar
-              </NavLink>
-            </li>
-            <li className="sidebar__menu-item">
-              <NavLink to="/goals" activeStyle={activeColor}>
-                <GoalIcon />
-                Goals list
-              </NavLink>
-            </li>
-            <li className="sidebar__menu-item">
-              <NavLink to="/settings" activeStyle={activeColor}>
-                <SettingsIcon />
-                Settings
-              </NavLink>
-            </li>
+            {menuItems.map(item => (
+              <li className="sidebar__menu-item" key={item.item}>
+                <NavLink exact={item.exact && true} to={item.to} activeStyle={activeColor}>
+                  {item.icon}
+                  {item.item}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>
