@@ -1,4 +1,5 @@
-import { NEXT_MONTH, PREV_MONTH } from './constants';
+export const NEXT_MONTH = 'NEXT_MONTH';
+export const PREV_MONTH = 'PREV_MONTH';
 
 const initialDate = {
   listOfMonthLabels: [

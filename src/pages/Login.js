@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import './login/styles.css';
 import fakeAuth from '../utils/fakeAuth';
 import Button from './login/Button.js';
-import space from '../images/Login_page_bg.png';
-import logo from '../images/Logo.svg';
+import space from '../assets/images/Login_page_bg.png';
+import logo from '../assets/images/Logo.svg';
 
 const LogoText = styled.p`
   position: relative;
