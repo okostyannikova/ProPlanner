@@ -6,7 +6,7 @@ const user = {
   name: 'Lilly Schmidt',
   email: 'testname@test.com',
   avatar,
-  progress: 11,
+  progress: 67,
 };
 
 export default class UserInfo extends Component {

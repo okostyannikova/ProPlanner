@@ -1,0 +1,27 @@
+@import '../../styles/variables.scss';
+.calendar {
+  color: $main-text-color;
+  position: relative;
+}
+
+.calendar-main {
+  padding: 40px 66px;
+  width: 70%;
+  box-sizing: border-box;
+  table {
+    width: 110%;
+    margin-left: -5%;
+  }
+}
+
+.calendar-main__content {
+  margin-top: 40px;
+}
+
+.days-labels {
+  font-size: 20px;
+  color: $light-text-color;
+  th {
+    text-align: center;
+  }
+}

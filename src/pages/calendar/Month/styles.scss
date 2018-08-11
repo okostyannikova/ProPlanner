@@ -1,0 +1,32 @@
+@import '../../../styles/variables.scss';
+.calendar-mounth {
+  td {
+    text-align: center;
+  }
+}
+
+.month__day {
+  font-size: 18px;
+  font-weight: 700;
+  color: $main-text-color;
+}
+
+.month__day a {
+  display: inline-block;
+  color: inherit;
+  padding: 14px;
+  margin: 25px 0 25px 0;
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+  border-radius: 100%;
+}
+
+a.today {
+  color: #fff;
+  background-color: $light-text-color;
+}
+
+.other-month {
+  color: $light-text-color;
+}

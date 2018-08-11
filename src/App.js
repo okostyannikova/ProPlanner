@@ -13,28 +13,28 @@ import Settings from './pages/Settings';
 import Navigation from './components/Navigation';
 import Test from './pages/Test';
 
+const LoginContainer = () => <Route path="/login" component={Login} />;
+
+const DefaultContainer = () => (
+  <div>
+    <Navigation />
+    <Route exact path="/" component={Home} />
+    <Route path="/calendar" component={Calendar} />
+    <Route path="/goals/:id" component={Goal} />
+    <Route exact path="/goals" component={Goals} />
+    <Route path="/events/:id" component={Event} />
+    <Route exact path="/events" component={Events} />
+    <Route path="/settings" component={Settings} />
+  </div>
+);
+
 export default class App extends Component {
   render() {
     return (
       <div>
         <Switch>
-          <PrivateRoute exact path="/" component={Navigation} />
-          <PrivateRoute path="/calendar" component={Navigation} />
-          <PrivateRoute path="/goals/:id" component={Navigation} />
-          <PrivateRoute exact path="/goals" component={Navigation} />
-          <PrivateRoute path="/events/:id" component={Navigation} />
-          <PrivateRoute exact path="/events" component={Navigation} />
-          <PrivateRoute path="/settings" component={Navigation} />
-        </Switch>
-        <Switch>
-          <PrivateRoute exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <PrivateRoute path="/calendar" component={Calendar} />
-          <PrivateRoute path="/goals/:id" component={Goal} />
-          <PrivateRoute exact path="/goals" component={Goals} />
-          <PrivateRoute path="/events/:id" component={Event} />
-          <PrivateRoute exact path="/events" component={Events} />
-          <PrivateRoute path="/settings" component={Settings} />
+          <Route exact path="/login" component={LoginContainer} />
+          <PrivateRoute component={DefaultContainer} />
         </Switch>
         {/* Тестовый роут */}
         <Route exact path="/test" component={Test} />
