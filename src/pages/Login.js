@@ -4,12 +4,11 @@ import styled from 'styled-components';
 import './login/styles.css';
 import fakeAuth from '../utils/fakeAuth';
 import Button from './login/Button.js';
-import space from './login/Login_page_bg.png';
-import logo from './login/Logo.svg';
+import space from '../images/Login_page_bg.png';
+import logo from '../images/Logo.svg';
 
 const LogoText = styled.p`
   position: relative;
-  padding-left: 70px;
   margin: 0;
   margin-bottom: 52px;
 
@@ -23,12 +22,15 @@ const LogoText = styled.p`
 
   &:before {
     content: url(${logo});
-    position: absolute;
-    top: 50%;
-    left: 0;
+    position: relative;
+    top: 20%;
+    left: 5px;
     width: 70px;
     height: 42px;
-    transform: translate(0%, -70%);
+  }
+
+  @media (min-width: 1200px) {
+    margin-bottom: 47px;
   }
 `;
 
@@ -39,15 +41,20 @@ const Header = styled.h1`
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  line-height: normal;
-  font-size: 64px;
+  line-height: 52px;
+  font-size: 48px;
   letter-spacing: -0.01em;
   color: #344662;
+
+  @media (min-width: 1200px) {
+    font-size: 64px;
+  }
 `;
 
 const Text = styled.p`
-  margin: 0;
-  margin-right: 5px;
+  margin: 0 auto;
+  text-align: left;
+  max-width: 540px;
 
   font-family: Roboto;
   font-style: normal;
@@ -55,9 +62,16 @@ const Text = styled.p`
   line-height: 25px;
   font-size: 18px;
   color: rgba(52, 70, 98, 0.8);
+
+  @media (min-width: 768px) {
+    margin: 0;
+    max-width: auto;
+  }
 `;
 
 const Link = styled.a`
+  margin-left: 5px;
+
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
@@ -101,17 +115,19 @@ class Login extends React.Component {
             enim ad minim veniam.
           </Text>
 
-          <Button clickHandle={this.login} />
+          <Button clickHandle={this.login.bind(this)} />
 
           <div className="contentBottom">
-            <Text>Lorem ipsum dolor sit amet, sed do eiusmod </Text>
-            <Link>Lorem ipsum dolor</Link>
+            <Text>
+              Lorem ipsum dolor sit amet, sed do eiusmod
+              <Link>Lorem ipsum dolor</Link>
+            </Text>
           </div>
         </div>
 
-        <div className="imgWrapper">
+        {/* <div className="imgWrapper">
           <img src={space} alt="space" width="570px" />
-        </div>
+        </div> */}
       </div>
     );
   }

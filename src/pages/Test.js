@@ -5,13 +5,14 @@ import { increment, dicrement } from '../modules/Test';
 
 class Test extends Component {
   render() {
+    const { increment: inc, dicrement: dec, count } = this.props;
     return (
       <div>
-        <button type="button" onClick={this.props.increment}>
+        <button type="button" onClick={inc}>
           Increment +
         </button>
-        <span>{this.props.count}</span>
-        <button type="button" onClick={this.props.dicrement}>
+        <span>{count}</span>
+        <button type="button" onClick={dec}>
           Dicrement -
         </button>
       </div>
