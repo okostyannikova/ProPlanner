@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './calendar/styles.css';
-import { prevMonth, nextMonth } from '../modules/calendar';
+import { prevMonth, nextMonth } from '../modules/Calendar';
 import Navigation from './calendar/Navigation';
 import Month from './calendar/Month';
 import DaySidebar from './calendar/DaySidebar';

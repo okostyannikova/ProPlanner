@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './styles.css';
-import avatar from '../../../../images/avatar.jpg';
+import avatar from '../../../../assets/images/avatar.jpg';
 
 const user = {
   name: 'Lilly Schmidt',

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
-import './App.css';
+import './styles/main.css';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Calendar from './pages/Calendar';

@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import reducer from './modules/Test.js';
-import mounthlyCalendar from './modules/calendar';
+import testReducer from './Test';
+import mounthlyCalendar from './Calendar';
 
 const rootReducer = combineReducers({
-  reducer,
+  testReducer,
   mounthlyCalendar,
 });
 
