@@ -49,8 +49,11 @@
 }
 
 .calendar-nav__views-btn {
+  display: inline-block;
   width: 102px;
   height: 45px;
+  padding: 12px 0;
+  box-sizing: border-box;
   text-align: center;
   font-size: 16px;
   font-weight: 500;
@@ -69,14 +72,4 @@
     border-right: $view-bth-border;
     border-radius: 0 5px 5px 0;
   }
-}
-
-.calendar-nav__views-btn--active {
-  position: relative;
-  z-index: 20;
-  height: 47px;
-  color: $accent-color;
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0 8px 8px rgba(0, 188, 212, 0.09);
 }

@@ -7,7 +7,8 @@ const activeStyle = {
   backgroundColor: '#3366B4',
 };
 
-const Day = ({ day, date, className, today, match }) => {
+const Day = ({ day, date, className, today, match, selectDay }) => {
+  const handleClick = () => selectDay(date);
   const dayBody = () => (
     <span className="month__day-item">{day && day < 10 ? `0${day} ` : day}</span>
   );
@@ -19,6 +20,7 @@ const Day = ({ day, date, className, today, match }) => {
           to={`${match.url}/${date}`}
           activeStyle={activeStyle}
           className={today ? 'today' : ''}
+          onClick={handleClick}
         >
           {dayBody()}
         </NavLink>
