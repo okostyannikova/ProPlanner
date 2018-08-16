@@ -18,6 +18,27 @@
   margin-top: 40px;
 }
 
+.calendar__day-sidebar {
+  width: 27%;
+  position: absolute;
+  top: 63px;
+  right: 0;
+  .calendar-day__main {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .calendar-day {
+    padding: 0 40px 0 7%;
+    box-sizing: border-box;
+  }
+  .calendar-day__events {
+    margin-left: 40px;
+  }
+  .views-btn-list {
+    display: none;
+  }
+}
+
 .days-labels {
   font-size: 20px;
   color: $light-text-color;
