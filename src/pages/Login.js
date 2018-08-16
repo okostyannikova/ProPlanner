@@ -2,10 +2,10 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import './login/styles.css';
+import logo from 'assets/images/Logo.svg';
 import fakeAuth from '../utils/fakeAuth';
 import Button from './login/Button.js';
-import space from '../assets/images/Login_page_bg.png';
-import logo from '../assets/images/Logo.svg';
+// import space from '../images/Login_page_bg.png';
 
 const LogoText = styled.p`
   position: relative;
@@ -125,9 +125,7 @@ class Login extends React.Component {
           </div>
         </div>
 
-        {/* <div className="imgWrapper">
-          <img src={space} alt="space" width="570px" />
-        </div> */}
+        <div className="imgWrapper" />
       </div>
     );
   }
