@@ -51,7 +51,14 @@ class Month extends Component {
   };
 
   render() {
-    const { currentYear, currentMounth, listOfMonthLabels, match } = this.props;
+    const {
+      currentYear,
+      currentMounth,
+      listOfMonthLabels,
+      prevMonth,
+      nextMonth,
+      match,
+    } = this.props;
     return (
       <div>
         <div className="calendar-main">
@@ -91,6 +98,7 @@ export default connect(
 Month.propTypes = {
   prevMonth: PropTypes.func.isRequired,
   nextMonth: PropTypes.func.isRequired,
+  selectDay: PropTypes.func.isRequired,
   currentMounth: PropTypes.number.isRequired,
   currentYear: PropTypes.number.isRequired,
   listOfMonthLabels: PropTypes.array.isRequired,

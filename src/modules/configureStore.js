@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 import testReducer from './Test';
 import mounthlyCalendar from './Calendar';
 
@@ -10,7 +11,7 @@ const rootReducer = combineReducers({
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunk),
+  applyMiddleware(thunk /* logger */),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
