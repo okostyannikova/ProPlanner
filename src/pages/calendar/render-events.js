@@ -125,15 +125,24 @@ export default OriginalComponent =>
     };
 
     render() {
-      const { hourHeight } = this.state;
+      const {
+        props,
+        state: { hourHeight },
+        setHeight,
+        hours,
+        startTime,
+        getHeight,
+        setWrapperRef,
+      } = this;
+      
       return (
         <OriginalComponent
-          {...this.props}
-          setHeight={this.setHeight}
-          hours={this.hours}
-          startTime={this.startTime}
-          getHeight={this.getHeight}
-          setWrapperRef={this.setWrapperRef}
+          {...props}
+          setHeight={setHeight}
+          hours={hours}
+          startTime={startTime}
+          getHeight={getHeight}
+          setWrapperRef={setWrapperRef}
           hourHeight={hourHeight}
           eventList={eventList}
           colorList={colorList}
