@@ -32,7 +32,7 @@ export const selectDay = day => ({ type: SELECT_DAY, payload: { day } });
 
 export default (monthlyCalendar = initialDate, action) => {
   const { type, payload } = action;
-  const { currentMounth, currentYear, selectedDay } = monthlyCalendar;
+  const { currentMounth, currentYear } = monthlyCalendar;
   switch (type) {
     case PREV_MONTH:
       if (monthlyCalendar.currentMounth === 0) {
@@ -59,7 +59,6 @@ export default (monthlyCalendar = initialDate, action) => {
         currentMounth: currentMounth + 1,
       };
     case SELECT_DAY:
-      console.log(selectedDay);
       return { ...monthlyCalendar, selectedDay: moment(payload.day, 'YYYY-M-D') };
     default:
       return monthlyCalendar;
