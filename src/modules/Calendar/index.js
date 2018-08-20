@@ -1,8 +1,8 @@
 import moment from 'moment';
 
-export const NEXT_MONTH = 'NEXT_MONTH';
-export const PREV_MONTH = 'PREV_MONTH';
-export const SELECT_DAY = 'SELECT_DAY';
+const NEXT_MONTH = 'NEXT_MONTH';
+const PREV_MONTH = 'PREV_MONTH';
+const SELECT_DAY = 'SELECT_DAY';
 
 const initialDate = {
   listOfMonthLabels: [
@@ -31,7 +31,7 @@ export const nextMonth = () => ({ type: NEXT_MONTH });
 export const selectDay = day => ({ type: SELECT_DAY, payload: { day } });
 
 export default (monthlyCalendar = initialDate, action) => {
-  const { type, payload, } = action;
+  const { type, payload } = action;
   const { currentMounth, currentYear } = monthlyCalendar;
   switch (type) {
     case PREV_MONTH:

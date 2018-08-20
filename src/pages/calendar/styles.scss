@@ -5,8 +5,8 @@
 }
 
 .calendar-main {
-  padding: 40px 66px;
-  width: 70%;
+  padding: 40px 30px 30px 50px;
+  width: 66%;
   box-sizing: border-box;
   table {
     width: 110%;
@@ -28,11 +28,11 @@
     box-sizing: border-box;
   }
   .calendar-day {
-    padding: 0 40px 0 7%;
+    padding: 0 30px 0 6%;
     box-sizing: border-box;
   }
-  .calendar-day__events {
-    margin-left: 40px;
+  .calendar__events {
+    margin-left: 15px;
   }
   .views-btn-list {
     display: none;
@@ -41,6 +41,7 @@
 
 .days-labels {
   font-size: 20px;
+  font-weight: 500;
   color: $light-text-color;
   th {
     text-align: center;
