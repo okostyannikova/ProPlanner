@@ -1,10 +1,11 @@
 @import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
 .home {
   position: relative;
   height: calc(100vh - 65px);
   color: rgba(52, 70, 98, 0.8);
   font-size: 18px;
-  background: url("../../assets/images/home-bcg.png") no-repeat;
+  background: url("../../assets/images/home-bcg.png") right no-repeat;
   background-size: cover;
 }
 
@@ -55,6 +56,8 @@
   background-color: $accent-color;
   border: 1px solid $accent-color;
   border-radius: 5px;
+  outline: none;
+  cursor: pointer;
   box-shadow: -4px 4px 4px rgba(0, 188, 212, 0.25);
   svg {
     margin-bottom: 16px;

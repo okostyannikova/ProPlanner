@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './home/styles.css';
 import Logo from '../components/Logo';
 import CalendarIcon from '../components/Icons/CalendarIcon';
@@ -16,14 +17,18 @@ const Home = () => (
         ad minim veniam.
       </p>
       <div className="home__buttons-wrapper">
-        <button className="home__button" id="set-goals" type="button">
-          <GoalIcon />
-          Goal Setter
-        </button>
-        <button className="home__button" id="calendar" type="button">
-          <CalendarIcon />
-          Calendar
-        </button>
+        <Link to="/">
+          <button className="home__button" id="set-goals" type="button">
+            <GoalIcon />
+            Goal Setter
+          </button>
+        </Link>
+        <Link to="/calendar">
+          <button className="home__button" id="calendar" type="button">
+            <CalendarIcon />
+            Calendar
+          </button>
+        </Link>
       </div>
       <p className="home__text home__footer">
         Lorem ipsum dolor sit amet, sed do eiusmod
