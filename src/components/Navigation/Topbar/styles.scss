@@ -1,3 +1,5 @@
+@import '../../../styles/variables.scss';
+
 .topbar {
   position: fixed;
   box-sizing: border-box;
@@ -46,7 +48,7 @@
   display: none;
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: $screen-md-max) {
   .topbar {
     padding: 0 0 0 18px;
     justify-content: flex-start;

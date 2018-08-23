@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import './styles.css';
-import HomeIcon from './Icons/HomeIcon';
-import CalendarIcon from './Icons/CalendarIcon';
-import GoalIcon from './Icons/GoalIcon';
-import SettingsIcon from './Icons/SettingsIcon';
+import HomeIcon from '../../Icons/HomeIcon';
+import CalendarIcon from '../../Icons/CalendarIcon';
+import GoalIcon from '../../Icons/GoalIcon';
+import SettingsIcon from '../../Icons/SettingsIcon';
 import UserInfo from './UserInfo';
 
 const activeColor = {

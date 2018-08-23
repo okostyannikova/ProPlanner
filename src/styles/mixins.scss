@@ -1,0 +1,4 @@
+@mixin responsive-ratio($x, $y) {
+  $ratio: unquote(($x / $y) * 100 + "%");
+  width: $ratio;
+}
