@@ -1,4 +1,6 @@
-@media (max-width: 767.98px) {
+@import '../../styles/variables.scss';
+
+@media (max-width: $screen-md-max) {
   .nav--hidden {
     opacity: 0;
     visibility: hidden;

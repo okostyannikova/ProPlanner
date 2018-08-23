@@ -116,6 +116,10 @@ class Login extends React.Component {
           </Text>
 
           <Button clickHandle={this.login.bind(this)} />
+          {/*  <a href="#" className="googleplus-login">
+            {' '}
+            Sign-in with Google{' '}
+          </a> */}
 
           <div className="contentBottom">
             <Text>
