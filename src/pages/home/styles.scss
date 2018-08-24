@@ -2,7 +2,7 @@
 @import "../../styles/mixins.scss";
 .home {
   position: relative;
-  height: calc(100vh - 65px);
+  padding-top: 42px;
   color: rgba(52, 70, 98, 0.8);
   font-size: 18px;
   background: url("../../assets/images/home-bcg.png") right no-repeat;
@@ -14,7 +14,7 @@
   width: 70%;
   max-width: 550px;
   height: 94%;
-  margin: 42px auto 0 25%;
+  margin: 0 auto 0 25%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -85,22 +85,21 @@
 
 @media (max-width: $screen-lg-max) {
   .home__wrapper {
-    margin: 42px auto 0;
+    margin: 0 auto;
   }
 }
 
 @media (max-width: $screen-sm-max) {
-  .home__wrapper {
-    width: 90%;
+    .home__wrapper {
+      width: 90%;
+    }
+    .home__title {
+      font-size: 72px;
+    }
   }
-  .home__title {
-    font-size: 72px;
+  @media (max-width: $screen-xs-max) {
+    .home__button {
+      width: 168px;
+      height: 84px;
+    }
   }
-}
-
-@media (max-width: $screen-xs-max) {
-  .home__button {
-    width: 168px;
-    height: 84px;
-  }
-}
