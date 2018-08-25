@@ -7,7 +7,7 @@ $accent-color: #00BCD4;
 $seccond-accent-color: #8C39B6;
 $blocks-bcg-color: #F2F6FF;
 
-/* --------Decktop first------- */
+// --------Decktop first-------
 
 // Large devices (desktops, less than 1200px)
 $screen-lg-max: 1199.98px;
@@ -21,7 +21,7 @@ $screen-sm-max: 767.98px;
 // Extra small devices (portrait phones, less than 576px)
 $screen-xs-max: 575.98px;
 
-/* --------Mobile first------- */
+// --------Mobile first-------
 
 // Small devices (landscape phones, 576px and up)
 $screen-sm-min: 576px;
@@ -33,5 +33,5 @@ $screen-md-min: 768px;
 $screen-lg-min: 992px;
 
 // Extra large devices (large desktops, 1200px and up)
-$screen-xl-max: 1200px;
+$screen-xl-min: 1200px;
 
