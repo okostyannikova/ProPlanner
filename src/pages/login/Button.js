@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import googleLogo from 'assets/images/IconGoogle.svg';
+import './styles.css';
 
 const StyledButton = styled.button`
   display: inline-block;
@@ -27,6 +28,10 @@ const StyledButton = styled.button`
     #dd4b39;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
+
+  &:hover {
+    background-color: #dd4b4b;
+  }
 
   @media (min-width: 768px) {
     margin: 40px 0 90px 0;
@@ -58,8 +63,63 @@ const StyledButton = styled.button`
   }
 `;
 
+const SpanContainer = styled.span`
+  position: relative;
+  height: 50px;
+  background-image: none;
+  border: none;
+  outline: none;
+  background-color: #f56464;
+  color: white;
+  text-transform: uppercase;
+  font-size: 20px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  width: 50px;
+  background: linear-gradient(180deg, rgba(225, 97, 81, 0.5) 0%, rgba(232, 133, 121, 0) 100%),
+    #dd4b39;
+`;
+
+const StyledSpan = styled.span`
+  display: block;
+  width: 34px;
+  height: 34px;
+  position: absolute;
+  top: 8px;
+  left: calc(50% - 17px);
+  background: transparent;
+  box-sizing: border-box;
+  border-top: 4px solid white;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-radius: 100%;
+  animation: spin 0.6s ease-out infinite;
+`;
+
+const spin = keyframes`
+  100% {transform: rotate(360deg)}
+`;
+
 export default class Button extends Component {
   render() {
-    return <StyledButton onClick={this.props.clickHandle}>SIGN UP USING GOOGLE+</StyledButton>;
+    const { loading, clickHandle } = this.props;
+    if (loading) {
+      return (
+        <button className="button loading">
+          <span className="spinner" />
+        </button>
+      );
+    }
+    return <StyledButton onClick={clickHandle}>SIGN UP USING GOOGLE+</StyledButton>;
   }
 }
+
+// (
+//   <SpanContainer>
+//     <StyledSpan />
+//   </SpanContainer>
+// );

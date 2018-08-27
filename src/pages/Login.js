@@ -3,9 +3,10 @@ import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import './login/styles.css';
 import logo from 'assets/images/Logo.svg';
-import fakeAuth from '../utils/fakeAuth';
+import { bindActionCreators } from 'redux';
+import { authorizeOperations } from 'modules/Authentication/index.js';
+import { connect } from 'react-redux';
 import Button from './login/Button.js';
-// import space from '../images/Login_page_bg.png';
 
 const LogoText = styled.p`
   position: relative;
@@ -87,15 +88,35 @@ class Login extends React.Component {
     redirectToReferrer: false,
   };
 
-  login = () => {
-    fakeAuth.authenticate(() => {
+  componentWillMount() {
+    const { logout, init, authorization } = this.props;
+
+    logout();
+
+    init();
+
+    if (authorization.loggedIn) {
       this.setState({ redirectToReferrer: true });
-    });
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.authorization.loggedIn) {
+      this.setState({ redirectToReferrer: true });
+    }
+  }
+
+  login = authorize => {
+    authorize();
   };
 
   render() {
+    const loading = this.props.authorization.loading;
+
     const { from } = this.props.location.state || { from: { pathname: '/' } };
     const { redirectToReferrer } = this.state;
+
+    const { authorize } = this.props;
 
     if (redirectToReferrer) {
       return <Redirect to={from} />;
@@ -103,8 +124,6 @@ class Login extends React.Component {
 
     return (
       <div className="login">
-        {/* <p>You must log in</p>
-        <button onClick={this.login}>Log in</button> */}
         <div className="content">
           <LogoText>Pro planner</LogoText>
 
@@ -115,7 +134,7 @@ class Login extends React.Component {
             enim ad minim veniam.
           </Text>
 
-          <Button clickHandle={this.login.bind(this)} />
+          <Button clickHandle={() => this.login(authorize)} loading={loading} />
 
           <div className="contentBottom">
             <Text>
@@ -131,4 +150,17 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapStateToProps = store => ({
+  authorization: store.mainReducer.auth,
+});
+
+const mapDispatchToProps = dispatch => ({
+  authorize: bindActionCreators(authorizeOperations.authorize, dispatch),
+  init: bindActionCreators(authorizeOperations.initialize, dispatch),
+  logout: bindActionCreators(authorizeOperations.logingOut, dispatch),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);
