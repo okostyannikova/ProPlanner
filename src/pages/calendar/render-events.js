@@ -86,12 +86,14 @@ export default OriginalComponent =>
         hourHeight: 50,
         pixelsInMinute: null,
       };
-      this.displayStartTime = 9;
+      this.displayStartTime = 8;
     }
 
     componentDidMount = () => {
-      const { hourHeight } = this.state;
-      this.wrapperRef.scrollTop = hourHeight * this.displayStartTime;
+      setTimeout(() => {
+        const { hourHeight } = this.state;
+        this.wrapperRef.scrollTop = hourHeight * this.displayStartTime;
+      });
     };
 
     setHeight = height =>
@@ -134,7 +136,7 @@ export default OriginalComponent =>
         getHeight,
         setWrapperRef,
       } = this;
-      
+
       return (
         <OriginalComponent
           {...props}
