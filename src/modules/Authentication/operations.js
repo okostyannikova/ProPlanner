@@ -31,29 +31,3 @@ export default {
   logingOut,
   initialize,
 };
-
-// switch (action.type) {
-//   case types.AUTHORIZE:
-//     console.log('auth');
-//     authorize()
-//       .then(res => {
-//         console.log(res);
-//         return res;
-//       })
-//       .catch(err => {
-//         console.log(err);
-//         return false;
-//       });
-//     return state;
-
-//   case types.AUTO_LOGIN:
-//     autoLogin();
-//     return state;
-
-//   case types.LOG_OUT:
-//     console.log('You definitly log out');
-//     break;
-
-//   default:
-//     return state;
-// }
