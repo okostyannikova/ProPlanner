@@ -1,8 +1,9 @@
 @import "../../styles/variables.scss";
 @import "../../styles/mixins.scss";
+
 .home {
   position: relative;
-  height: calc(100vh - 65px);
+  padding-top: 42px;
   color: rgba(52, 70, 98, 0.8);
   font-size: 18px;
   background: url("../../assets/images/home-bcg.png") right no-repeat;
@@ -14,10 +15,16 @@
   width: 70%;
   max-width: 550px;
   height: 94%;
-  margin: 42px auto 0 25%;
+  margin: 0 auto 0 25%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  @include mq(lg-max, max) {
+    margin: 0 auto;
+  }
+  @include mq(sm-max, max) {
+    width: 90%;
+  }
 }
 
 .home__logo {
@@ -36,6 +43,9 @@
   color: #344662;
   font-size: 96px;
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  @include mq(sm-max,max) {
+    font-size: 72px;
+  }
 }
 
 .home__buttons-wrapper {
@@ -47,6 +57,10 @@
   width: 240px;
   height: 120px;
   margin-top: 40px;
+  @include mq(xs-max, max) {
+    width: 168px;
+    height: 84px;
+  }
   color: #fff;
   font-size: 16px;
   display: flex;
@@ -59,6 +73,7 @@
   outline: none;
   cursor: pointer;
   box-shadow: -4px 4px 4px rgba(0, 188, 212, 0.25);
+
   svg {
     margin-bottom: 16px;
   }
@@ -66,6 +81,13 @@
   rect {
     fill: #fff;
     opacity: 100;
+  }
+
+  &:hover {
+    background-color: $accent-color + 20%;
+  }
+  &:active {
+    background-color: $accent-color - 20%;
   }
 }
 
@@ -80,27 +102,5 @@
   text-decoration: underline;
   &:hover {
     text-decoration: none;
-  }
-}
-
-@media (max-width: $screen-lg-max) {
-  .home__wrapper {
-    margin: 42px auto 0;
-  }
-}
-
-@media (max-width: $screen-sm-max) {
-  .home__wrapper {
-    width: 90%;
-  }
-  .home__title {
-    font-size: 72px;
-  }
-}
-
-@media (max-width: $screen-xs-max) {
-  .home__button {
-    width: 168px;
-    height: 84px;
   }
 }
