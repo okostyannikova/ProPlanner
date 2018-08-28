@@ -32,7 +32,7 @@
   }
 }
 
-.calendar-day__add-event-btn {
+.add-event-btn {
   width: 54px;
   height: 54px;
   background: url('../../../assets/images/plus.svg') $main-text-color center center no-repeat;
@@ -51,26 +51,28 @@
   border-radius: 10px;
 }
 
-.calendar-day__content {
+.calendar__content {
   margin-top: 40px;
   display: flex;
   justify-content: space-between;
-  height: calc(100vh - 253px);
+  height: calc(100vh - 255px);
   overflow: scroll;
   > div {
     height: 1250px;
   }
 }
 
-.calendar-day__hours-labels {
+.calendar__hours-labels {
   font-size: 16px;
+  color: $light-text-color;
   li {
     padding-bottom: 31px;
   }
 }
 
-.calendar-day__events {
+.calendar__events {
   width: 91%;
+  margin-left: 10px;
   svg {
     width: 100%;
     height: 100%;

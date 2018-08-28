@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Logo from '../../Logo';
 import SearchInput from '../SearchInput';
-import BellIcon from './Icons/BellIcon';
-import UpdateIcon from './Icons/UpdateIcon';
-import MobileMenuIcon from './Icons/MobileMenuIcon';
+import BellIcon from '../../Icons/BellIcon';
+import UpdateIcon from '../../Icons/UpdateIcon';
+import MobileMenuIcon from '../../Icons/MobileMenuIcon';
 import './styles.css';
 
 const Topbar = ({ setButtonRef }) => (

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import './calendar/styles.css';
 import Month from './calendar/Month';
+import Week from './calendar/Week';
 import Day from './calendar/Day';
 import { dateToString } from '../utils/date';
 
@@ -18,6 +18,7 @@ export default class Calendar extends Component {
     return (
       <div className="page-content calendar">
         <Route path={`${match.path}/month`} component={Month} />
+        <Route path={`${match.path}/week`} component={Week} />
         <Route path={`${match.path}/day`} component={Day} />
       </div>
     );
