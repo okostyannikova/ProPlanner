@@ -39,13 +39,32 @@
   }
 }
 
-.calendar-nav__month {
+.calendar-nav__text {
+  color: $main-text-color;
   font-weight: 500;
 }
 
-.calendar-nav__year {
+.calendar-nav__digit {
   color: $light-text-color;
   padding-left: 10px;
+}
+
+.calendar-nav--week {
+  .calendar-nav__label {
+    width: 350px;
+    span {
+      font-size: 18px;
+    }
+  }
+  .calendar-nav__next-btn,
+  .calendar-nav__prev-btn {
+    top: 2px
+  }
+}
+
+.calendar-nav__dash {
+  font-size: 30px;
+  padding: 0 10px;
 }
 
 .calendar-nav__views-btn {

@@ -90,8 +90,9 @@ class Week extends Component {
       <div>
         <div className="calendar-main">
           <Navigation
-            currentMounth={firstWeekDay.format('MMMM')}
-            currentYear={firstWeekDay.format('DD')}
+            label={firstWeekDay.format('MMMM')}
+            digit={firstWeekDay.format('DD')}
+            endOfWeek={firstWeekDay.clone().add(6, 'day')}
             handlePrevDateClick={prevWeek}
             handleNextDateClick={nextWeek}
           />
@@ -118,11 +119,8 @@ class Week extends Component {
 
 export default connect(
   state => ({
-    selectedDay: state.mounthlyCalendar.selectedDay.clone(),
-    firstWeekDay: state.mounthlyCalendar.firstWeekDay.clone(),
-    listOfMonthLabels: state.mounthlyCalendar.listOfMonthLabels,
-    currentMounth: state.mounthlyCalendar.currentMounth,
-    currentYear: state.mounthlyCalendar.currentYear,
+    selectedDay: state.calendar.selectedDay.clone(),
+    firstWeekDay: state.calendar.firstWeekDay.clone(),
   }),
   { prevWeek, nextWeek, selectDay }
 )(RenderEventsContainer(Week));
@@ -131,8 +129,5 @@ Week.propTypes = {
   prevWeek: PropTypes.func.isRequired,
   nextWeek: PropTypes.func.isRequired,
   selectDay: PropTypes.func.isRequired,
-  currentMounth: PropTypes.number.isRequired,
-  currentYear: PropTypes.number.isRequired,
   selectedDay: PropTypes.object.isRequired,
-  listOfMonthLabels: PropTypes.array.isRequired,
 };

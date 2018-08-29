@@ -20,15 +20,8 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 40px;
-}
-
-.calendar-day__label {
-  font-size: 24px;
-  font-weight: 700;
-  span {
-    font-size: 20px;
-    display: block;
-    color: $main-text-color;
+  .calendar-nav {
+    width: 66%;
   }
 }
 
@@ -55,7 +48,7 @@
   margin-top: 40px;
   display: flex;
   justify-content: space-between;
-  height: calc(100vh - 253px);
+  height: calc(100vh - 255px);
   overflow: scroll;
   > div {
     height: 1250px;

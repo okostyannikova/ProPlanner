@@ -88,9 +88,9 @@ class Month extends Component {
 
 export default connect(
   state => ({
-    listOfMonthLabels: state.mounthlyCalendar.listOfMonthLabels,
-    currentMounth: state.mounthlyCalendar.currentMounth,
-    currentYear: state.mounthlyCalendar.currentYear,
+    listOfMonthLabels: state.calendar.listOfMonthLabels,
+    currentMounth: state.calendar.currentMounth,
+    currentYear: state.calendar.currentYear,
   }),
   { prevMonth, nextMonth, selectDay }
 )(Month);

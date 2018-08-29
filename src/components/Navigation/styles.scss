@@ -1,5 +1,9 @@
 @import '../../styles/variables.scss';
 
+.navigation-topbar {
+  height: 65px;
+}
+
 @media (max-width: $screen-md-max) {
   .nav--hidden {
     opacity: 0;
@@ -10,5 +14,8 @@
     opacity: 1;
     visibility: visible;
     transition-delay: 0s;
+  }
+  .navigation-topbar {
+    height: 55px;
   }
 }

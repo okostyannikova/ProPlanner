@@ -17,17 +17,13 @@ const Home = () => (
         ad minim veniam.
       </p>
       <div className="home__buttons-wrapper">
-        <Link to="/">
-          <button className="home__button" id="set-goals" type="button">
-            <GoalIcon />
-            Goal Setter
-          </button>
+        <Link to="/" className="home__button" id="set-goals">
+          <GoalIcon />
+          Goal Setter
         </Link>
-        <Link to="/calendar">
-          <button className="home__button" id="calendar" type="button">
-            <CalendarIcon />
-            Calendar
-          </button>
+        <Link to="/calendar" className="home__button" id="calendar">
+          <CalendarIcon />
+          Calendar
         </Link>
       </div>
       <p className="home__text home__footer">

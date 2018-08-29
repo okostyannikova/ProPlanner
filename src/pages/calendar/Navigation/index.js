@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import './styles.css';
 import ViewsButtons from './ViewsButtons';
 
 const Navigation = props => {
-  const { handlePrevDateClick, handleNextDateClick, currentMounth, currentYear } = props;
+  const { handlePrevDateClick, handleNextDateClick, label, digit, endOfWeek } = props;
+  const className = classNames('calendar-nav', { 'calendar-nav--week': endOfWeek });
   return (
-    <nav className="calendar-nav">
+    <nav className={className}>
       <div className="calendar-nav__label">
         <button
           className="calendar-nav__prev-btn"
@@ -14,8 +16,21 @@ const Navigation = props => {
           type="button"
           onClick={handlePrevDateClick}
         />
-        <span className="calendar-nav__month">{currentMounth}</span>
-        <span className="calendar-nav__year">{currentYear}</span>
+        {endOfWeek ? (
+          <span>
+            <span className="calendar-nav__text">{label}</span>
+            <span className="calendar-nav__digit">{digit}</span>
+            <span className="calendar-nav__dash">-</span>
+            <span className="calendar-nav__text">{endOfWeek.format('MMMM')}</span>
+            <span className="calendar-nav__digit">{endOfWeek.format('DD')}</span>
+          </span>
+        ) : (
+          <span>
+            <span className="calendar-nav__text">{label}</span>
+            <span className="calendar-nav__digit">{digit}</span>
+          </span>
+        )}
+
         <button
           className="calendar-nav__next-btn"
           id="next-date"
@@ -31,8 +46,9 @@ const Navigation = props => {
 Navigation.propTypes = {
   handlePrevDateClick: PropTypes.func.isRequired,
   handleNextDateClick: PropTypes.func.isRequired,
-  currentMounth: PropTypes.string.isRequired,
-  currentYear: PropTypes.number.isRequired,
+  label: PropTypes.string.isRequired,
+  digit: PropTypes.number.isRequired,
+  endOfWeek: PropTypes.obj,
 };
 
 export default Navigation;

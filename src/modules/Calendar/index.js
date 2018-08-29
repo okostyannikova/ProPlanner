@@ -4,6 +4,8 @@ const NEXT_MONTH = 'NEXT_MONTH';
 const PREV_MONTH = 'PREV_MONTH';
 const NEXT_WEEK = 'NEXT_WEEK';
 const PREV_WEEK = 'PREV_WEEK';
+const NEXT_DAY = 'NEXT_DAY';
+const PREV_DAY = 'PREV_DAY';
 const SELECT_DAY = 'SELECT_DAY';
 
 const initialDate = {
@@ -28,46 +30,49 @@ const initialDate = {
 };
 
 export const prevMonth = () => ({ type: PREV_MONTH });
-
 export const nextMonth = () => ({ type: NEXT_MONTH });
 
 export const prevWeek = () => ({ type: PREV_WEEK });
-
 export const nextWeek = () => ({ type: NEXT_WEEK });
+
+export const prevDay = () => ({ type: PREV_DAY });
+export const nextDay = () => ({ type: NEXT_DAY });
 
 export const selectDay = day => ({ type: SELECT_DAY, payload: { day } });
 
-export default (monthlyCalendar = initialDate, action) => {
+export default (calendar = initialDate, action) => {
   const { type, payload } = action;
-  const { currentMounth, currentYear, firstWeekDay } = monthlyCalendar;
+  const { currentMounth, currentYear, firstWeekDay, selectedDay } = calendar;
+
   switch (type) {
     case PREV_MONTH:
-      if (monthlyCalendar.currentMounth === 0) {
+      if (calendar.currentMounth === 0) {
         return {
-          ...monthlyCalendar,
+          ...calendar,
           currentYear: currentYear - 1,
           currentMounth: 11,
         };
       }
       return {
-        ...monthlyCalendar,
+        ...calendar,
         currentMounth: currentMounth - 1,
       };
     case NEXT_MONTH:
-      if (monthlyCalendar.currentMounth === 11) {
+      if (calendar.currentMounth === 11) {
         return {
-          ...monthlyCalendar,
+          ...calendar,
           currentYear: currentYear + 1,
           currentMounth: 0,
         };
       }
       return {
-        ...monthlyCalendar,
+        ...calendar,
         currentMounth: currentMounth + 1,
       };
+
     case PREV_WEEK:
       return {
-        ...monthlyCalendar,
+        ...calendar,
         firstWeekDay: firstWeekDay
           .clone()
           .add('-1', 'day')
@@ -75,19 +80,37 @@ export default (monthlyCalendar = initialDate, action) => {
       };
     case NEXT_WEEK:
       return {
-        ...monthlyCalendar,
+        ...calendar,
         firstWeekDay: firstWeekDay
           .clone()
           .add('8', 'day')
           .startOf('isoWeek'),
       };
+    case PREV_DAY:
+      return {
+        ...calendar,
+        selectedDay: selectedDay.clone().add(-1, 'day'),
+        firstWeekDay: selectedDay
+          .clone()
+          .add(-1, 'day')
+          .startOf('isoWeek'),
+      };
+    case NEXT_DAY:
+      return {
+        ...calendar,
+        selectedDay: selectedDay.clone().add(1, 'day'),
+        firstWeekDay: selectedDay
+          .clone()
+          .add(1, 'day')
+          .startOf('isoWeek'),
+      };
     case SELECT_DAY:
       return {
-        ...monthlyCalendar,
+        ...calendar,
         selectedDay: moment(payload.day, 'YYYY-M-D'),
         firstWeekDay: moment(payload.day, 'YYYY-M-D').startOf('isoWeek'),
       };
     default:
-      return monthlyCalendar;
+      return calendar;
   }
 };

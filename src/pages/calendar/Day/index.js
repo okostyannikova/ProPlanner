@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import RenderEventsContainer from '../render-events';
+import { prevDay, nextDay } from '../../../modules/Calendar';
 import './styles.css';
-import ViewsButtons from '../Navigation/ViewsButtons';
+import Navigation from '../Navigation';
 
 class Day extends Component {
   componentDidMount = () => {
@@ -20,15 +21,18 @@ class Day extends Component {
       startTime,
       getHeight,
       setWrapperRef,
+      prevDay,
+      nextDay,
     } = this.props;
     return (
       <div className="calendar-day">
         <header className="calendar-day__header">
-          <span className="calendar-day__label">
-            {selectedDay.format('DD')}
-            <span>{selectedDay.format('dddd')}</span>
-          </span>
-          <ViewsButtons />
+          <Navigation
+            label={selectedDay.format('dddd')}
+            digit={selectedDay.format('DD')}
+            handlePrevDateClick={prevDay}
+            handleNextDateClick={nextDay}
+          />
           <button className="add-event-btn" id="add-event" type="button" />
         </header>
         <main className="calendar-day__main">
@@ -57,9 +61,9 @@ class Day extends Component {
 
 export default connect(
   state => ({
-    selectedDay: state.mounthlyCalendar.selectedDay,
+    selectedDay: state.calendar.selectedDay,
   }),
-  {}
+  { prevDay, nextDay }
 )(RenderEventsContainer(Day));
 
 Day.propTypes = {
