@@ -151,7 +151,7 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = store => ({
-  authorization: store.mainReducer.auth,
+  authorization: store.auth,
 });
 
 const mapDispatchToProps = dispatch => ({
