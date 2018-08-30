@@ -4,13 +4,11 @@ import './calendar/styles.css';
 import Month from './calendar/Month';
 import Week from './calendar/Week';
 import Day from './calendar/Day';
-import { dateToString } from '../utils/date';
 
 export default class Calendar extends Component {
   componentDidMount = () => {
     const { match, history } = this.props;
-    const today = dateToString(new Date());
-    history.push(`${match.url}/month/${today}`);
+    history.push(`${match.url}/month/`);
   };
 
   render() {

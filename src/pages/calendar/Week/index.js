@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import RenderEventsContainer from '../render-events';
-import { prevMonth, nextMonth, selectDay } from '../../../modules/Calendar';
+import { prevWeek, nextWeek, selectDay } from '../../../modules/Calendar';
 import './styles.css';
 import Navigation from '../Navigation';
 import DaySidebar from '../Day';
@@ -15,8 +15,8 @@ class Week extends Component {
   };
 
   getDays = () => {
-    const { selectedDay, eventList, colorList, startTime, getHeight } = this.props;
-    const firstDay = selectedDay.clone().startOf('isoWeek');
+    const { firstWeekDay, eventList, colorList, startTime, getHeight } = this.props;
+    const firstDay = firstWeekDay.clone().startOf('isoWeek');
     let currentDay;
 
     const days = Array(...Array(7)).map((_, i) => {
@@ -44,8 +44,8 @@ class Week extends Component {
   };
 
   daysLabels = () => {
-    const { selectedDay } = this.props;
-    const firstDay = selectedDay.clone().startOf('isoWeek');
+    const { firstWeekDay } = this.props;
+    const firstDay = firstWeekDay.clone().startOf('isoWeek');
     let weekDays;
 
     const defaultWeekdays = Array(...Array(7)).map((_, i) => {
@@ -85,22 +85,16 @@ class Week extends Component {
   };
 
   render() {
-    const {
-      currentYear,
-      currentMounth,
-      listOfMonthLabels,
-      hourHeight,
-      hours,
-      setWrapperRef,
-    } = this.props;
+    const { firstWeekDay, prevWeek, nextWeek, hourHeight, hours, setWrapperRef } = this.props;
     return (
       <div>
         <div className="calendar-main">
           <Navigation
-            currentMounth={listOfMonthLabels[currentMounth]}
-            currentYear={currentYear}
-            handlePrevDateClick={prevMonth}
-            handleNextDateClick={nextMonth}
+            label={firstWeekDay.format('MMMM')}
+            digit={firstWeekDay.format('DD')}
+            endOfWeek={firstWeekDay.clone().add(6, 'day')}
+            handlePrevDateClick={prevWeek}
+            handleNextDateClick={nextWeek}
           />
           <div className="calendar-main__content">
             {this.daysLabels()}
@@ -125,20 +119,15 @@ class Week extends Component {
 
 export default connect(
   state => ({
-    selectedDay: state.mounthlyCalendar.selectedDay.clone(),
-    listOfMonthLabels: state.mounthlyCalendar.listOfMonthLabels,
-    currentMounth: state.mounthlyCalendar.currentMounth,
-    currentYear: state.mounthlyCalendar.currentYear,
+    selectedDay: state.calendar.selectedDay.clone(),
+    firstWeekDay: state.calendar.firstWeekDay.clone(),
   }),
-  { prevMonth, nextMonth, selectDay }
+  { prevWeek, nextWeek, selectDay }
 )(RenderEventsContainer(Week));
 
 Week.propTypes = {
-  prevMonth: PropTypes.func.isRequired,
-  nextMonth: PropTypes.func.isRequired,
+  prevWeek: PropTypes.func.isRequired,
+  nextWeek: PropTypes.func.isRequired,
   selectDay: PropTypes.func.isRequired,
-  currentMounth: PropTypes.number.isRequired,
-  currentYear: PropTypes.number.isRequired,
   selectedDay: PropTypes.object.isRequired,
-  listOfMonthLabels: PropTypes.array.isRequired,
 };

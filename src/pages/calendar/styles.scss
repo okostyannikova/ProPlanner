@@ -34,7 +34,12 @@
   .calendar__events {
     margin-left: 15px;
   }
-  .views-btn-list {
+  .calendar-nav__label {
+    text-align: left;
+  }
+  .views-btn-list,
+  .calendar-nav__prev-btn,
+  .calendar-nav__next-btn {
     display: none;
   }
 }

@@ -2,11 +2,11 @@
 
 import { combineReducers } from 'redux';
 import authorizeReducer from 'modules/Authentication/index.js';
-import mounthlyCalendar from './Calendar';
+import calendarReducer from './Calendar';
 
-const mainReducer = combineReducers({
+const rootReducer = combineReducers({
   auth: authorizeReducer,
-  calendar: mounthlyCalendar,
+  calendar: calendarReducer,
 });
 
-export default mainReducer;
+export default rootReducer;

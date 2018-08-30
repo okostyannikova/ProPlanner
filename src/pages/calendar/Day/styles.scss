@@ -19,16 +19,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 40px;
-}
-
-.calendar-day__label {
-  font-size: 24px;
-  font-weight: 700;
-  span {
-    font-size: 20px;
-    display: block;
-    color: $main-text-color;
+  padding-top: 30px;
+  .calendar-nav {
+    width: 66%;
   }
 }
 
