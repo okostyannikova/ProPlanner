@@ -1,0 +1,11 @@
+const AUTHORIZE_REQUEST = 'Authentication/AUTHORIZE_REQUEST';
+const AUTHORIZE_RECEIVE = 'Authentication/AUTHORIZE_RECEIVE';
+const INITIALIZATION = 'Authentication/INITIALIZATION';
+const LOG_OUT = 'Authentication/LOG_OUT';
+
+export default {
+  AUTHORIZE_REQUEST,
+  AUTHORIZE_RECEIVE,
+  LOG_OUT,
+  INITIALIZATION,
+};

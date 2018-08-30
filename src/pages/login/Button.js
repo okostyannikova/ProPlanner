@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import googleLogo from 'assets/images/IconGoogle.svg';
+import './styles.css';
 
 const StyledButton = styled.button`
   display: inline-block;
@@ -23,10 +24,19 @@ const StyledButton = styled.button`
   font-size: 18px;
   letter-spacing: 0.07em;
 
-  background: linear-gradient(180deg, rgba(225, 97, 81, 0.5) 0%, rgba(232, 133, 121, 0) 100%),
-    #dd4b39;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
+  background: ${props => (props.loading ? 'transparent' : '#dd4b39')};
+  box-shadow: ${props => (props.loading ? 'none' : '0px 4px 6px rgba(0, 0, 0, 0.15)')};
   border-radius: 10px;
+
+  transition: all 0.2s ease-out;
+
+  &:hover {
+    background-color: ${props => (props.loading ? 'transparent' : '#c93e3e')};
+  }
+
+  &:active {
+    background-color: ${props => (props.loading ? 'transparent' : '#bf2424')};
+  }
 
   @media (min-width: 768px) {
     margin: 40px 0 90px 0;
@@ -35,7 +45,7 @@ const StyledButton = styled.button`
     max-width: 470px;
 
     &:before {
-      display: block;
+      display: ${props => (props.loading ? 'none' : 'block')};
       left: 7%;
       transform: scale(0.8) translateY(-50%);
       content: url(${googleLogo});
@@ -58,8 +68,41 @@ const StyledButton = styled.button`
   }
 `;
 
+const StyledSpan = styled.span`
+  display: block;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 8px;
+  left: calc(50% - 17px);
+  background: transparent;
+  box-sizing: border-box;
+  border-top: 4px solid #c93e3e;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-radius: 100%;
+  animation: spin 0.8s ease-out infinite;
+
+  @media (min-width: 768px) {
+    width: 60px;
+    height: 60px;
+  }
+
+  @media (min-width: 1200px) {
+    width: 80px;
+    height: 80px;
+  }
+`;
+
 export default class Button extends Component {
   render() {
-    return <StyledButton onClick={this.props.clickHandle}>SIGN UP USING GOOGLE+</StyledButton>;
+    const { loading, clickHandle } = this.props;
+
+    return (
+      <StyledButton onClick={clickHandle} loading={loading}>
+        {loading ? <StyledSpan /> : 'SIGN UP USING GOOGLE+'}
+      </StyledButton>
+    );
   }
 }
