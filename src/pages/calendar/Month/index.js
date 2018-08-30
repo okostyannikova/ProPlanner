@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { prevMonth, nextMonth, selectDay } from '../../../modules/Calendar';
 import './styles.css';
 import Day from './Day';
@@ -14,7 +14,7 @@ class Month extends Component {
   weekDay = date => (date.getDay() - 1 < 0 ? 6 : date.getDay() - 1);
 
   generateDays = (year, mounth) => {
-    const { match, selectDay } = this.props;
+    const { selectDay, selectedDay } = this.props;
     const currentDate = new Date(year, mounth);
     const prevMonthDate = new Date(year, mounth, 0).getDate();
     const nextMonthDate = new Date(year, mounth + 1);
@@ -33,10 +33,10 @@ class Month extends Component {
           <Day
             key={currentDate.toDateString()}
             day={currentDate.getDate()}
-            date={dateToString(currentDate)}
+            date={moment(currentDate).format('YYYY-M-DD')}
             today={dateToString(new Date()) === dateToString(currentDate)}
             selectDay={selectDay}
-            {...{ match }}
+            selectedDay={selectedDay.format('YYYY-M-DD')}
           />
         );
         currentDate.setDate(currentDate.getDate() + 1);
@@ -51,20 +51,13 @@ class Month extends Component {
   };
 
   render() {
-    const {
-      currentYear,
-      currentMounth,
-      listOfMonthLabels,
-      prevMonth,
-      nextMonth,
-      match,
-    } = this.props;
+    const { currentDate, currentYear, currentMounth, prevMonth, nextMonth } = this.props;
     return (
       <div>
         <div className="calendar-main">
           <Navigation
-            currentMounth={listOfMonthLabels[currentMounth]}
-            currentYear={currentYear}
+            label={currentDate.format('MMMM')}
+            digit={currentYear}
             handlePrevDateClick={prevMonth}
             handleNextDateClick={nextMonth}
           />
@@ -79,7 +72,6 @@ class Month extends Component {
         </div>
         <div className="calendar__day-sidebar">
           <DaySidebar />
-          <Route path={`${match.path}/:day`} />
         </div>
       </div>
     );
@@ -88,9 +80,13 @@ class Month extends Component {
 
 export default connect(
   state => ({
-    listOfMonthLabels: state.calendar.listOfMonthLabels,
-    currentMounth: state.calendar.currentMounth,
-    currentYear: state.calendar.currentYear,
+    currentDate: state.calendar.currentDate.clone(),
+    currentMounth: state.calendar.currentDate
+      .clone()
+      .add(-1, 'month')
+      .format('M'),
+    currentYear: state.calendar.currentDate.clone().format('YYYY'),
+    selectedDay: state.calendar.selectedDay.clone(),
   }),
   { prevMonth, nextMonth, selectDay }
 )(Month);
@@ -99,8 +95,8 @@ Month.propTypes = {
   prevMonth: PropTypes.func.isRequired,
   nextMonth: PropTypes.func.isRequired,
   selectDay: PropTypes.func.isRequired,
-  currentMounth: PropTypes.number.isRequired,
-  currentYear: PropTypes.number.isRequired,
-  listOfMonthLabels: PropTypes.array.isRequired,
-  match: PropTypes.object.isRequired,
+  currentDate: PropTypes.object.isRequired,
+  selectedDay: PropTypes.object.isRequired,
+  currentMounth: PropTypes.string.isRequired,
+  currentYear: PropTypes.string.isRequired,
 };

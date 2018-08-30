@@ -5,7 +5,7 @@ import './styles.css';
 import ViewsButtons from './ViewsButtons';
 
 const Navigation = props => {
-  const { handlePrevDateClick, handleNextDateClick, label, digit, endOfWeek } = props;
+  const { handlePrevDateClick, handleNextDateClick, label, digit, endOfWeek = null } = props;
   const className = classNames('calendar-nav', { 'calendar-nav--week': endOfWeek });
   return (
     <nav className={className}>
@@ -47,8 +47,8 @@ Navigation.propTypes = {
   handlePrevDateClick: PropTypes.func.isRequired,
   handleNextDateClick: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
-  digit: PropTypes.number.isRequired,
-  endOfWeek: PropTypes.obj,
+  digit: PropTypes.string.isRequired,
+  endOfWeek: PropTypes.object,
 };
 
 export default Navigation;

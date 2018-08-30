@@ -30,3 +30,7 @@ a.today {
 .other-month {
   color: $light-text-color;
 }
+a.month__day--active {
+  color: #fff;
+  background-color: $main-text-color;
+}

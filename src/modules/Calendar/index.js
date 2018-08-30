@@ -9,22 +9,7 @@ const PREV_DAY = 'PREV_DAY';
 const SELECT_DAY = 'SELECT_DAY';
 
 const initialDate = {
-  listOfMonthLabels: [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ],
-  currentMounth: new Date().getMonth(),
-  currentYear: new Date().getFullYear(),
+  currentDate: moment(),
   selectedDay: moment(),
   firstWeekDay: moment().startOf('isoWeek'),
 };
@@ -42,40 +27,25 @@ export const selectDay = day => ({ type: SELECT_DAY, payload: { day } });
 
 export default (calendar = initialDate, action) => {
   const { type, payload } = action;
-  const { currentMounth, currentYear, firstWeekDay, selectedDay } = calendar;
+  const { firstWeekDay, selectedDay, currentDate } = calendar;
 
   switch (type) {
     case PREV_MONTH:
-      if (calendar.currentMounth === 0) {
-        return {
-          ...calendar,
-          currentYear: currentYear - 1,
-          currentMounth: 11,
-        };
-      }
       return {
         ...calendar,
-        currentMounth: currentMounth - 1,
+        currentDate: currentDate.clone().add(-1, 'month'),
       };
     case NEXT_MONTH:
-      if (calendar.currentMounth === 11) {
-        return {
-          ...calendar,
-          currentYear: currentYear + 1,
-          currentMounth: 0,
-        };
-      }
       return {
         ...calendar,
-        currentMounth: currentMounth + 1,
+        currentDate: currentDate.clone().add(1, 'month'),
       };
-
     case PREV_WEEK:
       return {
         ...calendar,
         firstWeekDay: firstWeekDay
           .clone()
-          .add('-1', 'day')
+          .add(-1, 'day')
           .startOf('isoWeek'),
       };
     case NEXT_WEEK:
@@ -83,7 +53,7 @@ export default (calendar = initialDate, action) => {
         ...calendar,
         firstWeekDay: firstWeekDay
           .clone()
-          .add('8', 'day')
+          .add(8, 'day')
           .startOf('isoWeek'),
       };
     case PREV_DAY:
