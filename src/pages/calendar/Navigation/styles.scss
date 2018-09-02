@@ -66,8 +66,13 @@
   padding: 0 10px;
 }
 
+.calendar-nav__views-btn-list {
+  display: flex;
+}
+
 .calendar-nav__views-btn {
   display: inline-block;
+  position: relative;
   width: 102px;
   height: 45px;
   padding: 12px 0;
@@ -82,12 +87,19 @@
   border-bottom: $view-bth-border;
   outline: none;
   cursor: pointer;
-  &:first-child {
-    border-left: $view-bth-border;
-    border-radius: 5px 0 0 5px;
+  &:hover {
+    background-color: rgba(0, 188, 212, 0.05);
   }
-  &:last-child {
-    border-right: $view-bth-border;
-    border-radius: 0 5px 5px 0;
-  }
+}
+
+.calendar-nav__views-btn--first {
+  border-left: $view-bth-border;
+  border-radius: 5px 0 0 5px;
+  left: 4px;
+}
+
+.calendar-nav__views-btn--last {
+  border-right: $view-bth-border;
+  border-radius: 0 5px 5px 0;
+  right: 4px;
 }

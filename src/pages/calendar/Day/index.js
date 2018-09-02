@@ -42,7 +42,7 @@ class Day extends Component {
             handlePrevDateClick={prevDay}
             handleNextDateClick={nextDay}
           />
-          <button className="add-event-btn" id="add-event" type="button" />
+          <div className="add-event-btn" id="add-event" />
         </header>
         <main className="calendar-day__main">
           <div className="calendar-day__summary" />

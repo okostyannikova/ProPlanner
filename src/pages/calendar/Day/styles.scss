@@ -1,6 +1,6 @@
 @import '../../../styles/variables.scss';
 .calendar-day {
-  padding: 0 3% 0 7%;
+  padding: 0 3% 0 50px;
   color: $light-text-color;
   /* height: calc(100vh - 63px); */
   background-color: $blocks-bcg-color;
@@ -30,6 +30,11 @@
   height: 54px;
   background: url('../../../assets/images/plus.svg') $main-text-color center center no-repeat;
   border-radius: 100%;
+  box-shadow: inset 1px 1px 6px rgba(255, 255, 255, 0.12), 0px 4px 6px rgba(0, 0, 0, 0.2), -1px 1px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  &:hover {
+    background-color: $main-text-color + 30%;
+  }
 }
 
 .calendar-day__main {
@@ -50,7 +55,7 @@
   justify-content: space-between;
   height: calc(100vh - 255px);
   overflow: scroll;
-  > div {
+  >div {
     height: 1250px;
   }
 }
