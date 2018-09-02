@@ -3,8 +3,8 @@ import { LOAD_EVENTS } from './types';
 const initialState = {
   colorTypes: {
     work: '#A9EFEA',
-    study: '#FFE07F',
-    personal: '#FFBFD4',
+    personal: '#FFE07F',
+    other: '#FFBFD4',
   },
   eventsList: null,
 };

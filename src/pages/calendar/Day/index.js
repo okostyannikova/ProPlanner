@@ -13,17 +13,17 @@ class Day extends Component {
   };
 
   displayEvents = () => {
-    const { events, startTime, getHeight } = this.props;
+    const { events, startTime, getHeight, colorTypes } = this.props;
     if (events) {
       return events.map(ev => {
-        const { 'start-date': start, 'end-date': end } = ev.attributes;
+        const { 'start-date': start, 'end-date': end, type } = ev.attributes;
         return (
           <rect
             key={ev.id}
             x="0"
             y={startTime(start.clone())}
             height={getHeight(start.clone().valueOf(), end.clone().valueOf())}
-            fill="#A9EFEA"
+            fill={colorTypes[type]}
           />
         );
       });

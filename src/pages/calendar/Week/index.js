@@ -15,7 +15,7 @@ class Week extends Component {
   };
 
   getEvents = today => {
-    const { events, startTime, getHeight } = this.props;
+    const { events, startTime, getHeight, colorTypes } = this.props;
 
     if (events) {
       const eventList = events
@@ -24,14 +24,14 @@ class Week extends Component {
           return today === eventDay;
         })
         .map(ev => {
-          const { 'start-date': start, 'end-date': end } = ev.attributes;
+          const { 'start-date': start, 'end-date': end, type } = ev.attributes;
           return (
             <rect
               key={ev.id}
               x="2%"
               y={startTime(start.clone())}
               height={getHeight(start.clone().valueOf(), end.clone().valueOf())}
-              fill="#A9EFEA"
+              fill={colorTypes[type]}
             />
           );
         });
@@ -42,7 +42,7 @@ class Week extends Component {
   };
 
   getDays = () => {
-    const { firstWeekDay, events, startTime, getHeight } = this.props;
+    const { firstWeekDay } = this.props;
     const firstDay = firstWeekDay.clone().startOf('isoWeek');
     let currentDay;
     const days = Array(...Array(7)).map((_, i) => {
@@ -140,6 +140,7 @@ export default connect(
     selectedDay: state.calendar.selectedDay.clone(),
     firstWeekDay: state.calendar.firstWeekDay.clone(),
     events: state.events.eventsList,
+    colorTypes: state.events.colorTypes,
   }),
   { prevWeek, nextWeek, selectDay }
 )(RenderEventsContainer(Week));
