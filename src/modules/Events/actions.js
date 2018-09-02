@@ -8,8 +8,8 @@ const normalizeData = data =>
     id: ev.id,
     attributes: {
       ...ev.attributes,
-      'start-date': moment(ev.attributes['start-date']),
-      'end-date': moment(ev.attributes['end-date']),
+      'start-date': moment(ev.attributes['start-date']).add(-3, 'hours'),
+      'end-date': moment(ev.attributes['end-date']).add(-3, 'hours'),
     },
   }));
 
