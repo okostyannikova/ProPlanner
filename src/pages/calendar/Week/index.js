@@ -15,7 +15,7 @@ class Week extends Component {
   };
 
   getEvents = today => {
-    const { events, startTime, getHeight, colorTypes } = this.props;
+    const { events, startTime, getHeight } = this.props;
 
     if (events) {
       const eventList = events
@@ -28,10 +28,13 @@ class Week extends Component {
           return (
             <rect
               key={ev.id}
+              width="100%"
+              rx="10"
+              ry="10"
               x="2%"
               y={startTime(start.clone())}
               height={getHeight(start.clone().valueOf(), end.clone().valueOf())}
-              fill={colorTypes[type]}
+              fill="#A9EFEA"
             />
           );
         });
@@ -49,6 +52,7 @@ class Week extends Component {
       currentDay = firstDay.clone().add(i, 'day');
       return (
         <svg
+          xmlns="http://www.w3.org/2000/svg"
           className={`calendar__events-container ${this.className(currentDay)}`}
           key={i}
           onClick={this.handleClick(currentDay.format('YYYY-MM-DD'))}
@@ -140,7 +144,6 @@ export default connect(
     selectedDay: state.calendar.selectedDay.clone(),
     firstWeekDay: state.calendar.firstWeekDay.clone(),
     events: state.events.eventsList,
-    colorTypes: state.events.colorTypes,
   }),
   { prevWeek, nextWeek, selectDay }
 )(RenderEventsContainer(Week));

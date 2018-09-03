@@ -13,17 +13,20 @@ class Day extends Component {
   };
 
   displayEvents = () => {
-    const { events, startTime, getHeight, colorTypes } = this.props;
+    const { events, startTime, getHeight } = this.props;
     if (events) {
       return events.map(ev => {
         const { 'start-date': start, 'end-date': end, type } = ev.attributes;
         return (
           <rect
             key={ev.id}
+            width="100%"
+            rx="10"
+            ry="10"
             x="0"
             y={startTime(start.clone())}
             height={getHeight(start.clone().valueOf(), end.clone().valueOf())}
-            fill={colorTypes[type]}
+            fill="#A9EFEA"
           />
         );
       });
@@ -49,7 +52,9 @@ class Day extends Component {
           <div className="calendar__content" ref={setWrapperRef}>
             <ul className="calendar__hours-labels">{hours()}</ul>
             <div className="calendar__events">
-              <svg className="calendar__events-container">{this.displayEvents()}</svg>
+              <svg className="calendar__events-container" xmlns="http://www.w3.org/2000/svg">
+                {this.displayEvents()}
+              </svg>
             </div>
           </div>
         </main>
@@ -73,7 +78,6 @@ export default connect(
   state => ({
     selectedDay: state.calendar.selectedDay.clone(),
     events: getEvents(state.calendar.selectedDay.clone(), state.events.eventsList),
-    colorTypes: state.events.colorTypes,
   }),
   { prevDay, nextDay }
 )(RenderEventsContainer(Day));

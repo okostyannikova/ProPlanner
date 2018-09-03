@@ -1,35 +1,27 @@
 import axios from 'axios';
-import moment from 'moment';
-import { LOAD_EVENTS } from './types';
+import { LOAD_EVENTS_START, LOAD_EVENTS_SUCCESS, LOAD_EVENTS_FAIL } from './types';
+import { normalizeData } from './operations';
 import { authHeader } from '../../utils/auth';
+import { apiURL } from '../../config';
 
-const fakeType = () => {
-  const types = ['work', 'personal', 'other'];
-  const rand = Math.floor(Math.random() * types.length);
-  return types[rand];
-};
-
-const normalizeData = data =>
-  data.map(ev => ({
-    id: ev.id,
-    attributes: {
-      ...ev.attributes,
-      type: fakeType(),
-      'start-date': moment(ev.attributes['start-date']).add(-3, 'hours'),
-      'end-date': moment(ev.attributes['end-date']).add(-3, 'hours'),
-    },
-  }));
-
-const allEventsURL = 'http://backend.proplanner.formula1.cloud.provectus-it.com/events/';
+const allEventsURL = `${apiURL}/events/`;
 
 export const loadEvents = () => dispatch => {
+  dispatch({ type: LOAD_EVENTS_START });
+
   axios(allEventsURL, { headers: authHeader() })
     .then(res => {
       const events = normalizeData(res.data.data);
       dispatch({
-        type: LOAD_EVENTS,
+        type: LOAD_EVENTS_SUCCESS,
         payload: { events },
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      dispatch({
+        type: LOAD_EVENTS_FAIL,
+        payload: { err },
+      });
+      throw new Error(err);
+    });
 };

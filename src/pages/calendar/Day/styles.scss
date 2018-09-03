@@ -54,7 +54,8 @@
   display: flex;
   justify-content: space-between;
   height: calc(100vh - 255px);
-  overflow: scroll;
+  overflow: hidden;
+  overflow-y: scroll;
   >div {
     height: 1250px;
   }

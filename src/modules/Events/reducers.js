@@ -1,11 +1,7 @@
-import { LOAD_EVENTS } from './types';
+import { LOAD_EVENTS_START, LOAD_EVENTS_SUCCESS, LOAD_EVENTS_FAIL } from './types';
 
 const initialState = {
-  colorTypes: {
-    work: '#A9EFEA',
-    personal: '#FFE07F',
-    other: '#FFBFD4',
-  },
+  loading: false,
   eventsList: null,
 };
 
@@ -13,9 +9,15 @@ export default (eventsState = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case LOAD_EVENTS:
+    case LOAD_EVENTS_START:
       return {
         ...eventsState,
+        loading: true,
+      };
+    case LOAD_EVENTS_SUCCESS:
+      return {
+        ...eventsState,
+        loading: false,
         eventsList: payload.events,
       };
     default:
