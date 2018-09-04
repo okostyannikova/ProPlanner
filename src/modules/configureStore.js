@@ -1,6 +1,5 @@
-import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import mounthlyCalendar from './Calendar';
 import rootReducer from './reducers';
 
 const composeEnhancers =

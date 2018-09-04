@@ -12,9 +12,7 @@ const Day = ({ day, date, className, today, selectDay, selectedDay }) => {
     'month__day--active': date && date === selectedDay,
   });
 
-  const dayBody = () => (
-    <span className="month__day-item">{day && day < 10 ? `0${day} ` : day}</span>
-  );
+  const dayBody = () => <span className="month__day-item">{day}</span>;
 
   const getDay = () => {
     if (date) {
@@ -31,7 +29,7 @@ const Day = ({ day, date, className, today, selectDay, selectedDay }) => {
 };
 
 Day.propTypes = {
-  day: PropTypes.number.isRequired,
+  day: PropTypes.string.isRequired,
   className: PropTypes.string,
   today: PropTypes.bool,
   selected: PropTypes.string,

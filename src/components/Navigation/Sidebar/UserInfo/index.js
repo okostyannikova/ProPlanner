@@ -17,11 +17,12 @@ export default class UserInfo extends Component {
           <div className="user-info__avatar-wrapper">
             <img src={user.avatar} alt="User avatar" />
           </div>
-          <svg>
+          <svg xmlns="http://www.w3.org/2000/svg">
             <circle
               className="user-info__progress-bar"
               cx="50%"
               cy="50%"
+              r="36"
               strokeDashoffset={-237 - user.progress * 2.37}
             />
           </svg>

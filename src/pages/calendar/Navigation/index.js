@@ -21,7 +21,7 @@ const Navigation = props => {
             <span className="calendar-nav__text">{label}</span>
             <span className="calendar-nav__digit">{digit}</span>
             <span className="calendar-nav__dash">-</span>
-            <span className="calendar-nav__text">{endOfWeek.format('MMMM')}</span>
+            <span className="calendar-nav__text">{endOfWeek.format('MMM')}</span>
             <span className="calendar-nav__digit">{endOfWeek.format('DD')}</span>
           </span>
         ) : (

@@ -14,29 +14,51 @@ class Week extends Component {
     setHeight(70);
   };
 
+  getEvents = today => {
+    const { events, startTime, getHeight } = this.props;
+
+    if (events) {
+      const eventList = events
+        .filter(ev => {
+          const eventDay = ev.attributes['start-date'].clone().format('YYYY-MM-DD');
+          return today === eventDay;
+        })
+        .map(ev => {
+          const { 'start-date': start, 'end-date': end, type } = ev.attributes;
+          return (
+            <rect
+              key={ev.id}
+              width="100%"
+              rx="10"
+              ry="10"
+              x="2%"
+              y={startTime(start.clone())}
+              height={getHeight(start.clone().valueOf(), end.clone().valueOf())}
+              fill="#A9EFEA"
+            />
+          );
+        });
+
+      return eventList;
+    }
+    return null;
+  };
+
   getDays = () => {
-    const { firstWeekDay, eventList, colorList, startTime, getHeight } = this.props;
+    const { firstWeekDay } = this.props;
     const firstDay = firstWeekDay.clone().startOf('isoWeek');
     let currentDay;
-
     const days = Array(...Array(7)).map((_, i) => {
       currentDay = firstDay.clone().add(i, 'day');
       return (
         <svg
+          xmlns="http://www.w3.org/2000/svg"
           className={`calendar__events-container ${this.className(currentDay)}`}
           key={i}
           onClick={this.handleClick(currentDay.format('YYYY-MM-DD'))}
         >
           {this.dividingLines()}
-          {eventList.map(ev => (
-            <rect
-              key={ev.id}
-              x="2%"
-              y={startTime(ev.start)}
-              height={getHeight(ev.start, ev.end)}
-              fill={colorList[ev.type]}
-            />
-          ))}
+          {this.getEvents(currentDay.format('YYYY-MM-DD'))}
         </svg>
       );
     });
@@ -90,7 +112,7 @@ class Week extends Component {
       <div>
         <div className="calendar-main">
           <Navigation
-            label={firstWeekDay.format('MMMM')}
+            label={firstWeekDay.format('MMM')}
             digit={firstWeekDay.format('DD')}
             endOfWeek={firstWeekDay.clone().add(6, 'day')}
             handlePrevDateClick={prevWeek}
@@ -121,6 +143,7 @@ export default connect(
   state => ({
     selectedDay: state.calendar.selectedDay.clone(),
     firstWeekDay: state.calendar.firstWeekDay.clone(),
+    events: state.events.eventsList,
   }),
   { prevWeek, nextWeek, selectDay }
 )(RenderEventsContainer(Week));

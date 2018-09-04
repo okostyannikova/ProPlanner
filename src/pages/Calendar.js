@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import './calendar/styles.css';
 import Month from './calendar/Month';
 import Week from './calendar/Week';
 import Day from './calendar/Day';
+import { loadEvents } from '../modules/Events/actions';
 
-export default class Calendar extends Component {
+class Calendar extends Component {
   componentDidMount = () => {
-    const { match, history } = this.props;
+    const { match, history, loadEvents } = this.props;
+    loadEvents();
     history.push(`${match.url}/month/`);
   };
 
@@ -22,3 +25,8 @@ export default class Calendar extends Component {
     );
   }
 }
+
+export default connect(
+  null,
+  { loadEvents }
+)(Calendar);

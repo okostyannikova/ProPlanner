@@ -1,83 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 
-const eventList = [
-  {
-    id: 1,
-    name: 'Fake event',
-    description:
-      'Nobis odio necessitatibus expedita vitae amet error eum mollitia, non voluptas? Ex magnam recusandae iure voluptates officia fugit itaque nemo illo velit.',
-    type: 'work',
-    priority: 'important',
-    start: moment()
-      .hour(9)
-      .minutes(0)
-      .valueOf(),
-    end: moment()
-      .hour(12)
-      .minutes(0)
-      .valueOf(),
-    status: 'pending',
-  },
-  {
-    id: 2,
-    name: 'Fake event',
-    description:
-      'Nobis odio necessitatibus expedita vitae amet error eum mollitia, non voluptas? Ex magnam recusandae iure voluptates officia fugit itaque nemo illo velit.',
-    type: 'education',
-    priority: 'important',
-    start: moment()
-      .hour(12)
-      .minutes(30)
-      .valueOf(),
-    end: moment()
-      .hour(13)
-      .minutes(0)
-      .valueOf(),
-    status: 'pending',
-  },
-  {
-    id: 3,
-    name: 'Fake event',
-    description:
-      'Nobis odio necessitatibus expedita vitae amet error eum mollitia, non voluptas? Ex magnam recusandae iure voluptates officia fugit itaque nemo illo velit.',
-    type: 'work',
-    priority: 'important',
-    start: moment()
-      .hour(14)
-      .minutes(0)
-      .valueOf(),
-    end: moment()
-      .hour(15)
-      .minutes(30)
-      .valueOf(),
-    status: 'pending',
-  },
-  {
-    id: 4,
-    name: 'Fake event',
-    description:
-      'Nobis odio necessitatibus expedita vitae amet error eum mollitia, non voluptas? Ex magnam recusandae iure voluptates officia fugit itaque nemo illo velit.',
-    type: 'family',
-    priority: 'important',
-    start: moment()
-      .hour(17)
-      .minutes(0)
-      .valueOf(),
-    end: moment()
-      .hour(19)
-      .minutes(30)
-      .valueOf(),
-    status: 'pending',
-  },
-];
-
-const colorList = {
-  work: '#A9EFEA',
-  education: '#FFE07F',
-  family: '#FFBFD4',
-};
-
 export default OriginalComponent =>
   class RenderEventsContainer extends Component {
     constructor(props) {
@@ -109,9 +32,8 @@ export default OriginalComponent =>
     };
 
     startTime = date => {
-      const time = moment(date);
       const { pixelsInMinute } = this.state;
-      return (time.hours() * 60 + time.minutes()) * pixelsInMinute;
+      return (date.hours() * 60 + date.minutes()) * pixelsInMinute;
     };
 
     hours = () => {
@@ -146,8 +68,6 @@ export default OriginalComponent =>
           getHeight={getHeight}
           setWrapperRef={setWrapperRef}
           hourHeight={hourHeight}
-          eventList={eventList}
-          colorList={colorList}
         />
       );
     }

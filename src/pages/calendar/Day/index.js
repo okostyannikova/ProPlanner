@@ -12,18 +12,30 @@ class Day extends Component {
     setHeight(50);
   };
 
+  displayEvents = () => {
+    const { events, startTime, getHeight } = this.props;
+    if (events) {
+      return events.map(ev => {
+        const { 'start-date': start, 'end-date': end, type } = ev.attributes;
+        return (
+          <rect
+            key={ev.id}
+            width="100%"
+            rx="10"
+            ry="10"
+            x="0"
+            y={startTime(start.clone())}
+            height={getHeight(start.clone().valueOf(), end.clone().valueOf())}
+            fill="#A9EFEA"
+          />
+        );
+      });
+    }
+    return null;
+  };
+
   render() {
-    const {
-      selectedDay,
-      hours,
-      eventList,
-      colorList,
-      startTime,
-      getHeight,
-      setWrapperRef,
-      prevDay,
-      nextDay,
-    } = this.props;
+    const { selectedDay, hours, setWrapperRef, prevDay, nextDay } = this.props;
     return (
       <div className="calendar-day">
         <header className="calendar-day__header">
@@ -33,23 +45,15 @@ class Day extends Component {
             handlePrevDateClick={prevDay}
             handleNextDateClick={nextDay}
           />
-          <button className="add-event-btn" id="add-event" type="button" />
+          <div className="add-event-btn" id="add-event" />
         </header>
         <main className="calendar-day__main">
           <div className="calendar-day__summary" />
           <div className="calendar__content" ref={setWrapperRef}>
             <ul className="calendar__hours-labels">{hours()}</ul>
             <div className="calendar__events">
-              <svg className="calendar__events-container">
-                {eventList.map(ev => (
-                  <rect
-                    key={ev.id}
-                    x="0"
-                    y={startTime(ev.start)}
-                    height={getHeight(ev.start, ev.end)}
-                    fill={colorList[ev.type]}
-                  />
-                ))}
+              <svg className="calendar__events-container" xmlns="http://www.w3.org/2000/svg">
+                {this.displayEvents()}
               </svg>
             </div>
           </div>
@@ -59,9 +63,21 @@ class Day extends Component {
   }
 }
 
+const getEvents = (day, events) => {
+  if (events) {
+    const today = day.format('YYYY-MM-DD');
+    return events.filter(ev => {
+      const eventDay = ev.attributes['start-date'].clone().format('YYYY-MM-DD');
+      return today === eventDay;
+    });
+  }
+  return null;
+};
+
 export default connect(
   state => ({
-    selectedDay: state.calendar.selectedDay,
+    selectedDay: state.calendar.selectedDay.clone(),
+    events: getEvents(state.calendar.selectedDay.clone(), state.events.eventsList),
   }),
   { prevDay, nextDay }
 )(RenderEventsContainer(Day));
