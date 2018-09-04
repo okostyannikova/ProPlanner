@@ -1,8 +1,9 @@
 @import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
 .calendar-day {
   padding: 0 3% 0 50px;
   color: $light-text-color;
-  /* height: calc(100vh - 63px); */
+  height: 100%;
   background-color: $blocks-bcg-color;
   li {
     list-style: none;
@@ -22,6 +23,9 @@
   padding-top: 30px;
   .calendar-nav {
     width: 66%;
+    @include mq(md-max, max) {
+      width: 72%;
+    }
   }
 }
 
