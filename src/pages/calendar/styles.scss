@@ -7,7 +7,7 @@
 
 .calendar-main {
   padding: 30px 30px 30px 50px;
-  width: 66%;
+  width: 67%;
   box-sizing: border-box;
   table {
     width: 110%;
@@ -16,8 +16,9 @@
   @include mq(lg-max, max) {
     padding: 30px 20px 30px 30px;
   }
-  @include mq(md-max, max) {
-    width: 72%;
+  @include mq(sm-max, max) {
+    width: 100%;
+    padding: 25px 30px 0 30px;
   }
 }
 
@@ -27,6 +28,9 @@
 
 .calendar__day-sidebar {
   width: 27%;
+  @include mq(md-max, max) {
+    width: 31%;
+  }
   height: 100%;
   position: absolute;
   top: 0;
