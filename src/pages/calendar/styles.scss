@@ -12,6 +12,10 @@
   table {
     width: 110%;
     margin-left: -5%;
+    @include mq(md-max, max) {
+      width: 100%;
+      margin-left: 0;
+    }
   }
   @include mq(lg-max, max) {
     padding: 30px 20px 30px 30px;

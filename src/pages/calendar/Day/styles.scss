@@ -8,11 +8,20 @@
   li {
     list-style: none;
   }
+  @include mq(sm-max, max) {
+    padding: 25px 30px 0 30px;
+    height: auto;
+  }
 }
 
 .calendar-day {
   .calendar-nav__views-btn {
     background-color: $blocks-bcg-color;
+  }
+   .calendar__content {
+    @include mq(sm-max, max) {
+      height: calc(100vh - 222px);
+    }
   }
 }
 
@@ -21,10 +30,16 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 30px;
+  @include mq(sm-max, max) {
+    padding-top: 0;
+  }
   .calendar-nav {
     width: 66%;
     @include mq(md-max, max) {
       width: 72%;
+    }
+    @include mq(sm-max, max) {
+      width: 100%;
     }
   }
 }
@@ -39,11 +54,21 @@
   &:hover {
     background-color: $main-text-color + 30%;
   }
+  @include mq(sm-max,
+  max) {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+  }
 }
 
 .calendar-day__main {
   width: 81%;
   padding-top: 36px;
+  @include mq(sm-max,
+  max) {
+    width: 100%;
+  }
 }
 
 .calendar-day__summary {
@@ -58,6 +83,10 @@
   display: flex;
   justify-content: space-between;
   height: calc(100vh - 255px);
+  @include mq(sm-max,
+  max) {
+    height: calc(100vh - 213px);
+  }
   overflow: hidden;
   overflow-y: scroll;
   >div {
