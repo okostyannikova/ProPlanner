@@ -1,4 +1,5 @@
 @import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
 .calendar-mounth {
   td {
     text-align: center;
@@ -9,6 +10,10 @@
   font-size: 18px;
   font-weight: 700;
   color: $main-text-color;
+  @include mq(xs-max,
+  max) {
+    font-size: 16px;
+  }
 }
 
 .month__day a {
@@ -20,6 +25,12 @@
   height: 50px;
   box-sizing: border-box;
   border-radius: 100%;
+  @include mq(xs-max,
+  max) {
+   width: 35px;
+   height: 35px;
+   padding: 8px;
+  }
 }
 
 a.today {
