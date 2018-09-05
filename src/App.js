@@ -12,7 +12,7 @@ import Event from './pages/Event';
 import Settings from './pages/Settings';
 import Navigation from './components/Navigation';
 import Test from './pages/Test';
-import EventSettings from './pages/EventSettings';
+import EventForm from './pages/EventForm';
 
 const LoginContainer = () => <Route path="/login" component={Login} />;
 
@@ -26,7 +26,7 @@ const DefaultContainer = () => (
     <Route path="/events/:id" component={Event} />
     <Route exact path="/events" component={Events} />
     <Route path="/settings" component={Settings} />
-    <Route exact path="/eventsettings" component={EventSettings} />
+    <Route exact path="/eventsettings" component={EventForm} />
   </div>
 );
 

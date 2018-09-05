@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import moment, { months } from 'moment';
+import moment from 'moment';
 import { prevMonth, nextMonth, selectDay } from '../../../modules/Calendar';
 import './styles.css';
 import Day from './Day';
 import Navigation from '../Navigation';
 import DaysLabels from '../DaysLabels';
 import DaySidebar from '../Day';
+import Media from 'react-media';
 
 class Month extends Component {
   weekDay = date => (date.getDay() - 1 < 0 ? 6 : date.getDay() - 1);
@@ -54,12 +55,6 @@ class Month extends Component {
       const endMonth = +endOfMonth.format('D') + 1;
       if (day > +endOfMonth.format('D') && +nextMonthDate.format('d') === 1) break;
       if (day === endMonth && +endOfMonth.format('d') === 0) break;
-
-      /*  if (
-        day >= currentDate.format('D') &&
-        (nextMonthDate.format('d') === 0 || currentDate.format('d') === 0)
-      )
-        break; */
     }
 
     weeks = weeks.map((el, i) => <tr key={i}>{days[7] ? days.splice(0, 7) : days.splice(0)}</tr>);
@@ -71,7 +66,7 @@ class Month extends Component {
     const { currentDate, currentYear, prevMonth, nextMonth } = this.props;
     return (
       <div>
-        <div className="calendar-main">
+        <div className="calendar-main calendar-main--mobile">
           <Navigation
             label={currentDate.format('MMMM')}
             digit={currentYear}
@@ -87,9 +82,11 @@ class Month extends Component {
             </table>
           </div>
         </div>
-        <div className="calendar__day-sidebar">
-          <DaySidebar />
-        </div>
+        <Media query="(min-width: 769px)">
+          <div className="calendar__day-sidebar">
+            <DaySidebar />
+          </div>
+        </Media>
       </div>
     );
   }

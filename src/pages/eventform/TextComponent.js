@@ -3,21 +3,24 @@ import React, { Component } from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 
-class Title extends Component {
+class TextComponent extends Component {
   // constructor(props) {
   //   super(props);
   // }
 
   render() {
+    const { headerClass, headerContent, placeholder, multiline } = this.props;
+
     return (
       <div>
-        <p className="title-component">Title</p>
+        <p className={headerClass || ''}>{headerContent || ''}</p>
         <div className="text-field">
           <FormControl fullWidth>
             <Input
+              multiline={multiline || false}
+              rows="2"
               disableUnderline
-              placeholder="Add a title..."
-              id="custom-css-input"
+              placeholder={placeholder || ''}
               className="input-field"
             />
           </FormControl>
@@ -27,4 +30,4 @@ class Title extends Component {
   }
 }
 
-export default Title;
+export default TextComponent;

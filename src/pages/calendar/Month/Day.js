@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Media from 'react-media';
+import { Link } from 'react-router-dom';
 
 const Day = ({ day, date, className, today, selectDay, selectedDay }) => {
   const handleClick = ev => {
-    ev.preventDefault();
     selectDay(date);
   };
+
   const getClassNames = classNames({
     today,
     'month__day--active': date && date === selectedDay,
@@ -17,9 +19,19 @@ const Day = ({ day, date, className, today, selectDay, selectedDay }) => {
   const getDay = () => {
     if (date) {
       return (
-        <a className={getClassNames} onClick={handleClick}>
-          {dayBody()}
-        </a>
+        <Media query="(min-width: 769px)">
+          {matches =>
+            matches ? (
+              <a href className={getClassNames} onClick={handleClick}>
+                {dayBody()}
+              </a>
+            ) : (
+              <Link to="/calendar/day" className={getClassNames} onClick={handleClick}>
+                {dayBody()}
+              </Link>
+            )
+          }
+        </Media>
       );
     }
     return dayBody();

@@ -5,7 +5,7 @@ let user = {};
 try {
   user = JSON.parse(localStorage.getItem('user'));
 } catch (err) {
-  console.log('err', err);
+  console.error('err', err);
   localStorage.removeItem('user');
   user = JSON.parse(localStorage.getItem('user'));
 }

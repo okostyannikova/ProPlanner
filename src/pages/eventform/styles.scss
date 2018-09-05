@@ -1,3 +1,11 @@
+%input-icon {
+  display: block;
+  left: -50px;
+  position: absolute;
+}
+
+
+
 .main-container{
 	// position: relative;
 	padding: 0 30px 30px 115px;
@@ -23,37 +31,29 @@
 	}
 
 		.title-component::before{
-			display: block;
-			left: -50px;
+			@extend %input-icon;
 			content: url('../../assets/images/TitleIcon.svg');
-			position: absolute;
 			width: 24px;
 			height: 21.6px;
 		}
 
 		.time-component::before{
-			display: block;
-			left: -50px;
+			@extend %input-icon;
 			content: url('../../assets/images/TimeIcon.svg');
-			position: absolute;
 			width: 24px;
 			height: 24px;
 		}
 
 		.description-component::before{
-			display: block;
-			left: -50px;
+			@extend %input-icon;
 			content: url('../../assets/images/DescriptionIcon.svg');
-			position: absolute;
 			width: 24px;
 			height: 24px;
 		}
 
 		.tasks-component::before{
-			display: block;
-			left: -50px;
+			@extend %input-icon;
 			content: url('../../assets/images/TasksIcon.svg');
-			position: absolute;
 			width: 20px;
 			height: 20px;
 		}
@@ -153,4 +153,56 @@
 
 	.dropzone_close_hide{
 		display: none;
+	}
+
+
+.time-container{
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: normal;
+	line-height: normal;
+	font-size: 16px;
+
+	color: rgba(51, 102, 180, 0.87);
+}
+
+	.date{
+		display: inline-flex;
+		width: 120px;
+		height: 40px;
+		left: 330px;
+		top: 299px;
+
+		background: #F9F9F9;
+		border-radius: 2px;
+		margin-right: 2px;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.time{
+		display: inline-flex;
+		width: 80px;
+		height: 40px;
+		left: 458px;
+		top: 299px;
+
+		background: #F9F9F9;
+		border-radius: 2px;
+		align-items: center;
+		justify-content: center;
+
+	}
+
+	.separator{
+		display: inline-flex;
+		width: 8px;
+		height: 2px;
+		top: -5px;
+		margin: 0 2px 5px;
+		align-items: center;
+		// left: 546px;
+		// top: 319px;
+
+		background: rgba(51, 102, 180, 0.87);
 	}

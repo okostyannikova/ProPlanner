@@ -1,8 +1,12 @@
 @import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
 .calendar-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @include mq(xs-max, max) {
+    flex-direction: column;
+  }
   li {
     list-style: none;
   }
@@ -17,6 +21,7 @@
   border: none;
   background: center center no-repeat;
   cursor: pointer;
+  outline: none;
 }
 
 .calendar-nav__prev-btn {
@@ -31,6 +36,9 @@
 
 .calendar-nav__label {
   width: 250px;
+  @include mq(lg-max, max) {
+    width: 225px;
+  }
   position: relative;
   text-align: center;
   span {
@@ -68,12 +76,18 @@
 
 .calendar-nav__views-btn-list {
   display: flex;
+  @include mq(xs-max, max) {
+    margin-top: 24px;
+  }
 }
 
 .calendar-nav__views-btn {
   display: inline-block;
   position: relative;
   width: 102px;
+  @include mq(lg-max, max) {
+    width: 90px;
+  }
   height: 45px;
   padding: 12px 0;
   box-sizing: border-box;

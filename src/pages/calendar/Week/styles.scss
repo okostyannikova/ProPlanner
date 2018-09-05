@@ -1,4 +1,5 @@
 @import "../../../styles/variables.scss";
+@import "../../../styles/mixins.scss";
 $active-day-border: 2px solid rgba(51, 103, 180, 0.5);
 ul.days-labels {
   display: flex;
