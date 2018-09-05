@@ -20,8 +20,14 @@
   }
    .calendar__content {
     @include mq(sm-max, max) {
-      height: calc(100vh - 222px);
+      height: calc(100vh - 217px);
     }
+    @include mq(xs-max, max) {
+      height: calc(100vh - 264px);
+    }
+  }
+  .calendar-nav__text {
+    text-transform: none;
   }
 }
 
@@ -76,6 +82,9 @@
   height: 20px;
   background-color: #E4EAFA;
   border-radius: 10px;
+  @include mq(xs-max, max) {
+    width: 100%;
+  }
 }
 
 .calendar__content {
@@ -87,6 +96,10 @@
   max) {
     height: calc(100vh - 213px);
   }
+  @include mq(xs-max,
+  max) {
+    height: calc(100vh - 244px);
+  }
   overflow: hidden;
   overflow-y: scroll;
   >div {
@@ -97,8 +110,8 @@
 .calendar__hours-labels {
   font-size: 16px;
   color: $light-text-color;
-  li {
-    padding-bottom: 31px;
+  li:last-child {
+    padding-bottom: 0!important; 
   }
 }
 

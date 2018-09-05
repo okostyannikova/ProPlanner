@@ -4,6 +4,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @include mq(xs-max, max) {
+    flex-direction: column;
+  }
   li {
     list-style: none;
   }
@@ -73,6 +76,9 @@
 
 .calendar-nav__views-btn-list {
   display: flex;
+  @include mq(xs-max, max) {
+    margin-top: 24px;
+  }
 }
 
 .calendar-nav__views-btn {

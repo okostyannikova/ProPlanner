@@ -66,7 +66,7 @@ class Month extends Component {
     const { currentDate, currentYear, prevMonth, nextMonth } = this.props;
     return (
       <div>
-        <div className="calendar-main">
+        <div className="calendar-main calendar-main--mobile">
           <Navigation
             label={currentDate.format('MMMM')}
             digit={currentYear}

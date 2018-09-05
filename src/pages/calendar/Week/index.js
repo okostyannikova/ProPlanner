@@ -111,7 +111,7 @@ class Week extends Component {
     const { firstWeekDay, prevWeek, nextWeek, hourHeight, hours, setWrapperRef } = this.props;
     return (
       <div>
-        <div className="calendar-main">
+        <div className="calendar-main calendar-main--mobile">
           <Navigation
             label={firstWeekDay.format('MMM')}
             digit={firstWeekDay.format('DD')}
