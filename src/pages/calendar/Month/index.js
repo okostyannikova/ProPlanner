@@ -41,12 +41,12 @@ class Month extends Component {
       } else {
         days.push(
           <Day
-            key={currentDate.format('YYYY-M-DD')}
+            key={currentDate.format('YYYY-MM-DD')}
             day={currentDate.format('DD')}
-            date={currentDate.format('YYYY-M-DD')}
-            today={moment().format('YYYY-M-DD') === currentDate.format('YYYY-M-DD')}
+            date={currentDate.format('YYYY-MM-DD')}
+            today={moment().format('YYYY-MM-DD') === currentDate.format('YYYY-MM-DD')}
             selectDay={selectDay}
-            selectedDay={selectedDay.format('YYYY-M-DD')}
+            selectedDay={selectedDay.format('YYYY-MM-DD')}
           />
         );
         currentDate.add(1, 'day');

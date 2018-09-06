@@ -12,7 +12,7 @@ const Navigation = props => {
       <div className="calendar-nav__label">
         <button
           className="calendar-nav__prev-btn"
-          id="prev-date"
+          data-qa="prev-date"
           type="button"
           onClick={handlePrevDateClick}
         />
@@ -33,7 +33,7 @@ const Navigation = props => {
 
         <button
           className="calendar-nav__next-btn"
-          id="next-date"
+          data-qa="next-date"
           type="button"
           onClick={handleNextDateClick}
         />

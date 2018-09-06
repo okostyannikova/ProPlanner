@@ -100,7 +100,7 @@ export default class Button extends Component {
     const { loading, clickHandle } = this.props;
 
     return (
-      <StyledButton onClick={clickHandle} loading={loading}>
+      <StyledButton onClick={clickHandle} loading={loading} data-qa="login-btn">
         {loading ? <StyledSpan /> : 'SIGN UP USING GOOGLE+'}
       </StyledButton>
     );

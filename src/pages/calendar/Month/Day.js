@@ -22,11 +22,16 @@ const Day = ({ day, date, className, today, selectDay, selectedDay }) => {
         <Media query="(min-width: 769px)">
           {matches =>
             matches ? (
-              <a href className={getClassNames} onClick={handleClick}>
+              <a className={getClassNames} onClick={handleClick} data-qa={date}>
                 {dayBody()}
               </a>
             ) : (
-              <Link to="/calendar/day" className={getClassNames} onClick={handleClick}>
+              <Link
+                to="/calendar/day"
+                className={getClassNames}
+                onClick={handleClick}
+                data-qa={date}
+              >
                 {dayBody()}
               </Link>
             )
