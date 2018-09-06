@@ -5,6 +5,36 @@ body {
   margin: 0;
 }
 
+button {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: 100%;
+  margin: 0;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+}
+
+[type="search"] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+
 #root {
   height: 100vh;
   box-sizing: border-box;
@@ -23,6 +53,7 @@ a {
 img {
   max-width: 100%;
   height: auto;
+  border-style: none;
 }
 
 .page-content {
