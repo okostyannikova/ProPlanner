@@ -1,6 +1,15 @@
 import types from './types';
 
-const user = JSON.parse(localStorage.getItem('user'));
+let user = {};
+
+try {
+  user = JSON.parse(localStorage.getItem('user'));
+} catch (err) {
+  console.error('err', err);
+  localStorage.removeItem('user');
+  user = JSON.parse(localStorage.getItem('user'));
+}
+
 const initialState = user ? { loggedIn: true, user } : {};
 
 const authorizeReducer = (state = initialState, action) => {
@@ -8,14 +17,12 @@ const authorizeReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case types.AUTHORIZE_REQUEST:
-      console.log('request');
       return {
         ...state,
         loading: true,
       };
 
     case types.AUTHORIZE_RECEIVE:
-      console.log('auth');
       return {
         loggedIn: true,
         newUser,
