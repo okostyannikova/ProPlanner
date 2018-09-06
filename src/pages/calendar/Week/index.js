@@ -57,6 +57,7 @@ class Week extends Component {
           className={`calendar__events-container ${this.className(currentDay)}`}
           key={i}
           onClick={this.handleClick(currentDay.format('YYYY-MM-DD'))}
+          data-qa={currentDay.format('YYYY-MM-DD')}
         >
           {this.dividingLines()}
           {this.getEvents(currentDay.format('YYYY-MM-DD'))}

@@ -10,11 +10,16 @@ import './styles.css';
 
 const Topbar = ({ setButtonRef }) => (
   <nav className="topbar">
-    <button className="topbar__mobile-menu-btn" type="button" ref={setButtonRef}>
+    <button
+      className="topbar__mobile-menu-btn"
+      data-qa="mobile-menu-btn"
+      type="button"
+      ref={setButtonRef}
+    >
       <MobileMenuIcon />
     </button>
     <div className="topbar__logo">
-      <Link to="/">
+      <Link to="/" data-qa="logo-home-link">
         <Logo />
       </Link>
     </div>

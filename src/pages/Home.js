@@ -17,18 +17,18 @@ const Home = () => (
         ad minim veniam.
       </p>
       <div className="home__buttons-wrapper">
-        <Link to="/" className="home__button" id="set-goals">
+        <Link to="/" className="home__button" data-qa="set-goals-link">
           <GoalIcon />
           Goal Setter
         </Link>
-        <Link to="/calendar" className="home__button" id="calendar">
+        <Link to="/calendar" className="home__button" data-qa="calendar-link">
           <CalendarIcon />
           Calendar
         </Link>
       </div>
       <p className="home__text home__footer">
         Lorem ipsum dolor sit amet, sed do eiusmod
-        <a href="" className="home__footer-link" id="home__footer-link">
+        <a href="" className="home__footer-link">
           Lorem ipsum dolor
         </a>
       </p>

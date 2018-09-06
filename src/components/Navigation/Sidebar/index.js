@@ -30,7 +30,12 @@ export default class Sidebar extends Component {
           <ul className="sidebar__menu-list">
             {menuItems.map(item => (
               <li className="sidebar__menu-item" key={item.item}>
-                <NavLink exact={item.exact && true} to={item.to} activeStyle={activeColor}>
+                <NavLink
+                  exact={item.exact && true}
+                  to={item.to}
+                  activeStyle={activeColor}
+                  data-qa="sidebar-menu-item"
+                >
                   {item.icon}
                   {item.item}
                 </NavLink>

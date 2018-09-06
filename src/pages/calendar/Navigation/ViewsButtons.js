@@ -22,7 +22,7 @@ const ViewsButtons = () => (
         to="/calendar/week"
         activeStyle={activeStyle}
         className="calendar-nav__views-btn calendar-nav__views-btn--first"
-        id="week-btn"
+        data-qa="week-view-btn"
       >
         Week
       </NavLink>
@@ -32,7 +32,7 @@ const ViewsButtons = () => (
         to="/calendar/month"
         activeStyle={activeStyleCenter}
         className="calendar-nav__views-btn"
-        id="month-btn"
+        data-qa="month-view-btn"
       >
         Month
       </NavLink>
@@ -42,7 +42,7 @@ const ViewsButtons = () => (
         to="/calendar/day"
         activeStyle={activeStyle}
         className="calendar-nav__views-btn calendar-nav__views-btn--last"
-        id="day-btn"
+        data-qa="day-view-btn"
       >
         Day
       </NavLink>
