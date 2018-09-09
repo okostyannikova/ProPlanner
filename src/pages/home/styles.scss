@@ -1,5 +1,6 @@
 @import "../../styles/variables.scss";
 @import "../../styles/mixins.scss";
+
 .home {
   position: relative;
   padding-top: 42px;
@@ -43,9 +44,6 @@
 
 .home__bcg-moon {
   position: relative;
-  &::after {
-    
-  }
 }
 
 .home__bcg2 {
@@ -63,9 +61,9 @@
     right: 30px;
   }
   @include mq(xs-max, max) {
-   width: 80px;
-   top: 15px;
-   right: 10px;
+    width: 80px;
+    top: 15px;
+    right: 10px;
   }
 }
 
@@ -174,6 +172,27 @@
   &:hover {
     text-decoration: none;
   }
+}
+
+.stars-appear {
+  opacity: .03;
+  transform: translate3d(0, -10px, 0)
+}
+
+.stars-appear.stars-appear-active {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition: all 400ms ease-in;
+}
+.satellite-appear {
+  opacity: 0;
+  transform: translate3d(0, -20px, 0)
+}
+
+.satellite-appear.satellite-appear-active {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition: all 1000ms ease-in;
 }
 
 @media (min-height: 800px) and (orientation: portrait) {
