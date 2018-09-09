@@ -4,7 +4,7 @@ import TextComponent from '../TextComponent';
 
 class TaskListNewItem extends Component {
   render() {
-    const { openHandle, closeHandle, changeHandle, name, addHandle } = this.props;
+    const { openHandle, closeHandle, changeHandle, name, addHandle, referece } = this.props;
 
     return (
       <div onFocus={openHandle} onBlur={closeHandle} className="focus-container">
@@ -13,6 +13,7 @@ class TaskListNewItem extends Component {
           onChange={changeHandle}
           multiline
           autoFocus
+          inputRef={referece}
           value={name}
         />
         <div className="button-container">

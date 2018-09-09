@@ -4,8 +4,6 @@ import TextComponent from './TextComponent';
 import TaskList from './tasks/TaskList.js';
 import TaskListNewItem from './tasks/TaskListNewItem.js';
 
-// Добавить фокус после добавления задачи по ref
-
 export default class Tasks extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +13,8 @@ export default class Tasks extends Component {
       name: '',
       tasks: [],
     };
+
+    this.focusRef = React.createRef();
 
     this.openHandle = this.openHandle.bind(this);
     this.closeHandle = this.closeHandle.bind(this);
@@ -42,6 +42,8 @@ export default class Tasks extends Component {
       tasks: [...this.state.tasks, { name: this.state.name, checked: false }],
       name: '',
     });
+
+    this.focusRef.current.focus();
   }
 
   checkBoxHandle(index) {
@@ -73,6 +75,7 @@ export default class Tasks extends Component {
             changeHandle={this.changeHandle}
             addHandle={this.addHandle}
             name={name}
+            referece={this.focusRef}
           />
         ) : (
           <TextComponent placeholder="Add element..." value={name} onClick={this.openHandle} />
