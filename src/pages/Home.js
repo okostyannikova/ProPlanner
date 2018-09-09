@@ -1,9 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './home/styles.css';
+import moon from 'assets/images/moon.png';
+import monkey from 'assets/images/monkey.svg';
+import satellite from 'assets/images/satellite.svg';
+import star from 'assets/images/star.svg';
 import Logo from '../components/Logo';
 import CalendarIcon from '../components/Icons/CalendarIcon';
 import GoalIcon from '../components/Icons/GoalIcon';
+
+const stars = [
+  { top: 76, left: '5%', width: 25 }, 
+  { top: 50, left: '10%', width: 15 },
+  { top: 30, left: '95%', width: 10 },
+  { top: 80, left: '65%', width: 10 },
+  { top: 250, left: '75%', width: 15 },
+  { top: '85%', left: '5%', width: 25 },
+  { top: '87%', left: '9%', width: 20 },
+  { top: '95%', left: '3%', width: 10 },
+]
 
 const Home = () => (
   <div className="page-content home">
@@ -33,6 +48,22 @@ const Home = () => (
         </a>
       </p>
     </div>
+    <div className="home__bcg1">
+      <div className="home__bcg-monkey">
+        <img src={monkey} alt="monkey" />
+      </div>
+      <img src={moon} className="home__bcg-moon" alt="moon" />
+    </div>
+    <div className="home__bcg2">
+      <img src={satellite} className="home__bcg-satellite" alt="satellite" />
+    </div>
+    {stars.map(el => (
+    <img src={star} 
+    className="home__bcg3 home__bcg-star" 
+    style={{top: el.top, left: el.left, width: el.width,}}
+    alt="star" />
+    )
+    )} 
   </div>
 );
 

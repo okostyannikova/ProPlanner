@@ -59,13 +59,13 @@ img {
 .page-content {
   height: calc(100vh - 65px);
   box-sizing: border-box;
-  padding-left: 215px;
+  margin-left: 215px;
   position: relative;
 }
 
 @media (max-width: $screen-md-max) {
   .page-content {
-    padding-left: 0;
+    margin-left: 0;
     height: calc(100vh - 50px);
   }
 }
