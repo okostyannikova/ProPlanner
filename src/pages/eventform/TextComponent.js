@@ -9,19 +9,19 @@ class TextComponent extends Component {
   // }
 
   render() {
-    const { headerClass, headerContent, placeholder, multiline } = this.props;
+    const { headerClass = '', headerContent = '', placeholder = '', ...restProps } = this.props;
 
     return (
       <div>
-        <p className={headerClass || ''}>{headerContent || ''}</p>
+        <p className={headerClass}>{headerContent}</p>
         <div className="text-field">
           <FormControl fullWidth>
             <Input
-              multiline={multiline || false}
               rows="2"
               disableUnderline
-              placeholder={placeholder || ''}
+              placeholder={placeholder}
               className="input-field"
+              {...restProps}
             />
           </FormControl>
         </div>
