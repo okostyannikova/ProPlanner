@@ -6,16 +6,78 @@
   padding-top: 42px;
   color: rgba(52, 70, 98, 0.8);
   font-size: 18px;
-  background: url("../../assets/images/home-bcg.png") right no-repeat;
-  background-size: cover;
+  @include mq(sm-max, max) {
+    padding-top: 20px;
+  }
+}
+
+.home__bcg1 {
+  position: absolute;
+  z-index: -10;
+  bottom: 0;
+  right: 0;
+  width: 30%;
+}
+
+.home__bcg-monkey {
+  position: relative;
+  z-index: 10;
+  left: 40%;
+  margin-bottom: -22%;
+  width: 35%;
+  img {
+    width: 100%;
+  }
+  &::after {
+    position: absolute;
+    content: '';
+    width: 70%;
+    height: 15%;
+    bottom: -5px;
+    right: 15%;
+    z-index: -10;
+    border-radius: 80px / 30px;
+    box-shadow: inset -4px 4px 10px 100px rgba(0, 0, 0, 0.25), 0 -4px 10px 10px rgba(0, 0, 0, 0.25);
+    transform: rotate(-18deg);
+  }
+}
+
+.home__bcg-moon {
+  position: relative;
+}
+
+.home__bcg2 {
+  position: absolute;
+  z-index: -10;
+  top: 42px;
+  right: responsive-ratio(227, 1152);
+  width: responsive-ratio(146, 1152);
+  @include mq(lg-max, max) {
+    right: responsive-ratio(100, 1200);
+    width: 130px;
+  }
+  @include mq(sm-max, max) {
+    top: 20px;
+    right: 30px;
+  }
+  @include mq(xs-max, max) {
+    width: 80px;
+    top: 15px;
+    right: 10px;
+  }
+}
+
+.home__bcg3 {
+  position: absolute;
+  z-index: -10;
 }
 
 .home__wrapper {
   text-align: center;
   width: 70%;
   max-width: 550px;
-  height: 94%;
-  margin: 0 auto 0 25%;
+  min-height: 100%;
+  margin: 0 auto 0 22%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -43,8 +105,11 @@
   color: #344662;
   font-size: 96px;
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  @include mq(sm-max,max) {
+  @include mq(sm-max, max) {
     font-size: 72px;
+  }
+  @include mq(xs-max, max) {
+    margin-top: 20px;
   }
 }
 
@@ -58,8 +123,9 @@
   height: 120px;
   margin-top: 40px;
   @include mq(xs-max, max) {
-    width: 168px;
+    width: 47%;
     height: 84px;
+    margin-top: 20px;
   }
   color: #fff;
   font-size: 16px;
@@ -73,7 +139,6 @@
   outline: none;
   cursor: pointer;
   box-shadow: -4px 4px 4px rgba(0, 188, 212, 0.25);
-
   svg {
     margin-bottom: 16px;
   }
@@ -82,7 +147,6 @@
     fill: #fff;
     opacity: 100;
   }
-
   &:hover {
     background-color: $accent-color + 20%;
   }
@@ -93,6 +157,10 @@
 
 .home__footer {
   margin-top: auto;
+  padding-top: 10px;
+  @include mq(sm-max, max) {
+    font-size: 16px;
+  }
 }
 
 .home__footer-link {
@@ -100,7 +168,41 @@
   font-weight: bold;
   padding-left: 10px;
   text-decoration: underline;
+  white-space: nowrap;
   &:hover {
     text-decoration: none;
+  }
+}
+
+.stars-appear {
+  opacity: .03;
+  transform: translate3d(0, -10px, 0)
+}
+
+.stars-appear.stars-appear-active {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition: all 400ms ease-in;
+}
+.satellite-appear {
+  opacity: 0;
+  transform: translate3d(0, -20px, 0)
+}
+
+.satellite-appear.satellite-appear-active {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition: all 1000ms ease-in;
+}
+
+@media (min-height: 800px) and (orientation: portrait) {
+  .home__bcg1 {
+    width: 50%;
+  }
+}
+
+@media (max-height: 736px) and (orientation: portrait) {
+  .home__bcg1 {
+    width: 50%
   }
 }

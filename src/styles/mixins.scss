@@ -1,6 +1,6 @@
-@mixin responsive-ratio($x, $y) {
+@function responsive-ratio($x, $y) {
   $ratio: unquote(($x / $y) * 100 + "%");
-  width: $ratio;
+  @return $ratio;
 }
 
 $breakpoints: (

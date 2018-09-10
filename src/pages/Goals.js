@@ -9,7 +9,11 @@ export default class Goals extends Component {
       <div className="page-content">
         Goals:
         <ul>
-          {goalsList.map(id => <li key={id}><NavLink to={`/goals/${id}`}>Goal {id}</NavLink></li>)}
+          {goalsList.map(id => (
+            <li key={id}>
+              <NavLink to={`/goals/${id}`}>Goal {id}</NavLink>
+            </li>
+          ))}
         </ul>
       </div>
     );
