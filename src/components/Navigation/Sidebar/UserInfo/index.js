@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './styles.css';
 
-const progress = 0;
+const progress = 61;
 
 class UserInfo extends Component {
   displayProgress = userProgress => {

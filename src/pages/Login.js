@@ -89,9 +89,7 @@ class Login extends React.Component {
   };
 
   componentWillMount() {
-    const { logout, init, authorization } = this.props;
-
-    logout();
+    const { init, authorization } = this.props;
 
     init();
 
@@ -157,7 +155,6 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   authorize: bindActionCreators(authorizeOperations.authorize, dispatch),
   init: bindActionCreators(authorizeOperations.initialize, dispatch),
-  logout: bindActionCreators(authorizeOperations.logingOut, dispatch),
 });
 
 export default connect(

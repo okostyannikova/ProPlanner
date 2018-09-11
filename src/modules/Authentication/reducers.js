@@ -25,7 +25,7 @@ const authorizeReducer = (state = initialState, action) => {
     case types.AUTHORIZE_RECEIVE:
       return {
         loggedIn: true,
-        newUser,
+        user: newUser,
         loading: false,
       };
 
