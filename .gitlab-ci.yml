@@ -1,14 +1,11 @@
-image: node:8.11.3
+stages:
+  - deploy
 
-pages:
-  stage: deploy
-  script:
-  - npm install
-  - npm run build
-  - rm -rf public
-  - mv build public
-  artifacts:
-    paths:
-    - public
-  only:
-  - develop
+deploy_develop:
+   stage: deploy
+   before_script:
+     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+   script:
+     - echo 'yeah'
+   only:
+     - develop
