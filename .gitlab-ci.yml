@@ -1,7 +1,7 @@
-test:
-script:
+deploy:
+  script:
     - cd ~/proplanner-dist
-    - echo "------------------------  Pull last changes  ------------------------";
+    - printf "$\e[34m%b%s\n\e[0m" "Get";
     - git pull origin develop
   only:
     - develop
