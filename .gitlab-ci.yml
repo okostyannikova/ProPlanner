@@ -1,4 +1,4 @@
 test:
-  script: echo Hello World
+  script: ssh -v fmuser@frontend.proplanner.formula1.cloud.provectus-it.com -p6337
   only:
     - develop
