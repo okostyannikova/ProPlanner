@@ -1,7 +1,7 @@
 test:
 script:
     - cd ~/proplanner-dist
-    - printf "$\e[34m%b%s\n\e[0m" "Pull last changes";
+    - echo "------------------------  Pull last changes  ------------------------";
     - git pull origin develop
   only:
     - develop
