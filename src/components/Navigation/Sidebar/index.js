@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { authorizeOperations } from 'modules/Authentication/index';
 import './styles.css';
 import HomeIcon from '../../Icons/HomeIcon';
 import CalendarIcon from '../../Icons/CalendarIcon';
 import GoalIcon from '../../Icons/GoalIcon';
+import EventIcon from '../../Icons/EventIcon';
 import SettingsIcon from '../../Icons/SettingsIcon';
+import LogoutIcon from '../../Icons/LogoutIcon';
 import UserInfo from './UserInfo';
 
 const activeColor = {
@@ -16,10 +20,17 @@ const menuItems = [
   { item: 'Home', to: '/', icon: <HomeIcon />, exact: true },
   { item: 'Calendar', to: '/calendar', icon: <CalendarIcon /> },
   { item: 'Goals list', to: '/goals', icon: <GoalIcon /> },
+  { item: 'Events list', to: '/events', icon: <EventIcon /> },
   { item: 'Settings', to: '/settings', icon: <SettingsIcon /> },
 ];
 
-export default class Sidebar extends Component {
+class Sidebar extends Component {
+  logout = () => {
+    const { logout, history } = this.props;
+    logout();
+    history.push('/login');
+  };
+
   render() {
     return (
       <div className="sidebar">
@@ -43,7 +54,18 @@ export default class Sidebar extends Component {
             ))}
           </ul>
         </nav>
+        <button className="logout-btn" onClick={this.logout} data-qa="logout-btn" type="button">
+          <LogoutIcon />
+          Log Out
+        </button>
       </div>
     );
   }
 }
+
+export default connect(
+  null,
+  { logout: authorizeOperations.logingOut },
+  null,
+  { pure: false }
+)(withRouter(Sidebar));

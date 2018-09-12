@@ -1,7 +1,7 @@
 // global reducers
 
 import { combineReducers } from 'redux';
-import authorizeReducer from 'modules/Authentication/index.js';
+import authorizeReducer from './Authentication/index.js';
 import calendarReducer from './Calendar';
 import eventsReducer from './Events/reducers';
 
