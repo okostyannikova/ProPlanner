@@ -1,11 +1,4 @@
-stages:
-  - deploy
-
-deploy_develop:
-   stage: deploy
-   before_script:
-     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-   script:
-     - echo 'yeah'
-   only:
-     - develop
+test:
+  script: echo Hello World
+  only:
+    - develop
