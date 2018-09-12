@@ -11,7 +11,6 @@ import Events from './pages/Events';
 import Event from './pages/Event';
 import Settings from './pages/Settings';
 import Navigation from './components/Navigation';
-import Test from './pages/Test';
 import EventForm from './pages/EventForm';
 
 const LoginContainer = () => <Route path="/login" component={Login} />;
@@ -38,8 +37,6 @@ export default class App extends Component {
           <Route exact path="/login" component={LoginContainer} />
           <PrivateRoute component={DefaultContainer} />
         </Switch>
-        {/* Тестовый роут */}
-        <Route exact path="/test" component={Test} />
       </div>
     );
   }

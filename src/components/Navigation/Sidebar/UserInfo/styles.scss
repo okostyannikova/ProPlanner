@@ -36,11 +36,14 @@ $circle-radius: 36px;
   transform: translate($circle-radius+2, $circle-radius+2) rotate(-90deg) translate(-($circle-radius+2), -($circle-radius+2));
 }
 
-.user-info__progress-nummber {
+.user-info__progress-number {
   font-size: 9px;
   font-weight: 700;
+  text-align: center;
   color: #ffffff;
   display: inline-block;
+  width: 14px;
+  height: 14px;
   padding: 1.7px;
   position: absolute;
   left: 31px;
@@ -48,6 +51,7 @@ $circle-radius: 36px;
   z-index: 20;
   background-color: #00BCD4;
   border-radius: 100%;
+  box-sizing: border-box;
 }
 
 .user-info__name {

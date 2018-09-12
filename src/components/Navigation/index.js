@@ -13,6 +13,10 @@ export default class Navigation extends Component {
     document.addEventListener('click', this.handleClickOutside);
   }
 
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleClickOutside);
+  }
+
   setWrapperRef = node => {
     this.wrapperRef = node;
   };

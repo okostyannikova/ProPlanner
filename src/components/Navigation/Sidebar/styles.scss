@@ -1,8 +1,28 @@
+@import '../../../styles/mixins.scss';
+%menu-items {
+  display: inline-block;
+  width: 100%;
+  color: inherit;
+  box-sizing: border-box;
+  padding: 9px 0 7px 26px;
+  cursor: pointer;
+  &>* {
+    vertical-align: middle;
+  }
+  &:hover {
+    color: #00BCD4;
+    background-color: rgba(0, 188, 212, 0.15);
+  }
+}
+
 .sidebar {
   position: fixed;
   font-weight: 500;
   width: 214px;
-  height: 100vh;
+  min-height: calc(100% - 65px);
+  @include mq(md-max, max) {
+    min-height: calc(100% - 50px);
+  }
   z-index: 100;
   box-sizing: border-box;
   padding-top: 28px;
@@ -19,21 +39,11 @@
   margin-top: 15px;
 }
 
-.sidebar__menu-item {
+.sidebar__menu-item,
+.logout-btn {
   font-size: 14px;
   a {
-    display: inline-block;
-    width: 100%;
-    color: inherit;
-    box-sizing: border-box;
-    padding: 9px 0 7px 26px;
-    &>* {
-      vertical-align: middle;
-    }
-    &:hover {
-      color: #00BCD4;
-      background-color: rgba(0, 188, 212, 0.15);
-    }
+    @extend %menu-items;
   }
   svg {
     margin-right: 33px;
@@ -41,5 +51,15 @@
   path,
   rect {
     fill: #00BCD4;
+  }
+}
+
+.logout-btn {
+  position: absolute;
+  bottom: 15px;
+  text-align: left;
+   @extend %menu-items;
+  svg {
+    transform: scale(-1, 1);
   }
 }

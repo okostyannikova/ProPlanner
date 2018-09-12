@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './home/styles.css';
-import moon from 'assets/images/moon.png';
-import monkey from 'assets/images/monkey.svg';
-import satellite from 'assets/images/satellite.svg';
-import starImg from 'assets/images/star.svg';
+import moon from 'assets/images/home/moon.png';
+import monkey from 'assets/images/home/monkey.svg';
+import satellite from 'assets/images/home/satellite.svg';
+import starImg from 'assets/images/home/star.svg';
 import { CSSTransition } from 'react-transition-group';
 import Logo from '../components/Logo';
 import CalendarIcon from '../components/Icons/CalendarIcon';
