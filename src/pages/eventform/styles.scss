@@ -6,6 +6,8 @@
 
 
 
+
+
 .main-container{
 	// position: relative;
 	padding: 0 30px 30px 115px;
@@ -79,11 +81,53 @@
 .drops-container {
   width: 27%;
   position: absolute;
-  top: 365px;
+  top: 250px;
   right: 0;
   width: 27%;
-  // height: 100vh;
+  height: 50vh;
 }
+
+	.drops-list{
+		list-style: none;
+	}
+
+		.list-item{
+			cursor: pointer;
+			padding: 14px 24px;
+			background: rgba(196, 196, 196, 0.08);
+			width: 258px;
+			margin-bottom: 24px;
+			vertical-align: middle;
+
+			&:hover{
+				background-color: #ebebeb;
+			}
+		}
+
+		.list-item-main-text{
+			font-family: Roboto;
+			font-style: normal;
+			font-weight: 500;
+			line-height: 24px;
+			font-size: 18px;
+			color: rgba(51, 102, 180, 0.87);
+
+			margin-left: 14px;
+		}
+
+		.list-item-secondary-item{
+			font-family: Roboto;
+			font-style: normal;
+			line-height: 24px;
+			font-size: 15px;
+			color: rgba(0, 0, 0, 0.54);
+		}
+
+		.list-item-secondary-text{
+			margin-left: 20px;
+		}
+
+
 
 .dropzone{
 	margin-left: 215px;
@@ -241,3 +285,4 @@
 		text-decoration: line-through;
 		color: #8c8c8c;
 	}
+

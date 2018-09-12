@@ -15,24 +15,26 @@ class LinearProgres extends React.Component {
   render() {
     const { classes, completed } = this.props;
     return (
-      <div className="linear-progres-container">
-        <span>
-          <LinearProgress
-            variant="determinate"
-            value={completed}
-            style={{
-              borderRadius: '50px',
-              height: '8px',
-              width: '90%',
-            }}
-            classes={{
-              colorPrimary: classes.colorPrimary,
-              barColorPrimary: classes.barColorPrimary,
-            }}
-          />
-        </span>
-        <span className="progress-percent">{`${parseInt(completed, 10)}%`}</span>
-      </div>
+      <span className="linear-progres">
+        <div className="linear-progres-container">
+          <span>
+            <LinearProgress
+              variant="determinate"
+              value={completed}
+              style={{
+                borderRadius: '50px',
+                height: '8px',
+                width: '90%',
+              }}
+              classes={{
+                colorPrimary: classes.colorPrimary,
+                barColorPrimary: classes.barColorPrimary,
+              }}
+            />
+          </span>
+          <span className="progress-percent">{`${parseInt(completed, 10)}%`}</span>
+        </div>
+      </span>
     );
   }
 }
