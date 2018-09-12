@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import './login/styles.css';
-import logo from 'assets/images/Logo.svg';
+import logo from 'assets/images/logo.svg';
 import { bindActionCreators } from 'redux';
 import { authorizeOperations } from 'modules/Authentication/index.js';
 import { connect } from 'react-redux';

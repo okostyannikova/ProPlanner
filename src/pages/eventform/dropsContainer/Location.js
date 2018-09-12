@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LocationIcon from 'assets/images/SvgJs/LocationIcon.js';
+import LocationIcon from 'assets/images/location-icon.svg';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 class Location extends Component {
@@ -23,7 +23,7 @@ class Location extends Component {
     return (
       <div className="list-item">
         <div>
-          <LocationIcon />
+          <img src={LocationIcon} alt="LocationIcon" />
           <span className="list-item-main-text">
             <PlacesAutocomplete
               value={this.state.address}

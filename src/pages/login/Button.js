@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import googleLogo from 'assets/images/IconGoogle.svg';
+import googleLogo from 'assets/images/icon-google.svg';
 import './styles.css';
 
 const StyledButton = styled.button`

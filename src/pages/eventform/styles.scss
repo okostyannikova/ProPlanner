@@ -34,28 +34,28 @@
 
 		.title-component::before{
 			@extend %input-icon;
-			content: url('../../assets/images/TitleIcon.svg');
+			content: url('../../assets/images/title-icon.svg');
 			width: 24px;
 			height: 21.6px;
 		}
 
 		.time-component::before{
 			@extend %input-icon;
-			content: url('../../assets/images/TimeIcon.svg');
+			content: url('../../assets/images/time-icon.svg');
 			width: 24px;
 			height: 24px;
 		}
 
 		.description-component::before{
 			@extend %input-icon;
-			content: url('../../assets/images/DescriptionIcon.svg');
+			content: url('../../assets/images/description-icon.svg');
 			width: 24px;
 			height: 24px;
 		}
 
 		.tasks-component::before{
 			@extend %input-icon;
-			content: url('../../assets/images/TasksIcon.svg');
+			content: url('../../assets/images/tasks-icon.svg');
 			width: 20px;
 			height: 20px;
 		}

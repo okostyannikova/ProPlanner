@@ -5,11 +5,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
-import IncreaseIcon from 'assets/images/SvgJs/IncreaseIcon.js';
-import RedArrowUp from 'assets/images/SvgJs/RedArrowUp.js';
-import YellowArrowUp from 'assets/images/SvgJs/YellowArrowUp.js';
-import GreenArrowUp from 'assets/images/SvgJs/GreenArrowUp.js';
-import BlueArrowDown from 'assets/images/SvgJs/BlueArrowDown.js';
+import IncreaseIcon from 'assets/images/increase-icon.svg';
+import PriorityArrow from 'components/Icons/PriorityArrow.js';
 
 const styles = theme => ({
   root: {
@@ -22,19 +19,19 @@ const styles = theme => ({
 const options = [
   {
     tag: 'Important',
-    icon: <RedArrowUp />,
+    icon: <PriorityArrow fill="#F68181" />,
   },
   {
     tag: 'High',
-    icon: <YellowArrowUp />,
+    icon: <PriorityArrow fill="#f8da7c" />,
   },
   {
     tag: 'Normal',
-    icon: <GreenArrowUp />,
+    icon: <PriorityArrow fill="#64C37D" />,
   },
   {
     tag: 'Low',
-    icon: <BlueArrowDown />,
+    icon: <PriorityArrow fill="#00BCD4" direction="180" />,
   },
 ];
 
@@ -66,7 +63,7 @@ class Priority extends Component {
       <div className={classes.root}>
         <div onClick={this.handleClickListItem} className="list-item">
           <div>
-            <IncreaseIcon />
+            <img src={IncreaseIcon} alt="IncreaseIcon" />
             <span className="list-item-main-text">Priority</span>
           </div>
           <div className="list-item-secondary-item">
