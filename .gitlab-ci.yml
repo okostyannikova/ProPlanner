@@ -1,6 +1,5 @@
 deploy:
   script:
-    - nvm use 9.1.0
     - printf "$\e[34m%b%s\n\e[0m" "------------------------  Pull last changes  ------------------------";
     - git pull origin develop
     - printf "$\e[34m%b%s\n\e[0m" "------------------------  Install packages  ------------------------";
