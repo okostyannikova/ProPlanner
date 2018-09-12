@@ -1,6 +1,5 @@
 deploy:
   script:
-    - cd ~/proplanner-dist
     - printf "$\e[34m%b%s\n\e[0m" "Get";
     - git pull origin develop
   only:
