@@ -1,4 +1,4 @@
 test:
-  script: ls -la
+  script: ./deployScript.sh
   only:
     - develop
