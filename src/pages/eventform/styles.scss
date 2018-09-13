@@ -101,6 +101,11 @@
 		list-style: none;
 	}
 
+		.drops-list-button{
+			position: absolute;
+			bottom: 0;
+		}
+
 		.list-item{
 			cursor: pointer;
 			padding: 14px 24px;
