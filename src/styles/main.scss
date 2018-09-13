@@ -12,6 +12,7 @@ button {
   font-family: inherit;
   font-size: 100%;
   margin: 0;
+  cursor: pointer;
 }
 
 button,
@@ -36,7 +37,7 @@ button,
 }
 
 #root {
-  height: 100vh;
+  min-height: 100vh;
   box-sizing: border-box;
 }
 
@@ -57,7 +58,7 @@ img {
 }
 
 .page-content {
-  height: calc(100vh - 65px);
+  min-height: calc(100vh - 65px);
   box-sizing: border-box;
   margin-left: 215px;
   position: relative;
@@ -66,6 +67,6 @@ img {
 @media (max-width: $screen-md-max) {
   .page-content {
     margin-left: 0;
-    height: calc(100vh - 50px);
+    min-height: calc(100vh - 50px);
   }
 }

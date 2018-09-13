@@ -7,3 +7,10 @@ export const colorTypes = {
   other: '#A9EFEA',
   google: '#EA4335',
 };
+
+export const priorityOptions = {
+  important: { color: '#F68181' },
+  hight: { color: '#fCDE75' },
+  normal: { color: '#64C37D' },
+  low: { color: '#00BCD4', direction: 90 },
+};
