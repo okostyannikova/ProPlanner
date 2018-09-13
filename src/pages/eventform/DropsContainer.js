@@ -13,20 +13,22 @@ class DropsContainer extends Component {
   }
 
   render() {
+    const { view } = this.props;
+
     return (
       <div>
         <ul className="drops-list">
           <li>
-            <Priority />
+            <Priority view={view} />
           </li>
           <li>
-            <Notification />
+            <Notification view={view} />
           </li>
           <li>
-            <Location />
+            <Location view={view} />
           </li>
           <li>
-            <Type />
+            <Type view={view} />
           </li>
         </ul>
       </div>

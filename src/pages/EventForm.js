@@ -8,6 +8,9 @@ import DropsContainer from './eventform/DropsContainer.js';
 
 export default class EventForm extends Component {
   render() {
+    const path = this.props.match.path;
+    const view = !(path.includes('edit') || path.includes('add'));
+
     return (
       <div>
         <ImageDropzone />
@@ -18,6 +21,7 @@ export default class EventForm extends Component {
                 headerClass="title-component"
                 headerContent="Title"
                 placeholder="Add a title..."
+                view={view}
               />
             </li>
             <li>
@@ -28,16 +32,17 @@ export default class EventForm extends Component {
                 headerClass="description-component"
                 headerContent="Description"
                 placeholder="add a detailed description..."
+                view={view}
                 multiline
               />
             </li>
             <li>
-              <Tasks />
+              <Tasks view={view} />
             </li>
           </ul>
         </div>
         <div className="drops-container">
-          <DropsContainer />
+          <DropsContainer view={view} />
         </div>
       </div>
     );
