@@ -5,6 +5,7 @@ import RenderEventsContainer from '../render-events';
 import { prevDay, nextDay } from '../../../modules/Calendar';
 import './styles.css';
 import Navigation from '../Navigation';
+import AddNewUnitBtn from 'components/AddNewUnitBtn';
 
 class Day extends Component {
   componentDidMount = () => {
@@ -45,7 +46,7 @@ class Day extends Component {
             handlePrevDateClick={prevDay}
             handleNextDateClick={nextDay}
           />
-          <div className="add-event-btn" data-qa="add-event-btn" />
+          <AddNewUnitBtn />
         </header>
         <main className="calendar-day__main">
           <div className="calendar-day__summary" />

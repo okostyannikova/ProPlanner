@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { loadEvents } from 'modules/Events/actions';
+import AddNewUnitBtn from 'components/AddNewUnitBtn';
 import EventCart from './events/EventCart';
 
 class Events extends Component {
@@ -14,7 +15,10 @@ class Events extends Component {
     const { events } = this.props;
     return (
       <PageContainer className="page-content events-list">
-        Events:
+        <Header>
+          <Title>The Events</Title>
+          <AddNewUnitBtn />
+        </Header>
         <EventsList>
           {events
             ? events.map(event => {
@@ -59,6 +63,17 @@ const PageContainer = styled.div`
   @media (max-width: 992px) {
     padding: 34px 20px 10px 20px;
   }
+`;
+
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgba(51, 102, 180, 0.87);
+`;
+const Title = styled.span`
+  font-size: 20px;
+  font-weight: 700;
 `;
 
 const EventsList = styled.ul`

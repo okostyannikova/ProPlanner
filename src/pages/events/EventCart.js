@@ -59,8 +59,7 @@ const StyledCart = styled.li`
   position: relative;
   flex-basis: 23%;
   min-height: 220px;
-  margin-top: 52px;
-  margin-right: 2%;
+  margin: 39px 2% 12px 0;
   padding: 24px 16px 20px;
   list-style: none;
   color: #3366b4;
