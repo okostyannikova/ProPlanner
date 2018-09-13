@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import CloseIcon from 'assets/images/SvgJs/CloseIcon.js';
-import ImageIcon from 'assets/images/SvgJs/ImageIcon.js';
+import CloseIcon from 'components/Icons/CloseIcon.js';
+import ImageIcon from 'components/Icons/ImageIcon.js';
 import Dropzone from 'react-dropzone';
 
 export default class ImageDropzone extends Component {

@@ -4,6 +4,7 @@ import ImageDropzone from './eventform/ImageDropzone';
 import TextComponent from './eventform/TextComponent';
 import Time from './eventform/Time';
 import Tasks from './eventform/Tasks';
+import DropsContainer from './eventform/DropsContainer.js';
 
 export default class EventForm extends Component {
   render() {
@@ -35,7 +36,9 @@ export default class EventForm extends Component {
             </li>
           </ul>
         </div>
-        <div className="drops-container">drops-container</div>
+        <div className="drops-container">
+          <DropsContainer />
+        </div>
       </div>
     );
   }

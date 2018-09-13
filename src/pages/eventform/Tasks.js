@@ -59,13 +59,12 @@ export default class Tasks extends Component {
     const { tasks, isOpen, name } = this.state;
 
     const completed = (tasks.filter(task => task.checked).length * 100) / tasks.length;
+    const completeness = isNaN(completed) ? 0 : completed;
 
     return (
       <div>
         <p className="tasks-component">Tasks</p>
-        <span className="linear-progres">
-          <LinearProgres completed={isNaN(completed) ? 0 : completed} />
-        </span>
+        <LinearProgres completed={completeness} />
         <TaskList tasks={tasks} checkBoxHandle={this.checkBoxHandle} />
 
         {isOpen ? (
