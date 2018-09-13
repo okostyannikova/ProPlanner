@@ -6,6 +6,7 @@
   padding-top: 42px;
   color: rgba(52, 70, 98, 0.8);
   font-size: 18px;
+  height: 1px;
   @include mq(sm-max, max) {
     padding-top: 20px;
   }

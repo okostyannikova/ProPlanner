@@ -1,50 +1,50 @@
 import React from 'react';
 import styled from 'styled-components';
+import { priorityOptions } from 'config';
 import MoreIcon from 'components/Icons/MoreIcon';
 import PriorityArrow from 'components/Icons/PriorityArrow';
-import { priorityOptions } from 'config';
 import tasksSummaryIcon from 'assets/images/events/summary-tasks-icon.svg';
-
-const description =
-  'Lorem ipsum dolor sit amet, sed do eiusmod ipsum dolor sit amet, sed do eiusmod ipsum do, Lorem ipsum dolor sit amet';
 
 const cutDescription = description =>
   description.length > 50 ? `${description.slice(0, 51)}...` : description;
 
-const EventCart = () => (
+const EventCart = ({ title, startDate, endDate, description, priority }) => (
   <StyledCart>
     <TypeLabel>Personal</TypeLabel>
     <div>
       <Header>
-        <Title>Apply for courses</Title>
+        <Title>{title}</Title>
         <Button>
           <MoreIcon />
         </Button>
       </Header>
       <TimeWrapper>
         <TimeItem>
-          <Day>12</Day>
+          <Day>{startDate.format('DD')}</Day>
           <Date>
-            September
+            {startDate.format('MMMM')}
             <br />
-            13:00
+            {startDate.format('HH:mm')}
           </Date>
         </TimeItem>
         <Separator />
         <TimeItem>
-          <Day>12</Day>
+          <Day>{endDate.format('DD')}</Day>
           <Date>
-            September
+            {endDate.format('MMMM')}
             <br />
-            13:00
+            {endDate.format('HH:mm')}
           </Date>
         </TimeItem>
       </TimeWrapper>
       <Description>{cutDescription(description)}</Description>
       <Footer>
         <Priority>
-          <PriorityArrow fill="#F68181" />
-          Important
+          <PriorityArrow
+            fill={priorityOptions[priority].color}
+            direction={priorityOptions[priority].direction}
+          />
+          {priority[0].toUpperCase() + priority.slice(1)}
         </Priority>
         <TasksSummary>
           3/6 <img src={tasksSummaryIcon} alt="task summary" />
@@ -67,6 +67,12 @@ const StyledCart = styled.li`
   font-weight: 400;
   font-size: 16px;
   background-color: #fff;
+  transform: scale(1, 1);
+  transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.02, 1.02);
+  }
   box-sizing: border-box;
   border-radius: 2px;
   box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.12), -4px -4px 8px rgba(0, 0, 0, 0.12);
@@ -76,7 +82,7 @@ const StyledCart = styled.li`
   @media (max-width: 737px) {
     flex-basis: 48%;
   }
-  @media (max-width: 512px) {
+  @media (max-width: 500px) {
     flex-basis: 100%;
     margin: 30px 0 0 0;
   }
@@ -99,6 +105,7 @@ const TypeLabel = styled.span`
 
 const Header = styled.header`
   display: flex;
+  position: relative;
   justify-content: space-between;
 `;
 
@@ -108,7 +115,18 @@ const Title = styled.h1`
   margin: 0;
 `;
 const Button = styled.button`
-  align-self: baseline;
+  position: absolute;
+  right: -7px;
+  top: -10px;
+  width: 38px;
+  height: 38px;
+  padding: 7px;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 50%;
+  box-sizing: border-box;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+  }
 `;
 
 const TimeWrapper = styled.div`
