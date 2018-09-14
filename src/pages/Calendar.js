@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './calendar/styles.css';
 import Month from './calendar/Month';
@@ -16,7 +16,9 @@ class Calendar extends Component {
 
   render() {
     const { match } = this.props;
-    return (
+    return match.isExact ? (
+      <Redirect to={`${match.path}/month`} />
+    ) : (
       <div className="page-content calendar">
         <Route path={`${match.path}/month`} component={Month} />
         <Route path={`${match.path}/week`} component={Week} />
