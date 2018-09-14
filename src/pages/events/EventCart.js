@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { priorityOptions } from 'config';
 import { Link } from 'react-router-dom';
 import TypeLabel from 'components/TypeLabel';
-import MoreIcon from 'components/Icons/MoreIcon';
+import EditCartMenu from 'components/EditCartMenu';
 import PriorityArrow from 'components/Icons/PriorityArrow';
 import tasksSummaryIcon from 'assets/images/events/summary-tasks-icon.svg';
 
@@ -11,62 +11,55 @@ const cutDescription = description =>
   description.length > 50 ? `${description.slice(0, 51)}...` : description;
 
 const EventCart = ({ id, title, startDate, endDate, description, priority }) => (
-  <StyledCart to={`/event/${id}`}>
-    <TypeLabel color="#FFE07F">Personal</TypeLabel>
-    <div>
-      <Header>
+  <CartWrapper>
+    <EditCartMenu color="#8eaad4" />
+    <Cart to={`/event/${id}`}>
+      <TypeLabel color="#FFE07F">Personal</TypeLabel>
+      <div>
         <Title>{title}</Title>
-        <Button>
-          <MoreIcon />
-        </Button>
-      </Header>
-      <TimeWrapper>
-        <TimeItem>
-          <Day>{startDate.format('DD')}</Day>
-          <Date>
-            {startDate.format('MMMM')}
-            <br />
-            {startDate.format('HH:mm')}
-          </Date>
-        </TimeItem>
-        <Separator />
-        <TimeItem>
-          <Day>{endDate.format('DD')}</Day>
-          <Date>
-            {endDate.format('MMMM')}
-            <br />
-            {endDate.format('HH:mm')}
-          </Date>
-        </TimeItem>
-      </TimeWrapper>
-      <Description>{cutDescription(description)}</Description>
-      <Footer>
-        <Priority>
-          <PriorityArrow
-            fill={priorityOptions[priority].color}
-            direction={priorityOptions[priority].direction}
-          />
-          {priority}
-        </Priority>
-        <TasksSummary>
-          3/6 <img src={tasksSummaryIcon} alt="task summary" />
-        </TasksSummary>
-      </Footer>
-    </div>
-  </StyledCart>
+        <TimeWrapper>
+          <TimeItem>
+            <Day>{startDate.format('DD')}</Day>
+            <Date>
+              {startDate.format('MMMM')}
+              <br />
+              {startDate.format('HH:mm')}
+            </Date>
+          </TimeItem>
+          <Separator />
+          <TimeItem>
+            <Day>{endDate.format('DD')}</Day>
+            <Date>
+              {endDate.format('MMMM')}
+              <br />
+              {endDate.format('HH:mm')}
+            </Date>
+          </TimeItem>
+        </TimeWrapper>
+        <Description>{cutDescription(description)}</Description>
+        <Footer>
+          <Priority>
+            <PriorityArrow
+              fill={priorityOptions[priority].color}
+              direction={priorityOptions[priority].direction}
+            />
+            {priority}
+          </Priority>
+          <TasksSummary>
+            3/6 <img src={tasksSummaryIcon} alt="task summary" />
+          </TasksSummary>
+        </Footer>
+      </div>
+    </Cart>
+  </CartWrapper>
 );
 export default EventCart;
 
-const StyledCart = styled(Link)`
+const CartWrapper = styled.div`
   position: relative;
   flex-basis: 23%;
   min-height: 220px;
   margin: 39px 2% 12px 0;
-  padding: 24px 16px 20px;
-  list-style: none;
-  color: #3366b4;
-  font-weight: 400;
-  font-size: 16px;
   background-color: #fff;
   transform: scale(1, 1);
   transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
@@ -91,11 +84,12 @@ const StyledCart = styled(Link)`
     flex-basis: 249px;
   }
 `;
-
-const Header = styled.header`
-  display: flex;
-  position: relative;
-  justify-content: space-between;
+const Cart = styled(Link)`
+  display: block;
+  color: #3366b4;
+  font-weight: 400;
+  font-size: 16px;
+  padding: 24px 16px 20px;
 `;
 
 const Title = styled.h1`
@@ -103,26 +97,12 @@ const Title = styled.h1`
   font-weight: 400;
   margin: 0;
 `;
-const Button = styled.button`
-  position: absolute;
-  right: -7px;
-  top: -10px;
-  width: 38px;
-  height: 38px;
-  padding: 7px;
-  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  border-radius: 50%;
-  box-sizing: border-box;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.08);
-  }
-`;
 
 const TimeWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 5px;
+  margin-top: 10px;
   padding: 8px 0;
   color: rgba(51, 102, 180, 0.5);
   border: 1px solid rgba(52, 70, 98, 0.3);
