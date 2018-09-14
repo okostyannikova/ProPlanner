@@ -20,8 +20,11 @@ class Location extends Component {
   };
 
   render() {
+    const { view } = this.props;
+    const viewMode = view ? 'list-item-view' : 'list-item';
+
     return (
-      <div className="list-item">
+      <div className={viewMode}>
         <div>
           <img src={LocationIcon} alt="LocationIcon" />
           <span className="list-item-main-text">
@@ -38,7 +41,7 @@ class Location extends Component {
                       cursor: 'pointer',
                       fontSize: '18px',
                       color: '#4d79bd',
-                      backgroundColor: '#fafafa',
+                      backgroundColor: '#fff',
                     }}
                     {...getInputProps({
                       placeholder: 'Location',

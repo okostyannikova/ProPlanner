@@ -25,6 +25,7 @@ const DefaultContainer = () => (
       <Route exact path="/events" component={Events} />
       <Route exact path="/event/add" component={EventForm} />
       <Route exact path="/event/:id" component={EventForm} />
+      <Route exact path="/event/:id/edit" component={EventForm} />
       <Route path="/settings" component={Settings} />
     </Switch>
   </div>

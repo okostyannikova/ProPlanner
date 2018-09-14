@@ -43,7 +43,10 @@ class Priority extends Component {
     selectedIndex: 1,
   };
 
-  handleClickListItem = event => {
+  handleClickListItem = (event, view) => {
+    if (view) {
+      return;
+    }
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -56,12 +59,14 @@ class Priority extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, view } = this.props;
     const { anchorEl, selectedIndex } = this.state;
+
+    const viewMode = view ? 'list-item-view' : 'list-item';
 
     return (
       <div className={classes.root}>
-        <div onClick={this.handleClickListItem} className="list-item">
+        <div onClick={event => this.handleClickListItem(event, view)} className={viewMode}>
           <div>
             <img src={IncreaseIcon} alt="IncreaseIcon" />
             <span className="list-item-main-text">Priority</span>

@@ -57,6 +57,7 @@ export default class Tasks extends Component {
 
   render() {
     const { tasks, isOpen, name } = this.state;
+    const { view } = this.props;
 
     const completed = (tasks.filter(task => task.checked).length * 100) / tasks.length;
     const completeness = isNaN(completed) ? 0 : completed;
@@ -67,18 +68,20 @@ export default class Tasks extends Component {
         <LinearProgres completed={completeness} />
         <TaskList tasks={tasks} checkBoxHandle={this.checkBoxHandle} />
 
-        {isOpen ? (
-          <TaskListNewItem
-            openHandle={this.openHandle}
-            closeHandle={this.closeHandle}
-            changeHandle={this.changeHandle}
-            addHandle={this.addHandle}
-            name={name}
-            referece={this.focusRef}
-          />
-        ) : (
-          <TextComponent placeholder="Add element..." value={name} onClick={this.openHandle} />
-        )}
+        <div hidden={view}>
+          {isOpen ? (
+            <TaskListNewItem
+              openHandle={this.openHandle}
+              closeHandle={this.closeHandle}
+              changeHandle={this.changeHandle}
+              addHandle={this.addHandle}
+              name={name}
+              referece={this.focusRef}
+            />
+          ) : (
+            <TextComponent placeholder="Add element..." value={name} onClick={this.openHandle} />
+          )}
+        </div>
       </div>
     );
   }

@@ -74,6 +74,16 @@
 		}
 	}
 
+	.component-list .text-field-view{
+		margin-top: 0;
+		background-color: #fff;
+		border-radius: 2px;
+		padding-left: 20px;
+		border-bottom: 2px solid #fff;
+		transition: all .3s;
+
+	}
+
 	.input-field{
 		margin: 10px 0;
 	}
@@ -91,6 +101,11 @@
 		list-style: none;
 	}
 
+		.drops-list-button{
+			position: absolute;
+			bottom: 0;
+		}
+
 		.list-item{
 			cursor: pointer;
 			padding: 14px 24px;
@@ -102,6 +117,15 @@
 			&:hover{
 				background-color: #ebebeb;
 			}
+		}
+
+		.list-item-view{
+			padding: 14px 24px;
+			background: #fff;
+			width: 258px;
+			margin-bottom: 24px;
+			vertical-align: middle;
+
 		}
 
 		.list-item-main-text{
@@ -128,6 +152,15 @@
 		}
 
 
+.location-search-input{
+	font-size: 18px;
+	color: #4d79bd;
+	background-color: #fafafa;
+}
+
+.autocomplete-dropdown-container{
+	max-width: 200px;
+}
 
 .dropzone{
 	margin-left: 215px;
