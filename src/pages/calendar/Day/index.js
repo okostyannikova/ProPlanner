@@ -17,7 +17,7 @@ class Day extends Component {
     const { events, startTime, getHeight } = this.props;
     if (events) {
       return events.map(ev => {
-        const { 'start-date': start, 'end-date': end, type } = ev.attributes;
+        const { 'start-date': start, 'end-date': end } = ev.attributes;
         return (
           <rect
             key={ev.id}

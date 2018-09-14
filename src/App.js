@@ -17,14 +17,16 @@ const LoginContainer = () => <Route path="/login" component={Login} />;
 const DefaultContainer = () => (
   <div>
     <Navigation />
-    <Route exact path="/" component={Home} />
-    <Route path="/calendar" component={Calendar} />
-    <Route path="/goals/:id" component={Goal} />
-    <Route exact path="/goals" component={Goals} />
-    <Route exact path="/events" component={Events} />
-    <Route exact path="/event/add" component={EventForm} />
-    <Route exact path="/event/:id" component={EventForm} />
-    <Route path="/settings" component={Settings} />
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route path="/calendar" component={Calendar} />
+      <Route path="/goals/:id" component={Goal} />
+      <Route exact path="/goals" component={Goals} />
+      <Route exact path="/events" component={Events} />
+      <Route exact path="/event/add" component={EventForm} />
+      <Route exact path="/event/:id" component={EventForm} />
+      <Route path="/settings" component={Settings} />
+    </Switch>
   </div>
 );
 

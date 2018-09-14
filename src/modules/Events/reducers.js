@@ -20,6 +20,11 @@ export default (eventsState = initialState, action) => {
         loading: false,
         eventsList: payload.events,
       };
+    case LOAD_EVENTS_FAIL:
+      return {
+        ...eventsState,
+        error: payload.err,
+      };
     default:
       return eventsState;
   }
