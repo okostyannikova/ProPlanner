@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { priorityOptions } from 'config';
 import { Link } from 'react-router-dom';
+import TypeLabel from 'components/TypeLabel';
 import MoreIcon from 'components/Icons/MoreIcon';
 import PriorityArrow from 'components/Icons/PriorityArrow';
 import tasksSummaryIcon from 'assets/images/events/summary-tasks-icon.svg';
@@ -11,7 +12,7 @@ const cutDescription = description =>
 
 const EventCart = ({ id, title, startDate, endDate, description, priority }) => (
   <StyledCart to={`/event/${id}`}>
-    <TypeLabel>Personal</TypeLabel>
+    <TypeLabel color="#FFE07F">Personal</TypeLabel>
     <div>
       <Header>
         <Title>{title}</Title>
@@ -45,7 +46,7 @@ const EventCart = ({ id, title, startDate, endDate, description, priority }) => 
             fill={priorityOptions[priority].color}
             direction={priorityOptions[priority].direction}
           />
-          {priority[0].toUpperCase() + priority.slice(1)}
+          {priority}
         </Priority>
         <TasksSummary>
           3/6 <img src={tasksSummaryIcon} alt="task summary" />
@@ -89,21 +90,6 @@ const StyledCart = styled(Link)`
   @media (min-width: 1500px) {
     flex-basis: 249px;
   }
-`;
-
-const TypeLabel = styled.span`
-  position: absolute;
-  left: 8px;
-  top: -12px;
-  min-width: 110px;
-  height: 28px;
-  padding: 5px 3px 8px;
-  text-align: center;
-  color: #fff;
-  background-color: #ffe07f;
-  border-radius: 2px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
-  box-sizing: border-box;
 `;
 
 const Header = styled.header`
@@ -180,6 +166,7 @@ const Footer = styled.footer`
 `;
 
 const Priority = styled.span`
+  text-transform: capitalize;
   & :first-child {
     margin-right: 8px;
   }

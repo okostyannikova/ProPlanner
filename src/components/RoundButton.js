@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import plus from 'assets/images/plus.svg';
 
-const AddNewUnitBtn = () => <Button data-qa="add-new-unit-btn" type="button" />;
+const RoundButton = ({ to, dataQa }) => <Button to={to} data-qa={dataQa} />;
 
-const Button = styled.button`
+const Button = styled(Link)`
   width: 54px;
   height: 54px;
   background: url(${plus}) #3366b4 center center no-repeat;
@@ -21,4 +22,4 @@ const Button = styled.button`
     right: 15px;
   }
 `;
-export default AddNewUnitBtn;
+export default RoundButton;

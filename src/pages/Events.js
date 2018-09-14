@@ -3,49 +3,67 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { loadEvents } from 'modules/Events/actions';
-import AddNewUnitBtn from 'components/AddNewUnitBtn';
+import RoundButton from 'components/RoundButton';
+import Loader from 'components/Loader';
 import EventCart from './events/EventCart';
 
 class Events extends Component {
+  state = {
+    loading: true,
+  };
+
   componentDidMount = () => {
-    const { loadEvents } = this.props;
+    const { loadEvents, loading } = this.props;
     loadEvents();
+    this.setState(() => ({ loading }));
+  };
+
+  getBody = () => {
+    const { events } = this.props;
+    const { loading } = this.state;
+    if (loading) {
+      return <Loader />;
+    }
+    if (events) {
+      return events.map(event => {
+        const {
+          title,
+          'start-date': startDate,
+          'end-date': endDate,
+          description,
+          priority,
+        } = event.attributes;
+        return (
+          <EventCart
+            key={event.id}
+            id={event.id}
+            title={title}
+            startDate={startDate}
+            endDate={endDate}
+            description={description}
+            priority={priority}
+          />
+        );
+      });
+    }
+    if (!this.props.loading && !events) {
+      return (
+        <NoEventsMessage>
+          Unfortunately you have no events yet.
+          <AddEventLink to="/event/add">Create new event</AddEventLink>
+        </NoEventsMessage>
+      );
+    }
   };
 
   render() {
-    const { events } = this.props;
     return (
       <PageContainer className="page-content events-list">
         <Header>
           <Title>The Events</Title>
-          <Link to="/event/add">
-            <AddNewUnitBtn />
-          </Link>
+          <RoundButton to="/event/add" dataQa="add-event-btn" />
         </Header>
-        <EventsList>
-          {events
-            ? events.map(event => {
-                const {
-                  title,
-                  'start-date': startDate,
-                  'end-date': endDate,
-                  description,
-                  priority,
-                } = event.attributes;
-                return (
-                  <EventCart
-                    key={event.id}
-                    id={event.id}
-                    title={title}
-                    startDate={startDate}
-                    endDate={endDate}
-                    description={description}
-                    priority={priority}
-                  />
-                );
-              })
-            : null}
-        </EventsList>
+        <EventsList>{this.getBody()}</EventsList>
       </PageContainer>
     );
   }
@@ -54,6 +72,7 @@ class Events extends Component {
 export default connect(
   state => ({
     events: state.events.eventsList,
+    loading: state.events.loading,
   }),
   { loadEvents }
 )(Events);
@@ -92,5 +111,20 @@ const EventsList = styled.div`
   }
   @media (max-width: 500px) {
     margin-right: 0;
+  }
+`;
+
+const NoEventsMessage = styled.p`
+  color: rgba(52, 70, 98, 0.8);
+  font-size: 18px;
+`;
+
+const AddEventLink = styled(Link)`
+  color: #00bcd4;
+  padding-left: 5px;
+  text-decoration: underline;
+  white-space: nowrap;
+  &:hover {
+    text-decoration: none;
   }
 `;
