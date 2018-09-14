@@ -9,16 +9,25 @@ class TextComponent extends Component {
   // }
 
   render() {
-    const { headerClass = '', headerContent = '', placeholder = '', ...restProps } = this.props;
+    const {
+      headerClass = '',
+      headerContent = '',
+      placeholder = '',
+      view = false,
+      ...restProps
+    } = this.props;
+
+    const viewMode = view ? 'text-field-view' : 'text-field';
 
     return (
       <div>
         <p className={headerClass}>{headerContent}</p>
-        <div className="text-field">
+        <div className={viewMode}>
           <FormControl fullWidth>
             <Input
               rows="2"
               disableUnderline
+              disabled={view}
               placeholder={placeholder}
               className="input-field"
               {...restProps}
