@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { loadEvents } from 'modules/Events/actions';
 import AddNewUnitBtn from 'components/AddNewUnitBtn';
 import EventCart from './events/EventCart';
@@ -17,7 +18,9 @@ class Events extends Component {
       <PageContainer className="page-content events-list">
         <Header>
           <Title>The Events</Title>
-          <AddNewUnitBtn />
+          <Link to="/event/add">
+            <AddNewUnitBtn />
+          </Link>
         </Header>
         <EventsList>
           {events
@@ -32,6 +35,7 @@ class Events extends Component {
                 return (
                   <EventCart
                     key={event.id}
+                    id={event.id}
                     title={title}
                     startDate={startDate}
                     endDate={endDate}
@@ -76,7 +80,7 @@ const Title = styled.span`
   font-weight: 700;
 `;
 
-const EventsList = styled.ul`
+const EventsList = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-right: -2%;

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { priorityOptions } from 'config';
+import { Link } from 'react-router-dom';
 import MoreIcon from 'components/Icons/MoreIcon';
 import PriorityArrow from 'components/Icons/PriorityArrow';
 import tasksSummaryIcon from 'assets/images/events/summary-tasks-icon.svg';
@@ -8,8 +9,8 @@ import tasksSummaryIcon from 'assets/images/events/summary-tasks-icon.svg';
 const cutDescription = description =>
   description.length > 50 ? `${description.slice(0, 51)}...` : description;
 
-const EventCart = ({ title, startDate, endDate, description, priority }) => (
-  <StyledCart>
+const EventCart = ({ id, title, startDate, endDate, description, priority }) => (
+  <StyledCart to={`/event/${id}`}>
     <TypeLabel>Personal</TypeLabel>
     <div>
       <Header>
@@ -55,7 +56,7 @@ const EventCart = ({ title, startDate, endDate, description, priority }) => (
 );
 export default EventCart;
 
-const StyledCart = styled.li`
+const StyledCart = styled(Link)`
   position: relative;
   flex-basis: 23%;
   min-height: 220px;
@@ -84,6 +85,9 @@ const StyledCart = styled.li`
   @media (max-width: 500px) {
     flex-basis: 100%;
     margin: 30px 0 0 0;
+  }
+  @media (min-width: 1500px) {
+    flex-basis: 249px;
   }
 `;
 

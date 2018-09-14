@@ -22,8 +22,9 @@ const DefaultContainer = () => (
     <Route path="/goals/:id" component={Goal} />
     <Route exact path="/goals" component={Goals} />
     <Route exact path="/events" component={Events} />
+    <Route exact path="/event/add" component={EventForm} />
+    <Route exact path="/event/:id" component={EventForm} />
     <Route path="/settings" component={Settings} />
-    <Route exact path="/eventsettings" component={EventForm} />
   </div>
 );
 
