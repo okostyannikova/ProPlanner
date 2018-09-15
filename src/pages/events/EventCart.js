@@ -12,7 +12,7 @@ const cutDescription = description =>
 
 const EventCart = ({ id, title, startDate, endDate, description, priority }) => (
   <CartWrapper>
-    <EditCartMenu color="#8eaad4" />
+    <EditCartMenu iconColor="#8eaad4" id={id} />
     <Cart to={`/event/${id}`}>
       <TypeLabel color="#FFE07F">Personal</TypeLabel>
       <div>
@@ -84,6 +84,7 @@ const CartWrapper = styled.div`
     flex-basis: 249px;
   }
 `;
+
 const Cart = styled(Link)`
   display: block;
   color: #3366b4;
