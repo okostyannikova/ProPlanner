@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './styles.css';
 
@@ -12,7 +13,9 @@ class UserInfo extends Component {
   };
 
   render() {
-    const { avatar, first_name: firstName, last_name: lastName, email } = this.props.user;
+    const {
+      user: { avatar, first_name: firstName, last_name: lastName, email },
+    } = this.props;
 
     return (
       <div className="user-info">
@@ -39,6 +42,15 @@ class UserInfo extends Component {
     );
   }
 }
+
+UserInfo.propTypes = {
+  user: PropTypes.shape({
+    avatar: PropTypes.string.isRequired,
+    first_name: PropTypes.string.isRequired,
+    last_name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default connect(state => ({
   user: state.auth.user.user,
