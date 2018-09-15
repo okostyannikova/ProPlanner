@@ -5,7 +5,7 @@ import './calendar/styles.css';
 import Month from './calendar/Month';
 import Week from './calendar/Week';
 import Day from './calendar/Day';
-import { loadEvents } from '../modules/Events/actions';
+import { eventsOperations } from '../modules/Events';
 
 class Calendar extends Component {
   componentDidMount = () => {
@@ -30,5 +30,5 @@ class Calendar extends Component {
 
 export default connect(
   null,
-  { loadEvents }
+  { loadEvents: eventsOperations.loadEvents }
 )(Calendar);

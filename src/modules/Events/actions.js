@@ -1,27 +1,15 @@
-import axios from 'axios';
-import { LOAD_EVENTS_START, LOAD_EVENTS_SUCCESS, LOAD_EVENTS_FAIL } from './types';
-import { normalizeData } from './operations';
-import { authHeader } from '../../utils/auth';
-import { apiURL } from '../../config';
+import types from './types';
 
-const allEventsURL = `${apiURL}/events/`;
+export const loadEventsStart = () => ({
+  type: types.LOAD_EVENTS_START,
+});
 
-export const loadEvents = () => dispatch => {
-  dispatch({ type: LOAD_EVENTS_START });
+export const loadEventsSuccess = events => ({
+  type: types.LOAD_EVENTS_SUCCESS,
+  payload: { events },
+});
 
-  axios(allEventsURL, { headers: authHeader() })
-    .then(res => {
-      const events = normalizeData(res.data.data);
-      dispatch({
-        type: LOAD_EVENTS_SUCCESS,
-        payload: { events },
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: LOAD_EVENTS_FAIL,
-        payload: { err },
-      });
-      throw new Error(err);
-    });
-};
+export const loadEventsFail = err => ({
+  type: types.LOAD_EVENTS_FAIL,
+  payload: { err },
+});

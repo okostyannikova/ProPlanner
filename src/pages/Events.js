@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { loadEvents } from 'modules/Events/actions';
 import RoundButton from 'components/RoundButton';
 import Loader from 'components/Loader';
+import { eventsOperations } from '../modules/Events';
 import EventCart from './events/EventCart';
 
 class Events extends Component {
@@ -74,7 +74,7 @@ export default connect(
     events: state.events.eventsList,
     loading: state.events.loading,
   }),
-  { loadEvents }
+  { loadEvents: eventsOperations.loadEvents }
 )(Events);
 
 const PageContainer = styled.div`
