@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles.css';
-import SearchIcon from './SearchIcon';
+import SearchIcon from '../../Icons/SearchIcon';
 
 const SearchInput = () => (
   <div className="search">
