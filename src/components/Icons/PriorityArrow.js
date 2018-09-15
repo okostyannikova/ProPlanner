@@ -17,9 +17,13 @@ const PriorityArrow = props => {
   );
 };
 
+PriorityArrow.defaultProps = {
+  direction: 0,
+};
+
 PriorityArrow.propTypes = {
   fill: PropTypes.string.isRequired,
-  direction: PropTypes.number.isRequired,
+  direction: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default PriorityArrow;
