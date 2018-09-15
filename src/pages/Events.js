@@ -1,15 +1,130 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import RoundButton from 'components/RoundButton';
+import Loader from 'components/Loader';
+import { eventsOperations } from '../modules/Events';
+import EventCart from './events/EventCart';
 
-const eventsList = [1, 2, 3];
+class Events extends Component {
+  state = {
+    loading: true,
+  };
 
-export default class Events extends Component {
+  componentDidMount = () => {
+    const { loadEvents, loading } = this.props;
+    loadEvents();
+    this.setState(() => ({ loading }));
+  };
+
+  getBody = () => {
+    const { events } = this.props;
+    const { loading } = this.state;
+    if (loading) {
+      return <Loader />;
+    }
+    if (events) {
+      return events.map(event => {
+        const {
+          title,
+          'start-date': startDate,
+          'end-date': endDate,
+          description,
+          priority,
+        } = event.attributes;
+        return (
+          <EventCart
+            key={event.id}
+            id={event.id}
+            title={title}
+            startDate={startDate}
+            endDate={endDate}
+            description={description}
+            priority={priority}
+          />
+        );
+      });
+    }
+    if (!this.props.loading && !events) {
+      return (
+        <NoEventsMessage>
+          Unfortunately you have no events yet.
+          <AddEventLink to="/event/add">Create new event</AddEventLink>
+        </NoEventsMessage>
+      );
+    }
+  };
+
   render() {
     return (
-      <div>
-        Events:
-          <ul>{eventsList.map(id => <li key={id}><NavLink to={`/events/${id}`}>Event {id}</NavLink></li>)}</ul>
-      </div>
+      <PageContainer className="page-content events-list">
+        <Header>
+          <Title>The Events</Title>
+          <RoundButton to="/event/add" dataQa="add-event-btn" />
+        </Header>
+        <EventsList>{this.getBody()}</EventsList>
+      </PageContainer>
     );
   }
 }
+
+export default connect(
+  state => ({
+    events: state.events.eventsList,
+    loading: state.events.loading,
+  }),
+  { loadEvents: eventsOperations.loadEvents }
+)(Events);
+
+const PageContainer = styled.div`
+  background-color: #f2f6ff;
+  padding: 34px 36px 10px 44px;
+  @media (max-width: 1200px) {
+    padding: 34px 30px 0 30px;
+  }
+  @media (max-width: 992px) {
+    padding: 34px 20px 10px 20px;
+  }
+`;
+
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgba(51, 102, 180, 0.87);
+`;
+const Title = styled.span`
+  font-size: 20px;
+  font-weight: 700;
+`;
+
+const EventsList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -2%;
+  @media (max-width: 992px) {
+    margin-right: -3%;
+  }
+  @media (max-width: 737px) {
+    margin-right: -2%;
+  }
+  @media (max-width: 500px) {
+    margin-right: 0;
+  }
+`;
+
+const NoEventsMessage = styled.p`
+  color: rgba(52, 70, 98, 0.8);
+  font-size: 18px;
+`;
+
+const AddEventLink = styled(Link)`
+  color: #00bcd4;
+  padding-left: 5px;
+  text-decoration: underline;
+  white-space: nowrap;
+  &:hover {
+    text-decoration: none;
+  }
+`;

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import $ from 'jquery';
 
 const AUTH_URL = 'https://apis.google.com/js/client:plus.js?onload=autoLogin';

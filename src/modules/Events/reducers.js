@@ -1,26 +1,31 @@
-import { LOAD_EVENTS_START, LOAD_EVENTS_SUCCESS, LOAD_EVENTS_FAIL } from './types';
+import types from './types';
 
 const initialState = {
   loading: false,
   eventsList: null,
 };
 
-export default (eventsState = initialState, action) => {
+export default (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case LOAD_EVENTS_START:
+    case types.LOAD_EVENTS_START:
       return {
-        ...eventsState,
+        ...state,
         loading: true,
       };
-    case LOAD_EVENTS_SUCCESS:
+    case types.LOAD_EVENTS_SUCCESS:
       return {
-        ...eventsState,
+        ...state,
         loading: false,
         eventsList: payload.events,
       };
+    case types.LOAD_EVENTS_FAIL:
+      return {
+        ...state,
+        error: payload.err,
+      };
     default:
-      return eventsState;
+      return state;
   }
 };

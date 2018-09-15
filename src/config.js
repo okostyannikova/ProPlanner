@@ -1,7 +1,16 @@
 export const apiURL = 'http://backend.proplanner.formula1.cloud.provectus-it.com';
 
 export const colorTypes = {
-  work: '#A9EFEA',
+  work: '#FFBFD4',
   personal: '#FFE07F',
-  other: '#FFBFD4',
+  entertainment: '#6A2789',
+  other: '#A9EFEA',
+  google: '#EA4335',
+};
+
+export const priorityOptions = {
+  important: { color: '#F68181' },
+  high: { color: '#fCDE75' },
+  medium: { color: '#64C37D' },
+  low: { color: '#00BCD4', direction: 180 },
 };

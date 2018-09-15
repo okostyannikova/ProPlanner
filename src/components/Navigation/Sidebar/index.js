@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { authorizeOperations } from 'modules/Authentication/index';
+import { authorizeOperations } from 'modules/Authentication';
 import './styles.css';
 import HomeIcon from '../../Icons/HomeIcon';
 import CalendarIcon from '../../Icons/CalendarIcon';

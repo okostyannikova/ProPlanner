@@ -25,7 +25,7 @@ class Week extends Component {
           return today === eventDay;
         })
         .map(ev => {
-          const { 'start-date': start, 'end-date': end, type } = ev.attributes;
+          const { 'start-date': start, 'end-date': end } = ev.attributes;
           return (
             <rect
               key={ev.id}

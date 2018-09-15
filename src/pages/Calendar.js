@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './calendar/styles.css';
 import Month from './calendar/Month';
 import Week from './calendar/Week';
 import Day from './calendar/Day';
-import { loadEvents } from '../modules/Events/actions';
+import { eventsOperations } from '../modules/Events';
 
 class Calendar extends Component {
   componentDidMount = () => {
@@ -16,7 +16,9 @@ class Calendar extends Component {
 
   render() {
     const { match } = this.props;
-    return (
+    return match.isExact ? (
+      <Redirect to={`${match.path}/month`} />
+    ) : (
       <div className="page-content calendar">
         <Route path={`${match.path}/month`} component={Month} />
         <Route path={`${match.path}/week`} component={Week} />
@@ -28,5 +30,5 @@ class Calendar extends Component {
 
 export default connect(
   null,
-  { loadEvents }
+  { loadEvents: eventsOperations.loadEvents }
 )(Calendar);

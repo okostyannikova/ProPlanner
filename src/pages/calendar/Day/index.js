@@ -5,6 +5,7 @@ import RenderEventsContainer from '../render-events';
 import { prevDay, nextDay } from '../../../modules/Calendar';
 import './styles.css';
 import Navigation from '../Navigation';
+import RoundButton from 'components/RoundButton';
 
 class Day extends Component {
   componentDidMount = () => {
@@ -16,7 +17,7 @@ class Day extends Component {
     const { events, startTime, getHeight } = this.props;
     if (events) {
       return events.map(ev => {
-        const { 'start-date': start, 'end-date': end, type } = ev.attributes;
+        const { 'start-date': start, 'end-date': end } = ev.attributes;
         return (
           <rect
             key={ev.id}
@@ -45,7 +46,7 @@ class Day extends Component {
             handlePrevDateClick={prevDay}
             handleNextDateClick={nextDay}
           />
-          <div className="add-event-btn" data-qa="add-event-btn" />
+          <RoundButton to="/event/add" dataQa="add-event-btn" />
         </header>
         <main className="calendar-day__main">
           <div className="calendar-day__summary" />
