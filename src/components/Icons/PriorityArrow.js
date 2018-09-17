@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const PriorityArrow = props => {
   const { fill, direction = 0 } = props;
@@ -14,6 +15,15 @@ const PriorityArrow = props => {
       />
     </svg>
   );
+};
+
+PriorityArrow.defaultProps = {
+  direction: 0,
+};
+
+PriorityArrow.propTypes = {
+  fill: PropTypes.string.isRequired,
+  direction: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default PriorityArrow;
