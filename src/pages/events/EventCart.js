@@ -1,58 +1,77 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
-import { priorityOptions } from 'config';
 import { Link } from 'react-router-dom';
 import TypeLabel from 'components/TypeLabel';
 import EditCartMenu from 'components/EditCartMenu';
 import PriorityArrow from 'components/Icons/PriorityArrow';
 import tasksSummaryIcon from 'assets/images/events/summary-tasks-icon.svg';
+import { priorityOptions } from '../../config';
 
 const cutDescription = description =>
   description.length > 50 ? `${description.slice(0, 51)}...` : description;
 
-const EventCart = ({ id, title, startDate, endDate, description, priority }) => (
-  <CartWrapper>
-    <EditCartMenu iconColor="#8eaad4" id={id} />
-    <Cart to={`/event/${id}`}>
-      <TypeLabel color="#FFE07F">Personal</TypeLabel>
-      <div>
-        <Title>{title}</Title>
-        <TimeWrapper>
-          <TimeItem>
-            <Day>{startDate.format('DD')}</Day>
-            <Date>
-              {startDate.format('MMMM')}
-              <br />
-              {startDate.format('HH:mm')}
-            </Date>
-          </TimeItem>
-          <Separator />
-          <TimeItem>
-            <Day>{endDate.format('DD')}</Day>
-            <Date>
-              {endDate.format('MMMM')}
-              <br />
-              {endDate.format('HH:mm')}
-            </Date>
-          </TimeItem>
-        </TimeWrapper>
-        <Description>{cutDescription(description)}</Description>
-        <Footer>
-          <Priority>
-            <PriorityArrow
-              fill={priorityOptions[priority].color}
-              direction={priorityOptions[priority].direction}
-            />
-            {priority}
-          </Priority>
-          <TasksSummary>
-            3/6 <img src={tasksSummaryIcon} alt="task summary" />
-          </TasksSummary>
-        </Footer>
-      </div>
-    </Cart>
-  </CartWrapper>
-);
+class EventCart extends Component {
+  handleEdit = id => () => {
+    const { history } = this.props;
+    history.push(`/event/${id}/edit`);
+  };
+
+  handleDelete = id => () => {
+    const { deleteEvent } = this.props;
+    deleteEvent(id);
+  };
+
+  render() {
+    const { id, title, startDate, endDate, description, priority } = this.props;
+    return (
+      <CartWrapper>
+        <EditCartMenu
+          iconColor="#8eaad4"
+          handleDelete={this.handleDelete(id)}
+          handleEdit={this.handleEdit(id)}
+        />
+        <Cart to={`/event/${id}`}>
+          <TypeLabel color="#FFE07F">Personal</TypeLabel>
+          <div>
+            <Title>{title}</Title>
+            <TimeWrapper>
+              <TimeItem>
+                <Day>{startDate.format('DD')}</Day>
+                <Date>
+                  {startDate.format('MMMM')}
+                  <br />
+                  {startDate.format('HH:mm')}
+                </Date>
+              </TimeItem>
+              <Separator />
+              <TimeItem>
+                <Day>{endDate.format('DD')}</Day>
+                <Date>
+                  {endDate.format('MMMM')}
+                  <br />
+                  {endDate.format('HH:mm')}
+                </Date>
+              </TimeItem>
+            </TimeWrapper>
+            <Description>{cutDescription(description)}</Description>
+            <Footer>
+              <Priority>
+                <PriorityArrow
+                  fill={priorityOptions[priority].color}
+                  direction={priorityOptions[priority].direction}
+                />
+                {priority}
+              </Priority>
+              <TasksSummary>
+                3/6 <img src={tasksSummaryIcon} alt="task summary" />
+              </TasksSummary>
+            </Footer>
+          </div>
+        </Cart>
+      </CartWrapper>
+    );
+  }
+}
 export default EventCart;
 
 const CartWrapper = styled.div`

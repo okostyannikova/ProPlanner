@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
-import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
@@ -42,7 +40,7 @@ class EditCartMenu extends Component {
   };
 
   render() {
-    const { iconColor, classes } = this.props;
+    const { iconColor, classes, handleEdit, handleDelete } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
@@ -71,10 +69,10 @@ class EditCartMenu extends Component {
             horizontal: 'right',
           }}
         >
-          <MenuItem onClick={this.handleClose} className={classes.menuItem}>
+          <MenuItem onClick={handleEdit} className={classes.menuItem}>
             Edit
           </MenuItem>
-          <MenuItem onClick={this.handleClose} className={classes.menuItem}>
+          <MenuItem onClick={handleDelete} className={classes.menuItem}>
             Delete
           </MenuItem>
         </Popover>
@@ -88,7 +86,4 @@ EditCartMenu.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(
-  withStyles(styles),
-  withRouter
-)(EditCartMenu);
+export default withStyles(styles)(EditCartMenu);

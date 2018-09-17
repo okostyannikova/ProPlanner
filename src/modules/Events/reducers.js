@@ -25,6 +25,16 @@ export default (state = initialState, action) => {
         ...state,
         error: payload.err,
       };
+    case types.DELETE_EVENT_SUCCESS:
+      return {
+        ...state,
+        eventsList: state.eventsList.filter(ev => ev.id !== payload.id),
+      };
+    case types.DELETE_EVENT_FAIL:
+      return {
+        ...state,
+        error: payload.err,
+      };
     default:
       return state;
   }

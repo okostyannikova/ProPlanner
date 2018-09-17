@@ -1,5 +1,12 @@
 import axios from 'axios';
-import { loadEventsStart, loadEventsSuccess, loadEventsFail } from './actions';
+import {
+  loadEventsStart,
+  loadEventsSuccess,
+  loadEventsFail,
+  deleteEventStart,
+  deleteEventSuccess,
+  deleteEventFail,
+} from './actions';
 import { normalizeData } from './utils';
 import { apiURL } from '../../config';
 
@@ -19,6 +26,22 @@ const loadEvents = () => dispatch => {
     });
 };
 
+const deleteEvent = id => dispatch => {
+  dispatch(deleteEventStart());
+
+  axios
+    .delete(`${eventsURL}/${id}`)
+    .then(res => {
+      console.log(res);
+      dispatch(deleteEventSuccess(id));
+    })
+    .catch(err => {
+      dispatch(deleteEventFail(err));
+      throw new Error(err);
+    });
+};
+
 export default {
   loadEvents,
+  deleteEvent,
 };

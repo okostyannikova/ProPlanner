@@ -14,7 +14,7 @@ class Events extends Component {
   };
 
   getBody = () => {
-    const { events, loading } = this.props;
+    const { events, loading, deleteEvent, history } = this.props;
     if (loading) {
       return <Loader />;
     }
@@ -36,6 +36,8 @@ class Events extends Component {
             endDate={endDate}
             description={description}
             priority={priority}
+            deleteEvent={deleteEvent}
+            history={history}
           />
         );
       });
@@ -68,7 +70,10 @@ export default connect(
     events: state.events.eventsList,
     loading: state.events.loading,
   }),
-  { loadEvents: eventsOperations.loadEvents }
+  {
+    loadEvents: eventsOperations.loadEvents,
+    deleteEvent: eventsOperations.deleteEvent,
+  }
 )(Events);
 
 const PageContainer = styled.div`
