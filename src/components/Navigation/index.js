@@ -31,8 +31,10 @@ export default class Navigation extends Component {
 
   handleClickOutside = ev => {
     const { isOpen } = this.state;
-    const wrapperRef = ReactDOM.findDOMNode(this.wrapperRef);
-    const buttonRef = ReactDOM.findDOMNode(this.buttonRef);
+    // TODO need to remove deprecated findDOMNODE
+    // https://github.com/yannickcr/eslint-plugin-react/issues/678#issue-165177220
+    const wrapperRef = ReactDOM.findDOMNode(this.wrapperRef); // eslint-disable-line react/no-find-dom-node
+    const buttonRef = ReactDOM.findDOMNode(this.buttonRef); // eslint-disable-line react/no-find-dom-node
 
     if (ev.target === buttonRef || buttonRef.contains(ev.target)) {
       this.handleMenuClick();
