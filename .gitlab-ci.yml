@@ -9,6 +9,6 @@ deploy:
     - printf "$\e[34m%b%s\n\e[0m" "------------------------  Build project  ------------------------";
     - npm run build
     - printf "$\e[34m%b%s\n\e[0m" "------------------------  Copy to nginx folder  ------------------------";
-    - sudo cp -r ./build/* ./html
+    - sudo cp -r ./build/* /var/www/html
   only:
     - develop
