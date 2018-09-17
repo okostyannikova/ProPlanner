@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -64,6 +65,19 @@ class Events extends Component {
     );
   }
 }
+
+Events.defaultProps = {
+  events: null,
+};
+
+Events.propTypes = {
+  history: PropTypes.object.isRequired,
+  // from connect
+  events: PropTypes.arrayOf(PropTypes.object),
+  loading: PropTypes.bool.isRequired,
+  loadEvents: PropTypes.func.isRequired,
+  deleteEvent: PropTypes.func.isRequired,
+};
 
 export default connect(
   state => ({

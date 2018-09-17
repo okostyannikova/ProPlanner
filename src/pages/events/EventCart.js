@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import TypeLabel from 'components/TypeLabel';
@@ -72,6 +73,22 @@ class EventCart extends Component {
     );
   }
 }
+
+EventCart.defaultProps = {
+  description: '',
+};
+
+EventCart.propTypes = {
+  history: PropTypes.object.isRequired,
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  startDate: PropTypes.instanceOf('Moment').isRequired,
+  endDate: PropTypes.instanceOf('Moment').isRequired,
+  description: PropTypes.string,
+  priority: PropTypes.string.isRequired,
+  deleteEvent: PropTypes.func.isRequired,
+};
+
 export default EventCart;
 
 const CartWrapper = styled.div`

@@ -84,6 +84,8 @@ class EditCartMenu extends Component {
 EditCartMenu.propTypes = {
   iconColor: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
+  handleEdit: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(EditCartMenu);
