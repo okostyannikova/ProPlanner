@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
@@ -81,6 +82,11 @@ class EditCartMenu extends Component {
     );
   }
 }
+
+EditCartMenu.propTypes = {
+  iconColor: PropTypes.string.isRequired,
+  classes: PropTypes.object.isRequired,
+};
 
 export default compose(
   withStyles(styles),

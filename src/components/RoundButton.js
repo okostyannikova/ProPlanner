@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import plus from 'assets/images/plus.svg';
@@ -20,6 +21,13 @@ const Button = styled(Link)`
     position: fixed;
     bottom: 15px;
     right: 15px;
+    z-index: 5;
   }
 `;
+
+RoundButton.propTypes = {
+  to: PropTypes.string.isRequired,
+  dataQa: PropTypes.string.isRequired,
+};
+
 export default RoundButton;
