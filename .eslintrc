@@ -26,7 +26,10 @@
       {
         "ignore": [
           "assets",
-          "modules"
+          "modules",
+          "components",
+          "styles",
+          "utils"
         ]
       }
     ],

@@ -8,19 +8,13 @@ import { eventsOperations } from '../modules/Events';
 import EventCart from './events/EventCart';
 
 class Events extends Component {
-  state = {
-    loading: true,
-  };
-
   componentDidMount = () => {
-    const { loadEvents, loading } = this.props;
+    const { loadEvents } = this.props;
     loadEvents();
-    this.setState(() => ({ loading }));
   };
 
   getBody = () => {
-    const { events } = this.props;
-    const { loading } = this.state;
+    const { events, loading } = this.props;
     if (loading) {
       return <Loader />;
     }
@@ -46,7 +40,7 @@ class Events extends Component {
         );
       });
     }
-    if (!this.props.loading && !events) {
+    if (!loading && !events) {
       return (
         <NoEventsMessage>
           Unfortunately you have no events yet.

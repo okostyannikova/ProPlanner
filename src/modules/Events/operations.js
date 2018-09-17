@@ -7,7 +7,7 @@ import { apiURL } from '../../config';
 const eventsURL = `${apiURL}/events/`;
 
 const loadEvents = () => dispatch => {
-  dispatch(loadEventsStart);
+  dispatch(loadEventsStart());
 
   axios(eventsURL, { headers: authHeader() })
     .then(res => {
