@@ -1,21 +1,130 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import RoundButton from 'components/RoundButton';
+import Loader from 'components/Loader';
+import { goalsOperations } from '../modules/Goals';
+import GoalCard from './goals/GoalCard';
 
-const goalsList = [1, 2, 3];
+class Goals extends Component {
+  componentDidMount = () => {
+    const { loadGoals } = this.props;
+    loadGoals();
+  };
 
-export default class Goals extends Component {
+  getBody = () => {
+    const { goals, loading, deleteGoal, history } = this.props;
+    if (loading) {
+      return <Loader />;
+    }
+    if (goals) {
+      return goals.map(goal => (
+        <GoalCard
+          key={goal.id}
+          id={goal.id}
+          goal={goal}
+          deleteGoal={deleteGoal}
+          history={history}
+        />
+      ));
+    }
+    if (!loading && !goals) {
+      return (
+        <NoEventsMessage>
+          Unfortunately you have no events yet.
+          <AddEventLink to="/event/add">Create new event</AddEventLink>
+        </NoEventsMessage>
+      );
+    }
+  };
+
   render() {
     return (
-      <div className="page-content">
-        Goals:
-        <ul>
-          {goalsList.map(id => (
-            <li key={id}>
-              <NavLink to={`/goals/${id}`}>Goal {id}</NavLink>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <PageContainer className="page-content goals-list">
+        <Header>
+          <Title>My Goals</Title>
+          <RoundButton to="/goal/add" dataQa="add-goal-btn" />
+        </Header>
+        <GoalsList>{this.getBody()}</GoalsList>
+      </PageContainer>
     );
   }
 }
+
+Goals.defaultProps = {
+  goals: null,
+};
+
+Goals.propTypes = {
+  history: PropTypes.object.isRequired,
+  // from connect
+  goals: PropTypes.arrayOf(PropTypes.object),
+  loading: PropTypes.bool.isRequired,
+  loadGoals: PropTypes.func.isRequired,
+  deleteGoal: PropTypes.func.isRequired,
+};
+
+export default connect(
+  state => ({
+    goals: state.goals.goalsList,
+    loading: state.goals.loading,
+  }),
+  {
+    loadGoals: goalsOperations.loadGoals,
+    deleteGoal: goalsOperations.deleteGoal,
+  }
+)(Goals);
+
+const PageContainer = styled.div`
+  background-color: #f2f6ff;
+  padding: 34px 36px 10px 44px;
+  @media (max-width: 1200px) {
+    padding: 34px 30px 0 30px;
+  }
+  @media (max-width: 992px) {
+    padding: 34px 20px 10px 20px;
+  }
+`;
+
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgba(51, 102, 180, 0.87);
+`;
+const Title = styled.span`
+  font-size: 20px;
+  font-weight: 700;
+`;
+
+const GoalsList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -2%;
+  @media (max-width: 992px) {
+    margin-right: -3%;
+  }
+  @media (max-width: 737px) {
+    margin-right: -2%;
+  }
+  @media (max-width: 500px) {
+    margin-right: 0;
+  }
+`;
+
+const NoEventsMessage = styled.p`
+  color: rgba(52, 70, 98, 0.8);
+  font-size: 18px;
+`;
+
+const AddEventLink = styled(Link)`
+  color: #00bcd4;
+  padding-left: 5px;
+  text-decoration: underline;
+  white-space: nowrap;
+  &:hover {
+    text-decoration: none;
+  }
+`;
