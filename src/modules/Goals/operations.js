@@ -9,7 +9,7 @@ import {
 } from './actions';
 import { apiURL } from '../../config';
 
-const goalsURL = `${apiURL}/goals/`;
+const goalsURL = `${apiURL}/goals`;
 
 const fakeGoals = [
   {
@@ -30,7 +30,7 @@ const fakeGoals = [
     },
   },
   {
-    id: '742a75d7-ec01-422d-84d2-0eea87ba0ea5',
+    id: '755a75d7-ec01-422d-84d2-0eea87ba0ea5',
     attributes: {
       title: 'To Get Promoted',
       'picture-link':
@@ -68,7 +68,7 @@ const fakeGoals = [
   {
     id: '125a75d7-ec01-422d-84d2-0eea87ba0ea5',
     attributes: {
-      title: 'To run a marathon',
+      title: 'Run the marathon',
       'picture-link':
         'https://rostovgazeta.ru/attachments/8d72ce79ca5e9e92391eadadce4e243973ec0fb0/store/fill/780/440/9758b41178157d321ef91e0eb1551ced67fe2c52a20d62dd401ab0721d1b/marafon-v-finlandii_1.jpg',
       description: '',

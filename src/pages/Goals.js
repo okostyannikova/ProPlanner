@@ -21,13 +21,7 @@ class Goals extends Component {
     }
     if (goals) {
       return goals.map(goal => (
-        <GoalCard
-          key={goal.id}
-          id={goal.id}
-          goal={goal}
-          deleteGoal={deleteGoal}
-          history={history}
-        />
+        <GoalCard key={goal.id} goal={goal} deleteGoal={deleteGoal} history={history} />
       ));
     }
     if (!loading && !goals) {
