@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import TypeLabel from 'components/TypeLabel';
 import EditCardMenu from 'components/EditCardMenu';
 import eventsSummaryIcon from 'assets/images/goals/summary-events-icon.svg';
+import defaultPicture from 'assets/images/goals/goal-default-picture.png';
 import { colorTypes, smartOptions } from '../../config';
 
 const cutDescription = description =>
@@ -52,7 +53,7 @@ class GoalCard extends Component {
             <Title>{title}</Title>
 
             <ImgWrapper>
-              <Img src={pictureLink} />
+              <Img src={pictureLink || defaultPicture} />
             </ImgWrapper>
 
             <SmartCover>

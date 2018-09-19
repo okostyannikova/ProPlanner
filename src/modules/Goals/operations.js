@@ -86,8 +86,7 @@ const fakeGoals = [
     id: '742a75d7-ec01-422d-84d2-0eea87ba0ea5',
     attributes: {
       title: 'To Get Promoted',
-      'picture-link':
-        'http://acroven.com/wp-content/uploads/2016/05/0e09527b0f5edaa60cf5702119e6a0a2_XL.jpg',
+      'picture-link': '',
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
       'goal-type': 'work',
