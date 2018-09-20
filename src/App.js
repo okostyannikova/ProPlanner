@@ -7,7 +7,6 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Calendar from './pages/Calendar';
 import Goals from './pages/Goals';
-import Goal from './pages/Goal';
 import Events from './pages/Events';
 import Settings from './pages/Settings';
 import Navigation from './components/Navigation';
@@ -21,7 +20,6 @@ const DefaultContainer = () => (
     <Switch>
       <Route exact path="/" component={Home} />
       <Route path="/calendar" component={Calendar} />
-      <Route path="/goals/:id" component={Goal} />
       <Route exact path="/goals" component={Goals} />
       <Route exact path="/events" component={Events} />
       <Route exact path="/event/add" component={EventForm} />

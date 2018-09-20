@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import RoundButton from 'components/RoundButton';
 import Loader from 'components/Loader';
 import { eventsOperations } from '../modules/Events';
-import EventCart from './events/EventCart';
+import EventCard from './events/EventCard';
 
 class Events extends Component {
   componentDidMount = () => {
@@ -29,7 +29,7 @@ class Events extends Component {
           priority,
         } = event.attributes;
         return (
-          <EventCart
+          <EventCard
             key={event.id}
             id={event.id}
             title={title}

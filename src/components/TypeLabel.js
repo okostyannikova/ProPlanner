@@ -13,6 +13,7 @@ const Label = styled.span(
     height: 28px;
     padding: 5px 3px 8px;
     text-align: center;
+    text-transform: capitalize;
     color: #fff;
     background-color: ${color};
     border-radius: 2px;
