@@ -3,16 +3,16 @@ import styled from 'styled-components';
 import { priorityOptions } from 'config';
 import { Link } from 'react-router-dom';
 import TypeLabel from 'components/TypeLabel';
-import EditCartMenu from 'components/EditCartMenu';
+import EditCardMenu from 'components/EditCardMenu';
 import PriorityArrow from 'components/Icons/PriorityArrow';
 import tasksSummaryIcon from 'assets/images/events/summary-tasks-icon.svg';
 
 const cutDescription = description =>
   description.length > 50 ? `${description.slice(0, 51)}...` : description;
 
-const EventCart = ({ id, title, startDate, endDate, description, priority }) => (
+const EventCard = ({ id, title, startDate, endDate, description, priority }) => (
   <CartWrapper>
-    <EditCartMenu iconColor="#8eaad4" id={id} />
+    <EditCardMenu iconColor="#8eaad4" id={id} />
     <Cart to={`/event/${id}`}>
       <TypeLabel color="#FFE07F">Personal</TypeLabel>
       <div>
@@ -53,7 +53,7 @@ const EventCart = ({ id, title, startDate, endDate, description, priority }) => 
     </Cart>
   </CartWrapper>
 );
-export default EventCart;
+export default EventCard;
 
 const CartWrapper = styled.div`
   position: relative;

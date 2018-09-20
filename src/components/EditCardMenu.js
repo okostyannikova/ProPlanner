@@ -28,7 +28,7 @@ const styles = {
   },
 };
 
-class EditCartMenu extends Component {
+class EditCardMenu extends Component {
   state = {
     anchorEl: null,
   };
@@ -83,7 +83,7 @@ class EditCartMenu extends Component {
   }
 }
 
-EditCartMenu.propTypes = {
+EditCardMenu.propTypes = {
   iconColor: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
 };
@@ -91,4 +91,4 @@ EditCartMenu.propTypes = {
 export default compose(
   withStyles(styles),
   withRouter
-)(EditCartMenu);
+)(EditCardMenu);
