@@ -25,6 +25,7 @@ class Events extends Component {
           title,
           'start-date': startDate,
           'end-date': endDate,
+          'event-type': type,
           description,
           priority,
         } = event.attributes;
@@ -32,6 +33,7 @@ class Events extends Component {
           <EventCard
             key={event.id}
             id={event.id}
+            type={type}
             title={title}
             startDate={startDate}
             endDate={endDate}

@@ -10,7 +10,7 @@ import EditCardMenu from 'components/EditCardMenu';
 import PriorityArrow from 'components/Icons/PriorityArrow';
 import tasksSummaryIcon from 'assets/images/events/summary-tasks-icon.svg';
 import { cutDescription } from 'utils/helpers';
-import { priorityOptions } from 'config';
+import { priorityOptions, colorTypes } from 'config';
 
 class EventCard extends Component {
   state = {
@@ -29,7 +29,7 @@ class EventCard extends Component {
   };
 
   render() {
-    const { id, title, startDate, endDate, description, priority, deleting } = this.props;
+    const { id, type, title, startDate, endDate, description, priority, deleting } = this.props;
     const { deletingItem } = this.state;
     const isDeleting = deleting && id === deletingItem;
     return (
@@ -42,7 +42,7 @@ class EventCard extends Component {
           handleEdit={this.handleEdit(id)}
         />
         <Card to={`/event/${id}`} data-qa="event-card">
-          <TypeLabel color="#FFE07F">Personal</TypeLabel>
+          {type && <TypeLabel color={colorTypes[type]}>{type}</TypeLabel>}
           <div>
             <Title>{title}</Title>
             <TimeWrapper>
@@ -85,6 +85,7 @@ class EventCard extends Component {
 }
 
 EventCard.defaultProps = {
+  type: null,
   description: '',
   deleting: false,
 };
@@ -92,6 +93,7 @@ EventCard.defaultProps = {
 EventCard.propTypes = {
   history: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
+  type: PropTypes.string,
   title: PropTypes.string.isRequired,
   startDate: PropTypes.instanceOf(Moment).isRequired,
   endDate: PropTypes.instanceOf(Moment).isRequired,
