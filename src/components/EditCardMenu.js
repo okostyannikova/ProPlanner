@@ -80,7 +80,10 @@ class EditCardMenu extends Component {
             Edit
           </MenuItem>
           <MenuItem
-            onClick={handleDelete}
+            onClick={() => {
+              handleDelete();
+              this.handleClose();
+            }}
             className={`${classes.menuItem} ${classes[type]}`}
             data-qa={`delete-${type}-card`}
           >

@@ -32,7 +32,7 @@ const deleteEvent = id => dispatch => {
   axios
     .delete(`${eventsURL}/${id}`)
     .then(res => {
-      dispatch(deleteEventSuccess(id));
+      if (res.status === 204) dispatch(deleteEventSuccess(id));
     })
     .catch(error => {
       dispatch(deleteEventFail(error));

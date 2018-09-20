@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Moment from 'moment';
+import CardLoader from 'components/CardLoader';
 import TypeLabel from 'components/TypeLabel';
 import EditCardMenu from 'components/EditCardMenu';
 import PriorityArrow from 'components/Icons/PriorityArrow';
@@ -10,6 +13,10 @@ import { cutDescription } from 'utils/helpers';
 import { priorityOptions } from 'config';
 
 class EventCard extends Component {
+  state = {
+    deletingItem: null,
+  };
+
   handleEdit = id => () => {
     const { history } = this.props;
     history.push(`/event/${id}/edit`);
@@ -17,13 +24,17 @@ class EventCard extends Component {
 
   handleDelete = id => () => {
     const { deleteEvent } = this.props;
+    this.setState(() => ({ deletingItem: id }));
     deleteEvent(id);
   };
 
   render() {
-    const { id, title, startDate, endDate, description, priority } = this.props;
+    const { id, title, startDate, endDate, description, priority, deleting } = this.props;
+    const { deletingItem } = this.state;
+    const isDeleting = deleting && id === deletingItem;
     return (
       <CardWrapper>
+        {isDeleting && <CardLoader />}
         <EditCardMenu
           iconColor="#8eaad4"
           type="event"
@@ -75,20 +86,24 @@ class EventCard extends Component {
 
 EventCard.defaultProps = {
   description: '',
+  deleting: false,
 };
 
 EventCard.propTypes = {
   history: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  startDate: PropTypes.instanceOf('Moment').isRequired,
-  endDate: PropTypes.instanceOf('Moment').isRequired,
+  startDate: PropTypes.instanceOf(Moment).isRequired,
+  endDate: PropTypes.instanceOf(Moment).isRequired,
   description: PropTypes.string,
   priority: PropTypes.string.isRequired,
+  deleting: PropTypes.bool,
   deleteEvent: PropTypes.func.isRequired,
 };
 
-export default EventCard;
+export default connect(state => ({
+  deleting: state.events.deleting,
+}))(EventCard);
 
 const CardWrapper = styled.div`
   position: relative;
