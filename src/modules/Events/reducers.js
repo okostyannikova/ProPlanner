@@ -67,6 +67,23 @@ export default (state = initialState, action) => {
         ...state,
         error: payload.err,
       };
+
+    case types.CREATE_SINGLE_EVENT_START:
+      return {
+        ...state,
+        loading: true,
+      };
+    case types.CREATE_SINGLE_EVENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        eventsSingleEvent: payload.res,
+      };
+    case types.CREATE_SINGLE_EVENT_FAIL:
+      return {
+        ...state,
+        error: payload.err,
+      };
     default:
       return state;
   }

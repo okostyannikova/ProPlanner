@@ -46,3 +46,18 @@ export const updateEventFail = err => ({
   type: types.UPDATE_SINGLE_EVENT_FAIL,
   payload: { err },
 });
+
+export const createEventStart = data => ({
+  type: types.CREATE_SINGLE_EVENT_START,
+  payload: { data },
+});
+
+export const createEventSuccess = event => ({
+  type: types.CREATE_SINGLE_EVENT_SUCCESS,
+  payload: { event },
+});
+
+export const createEventFail = err => ({
+  type: types.CREATE_SINGLE_EVENT_FAIL,
+  payload: { err },
+});

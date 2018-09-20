@@ -10,8 +10,16 @@ import {
   updateEventStart,
   updateEventSuccess,
   updateEventFail,
+  createEventStart,
+  createEventSuccess,
+  createEventFail,
 } from './actions';
-import { normalizeData, normalizeSingleData, normalizePatchData } from './utils';
+import {
+  normalizeData,
+  normalizeSingleData,
+  normalizePatchData,
+  normalizeCreateData,
+} from './utils';
 import { authHeader } from '../../utils/auth';
 import { apiURL } from '../../config';
 
@@ -68,9 +76,28 @@ const patchEvent = data => dispatch => {
     });
 };
 
+const addEvent = data => dispatch => {
+  const normalizedData = normalizeCreateData(data);
+  dispatch(createEventStart());
+
+  axios
+    .post(`${eventsURL}`, normalizedData, { headers: authHeader() })
+    .then(res => {
+      console.log(res);
+      // Возможно будет нужна нормализация!!!
+      dispatch(createEventSuccess(res));
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch(createEventFail(err));
+      // throw new Error(err);
+    });
+};
+
 export default {
   loadEvents,
   loadSingleEvent,
   deleteSingleEvent,
   patchEvent,
+  addEvent,
 };
