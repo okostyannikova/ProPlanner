@@ -20,9 +20,9 @@ const loadEvents = () => dispatch => {
       const events = normalizeData(res.data.data);
       dispatch(loadEventsSuccess(events));
     })
-    .catch(err => {
-      dispatch(loadEventsFail(err));
-      throw new Error(err);
+    .catch(error => {
+      dispatch(loadEventsFail(error));
+      throw new Error(error);
     });
 };
 
@@ -32,12 +32,11 @@ const deleteEvent = id => dispatch => {
   axios
     .delete(`${eventsURL}/${id}`)
     .then(res => {
-      console.log(res);
       dispatch(deleteEventSuccess(id));
     })
-    .catch(err => {
-      dispatch(deleteEventFail(err));
-      throw new Error(err);
+    .catch(error => {
+      dispatch(deleteEventFail(error));
+      throw new Error(error);
     });
 };
 

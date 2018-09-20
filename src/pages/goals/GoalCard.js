@@ -6,10 +6,8 @@ import TypeLabel from 'components/TypeLabel';
 import EditCardMenu from 'components/EditCardMenu';
 import eventsSummaryIcon from 'assets/images/goals/summary-events-icon.svg';
 import defaultPicture from 'assets/images/goals/goal-default-picture.png';
-import { colorTypes, smartOptions } from '../../config';
-
-const cutDescription = description =>
-  description.length > 50 ? `${description.slice(0, 51)}...` : description;
+import { colorTypes, smartOptions } from 'config';
+import { cutDescription } from 'utils/helpers';
 
 class GoalCard extends Component {
   handleEdit = id => () => {
@@ -23,31 +21,16 @@ class GoalCard extends Component {
   };
 
   render() {
-    const {
-      goal: {
-        id,
-        attributes: {
-          title,
-          'goal-type': type,
-          'picture-link': pictureLink,
-          description,
-          s,
-          m,
-          a,
-          r,
-          t,
-        },
-      },
-    } = this.props;
-    const smart = { s, m, a, r, t };
+    const { id, title, type, pictureLink, description, smart } = this.props;
     return (
       <CardWrapper>
         <EditCardMenu
           iconColor="rgba(52, 70, 98, 0.87)"
+          type="goal"
           handleDelete={this.handleDelete(id)}
           handleEdit={this.handleEdit(id)}
         />
-        <Card to={`/goal/${id}`}>
+        <Card to={`/goal/${id}`} data-qa="goal-card">
           <TypeLabel color={colorTypes[type]}>{type}</TypeLabel>
           <div>
             <Title>{title}</Title>
@@ -72,19 +55,27 @@ class GoalCard extends Component {
             </Footer>
           </div>
         </Card>
-        <AddEventLink to="/event/add">add event</AddEventLink>
+        <AddEventLink to="/event/add" data-qa="add-event-link">
+          add event
+        </AddEventLink>
       </CardWrapper>
     );
   }
 }
 
 GoalCard.defaultProps = {
-  goal: null,
+  pictureLink: defaultPicture,
+  description: '',
 };
 
 GoalCard.propTypes = {
   history: PropTypes.object.isRequired,
-  goal: PropTypes.object,
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  pictureLink: PropTypes.string,
+  description: PropTypes.string,
+  smart: PropTypes.objectOf(PropTypes.string).isRequired,
   deleteGoal: PropTypes.func.isRequired,
 };
 

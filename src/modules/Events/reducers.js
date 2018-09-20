@@ -3,10 +3,11 @@ import types from './types';
 const initialState = {
   loading: false,
   eventsList: null,
+  error: null,
 };
 
 export default (state = initialState, action) => {
-  const { type, payload } = action;
+  const { type, payload, error } = action;
 
   switch (type) {
     case types.LOAD_EVENTS_START:
@@ -18,22 +19,24 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+        error: null,
         eventsList: payload.events,
       };
     case types.LOAD_EVENTS_FAIL:
       return {
         ...state,
-        error: payload.err,
+        error,
       };
     case types.DELETE_EVENT_SUCCESS:
       return {
         ...state,
+        error: null,
         eventsList: state.eventsList.filter(ev => ev.id !== payload.id),
       };
     case types.DELETE_EVENT_FAIL:
       return {
         ...state,
-        error: payload.err,
+        error,
       };
     default:
       return state;

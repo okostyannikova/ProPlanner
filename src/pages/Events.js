@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import RoundButton from 'components/RoundButton';
 import Loader from 'components/Loader';
+import NoItemsMessage from 'components/NoItemsMessage';
 import { eventsOperations } from '../modules/Events';
 import EventCard from './events/EventCard';
 
@@ -45,10 +45,9 @@ class Events extends Component {
     }
     if (!loading && !events) {
       return (
-        <NoEventsMessage>
+        <NoItemsMessage item="event" url="/event/add">
           Unfortunately you have no events yet.
-          <AddEventLink to="/event/add">Create new event</AddEventLink>
-        </NoEventsMessage>
+        </NoItemsMessage>
       );
     }
   };
@@ -124,20 +123,5 @@ const EventsList = styled.div`
   }
   @media (max-width: 500px) {
     margin-right: 0;
-  }
-`;
-
-const NoEventsMessage = styled.p`
-  color: rgba(52, 70, 98, 0.8);
-  font-size: 18px;
-`;
-
-const AddEventLink = styled(Link)`
-  color: #00bcd4;
-  padding-left: 5px;
-  text-decoration: underline;
-  white-space: nowrap;
-  &:hover {
-    text-decoration: none;
   }
 `;

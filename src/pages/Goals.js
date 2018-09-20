@@ -20,9 +20,33 @@ class Goals extends Component {
       return <Loader />;
     }
     if (goals) {
-      return goals.map(goal => (
-        <GoalCard key={goal.id} goal={goal} deleteGoal={deleteGoal} history={history} />
-      ));
+      return goals.map(goal => {
+        const {
+          title,
+          'goal-type': type,
+          'picture-link': pictureLink,
+          description,
+          s,
+          m,
+          a,
+          r,
+          t,
+        } = goal.attributes;
+        const smart = { s, m, a, r, t };
+        return (
+          <GoalCard
+            key={goal.id}
+            id={goal.id}
+            title={title}
+            type={type}
+            pictureLink={pictureLink}
+            description={description}
+            smart={smart}
+            deleteGoal={deleteGoal}
+            history={history}
+          />
+        );
+      });
     }
     if (!loading && !goals) {
       return (

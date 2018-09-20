@@ -29,7 +29,8 @@
           "modules",
           "components",
           "styles",
-          "utils"
+          "utils",
+          "config"
         ]
       }
     ],

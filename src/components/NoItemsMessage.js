@@ -6,7 +6,9 @@ import styled from 'styled-components';
 const NoItemsMessage = ({ url, item, children }) => (
   <NoItemsText>
     {children}
-    <AddItemLink to={url}>Create new {item}</AddItemLink>
+    <AddItemLink to={url} data-qa={`add-${item}-link`}>
+      Create new {item}
+    </AddItemLink>
   </NoItemsText>
 );
 

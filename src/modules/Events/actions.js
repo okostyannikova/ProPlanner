@@ -9,9 +9,9 @@ export const loadEventsSuccess = events => ({
   payload: { events },
 });
 
-export const loadEventsFail = err => ({
+export const loadEventsFail = error => ({
   type: types.LOAD_EVENTS_FAIL,
-  payload: { err },
+  error,
 });
 
 export const deleteEventStart = () => ({
@@ -23,7 +23,7 @@ export const deleteEventSuccess = id => ({
   payload: { id },
 });
 
-export const deleteEventFail = err => ({
+export const deleteEventFail = error => ({
   type: types.DELETE_EVENT_FAIL,
-  payload: { err },
+  error,
 });

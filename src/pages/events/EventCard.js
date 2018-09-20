@@ -6,12 +6,10 @@ import TypeLabel from 'components/TypeLabel';
 import EditCardMenu from 'components/EditCardMenu';
 import PriorityArrow from 'components/Icons/PriorityArrow';
 import tasksSummaryIcon from 'assets/images/events/summary-tasks-icon.svg';
-import { priorityOptions } from '../../config';
+import { cutDescription } from 'utils/helpers';
+import { priorityOptions } from 'config';
 
-const cutDescription = description =>
-  description.length > 50 ? `${description.slice(0, 51)}...` : description;
-
-class EventCart extends Component {
+class EventCard extends Component {
   handleEdit = id => () => {
     const { history } = this.props;
     history.push(`/event/${id}/edit`);
@@ -25,13 +23,14 @@ class EventCart extends Component {
   render() {
     const { id, title, startDate, endDate, description, priority } = this.props;
     return (
-      <CartWrapper>
-        <EditCartMenu
+      <CardWrapper>
+        <EditCardMenu
           iconColor="#8eaad4"
+          type="event"
           handleDelete={this.handleDelete(id)}
           handleEdit={this.handleEdit(id)}
         />
-        <Cart to={`/event/${id}`}>
+        <Card to={`/event/${id}`} data-qa="event-card">
           <TypeLabel color="#FFE07F">Personal</TypeLabel>
           <div>
             <Title>{title}</Title>
@@ -68,17 +67,17 @@ class EventCart extends Component {
               </TasksSummary>
             </Footer>
           </div>
-        </Cart>
-      </CartWrapper>
+        </Card>
+      </CardWrapper>
     );
   }
 }
 
-EventCart.defaultProps = {
+EventCard.defaultProps = {
   description: '',
 };
 
-EventCart.propTypes = {
+EventCard.propTypes = {
   history: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
@@ -89,9 +88,9 @@ EventCart.propTypes = {
   deleteEvent: PropTypes.func.isRequired,
 };
 
-export default EventCart;
+export default EventCard;
 
-const CartWrapper = styled.div`
+const CardWrapper = styled.div`
   position: relative;
   flex-basis: 23%;
   min-height: 220px;
@@ -121,7 +120,7 @@ const CartWrapper = styled.div`
   }
 `;
 
-const Cart = styled(Link)`
+const Card = styled(Link)`
   display: block;
   color: #3366b4;
   font-weight: 400;
