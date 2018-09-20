@@ -1,6 +1,7 @@
 // global reducers
 
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 import authorizeReducer from './Authentication';
 import calendarReducer from './Calendar';
 import eventsReducer from './Events';
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   calendar: calendarReducer,
   events: eventsReducer,
   goals: goalsReducer,
+  form: formReducer,
 });
 
 export default rootReducer;

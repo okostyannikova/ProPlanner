@@ -40,8 +40,16 @@ class Priority extends Component {
 
   state = {
     anchorEl: null,
-    selectedIndex: 1,
+    selectedIndex: this.props.priority,
   };
+
+  componentWillReceiveProps(newProps) {
+    // console.log('newProps', newProps);
+    const index = options.findIndex(
+      option => option.tag.toLowerCase() === newProps.input.value.toLowerCase()
+    );
+    index !== -1 ? this.setState({ selectedIndex: index }) : this.setState({ selectedIndex: 1 });
+  }
 
   handleClickListItem = (event, view) => {
     if (view) {
@@ -59,6 +67,9 @@ class Priority extends Component {
   };
 
   render() {
+    // console.log(this.props);
+
+    // const { classes, view, ...input } = this.props;
     const { classes, view } = this.props;
     const { anchorEl, selectedIndex } = this.state;
 
