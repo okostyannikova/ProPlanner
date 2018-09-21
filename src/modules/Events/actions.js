@@ -37,9 +37,9 @@ export const loadSingleEventSuccess = event => ({
   payload: { event },
 });
 
-export const loadSingleEventFail = err => ({
+export const loadSingleEventFail = error => ({
   type: types.LOAD_SINGLE_EVENT_FAIL,
-  payload: { err },
+  error,
 });
 
 export const removeSingleEvent = () => ({
@@ -56,9 +56,9 @@ export const updateEventSuccess = event => ({
   payload: { event },
 });
 
-export const updateEventFail = err => ({
+export const updateEventFail = error => ({
   type: types.UPDATE_SINGLE_EVENT_FAIL,
-  payload: { err },
+  error,
 });
 
 export const createEventStart = data => ({
@@ -71,7 +71,7 @@ export const createEventSuccess = event => ({
   payload: { event },
 });
 
-export const createEventFail = err => ({
+export const createEventFail = error => ({
   type: types.CREATE_SINGLE_EVENT_FAIL,
-  payload: { err },
+  error,
 });

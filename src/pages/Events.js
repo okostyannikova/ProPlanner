@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import RoundButton from 'components/RoundButton';
 import Loader from 'components/Loader';
 import NoItemsMessage from 'components/NoItemsMessage';
@@ -20,28 +21,36 @@ class Events extends Component {
       return <Loader />;
     }
     if (events) {
-      return events.map(event => {
-        const {
-          title,
-          'start-date': startDate,
-          'end-date': endDate,
-          description,
-          priority,
-        } = event.attributes;
-        return (
-          <EventCard
-            key={event.id}
-            id={event.id}
-            title={title}
-            startDate={startDate}
-            endDate={endDate}
-            description={description}
-            priority={priority}
-            deleteEvent={deleteEvent}
-            history={history}
-          />
-        );
-      });
+      return (
+        <TransitionGroup component={null}>
+          {events.map(event => {
+            const {
+              title,
+              'start-date': startDate,
+              'end-date': endDate,
+              'event-type': type,
+              description,
+              priority,
+            } = event.attributes;
+            return (
+              <CSSTransition key={event.id} in appear classNames="card" timeout={400}>
+                <EventCard
+                  key={event.id}
+                  id={event.id}
+                  type={type}
+                  title={title}
+                  startDate={startDate}
+                  endDate={endDate}
+                  description={description}
+                  priority={priority}
+                  deleteEvent={deleteEvent}
+                  history={history}
+                />
+              </CSSTransition>
+            );
+          })}
+        </TransitionGroup>
+      );
     }
     if (!loading && !events) {
       return (

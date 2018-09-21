@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   loadGoalsStart,
   loadGoalsSuccess,
@@ -7,9 +6,6 @@ import {
   deleteGoalSuccess,
   deleteGoalFail,
 } from './actions';
-import { apiURL } from '../../config';
-
-const goalsURL = `${apiURL}/goals`;
 
 const fakeGoals = [
   {
@@ -117,10 +113,9 @@ const loadGoals = () => dispatch => {
 const deleteGoal = id => dispatch => {
   dispatch(deleteGoalStart());
 
-  axios
-    .delete(`${goalsURL}/${id}`)
+  Promise.resolve(id)
     .then(res => {
-      dispatch(deleteGoalSuccess(id));
+      dispatch(deleteGoalSuccess(res));
     })
     .catch(error => {
       dispatch(deleteGoalFail(error));
