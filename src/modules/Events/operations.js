@@ -16,7 +16,7 @@ import {
   deleteEventStart,
   deleteEventSuccess,
   deleteEventFail,
-
+} from './actions';
 import {
   normalizeData,
   normalizeSingleData,
