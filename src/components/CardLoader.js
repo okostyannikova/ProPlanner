@@ -9,7 +9,7 @@ const styles = theme => ({
     zIndex: '100',
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    backgroundColor: 'rgba(255,255,255,0.85)',
   },
   progressWrapper: {
     position: 'absolute',
@@ -27,7 +27,7 @@ function CardLoader(props) {
   return (
     <div className={classes.wrapper}>
       <div className={classes.progressWrapper}>
-        <CircularProgress className={classes.progress} />
+        <CircularProgress className={classes.progress} style={{ color: '#3366b4' }} />
       </div>
     </div>
   );

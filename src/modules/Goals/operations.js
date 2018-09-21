@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   loadGoalsStart,
   loadGoalsSuccess,
@@ -7,9 +6,6 @@ import {
   deleteGoalSuccess,
   deleteGoalFail,
 } from './actions';
-import { apiURL } from '../../config';
-
-const goalsURL = `${apiURL}/goals`;
 
 const fakeGoals = [
   {

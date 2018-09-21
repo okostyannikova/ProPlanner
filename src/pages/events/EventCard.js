@@ -42,7 +42,7 @@ class EventCard extends Component {
           handleEdit={this.handleEdit(id)}
         />
         <Card to={`/event/${id}`} data-qa="event-card">
-          {type && <TypeLabel color={colorTypes[type]}>{type}</TypeLabel>}
+          {type && !isDeleting && <TypeLabel color={colorTypes[type]}>{type}</TypeLabel>}
           <div>
             <Title>{title}</Title>
             <TimeWrapper>
