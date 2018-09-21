@@ -16,9 +16,9 @@ class DropsContainer extends Component {
   }
 
   render() {
-    const { view, event, match, history, reset } = this.props;
-    const mainButtonLink = view ? `${match.url}/edit` : `/event/${match.params.id}`;
-    const secondaryButtonLink = view ? '/events' : `/event/${match.params.id}`;
+    const { event, history, reset } = this.props;
+    const mainButtonLink = `/events`;
+    const secondaryButtonLink = `/events`;
 
     const priority = event ? event.priority : '1';
 
@@ -26,22 +26,21 @@ class DropsContainer extends Component {
       <div>
         <ul className="drops-list">
           <li>
-            {/* <Priority view={view} priority={priority} /> */}
-            <Field name="priority" component={Priority} view={view} priority={priority} />
+            {/* <Priority  priority={priority} /> */}
+            <Field name="priority" component={Priority} priority={priority} />
           </li>
           <li>
-            <Notification view={view} />
+            <Notification />
           </li>
           <li>
-            <Location view={view} />
+            <Location />
           </li>
           <li>
-            <Type view={view} />
+            <Type />
           </li>
         </ul>
-
-        <MainButton view={view} history={history} link={mainButtonLink} />
-        <SecondaryButton view={view} history={history} reset={reset} link={secondaryButtonLink} />
+        <MainButton history={history} link={mainButtonLink} />
+        <SecondaryButton history={history} reset={reset} link={secondaryButtonLink} />
       </div>
     );
   }
