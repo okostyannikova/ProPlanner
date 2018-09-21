@@ -58,12 +58,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+        error: null,
         eventsSingleEvent: payload.event,
       };
     case types.LOAD_SINGLE_EVENT_FAIL:
       return {
         ...state,
-        error: payload.err,
+        loading: false,
+        error,
       };
 
     case types.REMOVE_SINGLE_EVENT:
@@ -82,12 +84,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+        error: null,
         eventsSingleEvent: payload.res,
       };
     case types.UPDATE_SINGLE_EVENT_FAIL:
       return {
         ...state,
-        error: payload.err,
+        loading: false,
+        error,
       };
 
     case types.CREATE_SINGLE_EVENT_START:
@@ -99,12 +103,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+        error: null,
         eventsSingleEvent: payload.res,
       };
     case types.CREATE_SINGLE_EVENT_FAIL:
       return {
         ...state,
-        error: payload.err,
+        loading: false,
+        error,
       };
     default:
       return state;

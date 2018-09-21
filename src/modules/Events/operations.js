@@ -58,14 +58,14 @@ const deleteEvent = id => dispatch => {
 const loadSingleEvent = id => dispatch => {
   dispatch(loadSingleEventStart());
 
-  axios(`${eventsURL}${id}`)
+  axios(`${eventsURL}/${id}`)
     .then(res => {
       const event = normalizeSingleData(res.data.data);
       dispatch(loadSingleEventSuccess(event));
     })
-    .catch(err => {
-      dispatch(loadSingleEventFail(err));
-      throw new Error(err);
+    .catch(error => {
+      dispatch(loadSingleEventFail(error));
+      throw new Error(error);
     });
 };
 
@@ -80,15 +80,15 @@ const patchEvent = data => dispatch => {
   dispatch(updateEventStart());
 
   axios
-    .patch(`${eventsURL}${id}`, normalizedData)
+    .patch(`${eventsURL}/${id}`, normalizedData)
     .then(res => {
       console.log(res);
       dispatch(updateEventSuccess(res));
     })
-    .catch(err => {
-      console.log(err);
-      dispatch(updateEventFail(err));
-      // throw new Error(err);
+    .catch(error => {
+      console.log(error);
+      dispatch(updateEventFail(error));
+      // throw new Error(error);
     });
 };
 
@@ -102,10 +102,10 @@ const addEvent = data => dispatch => {
       const event = normalizeSingleData(res.data.data);
       dispatch(createEventSuccess(event));
     })
-    .catch(err => {
-      console.log(err);
-      dispatch(createEventFail(err));
-      // throw new Error(err);
+    .catch(error => {
+      console.log(error);
+      dispatch(createEventFail(error));
+      // throw new Error(error);
     });
 };
 
