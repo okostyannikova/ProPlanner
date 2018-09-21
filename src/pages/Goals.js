@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import RoundButton from 'components/RoundButton';
 import Loader from 'components/Loader';
 import NoItemsMessage from 'components/NoItemsMessage';
@@ -20,33 +21,39 @@ class Goals extends Component {
       return <Loader />;
     }
     if (goals) {
-      return goals.map(goal => {
-        const {
-          title,
-          'goal-type': type,
-          'picture-link': pictureLink,
-          description,
-          s,
-          m,
-          a,
-          r,
-          t,
-        } = goal.attributes;
-        const smart = { s, m, a, r, t };
-        return (
-          <GoalCard
-            key={goal.id}
-            id={goal.id}
-            title={title}
-            type={type}
-            pictureLink={pictureLink}
-            description={description}
-            smart={smart}
-            deleteGoal={deleteGoal}
-            history={history}
-          />
-        );
-      });
+      return (
+        <TransitionGroup component={null}>
+          {goals.map(goal => {
+            const {
+              title,
+              'goal-type': type,
+              'picture-link': pictureLink,
+              description,
+              s,
+              m,
+              a,
+              r,
+              t,
+            } = goal.attributes;
+            const smart = { s, m, a, r, t };
+            return (
+              <CSSTransition key={goal.id} in appear classNames="card" timeout={400}>
+                <GoalCard
+                  key={goal.id}
+                  id={goal.id}
+                  title={title}
+                  type={type}
+                  pictureLink={pictureLink}
+                  description={description}
+                  smart={smart}
+                  deleteGoal={deleteGoal}
+                  history={history}
+                />
+              </CSSTransition>
+            );
+          })}
+        </TransitionGroup>
+      );
     }
     if (!loading && !goals) {
       return (

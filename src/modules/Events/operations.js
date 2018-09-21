@@ -10,7 +10,7 @@ import {
 import { normalizeData } from './utils';
 import { apiURL } from '../../config';
 
-const eventsURL = `${apiURL}/events/`;
+const eventsURL = `${apiURL}/events`;
 
 const loadEvents = () => dispatch => {
   dispatch(loadEventsStart());
@@ -29,10 +29,14 @@ const loadEvents = () => dispatch => {
 const deleteEvent = id => dispatch => {
   dispatch(deleteEventStart());
 
-  axios
+  /* axios
     .delete(`${eventsURL}/${id}`)
     .then(res => {
       if (res.status === 204) dispatch(deleteEventSuccess(id));
+    }) */
+  Promise.resolve(id)
+    .then(res => {
+      dispatch(deleteEventSuccess(res));
     })
     .catch(error => {
       dispatch(deleteEventFail(error));

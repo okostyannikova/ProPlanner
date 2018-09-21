@@ -117,10 +117,9 @@ const loadGoals = () => dispatch => {
 const deleteGoal = id => dispatch => {
   dispatch(deleteGoalStart());
 
-  axios
-    .delete(`${goalsURL}/${id}`)
+  Promise.resolve(id)
     .then(res => {
-      dispatch(deleteGoalSuccess(id));
+      dispatch(deleteGoalSuccess(res));
     })
     .catch(error => {
       dispatch(deleteGoalFail(error));
