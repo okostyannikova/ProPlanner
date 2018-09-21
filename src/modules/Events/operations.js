@@ -99,9 +99,8 @@ const addEvent = data => dispatch => {
   axios
     .post(`${eventsURL}`, normalizedData)
     .then(res => {
-      console.log(res);
-      // Возможно будет нужна нормализация!!!
-      dispatch(createEventSuccess(res));
+      const event = normalizeSingleData(res.data.data);
+      dispatch(createEventSuccess(event));
     })
     .catch(err => {
       console.log(err);
