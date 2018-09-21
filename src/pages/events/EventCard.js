@@ -1,61 +1,96 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { priorityOptions } from 'config';
 import { Link } from 'react-router-dom';
 import TypeLabel from 'components/TypeLabel';
 import EditCardMenu from 'components/EditCardMenu';
 import PriorityArrow from 'components/Icons/PriorityArrow';
 import tasksSummaryIcon from 'assets/images/events/summary-tasks-icon.svg';
+import { cutDescription } from 'utils/helpers';
+import { priorityOptions } from 'config';
 
-const cutDescription = description =>
-  description.length > 50 ? `${description.slice(0, 51)}...` : description;
+class EventCard extends Component {
+  handleEdit = id => () => {
+    const { history } = this.props;
+    history.push(`/event/${id}/edit`);
+  };
 
-const EventCard = ({ id, title, startDate, endDate, description, priority }) => (
-  <CartWrapper>
-    <EditCardMenu iconColor="#8eaad4" id={id} />
-    <Cart to={`/event/${id}`}>
-      <TypeLabel color="#FFE07F">Personal</TypeLabel>
-      <div>
-        <Title>{title}</Title>
-        <TimeWrapper>
-          <TimeItem>
-            <Day>{startDate.format('DD')}</Day>
-            <Date>
-              {startDate.format('MMMM')}
-              <br />
-              {startDate.format('HH:mm')}
-            </Date>
-          </TimeItem>
-          <Separator />
-          <TimeItem>
-            <Day>{endDate.format('DD')}</Day>
-            <Date>
-              {endDate.format('MMMM')}
-              <br />
-              {endDate.format('HH:mm')}
-            </Date>
-          </TimeItem>
-        </TimeWrapper>
-        <Description>{cutDescription(description)}</Description>
-        <Footer>
-          <Priority>
-            <PriorityArrow
-              fill={priorityOptions[priority].color}
-              direction={priorityOptions[priority].direction}
-            />
-            {priority}
-          </Priority>
-          <TasksSummary>
-            3/6 <img src={tasksSummaryIcon} alt="task summary" />
-          </TasksSummary>
-        </Footer>
-      </div>
-    </Cart>
-  </CartWrapper>
-);
+  handleDelete = id => () => {
+    const { deleteEvent } = this.props;
+    deleteEvent(id);
+  };
+
+  render() {
+    const { id, title, startDate, endDate, description, priority } = this.props;
+    return (
+      <CardWrapper>
+        <EditCardMenu
+          iconColor="#8eaad4"
+          type="event"
+          handleDelete={this.handleDelete(id)}
+          handleEdit={this.handleEdit(id)}
+        />
+        <Card to={`/event/${id}`} data-qa="event-card">
+          <TypeLabel color="#FFE07F">Personal</TypeLabel>
+          <div>
+            <Title>{title}</Title>
+            <TimeWrapper>
+              <TimeItem>
+                <Day>{startDate.format('DD')}</Day>
+                <Date>
+                  {startDate.format('MMMM')}
+                  <br />
+                  {startDate.format('HH:mm')}
+                </Date>
+              </TimeItem>
+              <Separator />
+              <TimeItem>
+                <Day>{endDate.format('DD')}</Day>
+                <Date>
+                  {endDate.format('MMMM')}
+                  <br />
+                  {endDate.format('HH:mm')}
+                </Date>
+              </TimeItem>
+            </TimeWrapper>
+            <Description>{cutDescription(description)}</Description>
+            <Footer>
+              <Priority>
+                <PriorityArrow
+                  fill={priorityOptions[priority].color}
+                  direction={priorityOptions[priority].direction}
+                />
+                {priority}
+              </Priority>
+              <TasksSummary>
+                3/6 <img src={tasksSummaryIcon} alt="task summary" />
+              </TasksSummary>
+            </Footer>
+          </div>
+        </Card>
+      </CardWrapper>
+    );
+  }
+}
+
+EventCard.defaultProps = {
+  description: '',
+};
+
+EventCard.propTypes = {
+  history: PropTypes.object.isRequired,
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  startDate: PropTypes.instanceOf('Moment').isRequired,
+  endDate: PropTypes.instanceOf('Moment').isRequired,
+  description: PropTypes.string,
+  priority: PropTypes.string.isRequired,
+  deleteEvent: PropTypes.func.isRequired,
+};
+
 export default EventCard;
 
-const CartWrapper = styled.div`
+const CardWrapper = styled.div`
   position: relative;
   flex-basis: 23%;
   min-height: 220px;
@@ -85,7 +120,7 @@ const CartWrapper = styled.div`
   }
 `;
 
-const Cart = styled(Link)`
+const Card = styled(Link)`
   display: block;
   color: #3366b4;
   font-weight: 400;

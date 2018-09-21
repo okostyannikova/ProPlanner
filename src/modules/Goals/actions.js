@@ -9,9 +9,9 @@ export const loadGoalsSuccess = goals => ({
   payload: { goals },
 });
 
-export const loadGoalsFail = err => ({
+export const loadGoalsFail = error => ({
   type: types.LOAD_GOALS_FAIL,
-  payload: { err },
+  error,
 });
 
 export const deleteGoalStart = () => ({
@@ -23,7 +23,7 @@ export const deleteGoalSuccess = id => ({
   payload: { id },
 });
 
-export const deleteGoalFail = err => ({
+export const deleteGoalFail = error => ({
   type: types.DELETE_GOAL_FAIL,
-  payload: { err },
+  error,
 });

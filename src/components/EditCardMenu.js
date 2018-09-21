@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
-import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
@@ -20,11 +18,13 @@ const styles = {
     height: '40px',
   },
   menuItem: {
-    color: '#3366b4',
     width: '90px',
     '&:hover': {
       backgroundColor: 'rgba(51, 51, 51, 0.03)',
     },
+  },
+  event: {
+    color: '#3366b4',
   },
 };
 
@@ -42,7 +42,7 @@ class EditCardMenu extends Component {
   };
 
   render() {
-    const { iconColor, classes } = this.props;
+    const { iconColor, type, classes, handleEdit, handleDelete } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
@@ -53,6 +53,7 @@ class EditCardMenu extends Component {
           aria-owns={open ? 'fade-menu' : null}
           aria-haspopup="true"
           onClick={this.handleClick}
+          data-qa={`edit-${type}-menu`}
         >
           <MoreIcon color={iconColor} />
         </IconButton>
@@ -71,10 +72,18 @@ class EditCardMenu extends Component {
             horizontal: 'right',
           }}
         >
-          <MenuItem onClick={this.handleClose} className={classes.menuItem}>
+          <MenuItem
+            onClick={handleEdit}
+            className={`${classes.menuItem} ${classes[type]}`}
+            data-qa={`edit-${type}-card`}
+          >
             Edit
           </MenuItem>
-          <MenuItem onClick={this.handleClose} className={classes.menuItem}>
+          <MenuItem
+            onClick={handleDelete}
+            className={`${classes.menuItem} ${classes[type]}`}
+            data-qa={`delete-${type}-card`}
+          >
             Delete
           </MenuItem>
         </Popover>
@@ -85,10 +94,10 @@ class EditCardMenu extends Component {
 
 EditCardMenu.propTypes = {
   iconColor: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
+  handleEdit: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
 };
 
-export default compose(
-  withStyles(styles),
-  withRouter
-)(EditCardMenu);
+export default withStyles(styles)(EditCardMenu);

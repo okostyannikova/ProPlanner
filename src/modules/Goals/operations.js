@@ -108,9 +108,9 @@ const loadGoals = () => dispatch => {
     .then(res => {
       dispatch(loadGoalsSuccess(res));
     })
-    .catch(err => {
-      dispatch(loadGoalsFail(err));
-      throw new Error(err);
+    .catch(error => {
+      dispatch(loadGoalsFail(error));
+      throw new Error(error);
     });
 };
 
@@ -120,12 +120,11 @@ const deleteGoal = id => dispatch => {
   axios
     .delete(`${goalsURL}/${id}`)
     .then(res => {
-      console.log(res);
       dispatch(deleteGoalSuccess(id));
     })
-    .catch(err => {
-      dispatch(deleteGoalFail(err));
-      throw new Error(err);
+    .catch(error => {
+      dispatch(deleteGoalFail(error));
+      throw new Error(error);
     });
 };
 

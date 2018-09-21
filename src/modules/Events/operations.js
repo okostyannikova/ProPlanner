@@ -13,7 +13,10 @@ import {
   createEventStart,
   createEventSuccess,
   createEventFail,
-} from './actions';
+  deleteEventStart,
+  deleteEventSuccess,
+  deleteEventFail,
+
 import {
   normalizeData,
   normalizeSingleData,
@@ -28,14 +31,28 @@ const eventsURL = `${apiURL}/events/`;
 const loadEvents = () => dispatch => {
   dispatch(loadEventsStart());
 
-  axios(eventsURL, { headers: authHeader() })
+  axios(eventsURL)
     .then(res => {
       const events = normalizeData(res.data.data);
       dispatch(loadEventsSuccess(events));
     })
-    .catch(err => {
-      dispatch(loadEventsFail(err));
-      throw new Error(err);
+    .catch(error => {
+      dispatch(loadEventsFail(error));
+      throw new Error(error);
+    });
+};
+
+const deleteEvent = id => dispatch => {
+  dispatch(deleteEventStart());
+
+  axios
+    .delete(`${eventsURL}/${id}`)
+    .then(res => {
+      dispatch(deleteEventSuccess(id));
+    })
+    .catch(error => {
+      dispatch(deleteEventFail(error));
+      throw new Error(error);
     });
 };
 
@@ -96,8 +113,12 @@ const addEvent = data => dispatch => {
 
 export default {
   loadEvents,
+<<<<<<< src/modules/Events/operations.js
   loadSingleEvent,
   deleteSingleEvent,
   patchEvent,
   addEvent,
+=======
+  deleteEvent,
+>>>>>>> src/modules/Events/operations.js
 };
