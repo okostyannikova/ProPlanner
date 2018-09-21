@@ -113,12 +113,9 @@ const addEvent = data => dispatch => {
 
 export default {
   loadEvents,
-<<<<<<< src/modules/Events/operations.js
   loadSingleEvent,
   deleteSingleEvent,
   patchEvent,
   addEvent,
-=======
   deleteEvent,
->>>>>>> src/modules/Events/operations.js
 };
