@@ -42,6 +42,7 @@ export const normalizeCreateData = data => ({
       priority: data.priority || 'low',
       start_date: data.start_date || '2018-08-30T13:05:17+03:00',
       end_date: data.end_date || '2018-08-30T13:05:17+03:00',
+      event_type: data.type || 'work',
     },
   },
 });
