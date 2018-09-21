@@ -23,7 +23,6 @@ import {
   normalizePatchData,
   normalizeCreateData,
 } from './utils';
-import { authHeader } from '../../utils/auth';
 import { apiURL } from '../../config';
 
 const eventsURL = `${apiURL}/events/`;
@@ -59,7 +58,7 @@ const deleteEvent = id => dispatch => {
 const loadSingleEvent = id => dispatch => {
   dispatch(loadSingleEventStart());
 
-  axios(`${eventsURL}${id}`, { headers: authHeader() })
+  axios(`${eventsURL}${id}`)
     .then(res => {
       const event = normalizeSingleData(res.data.data);
       dispatch(loadSingleEventSuccess(event));
@@ -81,7 +80,7 @@ const patchEvent = data => dispatch => {
   dispatch(updateEventStart());
 
   axios
-    .patch(`${eventsURL}${id}`, normalizedData, { headers: authHeader() })
+    .patch(`${eventsURL}${id}`, normalizedData)
     .then(res => {
       console.log(res);
       dispatch(updateEventSuccess(res));
@@ -98,7 +97,7 @@ const addEvent = data => dispatch => {
   dispatch(createEventStart());
 
   axios
-    .post(`${eventsURL}`, normalizedData, { headers: authHeader() })
+    .post(`${eventsURL}`, normalizedData)
     .then(res => {
       console.log(res);
       // Возможно будет нужна нормализация!!!
