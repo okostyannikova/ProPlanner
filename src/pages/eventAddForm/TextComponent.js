@@ -13,9 +13,7 @@ class TextComponent extends Component {
   }
 
   componentDidMount() {
-    // if (this.props.label) {
     this.setState({ text: this.props.value });
-    // }
   }
 
   render() {
@@ -24,24 +22,19 @@ class TextComponent extends Component {
       headerClass = '',
       headerContent = '',
       placeholder = '',
-      view = false,
       input,
       ...restProps
     } = this.props;
 
-    const viewMode = view ? 'text-field-view' : 'text-field';
-    // console.log(this.props.value);
-    // console.log('state', this.state);
     return (
       <div>
         <p className={headerClass}>{headerContent}</p>
-        <div className={viewMode}>
+        <div className="text-field">
           <FormControl fullWidth>
             <Input
               value={value}
               rows="2"
               disableUnderline
-              disabled={view}
               placeholder={placeholder}
               className="input-field"
               {...input}

@@ -12,6 +12,7 @@ import Events from './pages/Events';
 import Settings from './pages/Settings';
 import Navigation from './components/Navigation';
 import EventForm from './pages/EventForm';
+import EventAddForm from './pages/EventAddForm';
 
 const LoginContainer = () => <Route path="/login" component={Login} />;
 
@@ -23,7 +24,7 @@ const DefaultContainer = () => (
       <Route path="/calendar" component={Calendar} />
       <Route exact path="/goals" component={Goals} />
       <Route exact path="/events" component={Events} />
-      <Route exact path="/event/add" component={EventForm} />
+      <Route exact path="/event/add" component={EventAddForm} />
       <Route exact path="/event/:id" component={EventForm} />
       <Route exact path="/event/:id/edit" component={EventForm} />
       <Route path="/settings" component={Settings} />
