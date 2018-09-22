@@ -85,7 +85,6 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         error: null,
-        eventsSingleEvent: payload.res,
       };
     case types.UPDATE_SINGLE_EVENT_FAIL:
       return {
@@ -105,6 +104,7 @@ export default (state = initialState, action) => {
         loading: false,
         error: null,
         eventsSingleEvent: payload.res,
+        eventsList: [payload.event, ...state.eventsList],
       };
     case types.CREATE_SINGLE_EVENT_FAIL:
       return {

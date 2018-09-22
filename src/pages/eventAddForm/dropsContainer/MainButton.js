@@ -2,9 +2,6 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 
 const MainButton = props => {
-  // const { history, link } = props;
-  // console.log(props);
-
   const mainButtonStyle = {
     borderRadius: '2px',
     width: '130px',
@@ -17,11 +14,6 @@ const MainButton = props => {
 
   const mainButtonText = 'SAVE';
 
-  const handleClick = () => {
-    // console.log(123);
-    // history.push(link);
-  };
-
   return (
     <Button
       type="submit"
@@ -29,7 +21,6 @@ const MainButton = props => {
       color="primary"
       style={mainButtonStyle}
       className="drops-list-button"
-      onClick={handleClick}
     >
       {mainButtonText}
     </Button>
