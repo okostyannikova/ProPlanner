@@ -14,12 +14,17 @@ class EventAddForm extends Component {
     event: null,
   };
 
+  componentWillUnmount = () => {
+    const { removeSingleEvent } = this.props;
+    removeSingleEvent();
+  };
+
   render() {
-    const { handleSubmit, reset, addEvent } = this.props;
+    const { handleSubmit, reset, history, addEvent } = this.props;
 
     const submit = values => {
-      //   console.log(values);
       addEvent(values);
+      history.push('/events');
     };
 
     return (
@@ -70,6 +75,7 @@ export default (EventAddForm = compose(
     null,
     {
       addEvent: eventsOperations.addEvent,
+      removeSingleEvent: eventsOperations.deleteSingleEvent,
     }
   ),
   reduxForm({

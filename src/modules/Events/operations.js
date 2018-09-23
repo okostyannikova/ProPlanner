@@ -82,11 +82,9 @@ const patchEvent = data => dispatch => {
   axios
     .patch(`${eventsURL}/${id}`, normalizedData)
     .then(res => {
-      console.log(res);
       dispatch(updateEventSuccess(res));
     })
     .catch(error => {
-      console.log(error);
       dispatch(updateEventFail(error));
       // throw new Error(error);
     });
