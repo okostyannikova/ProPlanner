@@ -21,12 +21,12 @@ class DropsContainer extends Component {
     const secondaryButtonLink = view ? '/events' : `/event/${match.params.id}`;
 
     const priority = event ? event.priority : '1';
+    const eventType = event ? event['event-type'] : '1';
 
     return (
       <div>
         <ul className="drops-list">
           <li>
-            {/* <Priority view={view} priority={priority} /> */}
             <Field name="priority" component={Priority} view={view} priority={priority} />
           </li>
           <li>
@@ -36,7 +36,7 @@ class DropsContainer extends Component {
             <Location view={view} />
           </li>
           <li>
-            <Type view={view} />
+            <Field name="type" component={Type} view={view} type={eventType} />
           </li>
         </ul>
 

@@ -26,6 +26,7 @@ export const normalizePatchData = data => ({
       description: data.description || 'Test Event',
       location: data.location || 'Dreamland',
       priority: data.priority.toLowerCase() || 'low',
+      event_type: data.type.toLowerCase() || 'work',
       start_date: data.start_date || '2018-08-30T13:05:17+03:00',
       end_date: data.end_date || '2018-08-30T13:05:17+03:00',
     },
