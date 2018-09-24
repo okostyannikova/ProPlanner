@@ -44,7 +44,6 @@ class Priority extends Component {
   };
 
   componentWillReceiveProps(newProps) {
-    // console.log('newProps', newProps);
     const index = options.findIndex(
       option => option.tag.toLowerCase() === newProps.input.value.toLowerCase()
     );
@@ -58,7 +57,8 @@ class Priority extends Component {
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleMenuItemClick = (event, index) => {
+  handleMenuItemClick = (event, index, input, tag) => {
+    input.onChange(tag);
     this.setState({ selectedIndex: index, anchorEl: null });
   };
 
@@ -67,17 +67,18 @@ class Priority extends Component {
   };
 
   render() {
-    // console.log(this.props);
-
-    // const { classes, view, ...input } = this.props;
-    const { classes, view } = this.props;
+    const { classes, view, input } = this.props;
     const { anchorEl, selectedIndex } = this.state;
 
     const viewMode = view ? 'list-item-view' : 'list-item';
 
     return (
       <div className={classes.root}>
-        <div onClick={event => this.handleClickListItem(event, view)} className={viewMode}>
+        <div
+          onClick={event => this.handleClickListItem(event, view)}
+          className={viewMode}
+          onChange={this.handle}
+        >
           <div>
             <img src={IncreaseIcon} alt="IncreaseIcon" />
             <span className="list-item-main-text">Priority</span>
@@ -97,7 +98,7 @@ class Priority extends Component {
             <MenuItem
               key={`${option}${index}`}
               selected={index === selectedIndex}
-              onClick={event => this.handleMenuItemClick(event, index)}
+              onClick={event => this.handleMenuItemClick(event, index, input, option.tag)}
             >
               <ListItemIcon>{option.icon}</ListItemIcon>
               {` ${option.tag}`}
