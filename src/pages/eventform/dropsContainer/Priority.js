@@ -7,6 +7,7 @@ import Menu from '@material-ui/core/Menu';
 
 import IncreaseIcon from 'assets/images/increase-icon.svg';
 import PriorityArrow from 'components/Icons/PriorityArrow.js';
+import { priorityOptions } from 'config';
 
 const styles = theme => ({
   root: {
@@ -19,19 +20,21 @@ const styles = theme => ({
 const options = [
   {
     tag: 'Important',
-    icon: <PriorityArrow fill="#F68181" />,
+    icon: <PriorityArrow fill={priorityOptions.important.color} />,
   },
   {
     tag: 'High',
-    icon: <PriorityArrow fill="#f8da7c" />,
+    icon: <PriorityArrow fill={priorityOptions.high.color} />,
   },
   {
-    tag: 'Normal',
-    icon: <PriorityArrow fill="#64C37D" />,
+    tag: 'Medium',
+    icon: <PriorityArrow fill={priorityOptions.medium.color} />,
   },
   {
     tag: 'Low',
-    icon: <PriorityArrow fill="#00BCD4" direction="180" />,
+    icon: (
+      <PriorityArrow fill={priorityOptions.low.color} direction={priorityOptions.low.direction} />
+    ),
   },
 ];
 

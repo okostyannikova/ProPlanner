@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
 import TypeSquare from 'components/Icons/TypeSquare.js';
+import { colorTypes } from 'config';
 
 const styles = theme => ({
   root: {
@@ -19,19 +20,19 @@ const styles = theme => ({
 const options = [
   {
     tag: 'Personal',
-    icon: <TypeSquare fill="#FFE07F" />,
+    icon: <TypeSquare fill={colorTypes.personal} />,
   },
   {
     tag: 'Work',
-    icon: <TypeSquare fill="#FFBFD4" />,
+    icon: <TypeSquare fill={colorTypes.work} />,
   },
   {
     tag: 'Entertainment',
-    icon: <TypeSquare fill="#6A2789" />,
+    icon: <TypeSquare fill={colorTypes.entertainment} />,
   },
   {
     tag: 'Other',
-    icon: <TypeSquare fill="#A9EFEA" />,
+    icon: <TypeSquare fill={colorTypes.other} />,
   },
 ];
 
