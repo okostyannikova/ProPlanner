@@ -163,5 +163,7 @@ const EventsList = styled.div`
   }
   @media (max-width: 500px) {
     margin-right: 0;
+    flex-direction: column;
+    align-items: center;
   }
 `;
