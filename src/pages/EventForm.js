@@ -89,12 +89,14 @@ const mapStateToProps = state => {
   let title = 'Add a title...';
   let description = 'add a detailed description...';
   let priority = 'high';
+  let type = 'work';
 
   if (state.events.eventsSingleEvent) {
     id = state.events.eventsSingleEvent.id;
     title = state.events.eventsSingleEvent.attributes.title;
     description = state.events.eventsSingleEvent.attributes.description;
     priority = state.events.eventsSingleEvent.attributes.priority;
+    type = state.events.eventsSingleEvent.attributes['event-type'];
   }
 
   return {
@@ -104,6 +106,7 @@ const mapStateToProps = state => {
       title,
       description,
       priority,
+      type,
     },
   };
 };

@@ -78,7 +78,6 @@ const deleteSingleEvent = () => dispatch => {
 const patchEvent = data => dispatch => {
   const { id } = data;
   const normalizedData = normalizePatchData(data);
-
   dispatch(updateEventStart());
 
   axios
