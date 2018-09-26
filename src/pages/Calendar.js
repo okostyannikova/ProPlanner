@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './calendar/styles.css';
@@ -8,12 +9,6 @@ import Day from './calendar/Day';
 import { eventsOperations } from '../modules/Events';
 
 class Calendar extends Component {
-  componentDidMount = () => {
-    const { match, history, loadEvents } = this.props;
-    loadEvents();
-    history.push(`${match.url}/month/`);
-  };
-
   render() {
     const { match } = this.props;
     return match.isExact ? (
@@ -27,6 +22,10 @@ class Calendar extends Component {
     );
   }
 }
+
+Calendar.propTypes = {
+  match: PropTypes.object.isRequired,
+};
 
 export default connect(
   null,
