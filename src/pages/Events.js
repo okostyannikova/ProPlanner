@@ -6,21 +6,31 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import RoundButton from 'components/RoundButton';
 import Loader from 'components/Loader';
 import NoItemsMessage from 'components/NoItemsMessage';
+import throttle from 'lodash.throttle';
 import { eventsOperations } from '../modules/Events';
 import EventCard from './events/EventCard';
 
 class Events extends Component {
+  constructor(props) {
+    super(props);
+    this.cardHeight = 219;
+    this.state = {
+      page: 1,
+    };
+  }
+
   componentDidMount = () => {
-    const { loadEvents } = this.props;
-    loadEvents();
+    this.fetchEvents();
+    document.addEventListener('scroll', this.checkMoreData());
+  };
+
+  componentWillUnmount = () => {
+    document.removeEventListener('scroll', this.checkMoreData());
   };
 
   getBody = () => {
     const { events, loading, deleteEvent, history } = this.props;
-    if (loading) {
-      return <Loader />;
-    }
-    if (events) {
+    if (events.length) {
       return (
         <TransitionGroup component={null}>
           {events.map(event => {
@@ -52,7 +62,7 @@ class Events extends Component {
         </TransitionGroup>
       );
     }
-    if (!loading && !events) {
+    if (!loading && !events.length) {
       return (
         <NoItemsMessage item="event" url="/event/add">
           Unfortunately you have no events yet.
@@ -61,7 +71,25 @@ class Events extends Component {
     }
   };
 
+  fetchEvents = () => {
+    const { loadEvents, lastPageNumber } = this.props;
+    const { page } = this.state;
+    if (page <= lastPageNumber) {
+      loadEvents(page, 20);
+      this.setState(prevState => ({ page: prevState.page + 1 }));
+    }
+  };
+
+  checkMoreData = () =>
+    throttle(ev => {
+      const elem = ev.target.documentElement;
+      if (elem.scrollHeight - elem.scrollTop - this.cardHeight <= elem.clientHeight) {
+        this.fetchEvents();
+      }
+    }, 300);
+
   render() {
+    const { loading } = this.props;
     return (
       <PageContainer className="page-content events-list">
         <Header>
@@ -69,6 +97,7 @@ class Events extends Component {
           <RoundButton to="/event/add" dataQa="add-event-btn" />
         </Header>
         <EventsList>{this.getBody()}</EventsList>
+        {loading && <Loader />}
       </PageContainer>
     );
   }
@@ -83,6 +112,7 @@ Events.propTypes = {
   // from connect
   events: PropTypes.arrayOf(PropTypes.object),
   loading: PropTypes.bool.isRequired,
+  lastPageNumber: PropTypes.number.isRequired,
   loadEvents: PropTypes.func.isRequired,
   deleteEvent: PropTypes.func.isRequired,
 };
@@ -91,6 +121,7 @@ export default connect(
   state => ({
     events: state.events.eventsList,
     loading: state.events.loading,
+    lastPageNumber: state.events.lastPageNumber,
   }),
   {
     loadEvents: eventsOperations.loadEvents,

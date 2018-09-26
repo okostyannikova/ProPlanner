@@ -4,9 +4,9 @@ export const loadEventsStart = () => ({
   type: types.LOAD_EVENTS_START,
 });
 
-export const loadEventsSuccess = events => ({
+export const loadEventsSuccess = (events, lastPageNumber) => ({
   type: types.LOAD_EVENTS_SUCCESS,
-  payload: { events },
+  payload: { events, lastPageNumber },
 });
 
 export const loadEventsFail = error => ({

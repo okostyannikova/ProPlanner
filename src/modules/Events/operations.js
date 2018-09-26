@@ -23,17 +23,19 @@ import {
   normalizePatchData,
   normalizeCreateData,
 } from './utils';
+import { getLastPageNumber } from '../utils';
 import { apiURL } from '../../config';
 
 const eventsURL = `${apiURL}/events`;
 
-const loadEvents = () => dispatch => {
+const loadEvents = (number = 1, size = 50) => dispatch => {
   dispatch(loadEventsStart());
 
-  axios(eventsURL)
+  axios(eventsURL, { params: { 'page[number]': number, 'page[size]': size } })
     .then(res => {
       const events = normalizeData(res.data.data);
-      dispatch(loadEventsSuccess(events));
+      const lastPageNumber = getLastPageNumber(res.data.links.last);
+      dispatch(loadEventsSuccess(events, lastPageNumber));
     })
     .catch(error => {
       dispatch(loadEventsFail(error));

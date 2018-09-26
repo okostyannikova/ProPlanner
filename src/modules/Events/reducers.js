@@ -3,13 +3,15 @@ import types from './types';
 const initialState = {
   loading: false,
   deleting: false,
-  eventsList: null,
+  eventsList: [],
   eventsSingleEvent: null,
+  lastPageNumber: 1,
   error: null,
 };
 
 export default (state = initialState, action) => {
   const { type, payload, error } = action;
+  const { eventsList } = state;
 
   switch (type) {
     case types.LOAD_EVENTS_START:
@@ -22,7 +24,8 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         error: null,
-        eventsList: payload.events,
+        eventsList: [...eventsList, ...payload.events],
+        lastPageNumber: payload.lastPageNumber,
       };
     case types.LOAD_EVENTS_FAIL:
       return {
