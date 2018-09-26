@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import googleLogo from 'assets/images/icon-google.svg';
 import './styles.css';
@@ -9,18 +10,13 @@ const StyledButton = styled.button`
   text-align: center;
   width: 100%;
   max-width: 540px;
-  border: none;
-  outline: none;
   margin: 40px auto 90px auto;
   color: #ffffff;
   text-transform: uppercase;
   position: relative;
   cursor: pointer;
 
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  line-height: normal;
+  font-weight: 400;
   font-size: 18px;
   letter-spacing: 0.07em;
 
@@ -46,13 +42,13 @@ const StyledButton = styled.button`
 
     &:before {
       display: ${props => (props.loading ? 'none' : 'block')};
-      left: 7%;
+      left: 10%;
       transform: scale(0.8) translateY(-50%);
       content: url(${googleLogo});
       position: absolute;
-      top: 50%;
-      width: 70px;
-      height: 42px;
+      top: 45%;
+      width: 57px;
+      height: 36px;
     }
   }
 
@@ -60,6 +56,7 @@ const StyledButton = styled.button`
     max-width: 540px;
     margin: 78px 0 210px;
     padding: 35px 40px 35px 180px;
+    min-height: 92px;
 
     &:before {
       left: 17%;
@@ -95,14 +92,15 @@ const StyledSpan = styled.span`
   }
 `;
 
-export default class Button extends Component {
-  render() {
-    const { loading, clickHandle } = this.props;
+const Button = ({ loading, clickHandle }) => (
+  <StyledButton onClick={clickHandle} loading={loading} data-qa="login-btn">
+    {loading ? <StyledSpan /> : 'SIGN UP USING GOOGLE+'}
+  </StyledButton>
+);
 
-    return (
-      <StyledButton onClick={clickHandle} loading={loading} data-qa="login-btn">
-        {loading ? <StyledSpan /> : 'SIGN UP USING GOOGLE+'}
-      </StyledButton>
-    );
-  }
-}
+Button.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  clickHandle: PropTypes.func.isRequired,
+};
+
+export default Button;
