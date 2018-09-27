@@ -109,7 +109,7 @@ export default connect(state => ({
 
 const CardWrapper = styled.div`
   position: relative;
-  flex-basis: 23%;
+  width: 23%;
   min-height: 220px;
   margin: 39px 2% 12px 0;
   background-color: #fff;
@@ -123,17 +123,20 @@ const CardWrapper = styled.div`
   border-radius: 2px;
   box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.12), -4px -4px 8px rgba(0, 0, 0, 0.12);
   @media (max-width: 1285px) {
-    flex-basis: 31%;
+    width: 31%;
   }
   @media (max-width: 737px) {
-    flex-basis: 48%;
+    width: 48%;
   }
   @media (max-width: 500px) {
-    flex-basis: 100%;
+    width: 290px;
     margin: 30px 0 0 0;
   }
+  @media (max-width: 376px) {
+    width: 100%;
+  }
   @media (min-width: 1500px) {
-    flex-basis: 249px;
+    width: 249px;
   }
 `;
 
