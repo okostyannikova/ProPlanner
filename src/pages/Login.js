@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import './login/styles.css';
@@ -9,23 +10,18 @@ import { connect } from 'react-redux';
 import Button from './login/Button.js';
 
 const LogoText = styled.p`
-  position: relative;
   margin: 0;
   margin-bottom: 52px;
-
   font-family: Roboto;
-  font-style: normal;
   font-weight: bold;
-  line-height: normal;
   font-size: 24px;
   letter-spacing: 0.02em;
   color: #6a2789;
 
   &:before {
     content: url(${logo});
-    position: relative;
-    top: 20%;
-    left: 5px;
+    display: inline-block;
+    vertical-align: bottom;
     width: 70px;
     height: 42px;
   }
@@ -38,7 +34,6 @@ const LogoText = styled.p`
 const Header = styled.h1`
   margin: 0;
   margin-bottom: 18px;
-
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
@@ -99,7 +94,11 @@ class Login extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.authorization.loggedIn) {
+    const {
+      authorization: { loggedIn },
+    } = this.props;
+
+    if (loggedIn) {
       this.setState({ redirectToReferrer: true });
     }
   }
@@ -109,9 +108,12 @@ class Login extends React.Component {
   };
 
   render() {
-    const loading = this.props.authorization.loading;
+    const {
+      authorization: { loading },
+      location: { state },
+    } = this.props;
 
-    const { from } = this.props.location.state || { from: { pathname: '/' } };
+    const { from } = state || { from: { pathname: '/' } };
     const { redirectToReferrer } = this.state;
 
     const { authorize } = this.props;
@@ -123,7 +125,7 @@ class Login extends React.Component {
     return (
       <div className="login">
         <div className="content">
-          <LogoText>Pro planner</LogoText>
+          <LogoText>ProPlanner</LogoText>
 
           <Header>Become a member</Header>
 
@@ -161,3 +163,10 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Login);
+
+Login.propTypes = {
+  init: PropTypes.func.isRequired,
+  authorize: PropTypes.func.isRequired,
+  authorization: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+};
