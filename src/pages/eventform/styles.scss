@@ -245,30 +245,20 @@
 
 	.date{
 		display: inline-flex;
-		width: 120px;
+		width: 140px;
 		height: 40px;
 		left: 330px;
 		top: 299px;
 
-		background: #F9F9F9;
+		background: #FFF;
 		border-radius: 2px;
-		margin-right: 2px;
 		align-items: center;
-		justify-content: center;
+		padding: 5px 20px;
+		margin-bottom: 4px;
 	}
 
 	.time{
-		display: inline-flex;
-		width: 80px;
-		height: 40px;
-		left: 458px;
-		top: 299px;
-
-		background: #F9F9F9;
-		border-radius: 2px;
-		align-items: center;
-		justify-content: center;
-
+		margin-left: 8px;
 	}
 
 	.separator{
@@ -276,7 +266,7 @@
 		width: 8px;
 		height: 2px;
 		top: -5px;
-		margin: 0 2px 5px;
+		margin: 0 8px 5px;
 		align-items: center;
 		// left: 546px;
 		// top: 319px;

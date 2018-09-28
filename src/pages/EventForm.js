@@ -3,6 +3,7 @@ import './eventform/styles.css';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { compose } from 'redux';
+// import * as moment from 'moment';
 import ImageDropzone from './eventform/ImageDropzone';
 import TextComponent from './eventform/TextComponent';
 import Time from './eventform/Time';
@@ -56,7 +57,7 @@ class EventForm extends Component {
                 />
               </li>
               <li>
-                <Time />
+                <Time view={view} />
               </li>
               <li>
                 <Field
@@ -90,6 +91,8 @@ const mapStateToProps = state => {
   let description = 'add a detailed description...';
   let priority = 'high';
   let type = 'work';
+  let startTime = new Date();
+  let endTime = new Date();
 
   if (state.events.eventsSingleEvent) {
     id = state.events.eventsSingleEvent.id;
@@ -97,6 +100,17 @@ const mapStateToProps = state => {
     description = state.events.eventsSingleEvent.attributes.description;
     priority = state.events.eventsSingleEvent.attributes.priority;
     type = state.events.eventsSingleEvent.attributes['event-type'];
+    // console.log(state.events.eventsSingleEvent.attributes['start-date']);
+    // console.log(
+    //   moment(state.events.eventsSingleEvent.attributes['start-date']._i).format('D MMM YYYY  HH:mm')
+    // );
+
+    // startTime = moment(state.events.eventsSingleEvent.attributes['start-date']._i).format(
+    //   'D MMM YYYY  HH:mm'
+    // );
+    // startTime = moment(state.events.eventsSingleEvent.attributes['start-date']._i).format();
+    startTime = state.events.eventsSingleEvent.attributes['start-date']._i;
+    endTime = state.events.eventsSingleEvent.attributes['end-date']._i;
   }
 
   return {
@@ -107,6 +121,8 @@ const mapStateToProps = state => {
       description,
       priority,
       type,
+      startTime,
+      endTime,
     },
   };
 };
