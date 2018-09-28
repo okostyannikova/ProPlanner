@@ -94,12 +94,16 @@ const StyledSpan = styled.span`
 
 const Button = ({ loading, clickHandle }) => (
   <StyledButton onClick={clickHandle} loading={loading} data-qa="login-btn">
-    {loading ? <StyledSpan /> : 'SIGN UP USING GOOGLE+'}
+    {loading ? <StyledSpan /> : 'SIGN UP USING GOOGLE'}
   </StyledButton>
 );
 
+Button.defaultProps = {
+  loading: false,
+};
+
 Button.propTypes = {
-  loading: PropTypes.bool.isRequired,
+  loading: PropTypes.bool,
   clickHandle: PropTypes.func.isRequired,
 };
 

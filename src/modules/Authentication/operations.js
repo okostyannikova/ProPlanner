@@ -1,18 +1,18 @@
 import actions from './actions';
 import authorization, { setTokenToStorage, logOut, autoInit } from './utils';
 
-const { authorizeRequest, authorizeReceive, initialization, logout } = actions;
+const { authorizeRequest, authorizeReceive, authorizeFail, initialization, logout } = actions;
 
 const authorize = () => dispatch => {
   dispatch(authorizeRequest());
 
   authorization()
     .then(res => {
-      console.log(res);
       setTokenToStorage(res);
       dispatch(authorizeReceive());
     })
     .catch(error => {
+      dispatch(authorizeFail(error));
       throw new Error(error);
     });
 };

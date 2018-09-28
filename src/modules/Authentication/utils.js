@@ -58,7 +58,6 @@ export default function authorization() {
         response => {
           if (response && !response.error) {
             window.gapi.auth.getToken()['g-oauth-window'] = null;
-            console.log(response);
 
             axios(CALLBACK_URL, { params: response })
               .then(res => resolve(res.data))
