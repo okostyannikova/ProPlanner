@@ -1,29 +1,9 @@
-import $ from 'jquery';
 import axios from 'axios';
 
-const AUTH_URL = 'https://apis.google.com/js/client:plus.js?onload=gpAsyncInit';
 const CLIENT_ID = '186649870077-vrb6g8dg8vp38on5uqki9lsg2jm3gvjr.apps.googleusercontent.com';
 const USER_DATA = 'https://www.googleapis.com/auth/calendar email profile';
 const CALLBACK_URL =
   'http://backend.proplanner.formula1.cloud.provectus-it.com/auth/google_oauth2/callback';
-
-// (() => {
-//   axios.get(AUTH_URL, {
-//     params: {
-//       dataType: 'script',
-//       cache: true,
-//     },
-//   });
-// })();
-$(() => {
-  $.ajax({
-    url: AUTH_URL,
-
-    dataType: 'script',
-
-    cache: true,
-  });
-});
 
 export function autoInit() {
   return new Promise((resolve, reject) => {
