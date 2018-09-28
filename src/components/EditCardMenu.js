@@ -11,7 +11,7 @@ const styles = {
   wrapper: {
     position: 'absolute',
     top: '12px',
-    right: '10px',
+    right: '7px',
   },
   button: {
     width: '40px',

@@ -123,9 +123,14 @@ const Card = styled(Link)`
 `;
 
 const Title = styled.h1`
-  font-size: 20px;
+  height: 21px;
+  font-size: 18px;
   font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin: 0;
+  margin-right: 25px;
 `;
 
 const ImgWrapper = styled.div`
