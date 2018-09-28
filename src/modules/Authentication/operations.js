@@ -8,11 +8,12 @@ const authorize = () => dispatch => {
 
   authorization()
     .then(res => {
+      console.log(res);
       setTokenToStorage(res);
       dispatch(authorizeReceive());
     })
-    .catch(() => {
-      console.log('error');
+    .catch(error => {
+      throw new Error(error);
     });
 };
 

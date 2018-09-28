@@ -35,9 +35,7 @@ class Sidebar extends Component {
   render() {
     return (
       <div className="sidebar">
-        <div className="sidebar__user-info">
-          <UserInfo />
-        </div>
+        <div className="sidebar__user-info">{/*   <UserInfo /> */}</div>
         <nav className="sidebar__menu">
           <ul className="sidebar__menu-list">
             {menuItems.map(item => (
