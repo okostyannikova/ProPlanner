@@ -11,7 +11,7 @@ export const colorTypes = {
 export const priorityOptions = {
   important: { color: '#F68181' },
   high: { color: '#fCDE75' },
-  medium: { color: '#64C37D' },
+  normal: { color: '#64C37D' },
   low: { color: '#00BCD4', direction: 180 },
 };
 

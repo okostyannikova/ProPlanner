@@ -18,17 +18,17 @@ const styles = theme => ({
 });
 
 const options = [
-  {
+  /*  {
     tag: 'Important',
     icon: <PriorityArrow fill={priorityOptions.important.color} />,
-  },
+  }, */
   {
     tag: 'High',
     icon: <PriorityArrow fill={priorityOptions.high.color} />,
   },
   {
-    tag: 'Medium',
-    icon: <PriorityArrow fill={priorityOptions.medium.color} />,
+    tag: 'Normal',
+    icon: <PriorityArrow fill={priorityOptions.normal.color} />,
   },
   {
     tag: 'Low',
