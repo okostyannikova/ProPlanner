@@ -9,7 +9,7 @@ import TypeLabel from 'components/TypeLabel';
 import EditCardMenu from 'components/EditCardMenu';
 import PriorityArrow from 'components/Icons/PriorityArrow';
 import tasksSummaryIcon from 'assets/images/events/summary-tasks-icon.svg';
-import { cutDescription } from 'utils/helpers';
+import { cutText } from 'utils/helpers';
 import { priorityOptions, colorTypes } from 'config';
 
 class EventCard extends Component {
@@ -64,7 +64,7 @@ class EventCard extends Component {
                 </Date>
               </TimeItem>
             </TimeWrapper>
-            <Description>{cutDescription(description)}</Description>
+            <Description>{cutText(description, 55)}</Description>
             <Footer>
               <Priority>
                 <PriorityArrow

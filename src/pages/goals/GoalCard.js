@@ -7,7 +7,7 @@ import EditCardMenu from 'components/EditCardMenu';
 import eventsSummaryIcon from 'assets/images/goals/summary-events-icon.svg';
 import defaultPicture from 'assets/images/goals/goal-default-picture.png';
 import { colorTypes, smartOptions } from 'config';
-import { cutDescription } from 'utils/helpers';
+import { cutText } from 'utils/helpers';
 
 class GoalCard extends Component {
   handleEdit = id => () => {
@@ -47,7 +47,7 @@ class GoalCard extends Component {
               ))}
             </SmartCover>
 
-            <Description>{cutDescription(description)}</Description>
+            <Description>{cutText(description, 55)}</Description>
             <Footer>
               <EventsSummary>
                 3 <img src={eventsSummaryIcon} alt="events summary" />
