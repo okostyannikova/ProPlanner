@@ -1,2 +1,1 @@
-export const cutDescription = description =>
-  description.length > 50 ? `${description.slice(0, 51)}...` : description;
+export const cutText = (text, num) => (text.length > num ? `${text.slice(0, num + 1)}...` : text);
