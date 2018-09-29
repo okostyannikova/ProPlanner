@@ -6,16 +6,12 @@ export default class timeField extends Component {
   state = { selectedDate: null };
 
   componentWillReceiveProps(newProps) {
-    if (typeof newProps.input.value === 'string') {
-      this.setState({ selectedDate: newProps.input.value });
-    }
+    this.setState({ selectedDate: newProps.input.value });
   }
 
   handleDateChange = date => {
     const { input } = this.props;
-
-    input.onChange(moment(date._d).format());
-
+    input.onChange(moment(date).format());
     this.setState({ selectedDate: date });
   };
 
@@ -28,8 +24,8 @@ export default class timeField extends Component {
         {view ? (
           <span>
             <span className="date" onClick={this.openPicker}>
-              {moment(this.state.selectedDate).format('D MMM YYYY')}{' '}
-              <span className="time">{moment(this.state.selectedDate).format('HH:mm')}</span>
+              {moment(selectedDate).format('D MMM YYYY')}{' '}
+              <span className="time">{moment(selectedDate).format('HH:mm')}</span>
             </span>
           </span>
         ) : (

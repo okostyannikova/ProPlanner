@@ -5,8 +5,8 @@ export const normalizeData = data =>
     id: ev.id,
     attributes: {
       ...ev.attributes,
-      'start-date': moment(ev.attributes['start-date']).utc(),
-      'end-date': moment(ev.attributes['end-date']).utc(),
+      'start-date': moment(ev.attributes['start-date']),
+      'end-date': moment(ev.attributes['end-date']),
     },
   }));
 
@@ -14,8 +14,8 @@ export const normalizeSingleData = data => ({
   id: data.id,
   attributes: {
     ...data.attributes,
-    'start-date': moment(data.attributes['start-date']).utc(),
-    'end-date': moment(data.attributes['end-date']).utc(),
+    'start-date': moment(data.attributes['start-date']),
+    'end-date': moment(data.attributes['end-date']),
   },
 });
 

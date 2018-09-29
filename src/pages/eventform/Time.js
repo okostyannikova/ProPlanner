@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
-// import * as moment from 'moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 import { Field } from 'redux-form';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import timeField from './Time/timeField';
-
-// import { DateRangePicker, i18n } from 'element-react';
-// import 'element-theme-default';
-// import locale from 'element-react/src/locale/lang/en';
-// i18n.use(locale);
 
 const materialTheme = createMuiTheme({
   overrides: {
@@ -107,13 +101,6 @@ export default class Time extends Component {
             <Field name="startTime" component={timeField} view={view} />
             <span className="separator" />
             <Field name="endTime" component={timeField} view={view} />{' '}
-            {/* <span className="date" onClick={this.openPicker}>
-              {moment(selectedDate).format('D MMM YYYY')}
-            </span>
-            <span className="time" onClick={this.openPicker}>
-              {moment(selectedDate).format('HH:mm')}
-            </span>
- */}
           </div>
         </MuiThemeProvider>
       </MuiPickersUtilsProvider>
