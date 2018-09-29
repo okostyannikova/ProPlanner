@@ -136,12 +136,7 @@ class Login extends React.Component {
 
           <Button clickHandle={() => this.login(authorize)} loading={loading} />
 
-          <div className="contentBottom">
-            <Text>
-              Lorem ipsum dolor sit amet, sed do eiusmod
-              <Link>Lorem ipsum dolor</Link>
-            </Text>
-          </div>
+          <div className="contentBottom" />
         </div>
 
         <div className="imgWrapper" />

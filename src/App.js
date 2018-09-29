@@ -4,6 +4,7 @@ import PrivateRoute from './components/PrivateRoute';
 import './styles/main.css';
 import './styles/animations.css';
 import './utils/auth';
+import './utils/window';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Calendar from './pages/Calendar';
