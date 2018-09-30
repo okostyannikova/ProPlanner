@@ -20,7 +20,7 @@ const WindowContext = React.createContext();
 
 export default class WindowContextProvider extends Component {
   state = {
-    windowWidth: null,
+    windowWidth: document.documentElement.clientWidth,
   };
 
   componentDidMount = () => {

@@ -5,7 +5,7 @@ import { withWindowWidth } from 'components/hocs/window-context';
 import { Link } from 'react-router-dom';
 
 const Day = ({ day, date, className, today, selectDay, selectedDay, windowWidth }) => {
-  const handleClick = ev => {
+  const handleClick = () => {
     selectDay(date);
   };
 
@@ -34,8 +34,12 @@ const Day = ({ day, date, className, today, selectDay, selectedDay, windowWidth 
   return <td className={`month__day ${className}`}>{getDay()} </td>;
 };
 
-Day.initialState = {
+Day.defaultProps = {
   date: null,
+  today: null,
+  className: '',
+  selectDay: null,
+  selectedDay: null,
 };
 
 Day.propTypes = {
@@ -43,7 +47,9 @@ Day.propTypes = {
   date: PropTypes.string,
   className: PropTypes.string,
   today: PropTypes.bool,
-  selected: PropTypes.string,
+  selectDay: PropTypes.func,
+  selectedDay: PropTypes.string,
+  windowWidth: PropTypes.number.isRequired,
 };
 
 export default withWindowWidth(Day);
