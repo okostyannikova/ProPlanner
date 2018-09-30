@@ -47,7 +47,7 @@ class GoalCard extends Component {
               ))}
             </SmartCover>
 
-            <Description>{cutText(description, 55)}</Description>
+            <Description>{cutText(description, 50)}</Description>
             <Footer>
               <EventsSummary>
                 3 <img src={eventsSummaryIcon} alt="events summary" />

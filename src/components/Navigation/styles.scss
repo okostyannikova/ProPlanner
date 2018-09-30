@@ -1,19 +1,27 @@
 @import '../../styles/variables.scss';
-
+@import '../../styles/mixins.scss';
 .navigation-topbar {
   height: 65px;
 }
 
+.navigation-sidebar {
+  position: fixed;
+  width: 214px;
+  z-index: 100;
+  height: calc(100vh - 65px);
+  @include mq(md-max, max) {
+    height: calc(100vh - 50px);
+  }
+}
+
 @media (max-width: $screen-md-max) {
   .nav--hidden {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s, visibility 0s linear 0.3s;
+    left: -250px;
+    transition: all 0.3s linear;
   }
   .nav--show {
-    opacity: 1;
-    visibility: visible;
-    transition-delay: 0s;
+    left: 0;
+    transition: all 0.3s linear;
   }
   .navigation-topbar {
     height: 50px;

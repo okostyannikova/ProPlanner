@@ -64,7 +64,7 @@ class EventCard extends Component {
                 </Date>
               </TimeItem>
             </TimeWrapper>
-            <Description>{cutText(description, 55)}</Description>
+            <Description>{cutText(description, 50)}</Description>
             <Footer>
               <Priority>
                 <PriorityArrow

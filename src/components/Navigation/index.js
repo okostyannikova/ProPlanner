@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import Topbar from './Topbar';
 import Sidebar from './Sidebar';
 import './styles.css';
@@ -30,11 +29,11 @@ export default class Navigation extends Component {
   };
 
   handleClickOutside = ev => {
-    const { isOpen } = this.state;
-    // TODO need to remove deprecated findDOMNODE
-    // https://github.com/yannickcr/eslint-plugin-react/issues/678#issue-165177220
-    const wrapperRef = ReactDOM.findDOMNode(this.wrapperRef); // eslint-disable-line react/no-find-dom-node
-    const buttonRef = ReactDOM.findDOMNode(this.buttonRef); // eslint-disable-line react/no-find-dom-node
+    const {
+      buttonRef,
+      wrapperRef,
+      state: { isOpen },
+    } = this;
 
     if (ev.target === buttonRef || buttonRef.contains(ev.target)) {
       this.handleMenuClick();
@@ -50,8 +49,11 @@ export default class Navigation extends Component {
         <div className="navigation-topbar">
           <Topbar setButtonRef={this.setButtonRef} />
         </div>
-        <div className={`navigation-sidebar ${isOpen ? 'nav--show' : 'nav--hidden'}`}>
-          <Sidebar ref={this.setWrapperRef} />
+        <div
+          className={`navigation-sidebar ${isOpen ? 'nav--show' : 'nav--hidden'}`}
+          ref={this.setWrapperRef}
+        >
+          <Sidebar />
         </div>
       </div>
     );
