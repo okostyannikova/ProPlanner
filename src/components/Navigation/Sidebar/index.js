@@ -33,6 +33,7 @@ class Sidebar extends Component {
   };
 
   render() {
+    const { handleMenuClick } = this.props;
     return (
       <div className="sidebar">
         <div className="sidebar__user-info">
@@ -47,6 +48,7 @@ class Sidebar extends Component {
                   to={item.to}
                   activeStyle={activeColor}
                   data-qa="sidebar-menu-item"
+                  onClick={handleMenuClick}
                 >
                   {item.icon}
                   {item.item}
@@ -67,6 +69,7 @@ class Sidebar extends Component {
 Sidebar.propTypes = {
   logout: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
+  handleMenuClick: PropTypes.func.isRequired,
 };
 
 export default connect(

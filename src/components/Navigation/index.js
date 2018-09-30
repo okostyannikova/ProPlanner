@@ -53,7 +53,7 @@ export default class Navigation extends Component {
           className={`navigation-sidebar ${isOpen ? 'nav--show' : 'nav--hidden'}`}
           ref={this.setWrapperRef}
         >
-          <Sidebar />
+          <Sidebar handleMenuClick={this.handleMenuClick} />
         </div>
       </div>
     );

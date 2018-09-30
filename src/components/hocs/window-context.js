@@ -32,7 +32,6 @@ export default class WindowContextProvider extends Component {
     debounce(() => {
       const currentWidth = document.documentElement.clientWidth;
       this.setState(() => ({ windowWidth: currentWidth }));
-      console.log(this.state.windowWidth);
     }, 500);
 
   render() {

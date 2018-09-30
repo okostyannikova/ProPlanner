@@ -17,9 +17,9 @@ import EventAddForm from './pages/EventAddForm';
 
 const LoginContainer = () => <Route path="/login" component={Login} />;
 
-const DefaultContainer = () => (
+const DefaultContainer = props => (
   <div>
-    <Navigation />
+    <Navigation {...props} />
     <Switch>
       <Route exact path="/" component={Home} />
       <Route path="/calendar" component={Calendar} />
