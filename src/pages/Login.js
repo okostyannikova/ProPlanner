@@ -65,7 +65,7 @@ const Text = styled.p`
   }
 `;
 
-const Link = styled.a`
+/* const Link = styled.a`
   margin-left: 5px;
 
   font-family: Roboto;
@@ -76,7 +76,7 @@ const Link = styled.a`
   text-decoration-line: underline;
   cursor: pointer;
   color: #00bcd4;
-`;
+`; */
 
 class Login extends React.Component {
   state = {

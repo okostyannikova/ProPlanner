@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Media from 'react-media';
+import { withWindowWidth } from 'components/hocs/window-context';
 import { Link } from 'react-router-dom';
 
-const Day = ({ day, date, className, today, selectDay, selectedDay }) => {
+const Day = ({ day, date, className, today, selectDay, selectedDay, windowWidth }) => {
   const handleClick = ev => {
     selectDay(date);
   };
@@ -18,25 +18,14 @@ const Day = ({ day, date, className, today, selectDay, selectedDay }) => {
 
   const getDay = () => {
     if (date) {
-      return (
-        <Media query="(min-width: 769px)">
-          {matches =>
-            matches ? (
-              <a className={getClassNames} onClick={handleClick} data-qa={date}>
-                {dayBody()}
-              </a>
-            ) : (
-              <Link
-                to="/calendar/day"
-                className={getClassNames}
-                onClick={handleClick}
-                data-qa={date}
-              >
-                {dayBody()}
-              </Link>
-            )
-          }
-        </Media>
+      return windowWidth > 768 ? (
+        <a className={getClassNames} onClick={handleClick} data-qa={date}>
+          {dayBody()}
+        </a>
+      ) : (
+        <Link to="/calendar/day" className={getClassNames} onClick={handleClick} data-qa={date}>
+          {dayBody()}
+        </Link>
       );
     }
     return dayBody();
@@ -45,11 +34,16 @@ const Day = ({ day, date, className, today, selectDay, selectedDay }) => {
   return <td className={`month__day ${className}`}>{getDay()} </td>;
 };
 
+Day.initialState = {
+  date: null,
+};
+
 Day.propTypes = {
   day: PropTypes.string.isRequired,
+  date: PropTypes.string,
   className: PropTypes.string,
   today: PropTypes.bool,
   selected: PropTypes.string,
 };
 
-export default Day;
+export default withWindowWidth(Day);

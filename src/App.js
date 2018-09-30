@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import PrivateRoute from './components/PrivateRoute';
+import PrivateRoute from './components/hocs/PrivateRoute';
+import WindowContextProvider from './components/hocs/window-context';
 import './styles/main.css';
 import './styles/animations.css';
 import './utils/auth';
-import './utils/window';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Calendar from './pages/Calendar';
@@ -37,10 +37,12 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <Switch>
-          <Route exact path="/login" component={LoginContainer} />
-          <PrivateRoute component={DefaultContainer} />
-        </Switch>
+        <WindowContextProvider>
+          <Switch>
+            <Route exact path="/login" component={LoginContainer} />
+            <PrivateRoute component={DefaultContainer} />
+          </Switch>
+        </WindowContextProvider>
       </div>
     );
   }
