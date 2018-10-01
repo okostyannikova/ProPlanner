@@ -10,6 +10,7 @@ import Time from './eventform/Time';
 import Tasks from './eventform/Tasks';
 import DropsContainer from './eventform/DropsContainer.js';
 import { eventsOperations } from '../modules/Events';
+import { tasksOperations } from '../modules/Tasks';
 
 class EventForm extends Component {
   state = {
@@ -17,21 +18,23 @@ class EventForm extends Component {
   };
 
   componentDidMount = () => {
-    const { match, loadSingleEvent } = this.props;
+    const { match, loadSingleEvent, loadTasks } = this.props;
 
     loadSingleEvent(match.params.id);
+    loadTasks(match.params.id);
   };
 
   componentWillUnmount = () => {
-    const { removeSingleEvent } = this.props;
+    const { removeSingleEvent, unloadTasks } = this.props;
     removeSingleEvent();
+    unloadTasks();
   };
 
   render() {
     const path = this.props.match.path;
     const view = !(path.includes('edit') || path.includes('add'));
 
-    const { eventsList, handleSubmit, reset, patchEvent } = this.props;
+    const { eventsList, handleSubmit, reset, patchEvent, tasksList } = this.props;
 
     const event = eventsList ? eventsList.attributes : '';
 
@@ -72,7 +75,7 @@ class EventForm extends Component {
                 />
               </li>
               <li>
-                <Tasks view={view} />
+                <Tasks view={view} tasks={tasksList} />
               </li>
             </ul>
           </div>
@@ -106,6 +109,7 @@ const mapStateToProps = state => {
 
   return {
     eventsList: state.events.eventsSingleEvent,
+    tasksList: state.tasks.tasksList,
     initialValues: {
       id,
       title,
@@ -125,6 +129,8 @@ export default (EventForm = compose(
       loadSingleEvent: eventsOperations.loadSingleEvent,
       removeSingleEvent: eventsOperations.deleteSingleEvent,
       patchEvent: eventsOperations.patchEvent,
+      loadTasks: tasksOperations.loadTasks,
+      unloadTasks: tasksOperations.unloadTasks,
     }
   ),
   reduxForm({

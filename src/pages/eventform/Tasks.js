@@ -23,6 +23,18 @@ export default class Tasks extends Component {
     this.checkBoxHandle = this.checkBoxHandle.bind(this);
   }
 
+  componentWillReceiveProps(newProps) {
+    // console.log('newProps', newProps);
+    if (newProps.tasks.length) {
+      this.setState({
+        tasks: newProps.tasks.map(task => ({
+          name: task.title,
+          checked: task.status !== 'open',
+        })),
+      });
+    }
+  }
+
   openHandle() {
     this.setState({ isOpen: true });
   }
@@ -56,6 +68,8 @@ export default class Tasks extends Component {
   }
 
   render() {
+    // console.log('props', this.props.tasks);
+    // console.log('tasks', this.state.tasks);
     const { tasks, isOpen, name } = this.state;
     const { view } = this.props;
 

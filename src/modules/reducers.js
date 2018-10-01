@@ -6,10 +6,12 @@ import authorizeReducer from './Authentication';
 import calendarReducer from './Calendar';
 import eventsReducer from './Events';
 import goalsReducer from './Goals';
+import tasksReducer from './Tasks';
 
 const rootReducer = combineReducers({
   auth: authorizeReducer,
   calendar: calendarReducer,
+  tasks: tasksReducer,
   events: eventsReducer,
   goals: goalsReducer,
   form: formReducer,
