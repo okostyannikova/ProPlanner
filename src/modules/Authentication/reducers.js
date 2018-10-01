@@ -10,11 +10,10 @@ try {
   user = JSON.parse(localStorage.getItem('user'));
 }
 
-const initialState = user ? { user, loggedIn: true, loading: false, error: null } : {};
+const initialState = user ? { loggedIn: true, user } : {};
 
 const authorizeReducer = (state = initialState, action) => {
   const newUser = JSON.parse(localStorage.getItem('user'));
-  const { error } = action;
 
   switch (action.type) {
     case types.AUTHORIZE_REQUEST:
@@ -25,17 +24,9 @@ const authorizeReducer = (state = initialState, action) => {
 
     case types.AUTHORIZE_RECEIVE:
       return {
-        ...state,
         loggedIn: true,
         user: newUser,
         loading: false,
-        error: null,
-      };
-    case types.AUTHORIZE_FAIL:
-      return {
-        ...state,
-        loading: false,
-        error,
       };
 
     case types.INITIALIZATION:
