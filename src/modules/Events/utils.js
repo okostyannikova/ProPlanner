@@ -17,6 +17,7 @@ export const normalizeSingleData = data => ({
     'start-date': moment(data.attributes['start-date']),
     'end-date': moment(data.attributes['end-date']),
   },
+  tasks: data.relationships.tasks.data,
 });
 
 export const normalizePatchData = data => ({
