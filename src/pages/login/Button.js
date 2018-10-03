@@ -20,18 +20,18 @@ const StyledButton = styled.button`
   font-size: 18px;
   letter-spacing: 0.07em;
 
-  background: ${props => (props.loading ? 'transparent' : '#dd4b39')};
-  box-shadow: ${props => (props.loading ? 'none' : '0px 4px 6px rgba(0, 0, 0, 0.15)')};
+  background: ${({ loading }) => (loading ? 'transparent' : '#dd4b39')};
+  box-shadow: ${({ loading }) => (loading ? 'none' : '0px 4px 6px rgba(0, 0, 0, 0.15)')};
   border-radius: 10px;
 
   transition: all 0.2s ease-out;
 
   &:hover {
-    background-color: ${props => (props.loading ? 'transparent' : '#c93e3e')};
+    background-color: ${({ loading }) => (loading ? 'transparent' : '#c93e3e')};
   }
 
   &:active {
-    background-color: ${props => (props.loading ? 'transparent' : '#bf2424')};
+    background-color: ${({ loading }) => (loading ? 'transparent' : '#bf2424')};
   }
 
   @media (min-width: 768px) {
@@ -41,7 +41,7 @@ const StyledButton = styled.button`
     max-width: 470px;
 
     &:before {
-      display: ${props => (props.loading ? 'none' : 'block')};
+      display: ${({ loading }) => (loading ? 'none' : 'block')};
       left: 10%;
       transform: scale(0.8) translateY(-50%);
       content: url(${googleLogo});
@@ -94,12 +94,16 @@ const StyledSpan = styled.span`
 
 const Button = ({ loading, clickHandle }) => (
   <StyledButton onClick={clickHandle} loading={loading} data-qa="login-btn">
-    {loading ? <StyledSpan /> : 'SIGN UP USING GOOGLE+'}
+    {loading ? <StyledSpan /> : 'SIGN UP USING GOOGLE'}
   </StyledButton>
 );
 
+Button.defaultProps = {
+  loading: false,
+};
+
 Button.propTypes = {
-  loading: PropTypes.bool.isRequired,
+  loading: PropTypes.bool,
   clickHandle: PropTypes.func.isRequired,
 };
 
