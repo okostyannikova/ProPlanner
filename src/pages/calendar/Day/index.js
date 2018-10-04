@@ -85,5 +85,15 @@ export default connect(
 )(RenderEventsContainer(Day));
 
 Day.propTypes = {
+  // from connect
+  events: PropTypes.array.isRequired,
   selectedDay: PropTypes.object.isRequired,
+  prevDay: PropTypes.func.isRequired,
+  nextDay: PropTypes.func.isRequired,
+  // from hoc
+  setHeight: PropTypes.func.isRequired,
+  startTime: PropTypes.func.isRequired,
+  getHeight: PropTypes.func.isRequired,
+  hours: PropTypes.func.isRequired,
+  setWrapperRef: PropTypes.func.isRequired,
 };
