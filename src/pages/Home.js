@@ -42,12 +42,6 @@ const Home = () => (
           Calendar
         </Link>
       </div>
-      <p className="home__text home__footer">
-        Lorem ipsum dolor sit amet, sed do eiusmod
-        <a href="" className="home__footer-link">
-          Lorem ipsum dolor
-        </a>
-      </p>
     </div>
 
     <div className="home__bcg1">

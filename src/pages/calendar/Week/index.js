@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { withWindowWidth } from 'components/hocs/window-context';
 import classNames from 'classnames';
 import RenderEventsContainer from '../render-events';
 import { prevWeek, nextWeek, selectDay } from '../../../modules/Calendar';
 import './styles.css';
 import Navigation from '../Navigation';
 import DaySidebar from '../Day';
-import Media from 'react-media';
 
 class Week extends Component {
   componentDidMount = () => {
@@ -18,7 +19,7 @@ class Week extends Component {
   getEvents = today => {
     const { events, startTime, getHeight } = this.props;
 
-    if (events) {
+    if (events.length) {
       const eventList = events
         .filter(ev => {
           const eventDay = ev.attributes['start-date'].clone().format('YYYY-MM-DD');
@@ -109,7 +110,15 @@ class Week extends Component {
   };
 
   render() {
-    const { firstWeekDay, prevWeek, nextWeek, hourHeight, hours, setWrapperRef } = this.props;
+    const {
+      firstWeekDay,
+      prevWeek,
+      nextWeek,
+      hourHeight,
+      hours,
+      setWrapperRef,
+      windowWidth,
+    } = this.props;
     return (
       <div>
         <div className="calendar-main calendar-main--mobile">
@@ -132,29 +141,45 @@ class Week extends Component {
               </div>
             </div>
           </div>
-          <Media query="(min-width: 769px)">
+          {windowWidth > 768 && (
             <div className="calendar__day-sidebar">
               <DaySidebar />
             </div>
-          </Media>
+          )}
         </div>
       </div>
     );
   }
 }
-
-export default connect(
-  state => ({
-    selectedDay: state.calendar.selectedDay.clone(),
-    firstWeekDay: state.calendar.firstWeekDay.clone(),
-    events: state.events.eventsList,
-  }),
-  { prevWeek, nextWeek, selectDay }
-)(RenderEventsContainer(Week));
+const mapStateToProps = state => ({
+  selectedDay: state.calendar.selectedDay.clone(),
+  firstWeekDay: state.calendar.firstWeekDay.clone(),
+  events: state.events.eventsList,
+});
+export default compose(
+  connect(
+    mapStateToProps,
+    { prevWeek, nextWeek, selectDay }
+  ),
+  RenderEventsContainer,
+  withWindowWidth
+)(Week);
 
 Week.propTypes = {
+  // from connect
+  events: PropTypes.array.isRequired,
+  firstWeekDay: PropTypes.object.isRequired,
   prevWeek: PropTypes.func.isRequired,
   nextWeek: PropTypes.func.isRequired,
   selectDay: PropTypes.func.isRequired,
   selectedDay: PropTypes.object.isRequired,
+  // from hoc
+  setHeight: PropTypes.func.isRequired,
+  startTime: PropTypes.func.isRequired,
+  getHeight: PropTypes.func.isRequired,
+  hourHeight: PropTypes.number.isRequired,
+  hours: PropTypes.func.isRequired,
+  setWrapperRef: PropTypes.func.isRequired,
+  // form Context
+  windowWidth: PropTypes.number.isRequired,
 };

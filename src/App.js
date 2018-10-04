@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import PrivateRoute from './components/PrivateRoute';
+import PrivateRoute from './components/hocs/PrivateRoute';
+import WindowContextProvider from './components/hocs/window-context';
 import './styles/main.css';
 import './styles/animations.css';
 import './utils/auth';
@@ -16,9 +17,9 @@ import EventAddForm from './pages/EventAddForm';
 
 const LoginContainer = () => <Route path="/login" component={Login} />;
 
-const DefaultContainer = () => (
+const DefaultContainer = props => (
   <div>
-    <Navigation />
+    <Navigation {...props} />
     <Switch>
       <Route exact path="/" component={Home} />
       <Route path="/calendar" component={Calendar} />
@@ -36,10 +37,12 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <Switch>
-          <Route exact path="/login" component={LoginContainer} />
-          <PrivateRoute component={DefaultContainer} />
-        </Switch>
+        <WindowContextProvider>
+          <Switch>
+            <Route exact path="/login" component={LoginContainer} />
+            <PrivateRoute component={DefaultContainer} />
+          </Switch>
+        </WindowContextProvider>
       </div>
     );
   }

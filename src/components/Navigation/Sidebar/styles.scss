@@ -16,14 +16,11 @@
 }
 
 .sidebar {
-  position: fixed;
+  display: flex;
+  flex-direction: column;
   font-weight: 500;
-  width: 214px;
-  min-height: calc(100% - 65px);
-  @include mq(md-max, max) {
-    min-height: calc(100% - 50px);
-  }
-  z-index: 100;
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
   padding-top: 28px;
   color: #344662;
@@ -42,6 +39,7 @@
 .sidebar__menu-item,
 .logout-btn {
   font-size: 14px;
+  font-weight: 600;
   a {
     @extend %menu-items;
   }
@@ -55,8 +53,8 @@
 }
 
 .logout-btn {
-  position: absolute;
-  bottom: 15px;
+  margin-top: auto;
+  margin-bottom: 15px;
   text-align: left;
    @extend %menu-items;
   svg {

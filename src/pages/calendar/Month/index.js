@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { withWindowWidth } from 'components/hocs/window-context';
 import moment from 'moment';
-import { prevMonth, nextMonth, selectDay } from '../../../modules/Calendar';
+import { prevMonth, nextMonth, selectDay } from 'modules/Calendar';
 import './styles.css';
 import Day from './Day';
 import Navigation from '../Navigation';
 import DaysLabels from '../DaysLabels';
 import DaySidebar from '../Day';
-import Media from 'react-media';
 
 class Month extends Component {
   weekDay = date => (date.getDay() - 1 < 0 ? 6 : date.getDay() - 1);
@@ -63,7 +64,7 @@ class Month extends Component {
   };
 
   render() {
-    const { currentDate, currentYear, prevMonth, nextMonth } = this.props;
+    const { currentDate, currentYear, prevMonth, nextMonth, windowWidth } = this.props;
     return (
       <div>
         <div className="calendar-main calendar-main--mobile">
@@ -82,23 +83,28 @@ class Month extends Component {
             </table>
           </div>
         </div>
-        <Media query="(min-width: 769px)">
+        {windowWidth > 768 && (
           <div className="calendar__day-sidebar">
             <DaySidebar />
           </div>
-        </Media>
+        )}
       </div>
     );
   }
 }
 
-export default connect(
-  state => ({
-    currentDate: state.calendar.currentDate.clone(),
-    currentYear: state.calendar.currentDate.clone().format('YYYY'),
-    selectedDay: state.calendar.selectedDay.clone(),
-  }),
-  { prevMonth, nextMonth, selectDay }
+const mapStateToProps = state => ({
+  currentDate: state.calendar.currentDate.clone(),
+  currentYear: state.calendar.currentDate.clone().format('YYYY'),
+  selectedDay: state.calendar.selectedDay.clone(),
+});
+
+export default compose(
+  connect(
+    mapStateToProps,
+    { prevMonth, nextMonth, selectDay }
+  ),
+  withWindowWidth
 )(Month);
 
 Month.propTypes = {
@@ -108,4 +114,5 @@ Month.propTypes = {
   currentDate: PropTypes.object.isRequired,
   selectedDay: PropTypes.object.isRequired,
   currentYear: PropTypes.string.isRequired,
+  windowWidth: PropTypes.number.isRequired,
 };

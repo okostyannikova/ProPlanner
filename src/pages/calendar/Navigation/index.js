@@ -5,7 +5,7 @@ import './styles.css';
 import ViewsButtons from './ViewsButtons';
 
 const Navigation = props => {
-  const { handlePrevDateClick, handleNextDateClick, label, digit, endOfWeek = null } = props;
+  const { handlePrevDateClick, handleNextDateClick, label, digit, endOfWeek } = props;
   const className = classNames('calendar-nav', { 'calendar-nav--week': endOfWeek });
   return (
     <nav className={className}>
@@ -41,6 +41,10 @@ const Navigation = props => {
       <ViewsButtons />
     </nav>
   );
+};
+
+Navigation.defaultProps = {
+  endOfWeek: null,
 };
 
 Navigation.propTypes = {
