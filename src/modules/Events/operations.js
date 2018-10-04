@@ -16,6 +16,7 @@ import {
   deleteEventStart,
   deleteEventSuccess,
   deleteEventFail,
+  restoreEventsState,
 } from './actions';
 import {
   normalizeData,
@@ -108,6 +109,8 @@ const addEvent = data => dispatch => {
     });
 };
 
+const restoreEvents = () => dispatch => dispatch(restoreEventsState());
+
 export default {
   loadEvents,
   loadSingleEvent,
@@ -115,4 +118,5 @@ export default {
   patchEvent,
   addEvent,
   deleteEvent,
+  restoreEvents,
 };
