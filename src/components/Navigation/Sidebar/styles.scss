@@ -18,7 +18,6 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  font-weight: 500;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
@@ -39,7 +38,7 @@
 .sidebar__menu-item,
 .logout-btn {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   a {
     @extend %menu-items;
   }

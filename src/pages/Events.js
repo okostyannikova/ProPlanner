@@ -20,6 +20,8 @@ class Events extends Component {
   }
 
   componentDidMount = () => {
+    const { restoreEvents } = this.props;
+    restoreEvents();
     this.fetchEvents();
     document.addEventListener('scroll', this.checkMoreData());
   };
@@ -115,6 +117,7 @@ Events.propTypes = {
   lastPageNumber: PropTypes.number.isRequired,
   loadEvents: PropTypes.func.isRequired,
   deleteEvent: PropTypes.func.isRequired,
+  restoreEvents: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -126,6 +129,7 @@ export default connect(
   {
     loadEvents: eventsOperations.loadEvents,
     deleteEvent: eventsOperations.deleteEvent,
+    restoreEvents: eventsOperations.restoreEvents,
   }
 )(Events);
 

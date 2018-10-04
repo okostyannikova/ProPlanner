@@ -75,3 +75,7 @@ export const createEventFail = error => ({
   type: types.CREATE_SINGLE_EVENT_FAIL,
   error,
 });
+
+export const restoreEventsState = () => ({
+  type: types.RESTORE_EVENTS_STATE,
+});

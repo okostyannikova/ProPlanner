@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { colorTypes } from 'config';
+import RoundButton from 'components/RoundButton';
 import RenderEventsContainer from '../render-events';
 import { prevDay, nextDay } from '../../../modules/Calendar';
 import './styles.css';
 import Navigation from '../Navigation';
-import RoundButton from 'components/RoundButton';
 
 class Day extends Component {
   componentDidMount = () => {
@@ -17,7 +18,7 @@ class Day extends Component {
     const { events, startTime, getHeight } = this.props;
     if (events) {
       return events.map(ev => {
-        const { 'start-date': start, 'end-date': end } = ev.attributes;
+        const { 'start-date': start, 'end-date': end, 'event-type': type } = ev.attributes;
         return (
           <rect
             key={ev.id}
@@ -27,7 +28,7 @@ class Day extends Component {
             x="0"
             y={startTime(start.clone())}
             height={getHeight(start.clone().valueOf(), end.clone().valueOf())}
-            fill="#A9EFEA"
+            fill={colorTypes[type]}
           />
         );
       });
@@ -84,5 +85,15 @@ export default connect(
 )(RenderEventsContainer(Day));
 
 Day.propTypes = {
+  // from connect
+  events: PropTypes.array.isRequired,
   selectedDay: PropTypes.object.isRequired,
+  prevDay: PropTypes.func.isRequired,
+  nextDay: PropTypes.func.isRequired,
+  // from hoc
+  setHeight: PropTypes.func.isRequired,
+  startTime: PropTypes.func.isRequired,
+  getHeight: PropTypes.func.isRequired,
+  hours: PropTypes.func.isRequired,
+  setWrapperRef: PropTypes.func.isRequired,
 };

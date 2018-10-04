@@ -9,6 +9,12 @@ import Day from './calendar/Day';
 import { eventsOperations } from '../modules/Events';
 
 class Calendar extends Component {
+  componentDidMount = () => {
+    const { loadEvents, restoreEvents } = this.props;
+    restoreEvents();
+    loadEvents();
+  };
+
   render() {
     const { match } = this.props;
     return match.isExact ? (
@@ -25,9 +31,14 @@ class Calendar extends Component {
 
 Calendar.propTypes = {
   match: PropTypes.object.isRequired,
+  loadEvents: PropTypes.func.isRequired,
+  restoreEvents: PropTypes.func.isRequired,
 };
 
 export default connect(
   null,
-  { loadEvents: eventsOperations.loadEvents }
+  {
+    loadEvents: eventsOperations.loadEvents,
+    restoreEvents: eventsOperations.restoreEvents,
+  }
 )(Calendar);

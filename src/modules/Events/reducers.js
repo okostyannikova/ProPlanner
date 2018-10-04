@@ -115,6 +115,11 @@ export default (state = initialState, action) => {
         loading: false,
         error,
       };
+    case types.RESTORE_EVENTS_STATE:
+      return {
+        ...state,
+        eventsList: [],
+      };
     default:
       return state;
   }
