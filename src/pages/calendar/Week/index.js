@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withWindowWidth } from 'components/hocs/window-context';
 import classNames from 'classnames';
+import { colorTypes } from 'config';
 import RenderEventsContainer from '../render-events';
 import { prevWeek, nextWeek, selectDay } from '../../../modules/Calendar';
 import './styles.css';
@@ -26,7 +27,7 @@ class Week extends Component {
           return today === eventDay;
         })
         .map(ev => {
-          const { 'start-date': start, 'end-date': end } = ev.attributes;
+          const { 'start-date': start, 'end-date': end, 'event-type': type } = ev.attributes;
           return (
             <rect
               key={ev.id}
@@ -36,7 +37,7 @@ class Week extends Component {
               x="2%"
               y={startTime(start.clone())}
               height={getHeight(start.clone().valueOf(), end.clone().valueOf())}
-              fill="#A9EFEA"
+              fill={colorTypes[type]}
             />
           );
         });
