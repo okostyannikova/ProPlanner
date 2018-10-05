@@ -8,6 +8,11 @@ const authorizeReceive = () => ({
   type: types.AUTHORIZE_RECEIVE,
 });
 
+const authorizeFail = error => ({
+  type: types.AUTHORIZE_FAIL,
+  error,
+});
+
 const initialization = () => ({
   type: types.INITIALIZATION,
 });
@@ -19,6 +24,7 @@ const logout = () => ({
 export default {
   authorizeRequest,
   authorizeReceive,
+  authorizeFail,
   logout,
   initialization,
 };
