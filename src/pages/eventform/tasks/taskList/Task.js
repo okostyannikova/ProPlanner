@@ -27,6 +27,7 @@ class Task extends Component {
     anchorEl: null,
     isEdit: false,
     name: this.props.task.name,
+    originTitle: '',
   };
 
   handleClick = event => {
@@ -35,9 +36,10 @@ class Task extends Component {
 
   handleClose = option => {
     const { deleteTask, task, eventId } = this.props;
+    const { name } = this.state;
 
     if (option === 'Edit') {
-      this.setState({ isEdit: true });
+      this.setState({ isEdit: true, originTitle: name });
     }
     if (option === 'Delete') {
       deleteTask({ task, eventId });
@@ -49,29 +51,35 @@ class Task extends Component {
     this.setState({ name: e.target.value });
   };
 
-  addHandle = () => {
-    console.log('saveHandle');
+  saveHandle = () => {
+    const { task, eventId, updateTask } = this.props;
+    const { name } = this.state;
+    const status = task.checked === true ? 2 : 0;
+
+    updateTask({ name, status, eventId, task });
     this.setState({ isEdit: false });
   };
 
   cancelHandle = () => {
-    console.log('cancelHandle');
-    this.setState({ isEdit: false });
+    const { originTitle } = this.state;
+    this.setState({ name: originTitle, isEdit: false });
   };
 
   render() {
-    // console.log(task);
-    // console.log(this.props);
-    const { task, index, checkBoxHandle, view, classes } = this.props;
+    const { task, index, checkBoxHandle, view, eventId, classes } = this.props;
     const { anchorEl, name, isEdit } = this.state;
     const open = Boolean(anchorEl);
+
+    const revertedStatus = task.checked === true ? 0 : 2;
+
+    // console.log({ index, name, revertedStatus, eventId, task });
 
     return (
       <div>
         <li className="task-list__item">
           <Checkbox
             checked={task.checked}
-            onChange={() => checkBoxHandle(index)}
+            onChange={() => checkBoxHandle({ index, name, revertedStatus, eventId, task })}
             value={task.name}
             style={{ color: '#00BCD4' }}
             color="primary"
@@ -125,7 +133,7 @@ class Task extends Component {
           <div className="task-list__button-container">
             <Button
               variant="contained"
-              onClick={() => this.addHandle()}
+              onClick={() => this.saveHandle()}
               style={{ backgroundColor: '#00BCD4', color: 'white', marginRight: '5px' }}
             >
               Save

@@ -18,3 +18,13 @@ export const normalizeCreateData = data => ({
     },
   },
 });
+
+export const normalizeUpdateData = data => ({
+  data: {
+    type: 'tasks',
+    attributes: {
+      title: data.name || 'I forgot this title :)',
+      status: data.status,
+    },
+  },
+});

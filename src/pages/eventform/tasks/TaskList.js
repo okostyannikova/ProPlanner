@@ -10,7 +10,7 @@ class TaskList extends Component {
   }
 
   render() {
-    const { tasks, checkBoxHandle, deleteTask, eventId, view } = this.props;
+    const { tasks, checkBoxHandle, deleteTask, updateTask, eventId, view } = this.props;
     // console.log('123', tasks.tasks);
     return (
       <div>
@@ -22,6 +22,7 @@ class TaskList extends Component {
               index={index}
               checkBoxHandle={checkBoxHandle}
               deleteTask={deleteTask}
+              updateTask={updateTask}
               eventId={eventId}
               key={task.id || `task${index}`}
             />

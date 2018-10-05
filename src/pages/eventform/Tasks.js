@@ -69,7 +69,12 @@ class Tasks extends Component {
     this.focusRef.current.focus();
   }
 
-  checkBoxHandle(index) {
+  checkBoxHandle({ index, name, revertedStatus, eventId, task }) {
+    const { updateTask } = this.props;
+    const status = revertedStatus;
+
+    updateTask({ name, status, eventId, task });
+
     const tempArray = this.state.tasks;
     tempArray[index].checked = !tempArray[index].checked;
 
@@ -80,7 +85,7 @@ class Tasks extends Component {
 
   render() {
     const { tasks, isOpen, name } = this.state;
-    const { view, id, deleteTask } = this.props;
+    const { view, id, deleteTask, updateTask } = this.props;
 
     const allTasks = this.props.tasks.length
       ? this.props.tasks.map(task => ({
@@ -102,6 +107,7 @@ class Tasks extends Component {
           checkBoxHandle={this.checkBoxHandle}
           view={view}
           deleteTask={deleteTask}
+          updateTask={updateTask}
           eventId={id}
           className="tasks-list"
         />
@@ -132,5 +138,6 @@ export default connect(
   {
     createTask: tasksOperations.createTask,
     deleteTask: tasksOperations.deleteTask,
+    updateTask: tasksOperations.updateTask,
   }
 )(Tasks);

@@ -76,6 +76,27 @@ export default (state = initialState, action) => {
         tasksList: [],
       };
 
+    case types.UPDATE_TASK_START:
+      return {
+        ...state,
+        loading: true,
+      };
+    case types.UPDATE_TASK_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        tasksList: state.tasksList.map(
+          task => (task.id === payload.task.id ? (task = payload.task) : task)
+        ),
+      };
+    case types.UPDATE_TASK_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error,
+      };
+
     default:
       return state;
   }

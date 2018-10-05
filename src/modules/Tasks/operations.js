@@ -14,7 +14,12 @@ import {
   deleteTaskSuccess,
   deleteTaskFail,
 } from './actions';
-import { normalizeData, normalizeCreateData, normalizeSingleData } from './utils';
+import {
+  normalizeData,
+  normalizeCreateData,
+  normalizeSingleData,
+  normalizeUpdateData,
+} from './utils';
 import { apiURL } from '../../config';
 
 const eventsURL = `${apiURL}/events`;
@@ -38,17 +43,20 @@ const unloadTasks = () => dispatch => {
 };
 
 const updateTask = data => dispatch => {
-  console.log('updateTask');
-  // dispatch(updateTaskStart());
-  // axios(`${eventsURL}/${id}/tasks`)
-  //   .then(res => {
-  //     const normalizedData = normalizeData(res.data.data);
-  //     dispatch(loadTasksSuccess(normalizedData));
-  //   })
-  //   .catch(error => {
-  //     dispatch(loadTasksFail(error));
-  //     throw new Error(error);
-  //   });
+  const { eventId, task } = data;
+  const normalizePatchdData = normalizeUpdateData(data);
+  dispatch(updateTaskStart());
+
+  axios
+    .patch(`${eventsURL}/${eventId}/tasks/${task.id}`, normalizePatchdData)
+    .then(res => {
+      const normalizedData = normalizeSingleData(res.data.data);
+      dispatch(updateTaskSuccess(normalizedData));
+    })
+    .catch(error => {
+      dispatch(updateTaskFail(error));
+      throw new Error(error);
+    });
 };
 
 const createTask = data => dispatch => {
