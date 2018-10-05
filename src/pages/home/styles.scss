@@ -207,3 +207,13 @@
     width: 50%
   }
 }
+@media (max-height: 667px) and (orientation: portrait) {
+  .home__bcg1 {
+    width: 80%
+  }
+}
+@media (orientation: landscape) {
+  .home {
+    height: auto;
+  }
+}
