@@ -42,8 +42,12 @@ export const normalizeCreateData = data => ({
       description: data.description || 'Super detailed description',
       location: data.location || 'Dreamland',
       priority: data.priority || 'low',
-      start_date: data.startTime || moment(),
-      end_date: data.endTime || moment(),
+      start_date: data.startTime || moment().format(),
+      end_date:
+        data.endTime ||
+        moment()
+          .add(10, 'seconds')
+          .format(),
       event_type: data.type || 'work',
     },
   },

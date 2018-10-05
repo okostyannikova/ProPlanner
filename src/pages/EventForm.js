@@ -37,6 +37,7 @@ class EventForm extends Component {
     const { eventsList, handleSubmit, reset, patchEvent, tasksList } = this.props;
 
     const event = eventsList ? eventsList.attributes : '';
+    const eventsListId = eventsList ? eventsList.id : '';
 
     const submit = values => {
       patchEvent(values);
@@ -75,7 +76,7 @@ class EventForm extends Component {
                 />
               </li>
               <li>
-                <Tasks view={view} tasks={tasksList} />
+                <Tasks view={view} tasks={tasksList} id={eventsListId} />
               </li>
             </ul>
           </div>

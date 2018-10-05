@@ -4,7 +4,15 @@ import TextComponent from '../TextComponent';
 
 class TaskListNewItem extends Component {
   render() {
-    const { openHandle, closeHandle, changeHandle, name, addHandle, referece } = this.props;
+    const {
+      openHandle,
+      closeHandle,
+      changeHandle,
+      name,
+      addHandle,
+      cancelHandle,
+      referece,
+    } = this.props;
 
     return (
       <div onFocus={openHandle} onBlur={closeHandle} className="focus-container">
@@ -24,7 +32,7 @@ class TaskListNewItem extends Component {
           >
             Add
           </Button>
-          <Button variant="contained" color="secondary" onClick={closeHandle}>
+          <Button variant="contained" color="secondary" onClick={cancelHandle}>
             Cancel
           </Button>
         </div>
