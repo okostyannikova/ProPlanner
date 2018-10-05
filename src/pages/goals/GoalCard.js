@@ -166,6 +166,7 @@ const Description = styled.p`
   margin-bottom: 0;
   height: 38px;
   line-height: 19px;
+  word-wrap: break-word;
 `;
 
 const Footer = styled.footer`
