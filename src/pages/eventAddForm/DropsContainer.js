@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
 import Priority from './dropsContainer/Priority.js';
-import Notification from './dropsContainer/Notification.js';
-import Location from './dropsContainer/Location.js';
+// import Notification from './dropsContainer/Notification.js';
+// import Location from './dropsContainer/Location.js';
 import Type from './dropsContainer/Type.js';
 import MainButton from './dropsContainer/MainButton.js';
 import SecondaryButton from './dropsContainer/SecondaryButton.js';
@@ -21,22 +21,22 @@ class DropsContainer extends Component {
     const secondaryButtonLink = `/events`;
 
     const priority = event ? event.priority : '1';
+    const eventType = event ? event['event-type'] : '1';
 
     return (
       <div>
         <ul className="drops-list">
           <li>
-            {/* <Priority  priority={priority} /> */}
             <Field name="priority" component={Priority} priority={priority} />
           </li>
-          <li>
+          {/* <li>
             <Notification />
           </li>
           <li>
             <Location />
-          </li>
+          </li> */}
           <li>
-            <Type />
+            <Field name="type" component={Type} type={eventType} />
           </li>
         </ul>
         <MainButton history={history} link={mainButtonLink} />
