@@ -197,6 +197,7 @@ const Description = styled.p`
   height: 38px;
   line-height: 19px;
   color: rgba(51, 102, 180, 0.5);
+  word-wrap: break-word;
 `;
 
 const Footer = styled.footer`
