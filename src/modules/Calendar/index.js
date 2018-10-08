@@ -27,7 +27,7 @@ export const selectDay = day => ({ type: SELECT_DAY, payload: { day } });
 
 export default (calendar = initialDate, action) => {
   const { type, payload } = action;
-  const { firstWeekDay, selectedDay, currentDate } = calendar;
+  const { firstWeekDay, selectedDay } = calendar;
 
   switch (type) {
     case PREV_MONTH:
