@@ -79,7 +79,7 @@ class Month extends Component {
               <thead>
                 <DaysLabels />
               </thead>
-              {this.generateDays(currentDate.clone())}
+              {this.generateDays(currentDate)}
             </table>
           </div>
         </div>
