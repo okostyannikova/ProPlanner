@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import TextComponent from '../TextComponent';
+import TextComponent from 'components/TextComponent/TextComponent';
 
 class TaskListNewItem extends Component {
   render() {

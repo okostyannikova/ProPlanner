@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LinearProgres from './tasks/LinearProgress';
-import TextComponent from './TextComponent';
+import TextComponent from 'components/TextComponent/TextComponent';
 import TaskList from './tasks/TaskList.js';
 import TaskListNewItem from './tasks/TaskListNewItem.js';
 import { tasksOperations } from '../../modules/Tasks';

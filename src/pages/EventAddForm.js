@@ -3,9 +3,8 @@ import './eventAddForm/styles.css';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { compose } from 'redux';
-// import * as moment from 'moment';
-import TextComponent from './eventAddForm/TextComponent';
-import Time from './eventAddForm/Time';
+import TextComponent from 'components/TextComponent/TextComponent';
+import Time from 'components/TimePickerComponent/Time';
 import Tasks from './eventAddForm/Tasks';
 import DropsContainer from './eventAddForm/DropsContainer.js';
 import { eventsOperations } from '../modules/Events';
@@ -72,23 +71,11 @@ class EventAddForm extends Component {
 }
 
 const mapStateToProps = state => {
-  // let id = 0;
-  // let title = 'Add a title...';
-  // let description = 'add a detailed description...';
-  // const priority = 'high';
   const type = 'work';
-  // const startTime = moment().format();
-  // const endTime = moment().format();
 
   return {
     initialValues: {
-      // id,
-      // title,
-      // description,
-      // priority,
       type,
-      // startTime,
-      // endTime,
     },
   };
 };

@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import { InlineDateTimePicker } from 'material-ui-pickers/DateTimePicker';
 
 export default class timeField extends Component {
-  state = { selectedDate: null };
+  state = { selectedDate: moment().format() };
 
   componentWillReceiveProps(newProps) {
     this.setState({ selectedDate: newProps.input.value });

@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 
+import './styles.css';
+
 class TextComponent extends Component {
   constructor(props) {
     super(props);
@@ -13,9 +15,7 @@ class TextComponent extends Component {
   }
 
   componentDidMount() {
-    // if (this.props.label) {
     this.setState({ text: this.props.value });
-    // }
   }
 
   render() {
@@ -30,8 +30,7 @@ class TextComponent extends Component {
     } = this.props;
 
     const viewMode = view ? 'text-field-view' : 'text-field';
-    // console.log(this.props.value);
-    // console.log('state', this.state);
+
     return (
       <div>
         <p className={headerClass}>{headerContent}</p>
