@@ -1,7 +1,6 @@
 const AUTHORIZE_REQUEST = 'Authentication/AUTHORIZE_REQUEST';
 const AUTHORIZE_RECEIVE = 'Authentication/AUTHORIZE_RECEIVE';
 const AUTHORIZE_FAIL = 'Authentication/AUTHORIZE_FAIL';
-const INITIALIZATION = 'Authentication/INITIALIZATION';
 const LOG_OUT = 'Authentication/LOG_OUT';
 
 export default {
@@ -9,5 +8,4 @@ export default {
   AUTHORIZE_RECEIVE,
   AUTHORIZE_FAIL,
   LOG_OUT,
-  INITIALIZATION,
 };

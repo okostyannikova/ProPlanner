@@ -1,7 +1,7 @@
 import actions from './actions';
-import authorization, { setTokenToStorage, logOut, autoInit } from './utils';
+import authorization, { setTokenToStorage, logOut } from './utils';
 
-const { authorizeRequest, authorizeReceive, authorizeFail, initialization, logout } = actions;
+const { authorizeRequest, authorizeReceive, authorizeFail, logout } = actions;
 
 const authorize = () => dispatch => {
   dispatch(authorizeRequest());
@@ -17,11 +17,6 @@ const authorize = () => dispatch => {
     });
 };
 
-const initialize = () => dispatch => {
-  autoInit();
-  dispatch(initialization());
-};
-
 const logingOut = () => dispatch => {
   logOut();
   dispatch(logout());
@@ -30,5 +25,4 @@ const logingOut = () => dispatch => {
 export default {
   authorize,
   logingOut,
-  initialize,
 };

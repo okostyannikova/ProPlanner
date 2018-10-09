@@ -84,9 +84,7 @@ class Login extends React.Component {
   };
 
   componentWillMount() {
-    const { init, authorization } = this.props;
-
-    init();
+    const { authorization } = this.props;
 
     if (authorization.loggedIn) {
       this.setState({ redirectToReferrer: true });
@@ -151,7 +149,6 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = dispatch => ({
   authorize: bindActionCreators(authorizeOperations.authorize, dispatch),
-  init: bindActionCreators(authorizeOperations.initialize, dispatch),
 });
 
 export default connect(
@@ -160,7 +157,6 @@ export default connect(
 )(Login);
 
 Login.propTypes = {
-  init: PropTypes.func.isRequired,
   authorize: PropTypes.func.isRequired,
   authorization: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
