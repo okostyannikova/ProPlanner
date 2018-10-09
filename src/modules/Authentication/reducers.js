@@ -39,9 +39,6 @@ const authorizeReducer = (state = initialState, action) => {
         error,
       };
 
-    case types.INITIALIZATION:
-      return state;
-
     case types.LOG_OUT:
       return {};
 

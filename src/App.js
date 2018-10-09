@@ -5,6 +5,7 @@ import WindowContextProvider from './components/hocs/window-context';
 import './styles/main.css';
 import './styles/animations.css';
 import './utils/auth';
+import './modules/Authentication/utils';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Calendar from './pages/Calendar';

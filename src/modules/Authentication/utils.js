@@ -5,24 +5,23 @@ const USER_DATA = 'https://www.googleapis.com/auth/calendar email profile';
 const CALLBACK_URL =
   'http://backend.proplanner.formula1.cloud.provectus-it.com/auth/google_oauth2/callback';
 
-export function autoInit() {
-  return new Promise((resolve, reject) => {
-    window.gapi.load('client:auth', () => {
-      window.gpAsyncInit = () => {
-        window.gapi.auth.authorize(
-          {
-            immediate: true,
-            response_type: 'code',
-            cookie_policy: 'single_host_origin',
-            client_id: CLIENT_ID,
-            scope: USER_DATA,
-          },
-          response => resolve(response)
-        );
-      };
-    });
+window.gpAsyncInit = () => {
+  window.gapi.load('client:auth', () => {
+    window.gapi.auth.authorize(
+      {
+        immediate: true,
+        response_type: 'code',
+        cookie_policy: 'single_host_origin',
+        client_id: CLIENT_ID,
+        scope: USER_DATA,
+      },
+      response => {
+        if (response.error) throw new Error(response.error);
+        console.log(response);
+      }
+    );
   });
-}
+};
 
 export default function authorization() {
   return new Promise((resolve, reject) =>
