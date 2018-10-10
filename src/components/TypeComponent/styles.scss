@@ -1,0 +1,44 @@
+.list-item-view{
+  padding: 14px 24px;
+  background: #fff;
+  width: 258px;
+  margin-bottom: 24px;
+  vertical-align: middle;
+
+}
+
+.list-item{
+  cursor: pointer;
+  padding: 14px 24px;
+  background: rgba(196, 196, 196, 0.08);
+  width: 258px;
+  margin-bottom: 24px;
+  vertical-align: middle;
+
+  &:hover{
+    background-color: #ebebeb;
+  }
+}
+
+.list-item-main-text{
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  font-size: 18px;
+  color: rgba(51, 102, 180, 0.87);
+
+  margin-left: 14px;
+}
+
+.list-item-secondary-item{
+  font-family: Roboto;
+  font-style: normal;
+  line-height: 24px;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.list-item-secondary-text{
+  margin-left: 20px;
+}

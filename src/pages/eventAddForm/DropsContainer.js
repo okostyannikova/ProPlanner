@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
-import Priority from './dropsContainer/Priority.js';
 // import Notification from './dropsContainer/Notification.js';
 // import Location from './dropsContainer/Location.js';
-import Type from './dropsContainer/Type.js';
+import Priority from 'components/PriorityComponent/Priority';
+import Type from 'components/TypeComponent/Type';
 import MainButton from './dropsContainer/MainButton.js';
 import SecondaryButton from './dropsContainer/SecondaryButton.js';
 

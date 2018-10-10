@@ -9,6 +9,8 @@ import IncreaseIcon from 'assets/images/increase-icon.svg';
 import PriorityArrow from 'components/Icons/PriorityArrow.js';
 import { priorityOptions } from 'config';
 
+import './styles.css';
+
 const styles = theme => ({
   root: {
     width: '100%',

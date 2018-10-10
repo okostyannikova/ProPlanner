@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
+import TypeIcon from 'assets/images/type-icon.svg';
 
 import { withStyles } from '@material-ui/core/styles';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
-import IncreaseIcon from 'assets/images/increase-icon.svg';
-import PriorityArrow from 'components/Icons/PriorityArrow.js';
-import { priorityOptions } from 'config';
+import TypeSquare from 'components/Icons/TypeSquare.js';
+import { colorTypes } from 'config';
+
+import './styles.css';
 
 const styles = theme => ({
   root: {
@@ -18,32 +20,30 @@ const styles = theme => ({
 });
 
 const options = [
-  /*  {
-    tag: 'Important',
-    icon: <PriorityArrow fill={priorityOptions.important.color} />,
-  }, */
   {
-    tag: 'High',
-    icon: <PriorityArrow fill={priorityOptions.high.color} />,
+    tag: 'Personal',
+    icon: <TypeSquare fill={colorTypes.personal} />,
   },
   {
-    tag: 'Normal',
-    icon: <PriorityArrow fill={priorityOptions.normal.color} />,
+    tag: 'Work',
+    icon: <TypeSquare fill={colorTypes.work} />,
   },
   {
-    tag: 'Low',
-    icon: (
-      <PriorityArrow fill={priorityOptions.low.color} direction={priorityOptions.low.direction} />
-    ),
+    tag: 'Entertainment',
+    icon: <TypeSquare fill={colorTypes.entertainment} />,
+  },
+  {
+    tag: 'Other',
+    icon: <TypeSquare fill={colorTypes.other} />,
   },
 ];
 
-class Priority extends Component {
+class Type extends Component {
   button = null;
 
   state = {
     anchorEl: null,
-    selectedIndex: this.props.priority,
+    selectedIndex: this.props.type,
   };
 
   componentWillReceiveProps(newProps) {
@@ -83,8 +83,8 @@ class Priority extends Component {
           onChange={this.handle}
         >
           <div>
-            <img src={IncreaseIcon} alt="IncreaseIcon" />
-            <span className="list-item-main-text">Priority</span>
+            <img src={TypeIcon} alt="TypeIcon" />
+            <span className="list-item-main-text">Type</span>
           </div>
           <div className="list-item-secondary-item">
             {options[selectedIndex].icon}
@@ -92,7 +92,7 @@ class Priority extends Component {
           </div>
         </div>
         <Menu
-          id="lock-menu"
+          id="type-menu"
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
@@ -113,4 +113,4 @@ class Priority extends Component {
   }
 }
 
-export default withStyles(styles)(Priority);
+export default withStyles(styles)(Type);
