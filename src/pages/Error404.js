@@ -13,19 +13,29 @@ const Error404 = () => (
       <StyledLink to="/">Go to home</StyledLink>
     </TextWrapper>
     <ErrorNumber>404</ErrorNumber>
-    <StyledImage src={monkey} />
+    <ImageWrapper>
+      <StyledImage src={monkey} />
+    </ImageWrapper>
   </PageWrapper>
 );
 
 export default Error404;
 
 const PageWrapper = styled.div`
+  position: relative;
   min-height: 100vh;
   background: url(${shadowTop}) -10px -20px no-repeat, url(${shadowBottom}) bottom right no-repeat;
+  @media (max-height: 576px) and (orientation: landscape) {
+    height: auto;
+    min-height: 550px;
+  }
 `;
 const TextWrapper = styled.div`
   text-align: center;
   padding-top: 64px;
+  @media (max-width: 576px) {
+    padding-top: 30px;
+  }
 `;
 const AccentText = styled.p`
   font-weight: 500;
@@ -33,12 +43,18 @@ const AccentText = styled.p`
   font-size: 64px;
   color: #dd4b39;
   margin: 0;
+  @media (max-width: 576px) {
+    font-size: 45px;
+  }
 `;
 const Text = styled.p`
   color: rgba(52, 70, 98, 0.8);
   font-size: 30px;
   font-weight: 400;
   margin-top: 10px;
+  @media (max-width: 576px) {
+    font-size: 20px;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -69,10 +85,35 @@ const ErrorNumber = styled.p`
   text-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
   color: rgba(52, 70, 98, 0.2);
   margin: 0 0 0 -15%;
+  @media (max-width: 992px) {
+    font-size: 300px;
+    margin: 0;
+  }
+  @media (max-width: 576px) {
+    font-size: 170px;
+  }
+`;
+
+const ImageWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+  bottom: 7%;
+  @media (max-width: 992px) and (orientation: portrait), (orientation: portrait) {
+    left: -30%;
+    width: 130%;
+  }
+  @media (max-width: 576px), (max-width: 576px) and (orientation: portrait) {
+    left: -60%;
+    width: 160%;
+  }
+  @media (max-height: 576px) and (orientation: landscape) {
+    bottom: 0;
+  }
 `;
 
 const StyledImage = styled.img`
   display: block;
   width: 100%;
-  margin-top: -408px;
 `;
