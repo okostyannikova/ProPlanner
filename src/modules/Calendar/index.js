@@ -7,6 +7,7 @@ const PREV_WEEK = 'PREV_WEEK';
 const NEXT_DAY = 'NEXT_DAY';
 const PREV_DAY = 'PREV_DAY';
 const SELECT_DAY = 'SELECT_DAY';
+const RESTORE_CALENDAR = 'RESTORE_CALENDAR';
 
 const initialDate = {
   currentDate: moment(),
@@ -24,21 +25,22 @@ export const prevDay = () => ({ type: PREV_DAY });
 export const nextDay = () => ({ type: NEXT_DAY });
 
 export const selectDay = day => ({ type: SELECT_DAY, payload: { day } });
+export const restoreCalendar = () => ({ type: RESTORE_CALENDAR });
 
 export default (calendar = initialDate, action) => {
   const { type, payload } = action;
-  const { firstWeekDay, selectedDay } = calendar;
+  const { firstWeekDay, selectedDay, currentDate } = calendar;
 
   switch (type) {
     case PREV_MONTH:
       return {
         ...calendar,
-        currentDate: selectedDay.clone().add(-1, 'month'),
+        currentDate: currentDate.clone().add(-1, 'month'),
       };
     case NEXT_MONTH:
       return {
         ...calendar,
-        currentDate: selectedDay.clone().add(1, 'month'),
+        currentDate: currentDate.clone().add(1, 'month'),
       };
     case PREV_WEEK:
       return {
@@ -47,10 +49,6 @@ export default (calendar = initialDate, action) => {
           .clone()
           .add(-1, 'day')
           .startOf('isoWeek'),
-        currentDate: firstWeekDay
-          .clone()
-          .add(-1, 'day')
-          .endOf('isoWeek'),
       };
     case NEXT_WEEK:
       return {
@@ -59,10 +57,6 @@ export default (calendar = initialDate, action) => {
           .clone()
           .add(8, 'day')
           .startOf('isoWeek'),
-        currentDate: firstWeekDay
-          .clone()
-          .add(8, 'day')
-          .endOf('isoWeek'),
       };
     case PREV_DAY:
       return {
@@ -72,7 +66,7 @@ export default (calendar = initialDate, action) => {
           .clone()
           .add(-1, 'day')
           .startOf('isoWeek'),
-        currentDate: selectedDay.clone(),
+        currentDate: selectedDay.clone().add(-1, 'day'),
       };
     case NEXT_DAY:
       return {
@@ -82,14 +76,17 @@ export default (calendar = initialDate, action) => {
           .clone()
           .add(1, 'day')
           .startOf('isoWeek'),
-        currentDate: selectedDay.clone(),
+        currentDate: selectedDay.clone().add(1, 'day'),
       };
     case SELECT_DAY:
       return {
         ...calendar,
         selectedDay: moment(payload.day, 'YYYY-M-D'),
         firstWeekDay: moment(payload.day, 'YYYY-M-D').startOf('isoWeek'),
+        currentDate: moment(payload.day, 'YYYY-M-D'),
       };
+    case RESTORE_CALENDAR:
+      return { ...initialDate };
     default:
       return calendar;
   }
