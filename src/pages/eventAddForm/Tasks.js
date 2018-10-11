@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import TextComponent from 'components/TextComponent/TextComponent';
 import LinearProgres from './tasks/LinearProgress';
-import TextComponent from './TextComponent';
 import TaskList from './tasks/TaskList.js';
 import TaskListNewItem from './tasks/TaskListNewItem.js';
 

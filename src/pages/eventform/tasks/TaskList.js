@@ -1,25 +1,31 @@
 import React, { Component } from 'react';
-import Checkbox from '@material-ui/core/Checkbox';
+import Task from './taskList/Task';
 
 class TaskList extends Component {
-  render() {
-    const { tasks, checkBoxHandle } = this.props;
+  state = { tasks: [] };
 
+  componentWillReceiveProps(newProps) {
+    if (!newProps) return;
+    this.setState({ tasks: newProps.tasks });
+  }
+
+  render() {
+    const { tasks, checkBoxHandle, deleteTask, updateTask, eventId, view } = this.props;
+    // console.log('123', tasks.tasks);
     return (
       <div>
         <ul className="task-list">
           {tasks.map((task, index) => (
-            // Времменый key, поменять, когда будут id с сервера !!!
-            <li key={`${task.name}${index}`}>
-              <Checkbox
-                checked={task.checked}
-                onChange={() => checkBoxHandle(index)}
-                value={task.name}
-                style={{ color: '#00BCD4' }}
-                color="primary"
-              />
-              <span className={task.checked ? 'checked-task' : ''}>{task.name}</span>
-            </li>
+            <Task
+              task={task}
+              view={view}
+              index={index}
+              checkBoxHandle={checkBoxHandle}
+              deleteTask={deleteTask}
+              updateTask={updateTask}
+              eventId={eventId}
+              key={task.id || `task${index}`}
+            />
           ))}
         </ul>
       </div>

@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { compose } from 'redux';
 import * as moment from 'moment';
+import TextComponent from 'components/TextComponent/TextComponent';
+import Time from 'components/TimePickerComponent/Time';
 import ImageDropzone from './eventform/ImageDropzone';
-import TextComponent from './eventform/TextComponent';
-import Time from './eventform/Time';
 import Tasks from './eventform/Tasks';
 import DropsContainer from './eventform/DropsContainer.js';
 import { eventsOperations } from '../modules/Events';
@@ -37,6 +37,7 @@ class EventForm extends Component {
     const { eventsList, handleSubmit, reset, patchEvent, tasksList } = this.props;
 
     const event = eventsList ? eventsList.attributes : '';
+    const eventsListId = eventsList ? eventsList.id : '';
 
     const submit = values => {
       patchEvent(values);
@@ -75,7 +76,7 @@ class EventForm extends Component {
                 />
               </li>
               <li>
-                <Tasks view={view} tasks={tasksList} />
+                <Tasks view={view} tasks={tasksList} id={eventsListId} />
               </li>
             </ul>
           </div>

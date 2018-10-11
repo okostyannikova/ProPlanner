@@ -3,8 +3,8 @@ import './eventAddForm/styles.css';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { compose } from 'redux';
-import TextComponent from './eventAddForm/TextComponent';
-import Time from './eventAddForm/Time';
+import TextComponent from 'components/TextComponent/TextComponent';
+import Time from 'components/TimePickerComponent/Time';
 import Tasks from './eventAddForm/Tasks';
 import DropsContainer from './eventAddForm/DropsContainer.js';
 import { eventsOperations } from '../modules/Events';
@@ -70,9 +70,19 @@ class EventAddForm extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  const type = 'work';
+
+  return {
+    initialValues: {
+      type,
+    },
+  };
+};
+
 export default (EventAddForm = compose(
   connect(
-    null,
+    mapStateToProps,
     {
       addEvent: eventsOperations.addEvent,
       removeSingleEvent: eventsOperations.deleteSingleEvent,
@@ -80,6 +90,6 @@ export default (EventAddForm = compose(
   ),
   reduxForm({
     form: 'addEvent',
-    // enableReinitialize: true,
+    enableReinitialize: true,
   })
 )(EventAddForm));

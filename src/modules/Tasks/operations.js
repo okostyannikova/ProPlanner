@@ -1,6 +1,25 @@
 import axios from 'axios';
-import { loadTasksStart, loadTasksSuccess, loadTasksFail, unloadAllTasks } from './actions';
-import { normalizeData } from './utils';
+import {
+  loadTasksStart,
+  loadTasksSuccess,
+  loadTasksFail,
+  unloadAllTasks,
+  updateTaskStart,
+  updateTaskSuccess,
+  updateTaskFail,
+  createTaskStart,
+  createTaskSuccess,
+  createTaskFail,
+  deleteTaskStart,
+  deleteTaskSuccess,
+  deleteTaskFail,
+} from './actions';
+import {
+  normalizeData,
+  normalizeCreateData,
+  normalizeSingleData,
+  normalizeUpdateData,
+} from './utils';
 import { apiURL } from '../../config';
 
 const eventsURL = `${apiURL}/events`;
@@ -23,7 +42,60 @@ const unloadTasks = () => dispatch => {
   dispatch(unloadAllTasks());
 };
 
+const updateTask = data => dispatch => {
+  const { eventId, task } = data;
+  const normalizePatchdData = normalizeUpdateData(data);
+  dispatch(updateTaskStart());
+
+  axios
+    .patch(`${eventsURL}/${eventId}/tasks/${task.id}`, normalizePatchdData)
+    .then(res => {
+      const normalizedData = normalizeSingleData(res.data.data);
+      dispatch(updateTaskSuccess(normalizedData));
+    })
+    .catch(error => {
+      dispatch(updateTaskFail(error));
+      throw new Error(error);
+    });
+};
+
+const createTask = data => dispatch => {
+  const { id, name } = data;
+  const normalizedData = normalizeCreateData(name);
+
+  dispatch(createTaskStart());
+
+  axios
+    .post(`${eventsURL}/${id}/tasks`, normalizedData)
+    .then(res => {
+      const task = normalizeSingleData(res.data.data);
+      dispatch(createTaskSuccess(task));
+    })
+    .catch(error => {
+      dispatch(createTaskFail(error));
+      throw new Error(error);
+    });
+};
+
+const deleteTask = data => dispatch => {
+  const { eventId, task } = data;
+  dispatch(deleteTaskStart());
+
+  axios
+    .delete(`${eventsURL}/${eventId}/tasks/${task.id}`)
+    .then(res => {
+      if (res.status === 204) dispatch(deleteTaskSuccess(task.id));
+    })
+    .catch(error => {
+      dispatch(deleteTaskFail(error));
+      throw new Error(error);
+    });
+};
+
 export default {
   loadTasks,
   unloadTasks,
+  updateTask,
+  createTask,
+  deleteTask,
 };

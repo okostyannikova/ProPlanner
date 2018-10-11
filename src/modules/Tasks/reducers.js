@@ -31,11 +31,70 @@ export default (state = initialState, action) => {
         error,
       };
 
+    case types.CREATE_TASK_START:
+      return {
+        ...state,
+        loading: true,
+      };
+    case types.CREATE_TASK_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        tasksList: [...tasksList, payload.task],
+      };
+    case types.CREATE_TASK_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error,
+      };
+
+    case types.DELETE_TASK_START:
+      return {
+        ...state,
+        deleting: true,
+      };
+    case types.DELETE_TASK_SUCCESS:
+      return {
+        ...state,
+        deleting: false,
+        error: null,
+        tasksList: state.tasksList.filter(task => task.id !== payload.data),
+      };
+    case types.DELETE_TASK_FAIL:
+      return {
+        ...state,
+        deleting: false,
+        error,
+      };
+
     case types.UNLOAD_ALL_TASKS:
       return {
         ...state,
         loading: false,
         tasksList: [],
+      };
+
+    case types.UPDATE_TASK_START:
+      return {
+        ...state,
+        loading: true,
+      };
+    case types.UPDATE_TASK_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        tasksList: state.tasksList.map(
+          task => (task.id === payload.task.id ? (task = payload.task) : task)
+        ),
+      };
+    case types.UPDATE_TASK_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error,
       };
 
     default:

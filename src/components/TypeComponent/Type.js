@@ -9,6 +9,8 @@ import Menu from '@material-ui/core/Menu';
 import TypeSquare from 'components/Icons/TypeSquare.js';
 import { colorTypes } from 'config';
 
+import './styles.css';
+
 const styles = theme => ({
   root: {
     width: '100%',

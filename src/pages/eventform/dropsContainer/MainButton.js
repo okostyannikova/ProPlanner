@@ -29,6 +29,9 @@ const MainButton = props => {
   const mainButtonText = view ? 'EDIT' : 'SAVE';
 
   const handleClick = () => {
+    if (!view) {
+      // console.log(414141);
+    }
     history.push(link);
   };
 

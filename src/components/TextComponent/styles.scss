@@ -1,0 +1,27 @@
+
+.component-list .text-field{
+  margin-top: 0;
+  background-color: rgba(51, 51, 51, 0.03);
+  border-radius: 2px;
+  padding-left: 20px;
+  border-bottom: 2px solid #fff;
+  transition: all .3s;
+
+  &:hover{
+    border-bottom: 2px solid #00BCD4;
+  }
+}
+
+.component-list .text-field-view{
+  margin-top: 0;
+  background-color: #fff;
+  border-radius: 2px;
+  padding-left: 20px;
+  border-bottom: 2px solid #fff;
+  transition: all .3s;
+
+}
+
+.input-field{
+  margin: 10px 0;
+}

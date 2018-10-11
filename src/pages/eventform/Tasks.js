@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import LinearProgres from './tasks/LinearProgress';
-import TextComponent from './TextComponent';
+import TextComponent from 'components/TextComponent/TextComponent';
 import TaskList from './tasks/TaskList.js';
 import TaskListNewItem from './tasks/TaskListNewItem.js';
+import { tasksOperations } from '../../modules/Tasks';
 
-export default class Tasks extends Component {
+class Tasks extends Component {
   constructor(props) {
     super(props);
 
@@ -18,16 +20,17 @@ export default class Tasks extends Component {
 
     this.openHandle = this.openHandle.bind(this);
     this.closeHandle = this.closeHandle.bind(this);
+    this.cancelHandle = this.cancelHandle.bind(this);
     this.changeHandle = this.changeHandle.bind(this);
     this.addHandle = this.addHandle.bind(this);
     this.checkBoxHandle = this.checkBoxHandle.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
-    // console.log('newProps', newProps);
     if (newProps.tasks.length) {
       this.setState({
         tasks: newProps.tasks.map(task => ({
+          id: task.id,
           name: task.title,
           checked: task.status !== 'open',
         })),
@@ -45,11 +48,19 @@ export default class Tasks extends Component {
     }
   }
 
+  cancelHandle() {
+    this.setState({ isOpen: false, name: '' });
+  }
+
   changeHandle(e) {
     this.setState({ name: e.target.value });
   }
 
   addHandle() {
+    const { name } = this.state;
+    const { createTask, id } = this.props;
+
+    createTask({ name, id });
     this.setState({
       tasks: [...this.state.tasks, { name: this.state.name, checked: false }],
       name: '',
@@ -58,7 +69,12 @@ export default class Tasks extends Component {
     this.focusRef.current.focus();
   }
 
-  checkBoxHandle(index) {
+  checkBoxHandle({ index, name, revertedStatus, eventId, task }) {
+    const { updateTask } = this.props;
+    const status = revertedStatus;
+
+    updateTask({ name, status, eventId, task });
+
     const tempArray = this.state.tasks;
     tempArray[index].checked = !tempArray[index].checked;
 
@@ -68,10 +84,16 @@ export default class Tasks extends Component {
   }
 
   render() {
-    // console.log('props', this.props.tasks);
-    // console.log('tasks', this.state.tasks);
     const { tasks, isOpen, name } = this.state;
-    const { view } = this.props;
+    const { view, id, deleteTask, updateTask } = this.props;
+
+    const allTasks = this.props.tasks.length
+      ? this.props.tasks.map(task => ({
+          id: task.id,
+          name: task.title,
+          checked: task.status !== 'open',
+        }))
+      : [];
 
     const completed = (tasks.filter(task => task.checked).length * 100) / tasks.length;
     const completeness = isNaN(completed) ? 0 : completed;
@@ -80,8 +102,15 @@ export default class Tasks extends Component {
       <div>
         <p className="tasks-component">Tasks</p>
         <LinearProgres completed={completeness} />
-        <TaskList tasks={tasks} checkBoxHandle={this.checkBoxHandle} />
-
+        <TaskList
+          tasks={allTasks}
+          checkBoxHandle={this.checkBoxHandle}
+          view={view}
+          deleteTask={deleteTask}
+          updateTask={updateTask}
+          eventId={id}
+          className="tasks-list"
+        />
         <div hidden={view}>
           {isOpen ? (
             <TaskListNewItem
@@ -89,6 +118,7 @@ export default class Tasks extends Component {
               closeHandle={this.closeHandle}
               changeHandle={this.changeHandle}
               addHandle={this.addHandle}
+              cancelHandle={this.cancelHandle}
               name={name}
               referece={this.focusRef}
             />
@@ -100,3 +130,14 @@ export default class Tasks extends Component {
     );
   }
 }
+
+export default connect(
+  state => ({
+    tasks: state.tasks.tasksList,
+  }),
+  {
+    createTask: tasksOperations.createTask,
+    deleteTask: tasksOperations.deleteTask,
+    updateTask: tasksOperations.updateTask,
+  }
+)(Tasks);

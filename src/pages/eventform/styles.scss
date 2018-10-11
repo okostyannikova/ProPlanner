@@ -61,33 +61,6 @@
 		}
 
 
-	.component-list .text-field{
-		margin-top: 0;
-		background-color: rgba(51, 51, 51, 0.03);
-		border-radius: 2px;
-		padding-left: 20px;
-		border-bottom: 2px solid #fff;
-		transition: all .3s;
-
-		&:hover{
-			border-bottom: 2px solid #00BCD4;
-		}
-	}
-
-	.component-list .text-field-view{
-		margin-top: 0;
-		background-color: #fff;
-		border-radius: 2px;
-		padding-left: 20px;
-		border-bottom: 2px solid #fff;
-		transition: all .3s;
-
-	}
-
-	.input-field{
-		margin: 10px 0;
-	}
-
 .drops-container {
   width: 27%;
   position: absolute;
@@ -104,51 +77,6 @@
 		.drops-list-button{
 			position: absolute;
 			bottom: 0;
-		}
-
-		.list-item{
-			cursor: pointer;
-			padding: 14px 24px;
-			background: rgba(196, 196, 196, 0.08);
-			width: 258px;
-			margin-bottom: 24px;
-			vertical-align: middle;
-
-			&:hover{
-				background-color: #ebebeb;
-			}
-		}
-
-		.list-item-view{
-			padding: 14px 24px;
-			background: #fff;
-			width: 258px;
-			margin-bottom: 24px;
-			vertical-align: middle;
-
-		}
-
-		.list-item-main-text{
-			font-family: Roboto;
-			font-style: normal;
-			font-weight: 500;
-			line-height: 24px;
-			font-size: 18px;
-			color: rgba(51, 102, 180, 0.87);
-
-			margin-left: 14px;
-		}
-
-		.list-item-secondary-item{
-			font-family: Roboto;
-			font-style: normal;
-			line-height: 24px;
-			font-size: 15px;
-			color: rgba(0, 0, 0, 0.54);
-		}
-
-		.list-item-secondary-text{
-			margin-left: 20px;
 		}
 
 
@@ -233,47 +161,6 @@
 	}
 
 
-.time-container{
-	font-family: Roboto;
-	font-style: normal;
-	font-weight: normal;
-	line-height: normal;
-	font-size: 16px;
-
-	color: rgba(51, 102, 180, 0.87);
-}
-
-	.date{
-		display: inline-flex;
-		width: 140px;
-		height: 40px;
-		left: 330px;
-		top: 299px;
-
-		background: #FFF;
-		border-radius: 2px;
-		align-items: center;
-		padding: 5px 20px;
-		margin-bottom: 4px;
-	}
-
-	.time{
-		margin-left: 8px;
-	}
-
-	.separator{
-		display: inline-flex;
-		width: 8px;
-		height: 2px;
-		top: -5px;
-		margin: 0 8px 5px;
-		align-items: center;
-		// left: 546px;
-		// top: 319px;
-
-		background: rgba(51, 102, 180, 0.87);
-	}
-
 
 .linear-progres{
 	width: 85%;
@@ -302,6 +189,9 @@
 
 .task-list{
 	list-style: none;
+	margin-top: 10px;
+	position: relative;
+
 }
 
 	.checked-task{
@@ -309,3 +199,28 @@
 		color: #8c8c8c;
 	}
 
+	.tasks-list{
+		margin-top: 10px;
+	}
+
+	.task-list__item{
+		transition: all .3s;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+	}
+
+	.task-list__item:hover{
+		background-color: #f9f9f9;
+	}
+
+	.task-list__icon{
+		right: 5px;
+		position: absolute;
+	}
+
+	.task-list__button-container{
+		width: 100%;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}

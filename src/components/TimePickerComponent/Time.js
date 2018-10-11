@@ -6,6 +6,8 @@ import { Field } from 'redux-form';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import timeField from './Time/timeField';
 
+import './styles.css';
+
 const materialTheme = createMuiTheme({
   overrides: {
     MuiFormControl: {
