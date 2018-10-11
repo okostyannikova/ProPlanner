@@ -7,12 +7,18 @@ import Month from './calendar/Month';
 import Week from './calendar/Week';
 import Day from './calendar/Day';
 import { eventsOperations } from '../modules/Events';
+import { restoreCalendar } from '../modules/Calendar';
 
 class Calendar extends Component {
   componentDidMount = () => {
     const { loadEvents, restoreEvents } = this.props;
     restoreEvents();
     loadEvents();
+  };
+
+  componentWillUnmount = () => {
+    const { restoreCalendar } = this.props;
+    restoreCalendar();
   };
 
   render() {
@@ -33,6 +39,7 @@ Calendar.propTypes = {
   match: PropTypes.object.isRequired,
   loadEvents: PropTypes.func.isRequired,
   restoreEvents: PropTypes.func.isRequired,
+  restoreCalendar: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -40,5 +47,6 @@ export default connect(
   {
     loadEvents: eventsOperations.loadEvents,
     restoreEvents: eventsOperations.restoreEvents,
+    restoreCalendar,
   }
 )(Calendar);
