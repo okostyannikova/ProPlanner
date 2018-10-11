@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import PrivateRoute from './components/hocs/PrivateRoute';
 import WindowContextProvider from './components/hocs/window-context';
 import './styles/main.css';
@@ -15,6 +15,7 @@ import Settings from './pages/Settings';
 import Navigation from './components/Navigation';
 import EventForm from './pages/EventForm';
 import EventAddForm from './pages/EventAddForm';
+import Error404 from './pages/Error404';
 
 const LoginContainer = () => <Route path="/login" component={Login} />;
 
@@ -30,6 +31,7 @@ const DefaultContainer = props => (
       <Route exact path="/event/:id" component={EventForm} />
       <Route exact path="/event/:id/edit" component={EventForm} />
       <Route path="/settings" component={Settings} />
+      <Redirect to="/page-not-found" />
     </Switch>
   </div>
 );
@@ -41,6 +43,7 @@ export default class App extends Component {
         <WindowContextProvider>
           <Switch>
             <Route exact path="/login" component={LoginContainer} />
+            <PrivateRoute path="/page-not-found" component={Error404} />
             <PrivateRoute component={DefaultContainer} />
           </Switch>
         </WindowContextProvider>

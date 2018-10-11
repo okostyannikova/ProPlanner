@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './calendar/styles.css';
 import Month from './calendar/Month';
@@ -27,9 +27,12 @@ class Calendar extends Component {
       <Redirect to={`${match.path}/month`} />
     ) : (
       <div className="page-content calendar">
-        <Route path={`${match.path}/month`} component={Month} />
-        <Route path={`${match.path}/week`} component={Week} />
-        <Route path={`${match.path}/day`} component={Day} />
+        <Switch>
+          <Route path={`${match.path}/month`} component={Month} />
+          <Route path={`${match.path}/week`} component={Week} />
+          <Route path={`${match.path}/day`} component={Day} />
+          <Redirect to="/page-not-found" />
+        </Switch>
       </div>
     );
   }
