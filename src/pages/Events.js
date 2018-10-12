@@ -96,7 +96,7 @@ class Events extends Component {
       <PageContainer className="page-content events-list">
         <Header>
           <Title>The Events</Title>
-          <RoundButton to="/event/add" dataQa="add-event-btn" />
+          <RoundButton to="/event/add" type="event" />
         </Header>
         <EventsList>{this.getBody()}</EventsList>
         {loading && <Loader />}

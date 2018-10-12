@@ -47,7 +47,7 @@ class Day extends Component {
             handlePrevDateClick={prevDay}
             handleNextDateClick={nextDay}
           />
-          <RoundButton to="/event/add" dataQa="add-event-btn" />
+          <RoundButton to="/event/add" type="event" />
         </header>
         <main className="calendar-day__main">
           <div className="calendar-day__summary" />
