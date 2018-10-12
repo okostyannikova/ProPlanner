@@ -18,10 +18,8 @@ window.gpAsyncInit = () => {
         },
         response => {
           if (response.error) throw new Error(response.error);
-          console.log(response);
         }
       )
-      .then(res => console.log(res))
       .catch(error => {
         throw new Error(error);
       });
@@ -62,5 +60,4 @@ export function setTokenToStorage(user) {
 
 export function logOut() {
   localStorage.removeItem('user');
-  window.location.reload(true);
 }
