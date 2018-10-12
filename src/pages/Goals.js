@@ -69,7 +69,7 @@ class Goals extends Component {
       <PageContainer className="page-content goals-list">
         <Header>
           <Title>My Goals</Title>
-          <RoundButton to="/goal/add" dataQa="add-goal-btn" />
+          <RoundButton to="/goal/add" type="goal" />
         </Header>
         <GoalsList>{this.getBody()}</GoalsList>
       </PageContainer>
