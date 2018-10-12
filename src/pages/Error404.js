@@ -8,21 +8,24 @@ import shadowBottom from 'assets/images/error/shadow-bottom.svg';
 const Error404 = () => (
   <PageWrapper>
     <TextWrapper>
-      <AccentText>Oops</AccentText>
-      <Text>The page you are looking for can't be found.</Text>
+      <Text>
+        <AccentText>Oops, </AccentText>
+        the page you are looking for <br /> can't be found.
+      </Text>
       <StyledLink to="/">Go to home</StyledLink>
     </TextWrapper>
-    <ErrorNumber>404</ErrorNumber>
-    <ImageWrapper>
-      <StyledImage src={monkey} />
-    </ImageWrapper>
+    <ErrorWrapper>
+      <ErrorNumber>404</ErrorNumber>
+      <ImageWrapper>
+        <StyledImage src={monkey} />
+      </ImageWrapper>
+    </ErrorWrapper>
   </PageWrapper>
 );
 
 export default Error404;
 
 const PageWrapper = styled.div`
-  position: relative;
   min-height: 100vh;
   background: url(${shadowTop}) -10px -20px no-repeat, url(${shadowBottom}) bottom right no-repeat;
   @media (max-height: 576px) and (orientation: landscape) {
@@ -32,28 +35,34 @@ const PageWrapper = styled.div`
 `;
 const TextWrapper = styled.div`
   text-align: center;
-  padding-top: 64px;
+  padding-top: 96px;
   @media (max-width: 576px) {
-    padding-top: 30px;
+    padding-top: 90px;
   }
 `;
-const AccentText = styled.p`
+const AccentText = styled.span`
   font-weight: 500;
-  line-height: 90px;
-  font-size: 64px;
-  color: #dd4b39;
-  margin: 0;
+  font-size: 48px;
+  color: rgba(52, 70, 98, 0.8);
+  @media (min-width: 1500px) {
+    font-size: 36px;
+  }
   @media (max-width: 576px) {
-    font-size: 45px;
+    font-size: 24px;
   }
 `;
 const Text = styled.p`
   color: rgba(52, 70, 98, 0.8);
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 400;
-  margin-top: 10px;
+  line-height: 40px;
+  margin: 0;
+  @media (min-width: 1500px) {
+    font-size: 36px;
+  }
   @media (max-width: 576px) {
-    font-size: 20px;
+    font-size: 18px;
+    line-height: 1.5em;
   }
 `;
 
@@ -62,6 +71,8 @@ const StyledLink = styled(Link)`
   width: 150px;
   height: 36px;
   padding: 10px;
+  margin-top: 16px;
+  margin-bottom: 0;
   color: #fff;
   font-family: inherit;
   font-size: 14px;
@@ -77,39 +88,65 @@ const StyledLink = styled(Link)`
   }
 `;
 
+const ErrorWrapper = styled.div`
+  overflow: hidden;
+  @media (max-width: 670px) {
+    margin-top: 62px;
+  }
+`;
+
 const ErrorNumber = styled.p`
   font-weight: bold;
   font-size: 400px;
   text-align: center;
   letter-spacing: 0.025em;
+  line-height: 1em;
   text-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
   color: rgba(52, 70, 98, 0.2);
-  margin: 0 0 0 -15%;
+  margin: 0 0 0 -17%;
+  @media (min-width: 1500px) {
+    font-size: 560px;
+  }
   @media (max-width: 992px) {
     font-size: 300px;
+  }
+  @media (max-width: 670px) {
     margin: 0;
+    font-size: 250px;
   }
   @media (max-width: 576px) {
-    font-size: 170px;
+    font-size: 196px;
   }
 `;
 
 const ImageWrapper = styled.div`
-  position: absolute;
-  width: 100%;
-  left: 0;
-  right: 0;
-  bottom: 7%;
-  @media (max-width: 992px) and (orientation: portrait), (orientation: portrait) {
-    left: -30%;
+  width: 109%;
+  margin: -366px 0 0 -5px;
+  @media (min-width: 1500px) {
+    width: 100%;
+    margin: -497px 0 0 0;
+  }
+  @media (max-width: 1170px) {
+    margin: -325px 0 0 -5px;
+  }
+  @media (max-width: 992px) {
+    margin-top: -267px;
+  }
+  @media (max-width: 830px) {
     width: 130%;
+    margin: -261px 0 0 -10%;
   }
-  @media (max-width: 576px), (max-width: 576px) and (orientation: portrait) {
-    left: -60%;
+  @media (max-width: 670px) {
+    width: 140%;
+    margin: -120px 0 0 -28%;
+  }
+  @media (max-width: 576px) {
     width: 160%;
+    margin: -102px 0 0 -49%;
   }
-  @media (max-height: 576px) and (orientation: landscape) {
-    bottom: 0;
+  @media (max-width: 375px) {
+    width: 200%;
+    margin: -102px 0 0 -70%;
   }
 `;
 
