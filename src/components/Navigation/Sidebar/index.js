@@ -28,8 +28,8 @@ const menuItems = [
 class Sidebar extends Component {
   logout = () => {
     const { logout, history } = this.props;
+    history.go('/login');
     logout();
-    history.push('/login');
   };
 
   render() {
