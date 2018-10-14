@@ -5,6 +5,24 @@ import Input from '@material-ui/core/Input';
 
 import './styles.css';
 
+const getValidityClassName = meta => {
+  if (!meta) {
+    return;
+  }
+
+  // if (meta.active) {
+  //   return;
+  // }
+
+  if (meta.dirty && meta.invalid) {
+    return 'text-field--error';
+  }
+
+  // if (meta.touched && meta.valid) {
+  //   return 'valid';
+  // }
+};
+
 class TextComponent extends Component {
   constructor(props) {
     super(props);
@@ -25,16 +43,18 @@ class TextComponent extends Component {
       headerContent = '',
       placeholder = '',
       view = false,
+      meta,
       input,
       ...restProps
     } = this.props;
 
     const viewMode = view ? 'text-field-view' : 'text-field';
+    const additionalClass = getValidityClassName(meta);
 
     return (
       <div>
         <p className={headerClass}>{headerContent}</p>
-        <div className={viewMode}>
+        <div className={`${viewMode} ${additionalClass}`}>
           <FormControl fullWidth>
             <Input
               value={value}
@@ -48,6 +68,7 @@ class TextComponent extends Component {
             />
           </FormControl>
         </div>
+        {meta ? meta.error && meta.dirty && <div className="error-text">{meta.error}</div> : null}
       </div>
     );
   }

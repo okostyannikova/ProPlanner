@@ -6,6 +6,7 @@ import { compose } from 'redux';
 import * as moment from 'moment';
 import TextComponent from 'components/TextComponent/TextComponent';
 import Time from 'components/TimePickerComponent/Time';
+import { required, maxTitleLength, maxDescriptionLength } from 'utils/validate';
 import ImageDropzone from './eventform/ImageDropzone';
 import Tasks from './eventform/Tasks';
 import DropsContainer from './eventform/DropsContainer.js';
@@ -40,6 +41,7 @@ class EventForm extends Component {
     const eventsListId = eventsList ? eventsList.id : '';
 
     const submit = values => {
+      console.log(values);
       patchEvent(values);
     };
 
@@ -58,6 +60,7 @@ class EventForm extends Component {
                   headerClass="title-component"
                   headerContent="Title"
                   placeholder="Add a title..."
+                  validate={[required, maxTitleLength]}
                 />
               </li>
               <li>
@@ -73,6 +76,7 @@ class EventForm extends Component {
                   headerContent="Description"
                   placeholder="add a detailed description..."
                   multiline
+                  validate={[maxDescriptionLength]}
                 />
               </li>
               <li>
