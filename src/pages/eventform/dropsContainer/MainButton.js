@@ -2,8 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 
 const MainButton = props => {
-  const { view, history, link } = props;
-  // console.log(props);
+  const { view, history, link, valid } = props;
 
   const mainButtonStyle = view
     ? {
@@ -21,7 +20,7 @@ const MainButton = props => {
         width: '130px',
         height: '36px',
         marginRight: '24px',
-        background: '#00BCD4',
+        background: valid ? '#00BCD4' : '#8ec4cc',
         color: '#FFFFFF',
         boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.24), 0px 0px 2px rgba(0, 0, 0, 0.12)',
       };
@@ -43,6 +42,7 @@ const MainButton = props => {
       color="primary"
       style={mainButtonStyle}
       className="drops-list-button"
+      disabled={!valid}
     >
       {mainButtonText}
     </Button>
