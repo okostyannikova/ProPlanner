@@ -21,7 +21,7 @@ class GoalCard extends Component {
   };
 
   render() {
-    const { id, title, type, pictureLink, description, smart } = this.props;
+    const { id, title, type, picture, description, smart } = this.props;
     return (
       <CardWrapper>
         <EditCardMenu
@@ -36,7 +36,7 @@ class GoalCard extends Component {
             <Title>{title}</Title>
 
             <ImgWrapper>
-              <Img src={pictureLink || defaultPicture} />
+              <Img src={picture || defaultPicture} />
             </ImgWrapper>
 
             <SmartCover>
@@ -64,7 +64,7 @@ class GoalCard extends Component {
 }
 
 GoalCard.defaultProps = {
-  pictureLink: defaultPicture,
+  picture: defaultPicture,
   description: '',
 };
 
@@ -73,7 +73,7 @@ GoalCard.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  pictureLink: PropTypes.string,
+  picture: PropTypes.string,
   description: PropTypes.string,
   smart: PropTypes.objectOf(PropTypes.string).isRequired,
   deleteGoal: PropTypes.func.isRequired,

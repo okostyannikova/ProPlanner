@@ -27,7 +27,7 @@ class Goals extends Component {
             const {
               title,
               'goal-type': type,
-              'picture-link': pictureLink,
+              picture,
               description,
               s,
               m,
@@ -43,7 +43,7 @@ class Goals extends Component {
                   id={goal.id}
                   title={title}
                   type={type}
-                  pictureLink={pictureLink}
+                  picture={picture}
                   description={description}
                   smart={smart}
                   deleteGoal={deleteGoal}
