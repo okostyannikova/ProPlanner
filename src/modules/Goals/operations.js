@@ -6,6 +6,7 @@ import {
   deleteGoalStart,
   deleteGoalSuccess,
   deleteGoalFail,
+  restoreGoalsState,
 } from './actions';
 import { normalizeData } from './utils';
 import { getLastPageNumber } from '../utils';
@@ -13,12 +14,11 @@ import { apiURL } from '../../config';
 
 const goalsURL = `${apiURL}/goals`;
 
-const loadGoals = (number, size) => dispatch => {
+const loadGoals = (number = 1, size = 15) => dispatch => {
   dispatch(loadGoalsStart());
 
   axios(goalsURL, { params: { 'page[number]': number, 'page[size]': size } })
     .then(res => {
-      console.log(res.data.data);
       const goals = normalizeData(res.data.data);
       const lastPageNumber = getLastPageNumber(res.data.links.last);
       dispatch(loadGoalsSuccess(goals, lastPageNumber));
@@ -43,7 +43,10 @@ const deleteGoal = id => dispatch => {
     });
 };
 
+const restoreGoals = () => dispatch => dispatch(restoreGoalsState());
+
 export default {
   loadGoals,
   deleteGoal,
+  restoreGoals,
 };

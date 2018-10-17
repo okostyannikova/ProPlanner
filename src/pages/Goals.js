@@ -6,21 +6,33 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import RoundButton from 'components/RoundButton';
 import Loader from 'components/Loader';
 import NoItemsMessage from 'components/NoItemsMessage';
+import throttle from 'lodash.throttle';
 import { goalsOperations } from '../modules/Goals';
 import GoalCard from './goals/GoalCard';
 
 class Goals extends Component {
+  constructor(props) {
+    super(props);
+    this.cardHeight = 393;
+    this.state = {
+      page: 1,
+    };
+  }
+
   componentDidMount = () => {
-    const { loadGoals } = this.props;
-    loadGoals();
+    const { restoreGoals } = this.props;
+    restoreGoals();
+    this.fetchData();
+    document.addEventListener('scroll', this.checkMoreData());
+  };
+
+  componentWillUnmount = () => {
+    document.removeEventListener('scroll', this.checkMoreData());
   };
 
   getBody = () => {
     const { goals, loading, deleteGoal, history } = this.props;
-    if (loading) {
-      return <Loader />;
-    }
-    if (goals) {
+    if (goals.length) {
       return (
         <TransitionGroup component={null}>
           {goals.map(goal => {
@@ -48,6 +60,7 @@ class Goals extends Component {
                   smart={smart}
                   deleteGoal={deleteGoal}
                   history={history}
+                  events={goal.events}
                 />
               </CSSTransition>
             );
@@ -55,7 +68,7 @@ class Goals extends Component {
         </TransitionGroup>
       );
     }
-    if (!loading && !goals) {
+    if (!loading && !goals.length) {
       return (
         <NoItemsMessage item="goal" url="/goal/add">
           Unfortunately you have no goals yet.
@@ -64,7 +77,25 @@ class Goals extends Component {
     }
   };
 
+  fetchData = () => {
+    const { loadGoals, lastPageNumber } = this.props;
+    const { page } = this.state;
+    if (page <= lastPageNumber) {
+      loadGoals(page, 15);
+      this.setState(prevState => ({ page: prevState.page + 1 }));
+    }
+  };
+
+  checkMoreData = () =>
+    throttle(ev => {
+      const elem = ev.target.documentElement;
+      if (elem.scrollHeight - elem.scrollTop - this.cardHeight <= elem.clientHeight) {
+        this.fetchData();
+      }
+    }, 300);
+
   render() {
+    const { loading } = this.props;
     return (
       <PageContainer className="page-content goals-list">
         <Header>
@@ -72,6 +103,7 @@ class Goals extends Component {
           <RoundButton to="/goal/add" type="goal" />
         </Header>
         <GoalsList>{this.getBody()}</GoalsList>
+        {loading && <Loader />}
       </PageContainer>
     );
   }
@@ -88,16 +120,20 @@ Goals.propTypes = {
   loading: PropTypes.bool.isRequired,
   loadGoals: PropTypes.func.isRequired,
   deleteGoal: PropTypes.func.isRequired,
+  restoreGoals: PropTypes.func.isRequired,
+  lastPageNumber: PropTypes.number.isRequired,
 };
 
 export default connect(
   state => ({
     goals: state.goals.goalsList,
     loading: state.goals.loading,
+    lastPageNumber: state.goals.lastPageNumber,
   }),
   {
     loadGoals: goalsOperations.loadGoals,
     deleteGoal: goalsOperations.deleteGoal,
+    restoreGoals: goalsOperations.restoreGoals,
   }
 )(Goals);
 

@@ -2,12 +2,14 @@ import types from './types';
 
 const initialState = {
   loading: false,
-  goalsList: null,
+  goalsList: [],
   error: null,
+  lastPageNumber: 1,
 };
 
 export default (state = initialState, action) => {
   const { type, payload, error } = action;
+  const { goalsList } = state;
 
   switch (type) {
     case types.LOAD_GOALS_START:
@@ -20,11 +22,13 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         error: null,
-        goalsList: payload.goals,
+        goalsList: [...goalsList, ...payload.goals],
+        lastPageNumber: payload.lastPageNumber,
       };
     case types.LOAD_GOALS_FAIL:
       return {
         ...state,
+        loading: false,
         error,
       };
 
@@ -38,6 +42,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error,
+      };
+    case types.RESTORE_GOALS_STATE:
+      return {
+        ...state,
+        eventsList: [],
       };
     default:
       return state;
