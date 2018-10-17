@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import Moment from 'moment';
 import CardLoader from 'components/CardLoader';
 import TypeLabel from 'components/TypeLabel';
@@ -15,6 +14,7 @@ import { priorityOptions, colorTypes } from 'config';
 class EventCard extends Component {
   state = {
     deletingItem: null,
+    deleting: false,
   };
 
   handleEdit = id => () => {
@@ -24,13 +24,13 @@ class EventCard extends Component {
 
   handleDelete = id => () => {
     const { deleteEvent } = this.props;
-    this.setState(() => ({ deletingItem: id }));
+    this.setState(() => ({ deletingItem: id, deleting: true }));
     deleteEvent(id);
   };
 
   render() {
-    const { id, type, title, startDate, endDate, description, priority, deleting } = this.props;
-    const { deletingItem } = this.state;
+    const { id, type, title, startDate, endDate, description, priority } = this.props;
+    const { deletingItem, deleting } = this.state;
     const isDeleting = deleting && id === deletingItem;
     return (
       <CardWrapper>
@@ -85,27 +85,22 @@ class EventCard extends Component {
 }
 
 EventCard.defaultProps = {
-  type: null,
   description: '',
-  deleting: false,
 };
 
 EventCard.propTypes = {
   history: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
-  type: PropTypes.string,
+  type: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   startDate: PropTypes.instanceOf(Moment).isRequired,
   endDate: PropTypes.instanceOf(Moment).isRequired,
   description: PropTypes.string,
   priority: PropTypes.string.isRequired,
-  deleting: PropTypes.bool,
   deleteEvent: PropTypes.func.isRequired,
 };
 
-export default connect(state => ({
-  deleting: state.events.deleting,
-}))(EventCard);
+export default EventCard;
 
 const CardWrapper = styled.div`
   position: relative;

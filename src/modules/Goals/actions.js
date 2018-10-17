@@ -4,9 +4,9 @@ export const loadGoalsStart = () => ({
   type: types.LOAD_GOALS_START,
 });
 
-export const loadGoalsSuccess = goals => ({
+export const loadGoalsSuccess = (goals, lastPageNumber) => ({
   type: types.LOAD_GOALS_SUCCESS,
-  payload: { goals },
+  payload: { goals, lastPageNumber },
 });
 
 export const loadGoalsFail = error => ({
@@ -26,4 +26,8 @@ export const deleteGoalSuccess = id => ({
 export const deleteGoalFail = error => ({
   type: types.DELETE_GOAL_FAIL,
   error,
+});
+
+export const restoreGoalsState = () => ({
+  type: types.RESTORE_GOALS_STATE,
 });

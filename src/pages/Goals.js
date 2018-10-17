@@ -6,28 +6,21 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import RoundButton from 'components/RoundButton';
 import Loader from 'components/Loader';
 import NoItemsMessage from 'components/NoItemsMessage';
+import CardsPagination from 'components/hocs/CardsPagination';
 import { goalsOperations } from '../modules/Goals';
 import GoalCard from './goals/GoalCard';
 
 class Goals extends Component {
-  componentDidMount = () => {
-    const { loadGoals } = this.props;
-    loadGoals();
-  };
-
   getBody = () => {
     const { goals, loading, deleteGoal, history } = this.props;
-    if (loading) {
-      return <Loader />;
-    }
-    if (goals) {
+    if (goals.length) {
       return (
         <TransitionGroup component={null}>
           {goals.map(goal => {
             const {
               title,
               'goal-type': type,
-              'picture-link': pictureLink,
+              picture,
               description,
               s,
               m,
@@ -43,11 +36,12 @@ class Goals extends Component {
                   id={goal.id}
                   title={title}
                   type={type}
-                  pictureLink={pictureLink}
+                  picture={picture}
                   description={description}
                   smart={smart}
                   deleteGoal={deleteGoal}
                   history={history}
+                  events={goal.events}
                 />
               </CSSTransition>
             );
@@ -55,7 +49,7 @@ class Goals extends Component {
         </TransitionGroup>
       );
     }
-    if (!loading && !goals) {
+    if (!loading && !goals.length) {
       return (
         <NoItemsMessage item="goal" url="/goal/add">
           Unfortunately you have no goals yet.
@@ -65,13 +59,23 @@ class Goals extends Component {
   };
 
   render() {
+    const { loading, loadData, restoreData, lastPageNumber } = this.props;
     return (
       <PageContainer className="page-content goals-list">
         <Header>
           <Title>My Goals</Title>
           <RoundButton to="/goal/add" type="goal" />
         </Header>
-        <GoalsList>{this.getBody()}</GoalsList>
+        <CardsPagination
+          restoreData={restoreData}
+          loadData={loadData}
+          lastPageNumber={lastPageNumber}
+          cardHeight={393}
+          numberOfCards={15}
+        >
+          <GoalsList>{this.getBody()}</GoalsList>
+        </CardsPagination>
+        {loading && <Loader />}
       </PageContainer>
     );
   }
@@ -86,18 +90,22 @@ Goals.propTypes = {
   // from connect
   goals: PropTypes.arrayOf(PropTypes.object),
   loading: PropTypes.bool.isRequired,
-  loadGoals: PropTypes.func.isRequired,
+  loadData: PropTypes.func.isRequired,
   deleteGoal: PropTypes.func.isRequired,
+  restoreData: PropTypes.func.isRequired,
+  lastPageNumber: PropTypes.number.isRequired,
 };
 
 export default connect(
   state => ({
     goals: state.goals.goalsList,
     loading: state.goals.loading,
+    lastPageNumber: state.goals.lastPageNumber,
   }),
   {
-    loadGoals: goalsOperations.loadGoals,
+    loadData: goalsOperations.loadGoals,
     deleteGoal: goalsOperations.deleteGoal,
+    restoreData: goalsOperations.restoreGoals,
   }
 )(Goals);
 

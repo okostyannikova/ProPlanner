@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
+import CardLoader from 'components/CardLoader';
 import TypeLabel from 'components/TypeLabel';
 import EditCardMenu from 'components/EditCardMenu';
 import eventsSummaryIcon from 'assets/images/goals/summary-events-icon.svg';
@@ -10,6 +11,11 @@ import { colorTypes, smartOptions } from 'config';
 import { cutText } from 'utils/helpers';
 
 class GoalCard extends Component {
+  state = {
+    deletingItem: null,
+    deleting: false,
+  };
+
   handleEdit = id => () => {
     const { history } = this.props;
     history.push(`/goal/${id}/edit`);
@@ -17,13 +23,17 @@ class GoalCard extends Component {
 
   handleDelete = id => () => {
     const { deleteGoal } = this.props;
+    this.setState(() => ({ deletingItem: id, deleting: true }));
     deleteGoal(id);
   };
 
   render() {
-    const { id, title, type, pictureLink, description, smart } = this.props;
+    const { id, title, type, picture, description, smart, events } = this.props;
+    const { deletingItem, deleting } = this.state;
+    const isDeleting = deleting && id === deletingItem;
     return (
       <CardWrapper>
+        {isDeleting && <CardLoader />}
         <EditCardMenu
           iconColor="rgba(52, 70, 98, 0.87)"
           type="goal"
@@ -31,12 +41,12 @@ class GoalCard extends Component {
           handleEdit={this.handleEdit(id)}
         />
         <Card to={`/goal/${id}`} data-qa="goal-card">
-          <TypeLabel color={colorTypes[type]}>{type}</TypeLabel>
+          {!isDeleting && <TypeLabel color={colorTypes[type]}>{type}</TypeLabel>}
           <div>
             <Title>{title}</Title>
 
             <ImgWrapper>
-              <Img src={pictureLink || defaultPicture} />
+              <Img src={picture || defaultPicture} />
             </ImgWrapper>
 
             <SmartCover>
@@ -50,7 +60,7 @@ class GoalCard extends Component {
             <Description>{cutText(description, 50)}</Description>
             <Footer>
               <EventsSummary>
-                3 <img src={eventsSummaryIcon} alt="events summary" />
+                {events.length} <img src={eventsSummaryIcon} alt="events summary" />
               </EventsSummary>
             </Footer>
           </div>
@@ -64,7 +74,7 @@ class GoalCard extends Component {
 }
 
 GoalCard.defaultProps = {
-  pictureLink: defaultPicture,
+  picture: defaultPicture,
   description: '',
 };
 
@@ -73,9 +83,10 @@ GoalCard.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  pictureLink: PropTypes.string,
+  picture: PropTypes.string,
   description: PropTypes.string,
   smart: PropTypes.objectOf(PropTypes.string).isRequired,
+  events: PropTypes.array.isRequired,
   deleteGoal: PropTypes.func.isRequired,
 };
 
@@ -83,8 +94,8 @@ export default GoalCard;
 
 const CardWrapper = styled.div`
   position: relative;
+  min-height: 344px;
   width: 23%;
-  min-height: 393px;
   margin: 39px 2% 12px 0;
   background-color: #fff;
   transform: scale(1, 1);
@@ -120,6 +131,7 @@ const Card = styled(Link)`
   font-weight: 400;
   font-size: 16px;
   padding: 24px;
+  margin-bottom: 30px;
 `;
 
 const Title = styled.h1`
@@ -162,9 +174,9 @@ const SmartLetter = styled.div(
 
 const Description = styled.p`
   color: rgba(52, 70, 98, 0.87);
-  margin-top: 16px;
+  margin-top: 15px;
   margin-bottom: 0;
-  height: 38px;
+  height: 35px;
   line-height: 19px;
   word-wrap: break-word;
 `;
