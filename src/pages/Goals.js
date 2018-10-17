@@ -6,30 +6,11 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import RoundButton from 'components/RoundButton';
 import Loader from 'components/Loader';
 import NoItemsMessage from 'components/NoItemsMessage';
-import throttle from 'lodash.throttle';
+import CardsPagination from 'components/hocs/CardsPagination';
 import { goalsOperations } from '../modules/Goals';
 import GoalCard from './goals/GoalCard';
 
 class Goals extends Component {
-  constructor(props) {
-    super(props);
-    this.cardHeight = 393;
-    this.state = {
-      page: 1,
-    };
-  }
-
-  componentDidMount = () => {
-    const { restoreGoals } = this.props;
-    restoreGoals();
-    this.fetchData();
-    document.addEventListener('scroll', this.checkMoreData());
-  };
-
-  componentWillUnmount = () => {
-    document.removeEventListener('scroll', this.checkMoreData());
-  };
-
   getBody = () => {
     const { goals, loading, deleteGoal, history } = this.props;
     if (goals.length) {
@@ -77,32 +58,23 @@ class Goals extends Component {
     }
   };
 
-  fetchData = () => {
-    const { loadGoals, lastPageNumber } = this.props;
-    const { page } = this.state;
-    if (page <= lastPageNumber) {
-      loadGoals(page, 15);
-      this.setState(prevState => ({ page: prevState.page + 1 }));
-    }
-  };
-
-  checkMoreData = () =>
-    throttle(ev => {
-      const elem = ev.target.documentElement;
-      if (elem.scrollHeight - elem.scrollTop - this.cardHeight <= elem.clientHeight) {
-        this.fetchData();
-      }
-    }, 300);
-
   render() {
-    const { loading } = this.props;
+    const { loading, loadData, restoreData, lastPageNumber } = this.props;
     return (
       <PageContainer className="page-content goals-list">
         <Header>
           <Title>My Goals</Title>
           <RoundButton to="/goal/add" type="goal" />
         </Header>
-        <GoalsList>{this.getBody()}</GoalsList>
+        <CardsPagination
+          restoreData={restoreData}
+          loadData={loadData}
+          lastPageNumber={lastPageNumber}
+          cardHeight={393}
+          numberOfCards={15}
+        >
+          <GoalsList>{this.getBody()}</GoalsList>
+        </CardsPagination>
         {loading && <Loader />}
       </PageContainer>
     );
@@ -118,9 +90,9 @@ Goals.propTypes = {
   // from connect
   goals: PropTypes.arrayOf(PropTypes.object),
   loading: PropTypes.bool.isRequired,
-  loadGoals: PropTypes.func.isRequired,
+  loadData: PropTypes.func.isRequired,
   deleteGoal: PropTypes.func.isRequired,
-  restoreGoals: PropTypes.func.isRequired,
+  restoreData: PropTypes.func.isRequired,
   lastPageNumber: PropTypes.number.isRequired,
 };
 
@@ -131,9 +103,9 @@ export default connect(
     lastPageNumber: state.goals.lastPageNumber,
   }),
   {
-    loadGoals: goalsOperations.loadGoals,
+    loadData: goalsOperations.loadGoals,
     deleteGoal: goalsOperations.deleteGoal,
-    restoreGoals: goalsOperations.restoreGoals,
+    restoreData: goalsOperations.restoreGoals,
   }
 )(Goals);
 

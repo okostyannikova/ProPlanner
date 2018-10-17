@@ -6,30 +6,11 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import RoundButton from 'components/RoundButton';
 import Loader from 'components/Loader';
 import NoItemsMessage from 'components/NoItemsMessage';
-import throttle from 'lodash.throttle';
+import CardsPagination from 'components/hocs/CardsPagination';
 import { eventsOperations } from '../modules/Events';
 import EventCard from './events/EventCard';
 
 class Events extends Component {
-  constructor(props) {
-    super(props);
-    this.cardHeight = 219;
-    this.state = {
-      page: 1,
-    };
-  }
-
-  componentDidMount = () => {
-    const { restoreEvents } = this.props;
-    restoreEvents();
-    this.fetchEvents();
-    document.addEventListener('scroll', this.checkMoreData());
-  };
-
-  componentWillUnmount = () => {
-    document.removeEventListener('scroll', this.checkMoreData());
-  };
-
   getBody = () => {
     const { events, loading, deleteEvent, history } = this.props;
     if (events.length) {
@@ -73,32 +54,23 @@ class Events extends Component {
     }
   };
 
-  fetchEvents = () => {
-    const { loadEvents, lastPageNumber } = this.props;
-    const { page } = this.state;
-    if (page <= lastPageNumber) {
-      loadEvents(page, 20);
-      this.setState(prevState => ({ page: prevState.page + 1 }));
-    }
-  };
-
-  checkMoreData = () =>
-    throttle(ev => {
-      const elem = ev.target.documentElement;
-      if (elem.scrollHeight - elem.scrollTop - this.cardHeight <= elem.clientHeight) {
-        this.fetchEvents();
-      }
-    }, 300);
-
   render() {
-    const { loading } = this.props;
+    const { loading, restoreData, loadData, lastPageNumber } = this.props;
     return (
       <PageContainer className="page-content events-list">
         <Header>
           <Title>The Events</Title>
           <RoundButton to="/event/add" type="event" />
         </Header>
-        <EventsList>{this.getBody()}</EventsList>
+        <CardsPagination
+          restoreData={restoreData}
+          loadData={loadData}
+          lastPageNumber={lastPageNumber}
+          cardHeight={219}
+          numberOfCards={20}
+        >
+          <EventsList>{this.getBody()}</EventsList>
+        </CardsPagination>
         {loading && <Loader />}
       </PageContainer>
     );
@@ -115,9 +87,9 @@ Events.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object),
   loading: PropTypes.bool.isRequired,
   lastPageNumber: PropTypes.number.isRequired,
-  loadEvents: PropTypes.func.isRequired,
+  loadData: PropTypes.func.isRequired,
   deleteEvent: PropTypes.func.isRequired,
-  restoreEvents: PropTypes.func.isRequired,
+  restoreData: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -127,9 +99,9 @@ export default connect(
     lastPageNumber: state.events.lastPageNumber,
   }),
   {
-    loadEvents: eventsOperations.loadEvents,
+    loadData: eventsOperations.loadEvents,
     deleteEvent: eventsOperations.deleteEvent,
-    restoreEvents: eventsOperations.restoreEvents,
+    restoreData: eventsOperations.restoreEvents,
   }
 )(Events);
 
