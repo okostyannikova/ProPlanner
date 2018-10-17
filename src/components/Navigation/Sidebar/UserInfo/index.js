@@ -37,7 +37,9 @@ class UserInfo extends Component {
         <p className="user-info__name">
           {firstName} {lastName}
         </p>
-        <p className="user-info__email">{email}</p>
+        <p className="user-info__email" title={email}>
+          {email}
+        </p>
       </div>
     );
   }
