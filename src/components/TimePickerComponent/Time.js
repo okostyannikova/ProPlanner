@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
+import { timeValidation } from 'utils/validate';
 import { Field } from 'redux-form';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
@@ -90,19 +91,47 @@ const materialTheme = createMuiTheme({
 });
 
 export default class Time extends Component {
-  state = {};
+  state = { meta: null };
+
+  validationHandler = meta => {
+    // console.log(meta);
+    this.setState({ meta });
+  };
+
+  selectStartDate = date => {
+    // console.log('44', date);
+  };
 
   render() {
     const { view } = this.props;
-
+    const { meta } = this.state;
+    // console.log(meta && Boolean(meta.error));
+    // console.log(this.props);
+    // console.log(this.state.meta);
     return (
       <MuiPickersUtilsProvider utils={MomentUtils}>
         <MuiThemeProvider theme={materialTheme}>
           <div className="time-container">
             <p className="time-component">Time</p>
-            <Field name="startTime" component={timeField} view={view} />
+            <Field
+              name="startTime"
+              component={timeField}
+              view={view}
+              selectStartDate={this.selectStartDate}
+              maxDate="2018-10-20 10:10"
+              // maxDate={moment().format()}
+              error={meta && Boolean(meta.error)}
+            />
             <span className="separator" />
-            <Field name="endTime" component={timeField} view={view} />{' '}
+            <Field
+              name="endTime"
+              component={timeField}
+              view={view}
+              validate={[timeValidation]}
+              validationHandler={this.validationHandler}
+              error={meta && Boolean(meta.error)}
+            />{' '}
+            {meta ? meta.error && <div className="error-text">{meta.error}</div> : null}
           </div>
         </MuiThemeProvider>
       </MuiPickersUtilsProvider>
