@@ -1,61 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import WithOpenHandler from 'components/hocs/WithOpenHandler';
 import Topbar from './Topbar';
 import Sidebar from './Sidebar';
 import './styles.css';
 
-export default class Navigation extends Component {
-  state = {
-    isOpen: false,
-  };
+const Navigation = ({ isOpen, setButtonRef, setWrapperRef, handleMenuClick }) => (
+  <div className="navigation">
+    <div className="navigation-topbar">
+      <Topbar setButtonRef={setButtonRef} />
+    </div>
+    <div
+      className={`navigation-sidebar ${isOpen ? 'nav--show' : 'nav--hidden'}`}
+      ref={setWrapperRef}
+    >
+      <Sidebar handleMenuClick={handleMenuClick} />
+    </div>
+  </div>
+);
 
-  componentDidMount() {
-    document.addEventListener('click', this.handleClickOutside);
-  }
+Navigation.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  setButtonRef: PropTypes.func.isRequired,
+  setWrapperRef: PropTypes.func.isRequired,
+  handleMenuClick: PropTypes.func.isRequired,
+};
 
-  componentWillUnmount() {
-    document.removeEventListener('click', this.handleClickOutside);
-  }
-
-  setWrapperRef = node => {
-    this.wrapperRef = node;
-  };
-
-  setButtonRef = node => {
-    this.buttonRef = node;
-  };
-
-  handleMenuClick = () => {
-    this.setState(prevState => ({ isOpen: !prevState.isOpen }));
-  };
-
-  handleClickOutside = ev => {
-    const {
-      buttonRef,
-      wrapperRef,
-      state: { isOpen },
-    } = this;
-
-    if (ev.target === buttonRef || buttonRef.contains(ev.target)) {
-      this.handleMenuClick();
-    } else if (isOpen && wrapperRef && !wrapperRef.contains(ev.target)) {
-      this.handleMenuClick();
-    }
-  };
-
-  render() {
-    const { isOpen } = this.state;
-    return (
-      <div className="navigation">
-        <div className="navigation-topbar">
-          <Topbar setButtonRef={this.setButtonRef} />
-        </div>
-        <div
-          className={`navigation-sidebar ${isOpen ? 'nav--show' : 'nav--hidden'}`}
-          ref={this.setWrapperRef}
-        >
-          <Sidebar handleMenuClick={this.handleMenuClick} />
-        </div>
-      </div>
-    );
-  }
-}
+export default WithOpenHandler(Navigation);
