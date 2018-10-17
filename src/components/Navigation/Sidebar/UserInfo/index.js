@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './styles.css';
 
-const progress = 61;
+// const progress = 61;
 
 class UserInfo extends Component {
   displayProgress = userProgress => {
@@ -29,10 +29,10 @@ class UserInfo extends Component {
               cx="50%"
               cy="50%"
               r="36"
-              strokeDashoffset={this.displayProgress(progress)}
+              // strokeDashoffset={this.displayProgress(progress)}
             />
           </svg>
-          <span className="user-info__progress-number">{progress}</span>
+          {/* <span className="user-info__progress-number">{progress}</span> */}
         </div>
         <p className="user-info__name">
           {firstName} {lastName}
