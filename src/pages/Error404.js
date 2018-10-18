@@ -42,10 +42,10 @@ const TextWrapper = styled.div`
 `;
 const AccentText = styled.span`
   font-weight: 500;
-  font-size: 48px;
+  font-size: 36px;
   color: rgba(52, 70, 98, 0.8);
   @media (min-width: 1500px) {
-    font-size: 36px;
+    font-size: 48px;
   }
   @media (max-width: 576px) {
     font-size: 24px;
