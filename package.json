@@ -8,6 +8,7 @@
     "classnames": "^2.2.6",
     "element-react": "^1.4.21",
     "element-theme-default": "^1.4.13",
+    "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "material-ui-pickers": "^1.0.0-rc.14",
     "moment": "^2.22.2",
