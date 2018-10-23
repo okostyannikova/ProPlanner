@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { colorTypes } from 'config';
 import RoundButton from 'components/RoundButton';
 import RenderEventsContainer from '../render-events';
@@ -16,20 +17,35 @@ class Day extends Component {
 
   displayEvents = () => {
     const { events, startTime, getHeight } = this.props;
-    if (events) {
+    if (events.length) {
       return events.map(ev => {
-        const { 'start-date': start, 'end-date': end, 'event-type': type } = ev.attributes;
+        const { 'start-date': start, 'end-date': end, 'event-type': type, title } = ev.attributes;
+        const startPos = startTime(start.clone());
+        const blockHeight = getHeight(start.clone().valueOf(), end.clone().valueOf());
+        const textColor = type === 'entertainment' ? '#fff' : '#4278bb';
+        const eventLength = (end - start) / 1000 / 60;
+        const isEventSmall = eventLength < 75;
+        const isEventMiddle = eventLength >= 75 && eventLength < 100;
         return (
-          <rect
+          <Link
+            to={`/event/${ev.id}`}
+            className={`event-block ${isEventSmall && 'event-block--small'}`}
             key={ev.id}
-            width="100%"
-            rx="10"
-            ry="10"
-            x="0"
-            y={startTime(start.clone())}
-            height={getHeight(start.clone().valueOf(), end.clone().valueOf())}
-            fill={colorTypes[type]}
-          />
+            style={{
+              top: startPos,
+              height: blockHeight,
+              backgroundColor: colorTypes[type],
+              color: textColor,
+            }}
+          >
+            <span className="event-block__time">
+              {start.format('HH:mm')} - {end.format('HH:mm')}
+            </span>
+            {eventLength >= 60 ? <br /> : null}
+            <span className={`event-block__title ${isEventMiddle && 'event-block__title--middle'}`}>
+              {title}
+            </span>
+          </Link>
         );
       });
     }
@@ -54,9 +70,7 @@ class Day extends Component {
           <div className="calendar__content" ref={setWrapperRef}>
             <ul className="calendar__hours-labels">{hours()}</ul>
             <div className="calendar__events">
-              <svg className="calendar__events-container" xmlns="http://www.w3.org/2000/svg">
-                {this.displayEvents()}
-              </svg>
+              <div className="calendar__events-container">{this.displayEvents()}</div>
             </div>
           </div>
         </main>
