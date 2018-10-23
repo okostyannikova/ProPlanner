@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { colorTypes } from 'config';
+import { millisecToMinutes } from 'utils/helpers';
 import RoundButton from 'components/RoundButton';
 import RenderEventsContainer from '../render-events';
 import { prevDay, nextDay } from '../../../modules/Calendar';
@@ -10,6 +11,14 @@ import './styles.css';
 import Navigation from '../Navigation';
 
 class Day extends Component {
+  constructor(props) {
+    super(props);
+    this.minutesInSmallEvent = 75;
+    this.minutesInMiddleEvent = 100;
+    this.mainTextColor = '#4278bb';
+    this.lightTextColor = '#fff';
+  }
+
   componentDidMount = () => {
     const { setHeight } = this.props;
     setHeight(50);
@@ -17,15 +26,18 @@ class Day extends Component {
 
   displayEvents = () => {
     const { events, startTime, getHeight } = this.props;
+
     if (events.length) {
       return events.map(ev => {
         const { 'start-date': start, 'end-date': end, 'event-type': type, title } = ev.attributes;
         const startPos = startTime(start.clone());
         const blockHeight = getHeight(start.clone().valueOf(), end.clone().valueOf());
-        const textColor = type === 'entertainment' ? '#fff' : '#4278bb';
-        const eventLength = (end - start) / 1000 / 60;
-        const isEventSmall = eventLength < 75;
-        const isEventMiddle = eventLength >= 75 && eventLength < 100;
+        const textColor = type === 'entertainment' ? this.lightTextColor : this.mainTextColor;
+        const eventLength = millisecToMinutes(end - start);
+        const isEventSmall = eventLength < this.minutesInSmallEvent;
+        const isEventMiddle =
+          eventLength >= this.minutesInSmallEvent && eventLength < this.minutesInMiddleEvent;
+
         return (
           <Link
             to={`/event/${ev.id}`}
