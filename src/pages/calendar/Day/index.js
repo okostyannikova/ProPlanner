@@ -65,7 +65,7 @@ class Day extends Component {
   };
 
   render() {
-    const { selectedDay, hours, setWrapperRef, prevDay, nextDay } = this.props;
+    const { selectedDay, hours, setWrapperRef, prevDay, nextDay } = this.props; // eslint-disable-line
     return (
       <div className="calendar-day">
         <header className="calendar-day__header">
