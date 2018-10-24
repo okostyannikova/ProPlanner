@@ -7,6 +7,7 @@ import RenderEventsContainer from '../render-events';
 import { prevDay, nextDay } from '../../../modules/Calendar';
 import './styles.css';
 import Navigation from '../Navigation';
+import Summary from './Summary';
 
 class Day extends Component {
   componentDidMount = () => {
@@ -37,7 +38,7 @@ class Day extends Component {
   };
 
   render() {
-    const { selectedDay, hours, setWrapperRef, prevDay, nextDay } = this.props;
+    const { selectedDay, hours, setWrapperRef, prevDay, nextDay, events } = this.props;
     return (
       <div className="calendar-day">
         <header className="calendar-day__header">
@@ -50,7 +51,7 @@ class Day extends Component {
           <RoundButton to="/event/add" type="event" />
         </header>
         <main className="calendar-day__main">
-          <div className="calendar-day__summary" />
+          <Summary events={events} />
           <div className="calendar__content" ref={setWrapperRef}>
             <ul className="calendar__hours-labels">{hours()}</ul>
             <div className="calendar__events">
@@ -75,6 +76,8 @@ const getEvents = (day, events) => {
   }
   return null;
 };
+
+const getDaySummary = () => {};
 
 export default connect(
   state => ({
