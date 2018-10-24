@@ -41,7 +41,7 @@ class EventForm extends Component {
     const eventsListId = eventsList ? eventsList.id : '';
 
     const submit = values => {
-      console.log(values);
+      // console.log(values);
       patchEvent(values);
     };
 

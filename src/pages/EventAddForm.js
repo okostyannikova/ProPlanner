@@ -3,6 +3,7 @@ import './eventAddForm/styles.css';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { compose } from 'redux';
+import * as moment from 'moment';
 import TextComponent from 'components/TextComponent/TextComponent';
 import Time from 'components/TimePickerComponent/Time';
 import Tasks from './eventAddForm/Tasks';
@@ -71,10 +72,14 @@ class EventAddForm extends Component {
 }
 
 const mapStateToProps = state => {
+  const startTime = moment().format();
+  const endTime = moment().format();
   const type = 'work';
 
   return {
     initialValues: {
+      startTime,
+      endTime,
       type,
     },
   };

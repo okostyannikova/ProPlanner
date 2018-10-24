@@ -3,6 +3,7 @@
 .calendar {
   color: $main-text-color;
   position: relative;
+  height: 1px;
 }
 
 .calendar-main {
@@ -19,6 +20,7 @@
   }
   @include mq(lg-max, max) {
     padding: 30px 20px 30px 30px;
+    width: 70%;
   }
   @include mq(sm-max, max) {
     width: 100%;
