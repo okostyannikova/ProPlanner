@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { Link } from 'react-router-dom';
 import { withWindowWidth } from 'components/hocs/window-context';
 import classNames from 'classnames';
 import { colorTypes } from 'config';
+import { millisecToMinutes } from 'utils/helpers';
 import RenderEventsContainer from '../render-events';
 import { prevWeek, nextWeek, selectDay } from '../../../modules/Calendar';
 import './styles.css';
@@ -12,13 +14,20 @@ import Navigation from '../Navigation';
 import DaySidebar from '../Day';
 
 class Week extends Component {
+  constructor(props) {
+    super(props);
+    this.minutesInSmallEvent = 50;
+    this.mainTextColor = '#4278bb';
+    this.lightTextColor = '#fff';
+  }
+
   componentDidMount = () => {
     const { setHeight } = this.props;
     setHeight(70);
   };
 
   getEvents = today => {
-    const { events, startTime, getHeight } = this.props;
+    const { events, startTime, getHeight, windowWidth } = this.props;
 
     if (events.length) {
       const eventList = events
@@ -27,18 +36,32 @@ class Week extends Component {
           return today === eventDay;
         })
         .map(ev => {
-          const { 'start-date': start, 'end-date': end, 'event-type': type } = ev.attributes;
+          const { 'start-date': start, 'end-date': end, 'event-type': type, title } = ev.attributes;
+          const startPos = startTime(start.clone());
+          const blockHeight = getHeight(start.clone().valueOf(), end.clone().valueOf());
+          const textColor = type === 'entertainment' ? this.lightTextColor : this.mainTextColor;
+          const eventLength = millisecToMinutes(end - start);
+          const isEventSmall = eventLength < this.minutesInSmallEvent;
+
           return (
-            <rect
+            <Link
+              to={`/event/${ev.id}`}
+              className={`event-block event-block--week ${isEventSmall && 'event-block--small'}`}
               key={ev.id}
-              width="100%"
-              rx="10"
-              ry="10"
-              x="2%"
-              y={startTime(start.clone())}
-              height={getHeight(start.clone().valueOf(), end.clone().valueOf())}
-              fill={colorTypes[type]}
-            />
+              style={{
+                top: startPos,
+                height: blockHeight,
+                backgroundColor: colorTypes[type],
+                color: textColor,
+              }}
+            >
+              {windowWidth > 630 && (
+                <div className="event-block__time">
+                  {start.format('HH:mm')} - {end.format('HH:mm')}
+                </div>
+              )}
+              <div className="event-block__title">{title}</div>
+            </Link>
           );
         });
 
@@ -54,16 +77,18 @@ class Week extends Component {
     const days = Array(...Array(7)).map((_, i) => {
       currentDay = firstDay.clone().add(i, 'day');
       return (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className={`calendar__events-container ${this.className(currentDay)}`}
+        <div
+          className={`calendar__week-container ${this.className(currentDay)}`}
           key={i}
           onClick={this.handleClick(currentDay.format('YYYY-MM-DD'))}
           data-qa={currentDay.format('YYYY-MM-DD')}
+          onKeyPress={f => f}
+          role="button"
+          tabIndex="0"
         >
           {this.dividingLines()}
           {this.getEvents(currentDay.format('YYYY-MM-DD'))}
-        </svg>
+        </div>
       );
     });
     return days;
@@ -92,13 +117,13 @@ class Week extends Component {
     let pos = 0;
     const lines = Array(...Array(25)).map((_, i) => {
       pos += hourHeight;
-      return <line key={i} x1="0" y1={pos} x2="100%" y2={pos} stroke="#e0edf9" strokeWidth="2" />;
+      return <div className="divisor" key={i} style={{ top: pos }} />;
     });
     return lines;
   };
 
   handleClick = date => () => {
-    const { selectDay } = this.props;
+    const { selectDay } = this.props;  // eslint-disable-line
     selectDay(date);
   };
 
@@ -113,8 +138,8 @@ class Week extends Component {
   render() {
     const {
       firstWeekDay,
-      prevWeek,
-      nextWeek,
+      prevWeek,    // eslint-disable-line
+      nextWeek,    // eslint-disable-line
       hourHeight,
       hours,
       setWrapperRef,
