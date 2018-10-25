@@ -1,16 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { colorTypes, workingTime } from 'config';
+import { minutesToСivilTime } from 'utils/helpers';
 
-const Summary = ({ evenst }) => {
-  console.log(evenst);
-  return <div className="calendar-day__summary" />;
+const Summary = ({ summary }) => {
+  const width = num => `${(num * 100) / workingTime}%`;
+
+  return (
+    <div className="calendar-day__summary">
+      {Object.keys(summary)
+        .sort((a, b) => summary[b] - summary[a])
+        .map((type, i, arr) => (
+          <div
+            className="calendar-day__summary-item"
+            key={type}
+            style={{
+              width: width(summary[type]),
+              backgroundColor: colorTypes[type],
+              zIndex: arr.length - i,
+            }}
+            title={`${type} ${minutesToСivilTime(summary[type])}h`}
+          />
+        ))}
+    </div>
+  );
 };
 
-Summary.defaultProps = {
-  evenst: [],
-};
 Summary.propTypes = {
-  evenst: PropTypes.array,
+  summary: PropTypes.object.isRequired,
 };
 
 export default Summary;

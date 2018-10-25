@@ -25,6 +25,21 @@ class Day extends Component {
     setHeight(50);
   };
 
+  getDaySummary = () => {
+    const { events } = this.props;
+    const summary = {};
+    events.forEach(ev => {
+      const { 'start-date': start, 'end-date': end, 'event-type': type } = ev.attributes;
+      const eventLength = millisecToMinutes(end - start);
+      if (summary[type]) {
+        summary[type] += eventLength;
+      } else {
+        summary[type] = eventLength;
+      }
+    });
+    return summary;
+  };
+
   displayEvents = () => {
     const { events, startTime, getHeight } = this.props;
 
@@ -66,7 +81,8 @@ class Day extends Component {
   };
 
   render() {
-    const { selectedDay, hours, setWrapperRef, prevDay, nextDay } = this.props; // eslint-disable-line
+    const { selectedDay, hours, setWrapperRef, prevDay, nextDay, events } = this.props; // eslint-disable-line
+    this.getDaySummary();
     return (
       <div className="calendar-day">
         <header className="calendar-day__header">
@@ -79,7 +95,7 @@ class Day extends Component {
           <RoundButton to="/event/add" type="event" />
         </header>
         <main className="calendar-day__main">
-          <Summary events={events} />
+          <Summary summary={this.getDaySummary()} />
           <div className="calendar__content" ref={setWrapperRef}>
             <ul className="calendar__hours-labels">{hours()}</ul>
             <div className="calendar__events">
@@ -102,8 +118,6 @@ const getEvents = (day, events) => {
   }
   return null;
 };
-
-const getDaySummary = () => {};
 
 export default connect(
   state => ({
