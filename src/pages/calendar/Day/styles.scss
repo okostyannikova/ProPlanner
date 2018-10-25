@@ -63,9 +63,19 @@
   height: 20px;
   background-color: #E4EAFA;
   border-radius: 10px;
+   overflow: hidden;
   @include mq(xs-max, max) {
     width: 100%;
   }
+}
+
+.calendar-day__summary-item {
+  display: inline-block;
+  position: relative;
+  height: 100%;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-right: -7px;
 }
 
 .calendar__content {
@@ -125,6 +135,7 @@
   cursor: pointer;
   word-wrap: break-word;
 }
+
 .event-block__time {
   font-weight: normal;
   margin-right: 6px;
@@ -145,7 +156,6 @@
   padding: 4px 10px;
   white-space: nowrap;
   text-overflow: ellipsis;
-
   .event-block__time {
     font-size: 12px;
   }

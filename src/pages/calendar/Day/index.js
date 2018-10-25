@@ -9,6 +9,7 @@ import RenderEventsContainer from '../render-events';
 import { prevDay, nextDay } from '../../../modules/Calendar';
 import './styles.css';
 import Navigation from '../Navigation';
+import Summary from './Summary';
 
 class Day extends Component {
   constructor(props) {
@@ -22,6 +23,21 @@ class Day extends Component {
   componentDidMount = () => {
     const { setHeight } = this.props;
     setHeight(50);
+  };
+
+  getDaySummary = () => {
+    const { events } = this.props;
+    const summary = {};
+    events.forEach(ev => {
+      const { 'start-date': start, 'end-date': end, 'event-type': type } = ev.attributes;
+      const eventLength = millisecToMinutes(end - start);
+      if (summary[type]) {
+        summary[type] += eventLength;
+      } else {
+        summary[type] = eventLength;
+      }
+    });
+    return summary;
   };
 
   displayEvents = () => {
@@ -65,7 +81,8 @@ class Day extends Component {
   };
 
   render() {
-    const { selectedDay, hours, setWrapperRef, prevDay, nextDay } = this.props; // eslint-disable-line
+    const { selectedDay, hours, setWrapperRef, prevDay, nextDay, events } = this.props; // eslint-disable-line
+    this.getDaySummary();
     return (
       <div className="calendar-day">
         <header className="calendar-day__header">
@@ -78,7 +95,7 @@ class Day extends Component {
           <RoundButton to="/event/add" type="event" />
         </header>
         <main className="calendar-day__main">
-          <div className="calendar-day__summary" />
+          <Summary summary={this.getDaySummary()} />
           <div className="calendar__content" ref={setWrapperRef}>
             <ul className="calendar__hours-labels">{hours()}</ul>
             <div className="calendar__events">

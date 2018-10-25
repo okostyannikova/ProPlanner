@@ -17,7 +17,7 @@ class Calendar extends Component {
   };
 
   componentWillUnmount = () => {
-    const { restoreCalendar } = this.props;
+    const { restoreCalendar } = this.props;   //eslint-disable-line
     restoreCalendar();
   };
 

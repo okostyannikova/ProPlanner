@@ -35,3 +35,7 @@ export const filterOptions = [
     options: convertToFilterOptions(priorityOptions),
   },
 ];
+
+export const workTimeStart = 8;
+export const workTimeEnd = 21;
+export const workingTime = (workTimeEnd - workTimeStart) * 60;
