@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { colorTypes, workingTime } from 'config';
-import { minutesToСivilTime } from 'utils/helpers';
+import { minutesToCivilTime } from 'utils/helpers';
 
 const Summary = ({ summary }) => {
   const width = num => `${(num * 100) / workingTime}%`;
@@ -19,7 +19,7 @@ const Summary = ({ summary }) => {
               backgroundColor: colorTypes[type],
               zIndex: arr.length - i,
             }}
-            title={`${type} ${minutesToСivilTime(summary[type])}h`}
+            title={`${type} ${minutesToCivilTime(summary[type])}h`}
           />
         ))}
     </div>
