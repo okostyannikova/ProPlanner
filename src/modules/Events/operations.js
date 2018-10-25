@@ -32,7 +32,14 @@ const eventsURL = `${apiURL}/events`;
 const loadEvents = (number = 1, size = 50) => dispatch => {
   dispatch(loadEventsStart());
 
-  axios(eventsURL, { params: { 'page[number]': number, 'page[size]': size } })
+  axios(eventsURL, {
+    params: {
+      attribute: 'start_date',
+      order: 'DESC',
+      'page[number]': number,
+      'page[size]': size,
+    },
+  })
     .then(res => {
       const events = normalizeData(res.data.data);
       const lastPageNumber = getLastPageNumber(res.data.links.last);

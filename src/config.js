@@ -1,6 +1,8 @@
+import { convertToFilterOptions } from './utils/helpers';
+
 export const apiURL = 'http://backend.proplanner.formula1.cloud.provectus-it.com';
 
-export const colorTypes = {
+export const typesOptions = {
   work: '#FFBFD4',
   personal: '#FFE07F',
   entertainment: '#AD67CD',
@@ -9,8 +11,7 @@ export const colorTypes = {
 };
 
 export const priorityOptions = {
-  important: { color: '#F68181' },
-  high: { color: '#fCDE75' },
+  high: { color: '#F68181' },
   normal: { color: '#64C37D' },
   low: { color: '#00BCD4', direction: 180 },
 };
@@ -22,3 +23,15 @@ export const smartOptions = {
   r: { color: '#A9EFEA', decs: 'Relevant' },
   t: { color: '#6A2789', decs: 'Time-Framed' },
 };
+
+export const filterOptions = [
+  { options: [{ value: 'all', label: 'All' }] },
+  {
+    label: 'Type',
+    options: convertToFilterOptions(typesOptions),
+  },
+  {
+    label: 'Priority',
+    options: convertToFilterOptions(priorityOptions),
+  },
+];

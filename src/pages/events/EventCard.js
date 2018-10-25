@@ -9,7 +9,7 @@ import EditCardMenu from 'components/EditCardMenu';
 import PriorityArrow from 'components/Icons/PriorityArrow';
 import tasksSummaryIcon from 'assets/images/events/summary-tasks-icon.svg';
 import { cutText } from 'utils/helpers';
-import { priorityOptions, colorTypes } from 'config';
+import { priorityOptions, typesOptions } from 'config';
 
 class EventCard extends Component {
   state = {
@@ -42,7 +42,7 @@ class EventCard extends Component {
           handleEdit={this.handleEdit(id)}
         />
         <Card to={`/event/${id}`} data-qa="event-card">
-          {type && !isDeleting && <TypeLabel color={colorTypes[type]}>{type}</TypeLabel>}
+          {type && !isDeleting && <TypeLabel color={typesOptions[type]}>{type}</TypeLabel>}
           <div>
             <Title>{title}</Title>
             <TimeWrapper>

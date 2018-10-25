@@ -5,7 +5,7 @@ import { compose } from 'redux';
 import { Link } from 'react-router-dom';
 import { withWindowWidth } from 'components/hocs/window-context';
 import classNames from 'classnames';
-import { colorTypes } from 'config';
+import { typesOptions } from 'config';
 import { millisecToMinutes } from 'utils/helpers';
 import RenderEventsContainer from '../render-events';
 import { prevWeek, nextWeek, selectDay } from '../../../modules/Calendar';
@@ -51,7 +51,7 @@ class Week extends Component {
               style={{
                 top: startPos,
                 height: blockHeight,
-                backgroundColor: colorTypes[type],
+                backgroundColor: typesOptions[type],
                 color: textColor,
               }}
             >
