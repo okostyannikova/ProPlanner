@@ -22,3 +22,7 @@ export const smartOptions = {
   r: { color: '#A9EFEA', decs: 'Relevant' },
   t: { color: '#6A2789', decs: 'Time-Framed' },
 };
+
+export const workTimeStart = 8;
+export const workTimeEnd = 21;
+export const workingTime = (workTimeEnd - workTimeStart) * 60;
