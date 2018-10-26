@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { colorTypes, workingTime } from 'config';
+import { typesOptions, workingTime } from 'config';
 import { minutesToCivilTime } from 'utils/helpers';
 
 const Summary = ({ summary }) => {
@@ -16,7 +16,7 @@ const Summary = ({ summary }) => {
             key={type}
             style={{
               width: width(summary[type]),
-              backgroundColor: colorTypes[type],
+              backgroundColor: typesOptions[type],
               zIndex: arr.length - i,
             }}
             title={`${type} ${minutesToCivilTime(summary[type])}h`}

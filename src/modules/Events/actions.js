@@ -79,3 +79,8 @@ export const createEventFail = error => ({
 export const restoreEventsState = () => ({
   type: types.RESTORE_EVENTS_STATE,
 });
+
+export const setEventsFilter = filter => ({
+  type: types.SET_FILTER,
+  payload: { filter },
+});

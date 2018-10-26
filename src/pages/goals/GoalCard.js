@@ -7,7 +7,7 @@ import TypeLabel from 'components/TypeLabel';
 import EditCardMenu from 'components/EditCardMenu';
 import eventsSummaryIcon from 'assets/images/goals/summary-events-icon.svg';
 import defaultPicture from 'assets/images/goals/goal-default-picture.png';
-import { colorTypes, smartOptions } from 'config';
+import { typesOptions, smartOptions } from 'config';
 // import { cutText } from 'utils/helpers';
 
 class GoalCard extends Component {
@@ -41,7 +41,7 @@ class GoalCard extends Component {
           handleEdit={this.handleEdit(id)}
         />
         <Card to={`/goal/${id}`} data-qa="goal-card">
-          {!isDeleting && <TypeLabel color={colorTypes[type]}>{type}</TypeLabel>}
+          {!isDeleting && <TypeLabel color={typesOptions[type]}>{type}</TypeLabel>}
           <div>
             <Title>{title}</Title>
 

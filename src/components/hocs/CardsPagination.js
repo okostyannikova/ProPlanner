@@ -17,15 +17,24 @@ export default class CardsPagination extends Component {
     document.addEventListener('scroll', this.checkMoreData());
   };
 
+  componentWillReceiveProps = nextProps => {
+    const { restoreData, filter, loadData, numberOfCards } = this.props;
+    if (nextProps.filter !== filter) {
+      restoreData();
+      loadData(1, numberOfCards, nextProps.filter);
+      this.setState(() => ({ page: 2 }));
+    }
+  };
+
   componentWillUnmount = () => {
     document.removeEventListener('scroll', this.checkMoreData());
   };
 
   fetchData = () => {
-    const { loadData, lastPageNumber, numberOfCards } = this.props;
+    const { loadData, lastPageNumber, numberOfCards, filter } = this.props;
     const { page } = this.state;
     if (page <= lastPageNumber) {
-      loadData(page, numberOfCards);
+      loadData(page, numberOfCards, filter);
       this.setState(prevState => ({ page: prevState.page + 1 }));
     }
   };
@@ -52,4 +61,5 @@ CardsPagination.propTypes = {
   cardHeight: PropTypes.number.isRequired,
   numberOfCards: PropTypes.number.isRequired,
   children: PropTypes.node.isRequired,
+  filter: PropTypes.object.isRequired,
 };
