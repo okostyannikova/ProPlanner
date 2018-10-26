@@ -8,7 +8,7 @@ import EditCardMenu from 'components/EditCardMenu';
 import eventsSummaryIcon from 'assets/images/goals/summary-events-icon.svg';
 import defaultPicture from 'assets/images/goals/goal-default-picture.png';
 import { typesOptions, smartOptions } from 'config';
-// import { cutText } from 'utils/helpers';
+import { cutText } from 'utils/helpers';
 
 class GoalCard extends Component {
   state = {
@@ -28,7 +28,7 @@ class GoalCard extends Component {
   };
 
   render() {
-    const { id, title, type, picture, /* description */ smart, events } = this.props;
+    const { id, title, type, picture, description, smart, events } = this.props;
     const { deletingItem, deleting } = this.state;
     const isDeleting = deleting && id === deletingItem;
     return (
@@ -57,7 +57,7 @@ class GoalCard extends Component {
               ))}
             </SmartCover>
 
-            <Description>{/* cutText(description, 50) */}</Description>
+            <Description>{description && cutText(description, 50)}</Description>
             <Footer>
               <EventsSummary>
                 {events.length} <img src={eventsSummaryIcon} alt="events summary" />
