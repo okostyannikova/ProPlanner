@@ -7,6 +7,7 @@ const initialState = {
   eventsSingleEvent: null,
   lastPageNumber: 1,
   error: null,
+  filter: {},
 };
 
 export default (state = initialState, action) => {
@@ -119,6 +120,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         eventsList: [],
+      };
+    case types.SET_FILTER:
+      return {
+        ...state,
+        filter: payload.filter,
       };
     default:
       return state;

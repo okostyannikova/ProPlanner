@@ -17,6 +17,7 @@ import {
   deleteEventSuccess,
   deleteEventFail,
   restoreEventsState,
+  setEventsFilter,
 } from './actions';
 import {
   normalizeData,
@@ -29,10 +30,18 @@ import { apiURL } from '../../config';
 
 const eventsURL = `${apiURL}/events`;
 
-const loadEvents = (number = 1, size = 50) => dispatch => {
+const loadEvents = (number = 1, size = 50, filter) => dispatch => {
   dispatch(loadEventsStart());
 
-  axios(eventsURL, { params: { 'page[number]': number, 'page[size]': size } })
+  axios(eventsURL, {
+    params: {
+      attribute: 'start_date',
+      order: 'DESC',
+      'page[number]': number,
+      'page[size]': size,
+      ...filter,
+    },
+  })
     .then(res => {
       const events = normalizeData(res.data.data);
       const lastPageNumber = getLastPageNumber(res.data.links.last);
@@ -110,6 +119,7 @@ const addEvent = data => dispatch => {
 };
 
 const restoreEvents = () => dispatch => dispatch(restoreEventsState());
+const setFilter = ({ value }) => dispatch => dispatch(setEventsFilter(value));
 
 export default {
   loadEvents,
@@ -119,4 +129,5 @@ export default {
   addEvent,
   deleteEvent,
   restoreEvents,
+  setFilter,
 };

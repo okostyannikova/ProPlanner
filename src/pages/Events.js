@@ -9,6 +9,7 @@ import NoItemsMessage from 'components/NoItemsMessage';
 import CardsPagination from 'components/hocs/CardsPagination';
 import { eventsOperations } from '../modules/Events';
 import EventCard from './events/EventCard';
+import FilterDropDown from '../components/FilterDropDown';
 
 class Events extends Component {
   getBody = () => {
@@ -55,11 +56,12 @@ class Events extends Component {
   };
 
   render() {
-    const { loading, restoreData, loadData, lastPageNumber } = this.props;
+    const { loading, restoreData, loadData, lastPageNumber, setFilter, filter } = this.props;
     return (
       <PageContainer className="page-content events-list">
         <Header>
           <Title>The Events</Title>
+          <FilterDropDown setFilter={setFilter} />
           <RoundButton to="/event/add" type="event" />
         </Header>
         <CardsPagination
@@ -68,6 +70,7 @@ class Events extends Component {
           lastPageNumber={lastPageNumber}
           cardHeight={219}
           numberOfCards={20}
+          filter={filter}
         >
           <EventsList>{this.getBody()}</EventsList>
         </CardsPagination>
@@ -79,6 +82,7 @@ class Events extends Component {
 
 Events.defaultProps = {
   events: null,
+  filter: {},
 };
 
 Events.propTypes = {
@@ -87,9 +91,11 @@ Events.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object),
   loading: PropTypes.bool.isRequired,
   lastPageNumber: PropTypes.number.isRequired,
+  filter: PropTypes.object,
   loadData: PropTypes.func.isRequired,
   deleteEvent: PropTypes.func.isRequired,
   restoreData: PropTypes.func.isRequired,
+  setFilter: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -97,11 +103,13 @@ export default connect(
     events: state.events.eventsList,
     loading: state.events.loading,
     lastPageNumber: state.events.lastPageNumber,
+    filter: state.events.filter,
   }),
   {
     loadData: eventsOperations.loadEvents,
     deleteEvent: eventsOperations.deleteEvent,
     restoreData: eventsOperations.restoreEvents,
+    setFilter: eventsOperations.setFilter,
   }
 )(Events);
 

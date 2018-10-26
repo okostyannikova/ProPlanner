@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { colorTypes } from 'config';
+import { typesOptions } from 'config';
 import { millisecToMinutes } from 'utils/helpers';
 import RoundButton from 'components/RoundButton';
 import RenderEventsContainer from '../render-events';
@@ -62,7 +62,7 @@ class Day extends Component {
             style={{
               top: startPos,
               height: blockHeight,
-              backgroundColor: colorTypes[type],
+              backgroundColor: typesOptions[type],
               color: textColor,
             }}
           >
