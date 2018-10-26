@@ -7,7 +7,7 @@ export const typesOptions = {
   personal: '#FFE07F',
   entertainment: '#AD67CD',
   other: '#A9EFEA',
-  google: '#F86256',
+  // google: '#F86256',
 };
 
 export const priorityOptions = {
@@ -25,14 +25,14 @@ export const smartOptions = {
 };
 
 export const filterOptions = [
-  { options: [{ value: 'all', label: 'All' }] },
+  { options: [{ label: 'All' }] },
   {
     label: 'Type',
-    options: convertToFilterOptions(typesOptions),
+    options: convertToFilterOptions('q[event_type]', typesOptions),
   },
   {
     label: 'Priority',
-    options: convertToFilterOptions(priorityOptions),
+    options: convertToFilterOptions('q[priority]', priorityOptions),
   },
 ];
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Select from 'react-select';
 import styled from 'styled-components';
 import { filterOptions } from 'config';
@@ -31,23 +32,21 @@ const customStyles = {
     width: 10,
     marginRight: 21,
   }),
-  clearIndicator: base => ({
-    ...base,
-    color: 'rgba(0, 0, 0, 0.3);',
-    padding: '8px 0',
-    width: 18,
-  }),
 };
 
-const FilterDropDown = () => (
+const FilterDropDown = ({ setFilter }) => (
   <StyledSelect
     options={filterOptions}
-    isClearable
     isSearchable={false}
     placeholder="Filtering By"
     styles={customStyles}
+    onChange={setFilter}
   />
 );
+
+FilterDropDown.propTypes = {
+  setFilter: PropTypes.func.isRequired,
+};
 
 export default FilterDropDown;
 
