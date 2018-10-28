@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 import * as moment from 'moment';
-import { timeValidation, startTimeValidation, startTimeCheck } from 'utils/validate';
+// import { timeValidation, startTimeValidation, startTimeCheck } from 'utils/validate';
 import { Field } from 'redux-form';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
@@ -95,7 +95,9 @@ export default class Time extends Component {
   state = {
     meta: null,
     autoStartDate: moment().format(),
-    autoEndDate: moment().format(),
+    autoEndDate: moment()
+      .add(30, 'minutes')
+      .format(),
     startDateInput: null,
     endDateInput: null,
   };
@@ -167,7 +169,7 @@ export default class Time extends Component {
               component={timeField}
               view={view}
               error={meta && Boolean(meta.error)}
-              validate={[startTimeCheck]}
+              // validate={[startTimeCheck]}
               selectedDate={autoStartDate}
               pickDate={this.selectStartDate}
             />
@@ -176,7 +178,7 @@ export default class Time extends Component {
               name="endTime"
               component={timeField}
               view={view}
-              validate={[startTimeValidation, timeValidation]}
+              // validate={[startTimeValidation, timeValidation]}
               validationHandler={this.validationHandler}
               error={meta && Boolean(meta.error)}
               selectedDate={autoEndDate}

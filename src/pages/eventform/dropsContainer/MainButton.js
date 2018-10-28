@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 
 const MainButton = props => {
-  const { view, history, link, valid } = props;
+  const { view, history, link, valid, isAddPath } = props;
 
   const mainButtonStyle = view
     ? {
@@ -26,18 +26,20 @@ const MainButton = props => {
       };
 
   const mainButtonText = view ? 'EDIT' : 'SAVE';
+  const type = view || isAddPath ? 'submit' : '';
 
   const handleClick = () => {
-    if (!view) {
-      // console.log(414141);
+    if (isAddPath) {
+      return;
     }
+
     history.push(link);
   };
 
   return (
     <Button
       onClick={handleClick}
-      type={!view ? '' : 'submit'}
+      type={type}
       variant="contained"
       color="primary"
       style={mainButtonStyle}

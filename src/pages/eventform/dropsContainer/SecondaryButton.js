@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 
 const SecondaryButton = props => {
-  const { view, reset, history, link } = props;
+  const { view, reset, history, link, id, deleteHandle } = props;
 
   const secondaryButtonStyle = view
     ? {
@@ -29,6 +29,10 @@ const SecondaryButton = props => {
   const secondaryButtonText = view ? 'DELETE' : 'CANCEL';
 
   const clickHandle = () => {
+    if (view) {
+      deleteHandle(id);
+    }
+
     !view && reset();
     history.push(link);
   };

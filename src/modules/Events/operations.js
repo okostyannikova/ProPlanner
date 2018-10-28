@@ -85,8 +85,7 @@ const deleteSingleEvent = () => dispatch => {
   dispatch(removeSingleEvent());
 };
 
-const patchEvent = data => dispatch => {
-  const { id } = data;
+const patchEvent = (data, id) => dispatch => {
   const normalizedData = normalizePatchData(data);
   dispatch(updateEventStart());
 
