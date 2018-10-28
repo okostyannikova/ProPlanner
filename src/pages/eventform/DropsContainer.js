@@ -16,9 +16,29 @@ class DropsContainer extends Component {
   }
 
   render() {
-    const { view, event, match, history, reset, valid } = this.props;
-    const mainButtonLink = view ? `${match.url}/edit` : `/event/${match.params.id}`;
-    const secondaryButtonLink = view ? '/events' : `/event/${match.params.id}`;
+    const {
+      view,
+      isEditPath,
+      isAddPath,
+      event,
+      match,
+      history,
+      reset,
+      valid,
+      deleteEvent,
+      eventsListId,
+    } = this.props;
+
+    let mainButtonLink = '';
+    if (view) {
+      mainButtonLink = `${match.url}/edit`;
+    } else if (isEditPath) {
+      mainButtonLink = `/event/${match.params.id}`;
+    } else {
+      mainButtonLink = '/events';
+    }
+
+    const secondaryButtonLink = view || isAddPath ? '/events' : `/event/${match.params.id}`;
 
     const priority = event ? event.priority : '1';
     const eventType = event ? event['event-type'] : '1';
@@ -40,8 +60,21 @@ class DropsContainer extends Component {
           </li>
         </ul>
 
-        <MainButton view={view} history={history} link={mainButtonLink} valid={valid} />
-        <SecondaryButton view={view} history={history} reset={reset} link={secondaryButtonLink} />
+        <MainButton
+          view={view}
+          history={history}
+          link={mainButtonLink}
+          isAddPath={isAddPath}
+          valid={valid}
+        />
+        <SecondaryButton
+          view={view}
+          history={history}
+          reset={reset}
+          link={secondaryButtonLink}
+          id={eventsListId}
+          deleteHandle={deleteEvent}
+        />
       </div>
     );
   }

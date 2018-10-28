@@ -32,17 +32,33 @@ class EventForm extends Component {
   };
 
   render() {
-    const path = this.props.match.path;
-    const view = !(path.includes('edit') || path.includes('add'));
+    const {
+      eventsList,
+      handleSubmit,
+      reset,
+      patchEvent,
+      tasksList,
+      history,
+      addEvent,
+      match,
+    } = this.props;
 
-    const { eventsList, handleSubmit, reset, patchEvent, tasksList } = this.props;
+    const path = match.path;
+    const isEditPath = path.includes('edit');
+    const isAddPath = path.includes('add');
+    const view = !(path.includes('edit') || path.includes('add'));
 
     const event = eventsList ? eventsList.attributes : '';
     const eventsListId = eventsList ? eventsList.id : '';
 
     const submit = values => {
-      // console.log(values);
-      patchEvent(values);
+      if (isAddPath) {
+        addEvent(values);
+        history.push('/events');
+        return;
+      }
+
+      patchEvent(values, eventsListId);
     };
 
     return (
@@ -61,6 +77,7 @@ class EventForm extends Component {
                   headerContent="Title"
                   placeholder="Add a title..."
                   validate={[required, maxTitleLength]}
+                  isaddpath={isAddPath.toString()}
                 />
               </li>
               <li>
@@ -85,7 +102,15 @@ class EventForm extends Component {
             </ul>
           </div>
           <div className="drops-container">
-            <DropsContainer view={view} event={event} reset={reset} {...this.props} />
+            <DropsContainer
+              view={view}
+              isEditPath={isEditPath}
+              isAddPath={isAddPath}
+              event={event}
+              reset={reset}
+              eventsListId={eventsListId}
+              {...this.props}
+            />
           </div>
         </form>
       </div>
@@ -95,12 +120,14 @@ class EventForm extends Component {
 
 const mapStateToProps = state => {
   let id = 0;
-  let title = 'Add a title...';
-  let description = 'add a detailed description...';
-  let priority = 'high';
+  let title = '';
+  let description = '';
+  let priority = 'normal';
   let type = 'work';
   let startTime = moment().format();
-  let endTime = moment().format();
+  let endTime = moment()
+    .add(30, 'minutes')
+    .format();
 
   if (state.events.eventsSingleEvent) {
     id = state.events.eventsSingleEvent.id;
@@ -136,10 +163,13 @@ export default (EventForm = compose(
       patchEvent: eventsOperations.patchEvent,
       loadTasks: tasksOperations.loadTasks,
       unloadTasks: tasksOperations.unloadTasks,
+      addEvent: eventsOperations.addEvent,
+      deleteEvent: eventsOperations.deleteEvent,
     }
   ),
   reduxForm({
     form: 'event',
     enableReinitialize: true,
+    keepDirtyOnReinitialize: true,
   })
 )(EventForm));
