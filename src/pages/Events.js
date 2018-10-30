@@ -55,13 +55,25 @@ class Events extends Component {
     }
   };
 
+  setFilterValue = (value, actionMeta) => {
+    const { action, option } = actionMeta;
+    const { setFilter } = this.props;
+    if (action === 'select-option') {
+      const checkedValue = value.map(el => (el.group === option.group ? option : el));
+      const uniqValue = [...new Set(checkedValue)];
+      setFilter(uniqValue);
+    } else {
+      setFilter(value);
+    }
+  };
+
   render() {
-    const { loading, restoreData, loadData, lastPageNumber, setFilter, filter } = this.props;
+    const { loading, restoreData, loadData, lastPageNumber, filter } = this.props;
     return (
       <PageContainer className="page-content events-list">
         <Header>
           <Title>The Events</Title>
-          <FilterDropDown setFilter={setFilter} />
+          <FilterDropDown setFilter={this.setFilterValue} filter={filter} />
           <RoundButton to="/event/add" type="event" />
         </Header>
         <CardsPagination
@@ -82,7 +94,7 @@ class Events extends Component {
 
 Events.defaultProps = {
   events: null,
-  filter: {},
+  filter: [],
 };
 
 Events.propTypes = {
@@ -91,7 +103,7 @@ Events.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object),
   loading: PropTypes.bool.isRequired,
   lastPageNumber: PropTypes.number.isRequired,
-  filter: PropTypes.object,
+  filter: PropTypes.array,
   loadData: PropTypes.func.isRequired,
   deleteEvent: PropTypes.func.isRequired,
   restoreData: PropTypes.func.isRequired,

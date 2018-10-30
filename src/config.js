@@ -25,14 +25,13 @@ export const smartOptions = {
 };
 
 export const filterOptions = [
-  { options: [{ label: 'All' }] },
   {
     label: 'Type',
-    options: convertToFilterOptions('q[event_type]', typesOptions),
+    options: convertToFilterOptions('type', 'q[event_type]', typesOptions),
   },
   {
     label: 'Priority',
-    options: convertToFilterOptions('q[priority]', priorityOptions),
+    options: convertToFilterOptions('priority', 'q[priority]', priorityOptions),
   },
 ];
 

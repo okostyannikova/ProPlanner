@@ -53,6 +53,9 @@ export default class CardsPagination extends Component {
     return children;
   }
 }
+CardsPagination.defaultProps = {
+  filter: [],
+};
 
 CardsPagination.propTypes = {
   loadData: PropTypes.func.isRequired,
@@ -61,5 +64,5 @@ CardsPagination.propTypes = {
   cardHeight: PropTypes.number.isRequired,
   numberOfCards: PropTypes.number.isRequired,
   children: PropTypes.node.isRequired,
-  filter: PropTypes.object.isRequired,
+  filter: PropTypes.array,
 };

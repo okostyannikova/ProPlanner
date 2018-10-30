@@ -24,6 +24,7 @@ import {
   normalizeSingleData,
   normalizePatchData,
   normalizeCreateData,
+  convertFilter,
 } from './utils';
 import { getLastPageNumber } from '../utils';
 import { apiURL } from '../../config';
@@ -32,6 +33,7 @@ const eventsURL = `${apiURL}/events`;
 
 const loadEvents = (number = 1, size = 50, filter) => dispatch => {
   dispatch(loadEventsStart());
+  const filters = filter && convertFilter(filter);
 
   axios(eventsURL, {
     params: {
@@ -39,7 +41,7 @@ const loadEvents = (number = 1, size = 50, filter) => dispatch => {
       order: 'DESC',
       'page[number]': number,
       'page[size]': size,
-      ...filter,
+      ...filters,
     },
   })
     .then(res => {
@@ -112,7 +114,8 @@ const addEvent = data => dispatch => {
 };
 
 const restoreEvents = () => dispatch => dispatch(restoreEventsState());
-const setFilter = ({ value }) => dispatch => dispatch(setEventsFilter(value));
+
+const setFilter = value => dispatch => dispatch(setEventsFilter(value));
 
 export default {
   loadEvents,

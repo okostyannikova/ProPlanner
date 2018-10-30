@@ -52,3 +52,6 @@ export const normalizeCreateData = data => ({
     },
   },
 });
+
+export const convertFilter = filters =>
+  filters.reduce((prev, item) => ({ ...prev, ...item.value }), {});
