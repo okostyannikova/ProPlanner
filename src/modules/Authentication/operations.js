@@ -1,3 +1,4 @@
+import { go } from 'connected-react-router';
 import actions from './actions';
 import authorization, { setTokenToStorage, logOut } from './utils';
 
@@ -18,6 +19,7 @@ const authorize = () => dispatch => {
 };
 
 const logingOut = () => dispatch => {
+  dispatch(go('/login'));
   logOut();
   dispatch(logout());
 };
