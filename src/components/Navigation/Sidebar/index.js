@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { authorizeOperations } from 'modules/Authentication';
 import './styles.css';
@@ -27,8 +27,7 @@ const menuItems = [
 
 class Sidebar extends Component {
   logout = () => {
-    const { logout, history } = this.props;
-    history.go('/login');
+    const { logout } = this.props;
     logout();
   };
 
@@ -68,7 +67,6 @@ class Sidebar extends Component {
 
 Sidebar.propTypes = {
   logout: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
   handleMenuClick: PropTypes.func.isRequired,
 };
 
@@ -77,4 +75,4 @@ export default connect(
   { logout: authorizeOperations.logingOut },
   null,
   { pure: false }
-)(withRouter(Sidebar));
+)(Sidebar);

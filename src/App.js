@@ -5,6 +5,7 @@ import WindowContextProvider from './components/hocs/window-context';
 import './styles/main.css';
 import './styles/animations.css';
 import './utils/auth';
+import './utils/errorInterceptors';
 import './modules/Authentication/utils';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -15,6 +16,7 @@ import Settings from './pages/Settings';
 import Navigation from './components/Navigation';
 import EventForm from './pages/EventForm';
 import Error404 from './pages/Error404';
+import ErrorPopUp from './components/ErrorPopUp';
 
 const LoginContainer = () => <Route path="/login" component={Login} />;
 
@@ -45,6 +47,7 @@ export default class App extends Component {
             <PrivateRoute path="/page-not-found" component={Error404} />
             <PrivateRoute component={DefaultContainer} />
           </Switch>
+          <ErrorPopUp />
         </WindowContextProvider>
       </div>
     );
