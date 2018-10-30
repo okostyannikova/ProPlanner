@@ -49,7 +49,6 @@ const loadEvents = (number = 1, size = 50, filter) => dispatch => {
     })
     .catch(error => {
       dispatch(loadEventsFail(error));
-      throw new Error(error);
     });
 };
 
@@ -63,7 +62,6 @@ const deleteEvent = id => dispatch => {
     })
     .catch(error => {
       dispatch(deleteEventFail(error));
-      throw new Error(error);
     });
 };
 
@@ -77,7 +75,6 @@ const loadSingleEvent = id => dispatch => {
     })
     .catch(error => {
       dispatch(loadSingleEventFail(error));
-      throw new Error(error);
     });
 };
 
@@ -96,7 +93,6 @@ const patchEvent = (data, id) => dispatch => {
     })
     .catch(error => {
       dispatch(updateEventFail(error));
-      // throw new Error(error);
     });
 };
 
@@ -111,9 +107,7 @@ const addEvent = data => dispatch => {
       dispatch(createEventSuccess(event));
     })
     .catch(error => {
-      console.log(error);
       dispatch(createEventFail(error));
-      // throw new Error(error);
     });
 };
 

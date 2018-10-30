@@ -2,6 +2,7 @@
 
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
+import { reducer as notifications } from 'react-notification-system-redux';
 import authorizeReducer from './Authentication';
 import calendarReducer from './Calendar';
 import eventsReducer from './Events';
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   events: eventsReducer,
   goals: goalsReducer,
   form: formReducer,
+  notifications,
 });
 
 export default rootReducer;
