@@ -4,7 +4,6 @@ export const millisecToMinutes = ms => ms / 1000 / 60;
 
 export const convertToFilterOptions = (type, key, options) =>
   Object.keys(options).map((el, i) => ({
-    key: type,
     group: type,
     value: { [key]: i },
     label: `${el[0].toUpperCase() + el.slice(1)}`,
