@@ -7,9 +7,9 @@ const SecondaryButton = props => {
   const secondaryButtonStyle = view
     ? {
         borderRadius: '2px',
-        width: '130px',
+        width: '43%',
+        maxWidth: '130px',
         height: '36px',
-        marginRight: '24px',
         background:
           'linear-gradient(0deg, rgba(246, 129, 129, 0.1), rgba(246, 129, 129, 0.1)), #FFFFFF',
         color: '#F68181',
@@ -17,9 +17,9 @@ const SecondaryButton = props => {
       }
     : {
         borderRadius: '2px',
-        width: '130px',
+        width: '43%',
+        maxWidth: '130px',
         height: '36px',
-        marginRight: '24px',
         background:
           'linear-gradient(0deg, rgba(52, 70, 98, 0.15), rgba(52, 70, 98, 0.15)), #FFFFFF',
         color: 'rgba(52, 70, 98, 0.5)',

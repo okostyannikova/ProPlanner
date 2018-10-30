@@ -7,7 +7,8 @@ const MainButton = props => {
   const mainButtonStyle = view
     ? {
         borderRadius: '2px',
-        width: '130px',
+        width: '43%',
+        maxWidth: '130px',
         height: '36px',
         marginRight: '24px',
         background:
@@ -17,7 +18,8 @@ const MainButton = props => {
       }
     : {
         borderRadius: '2px',
-        width: '130px',
+        width: '43%',
+        maxWidth: '130px',
         height: '36px',
         marginRight: '24px',
         background: valid ? '#00BCD4' : '#8ec4cc',
