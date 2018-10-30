@@ -21,6 +21,16 @@
 	align-items: center;
 	padding: 5px 20px;
 	margin-bottom: 4px;
+
+	@media (max-width: 575.98px){
+		width: 100%;
+		display: block;
+		text-align: center;
+		box-sizing: border-box;
+		margin-bottom: 10px;
+		padding: 0;
+		line-height: 40px;
+	}
 }
 
 .time{
@@ -34,10 +44,15 @@
 	top: -5px;
 	margin: 0 8px 5px;
 	align-items: center;
-	// left: 546px;
-	// top: 319px;
+
 
 	background: rgba(51, 102, 180, 0.87);
+
+	@media (max-width: 575.98px){
+		margin: 0 auto;
+		display:block;
+		margin-bottom: 10px;
+	}
 }
 
 .error-text{

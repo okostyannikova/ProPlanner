@@ -7,8 +7,6 @@ import Type from 'components/TypeComponent/Type';
 import MainButton from './dropsContainer/MainButton.js';
 import SecondaryButton from './dropsContainer/SecondaryButton.js';
 
-// Выровнять иконки по центру текста
-
 class DropsContainer extends Component {
   constructor(props) {
     super(props);

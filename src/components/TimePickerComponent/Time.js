@@ -23,13 +23,26 @@ const materialTheme = createMuiTheme({
         '&:hover': {
           borderBottom: '2px solid #00BCD4',
         },
+        '@media (max-width:575.98px)': {
+          width: '100%',
+          boxSizing: 'border-box',
+          marginBottom: '10px',
+          padding: '0',
+          height: '40px',
+        },
       },
     },
     MuiInput: {
       input: {
         color: 'rgba(51, 102, 180, 0.87)',
         cursor: 'pointer',
+        '@media (max-width:575.98px)': {
+          padding: 0,
+          textAlign: 'center',
+          lineHeight: '40px',
+        },
       },
+
       underline: {
         root: {
           '&:before': {

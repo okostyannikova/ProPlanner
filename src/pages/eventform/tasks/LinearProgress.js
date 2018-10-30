@@ -5,13 +5,15 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 const styles = {
   colorPrimary: { backgroundColor: '#F9F9F9' },
   barColorPrimary: { backgroundColor: '#00BCD4' },
+  root: {
+    width: '90%',
+    '@media (max-width:575.98px)': {
+      width: '83%',
+    },
+  },
 };
 
 class LinearProgres extends React.Component {
-  // state = {
-  //   completed: 70,
-  // };
-
   render() {
     const { classes, completed } = this.props;
     return (
@@ -24,11 +26,11 @@ class LinearProgres extends React.Component {
               style={{
                 borderRadius: '50px',
                 height: '8px',
-                width: '90%',
               }}
               classes={{
                 colorPrimary: classes.colorPrimary,
                 barColorPrimary: classes.barColorPrimary,
+                root: classes.root,
               }}
             />
           </span>

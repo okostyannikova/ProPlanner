@@ -11,13 +11,19 @@
   cursor: pointer;
   padding: 14px 24px;
   background: rgba(196, 196, 196, 0.08);
-  width: 258px;
+  width: 100%;
   margin-bottom: 24px;
   vertical-align: middle;
+  box-sizing: border-box;
 
   &:hover{
     background-color: #ebebeb;
   }
+
+  @media (max-width: 1199.98px){
+		width: 100%;
+	}
+
 }
 
 .list-item-main-text{
