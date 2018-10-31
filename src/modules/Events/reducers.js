@@ -7,7 +7,7 @@ const initialState = {
   eventsSingleEvent: null,
   lastPageNumber: 1,
   error: null,
-  filter: {},
+  filter: [],
 };
 
 export default (state = initialState, action) => {

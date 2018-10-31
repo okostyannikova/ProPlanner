@@ -2,8 +2,9 @@ export const cutText = (text, num) => (text.length > num ? `${text.slice(0, num 
 
 export const millisecToMinutes = ms => ms / 1000 / 60;
 
-export const convertToFilterOptions = (key, options) =>
+export const convertToFilterOptions = (type, key, options) =>
   Object.keys(options).map((el, i) => ({
+    group: type,
     value: { [key]: i },
     label: `${el[0].toUpperCase() + el.slice(1)}`,
   }));
