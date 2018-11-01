@@ -47,6 +47,11 @@ export default OriginalComponent =>
       return hours;
     };
 
+    handleShow = id => () => {
+      const { history } = this.props;
+      history.push(`/event/${id}`);
+    };
+
     render() {
       const {
         props,
@@ -56,7 +61,9 @@ export default OriginalComponent =>
         startTime,
         getHeight,
         setWrapperRef,
+        handleShow,
       } = this;
+      console.log(this.props);
 
       return (
         <OriginalComponent
@@ -67,6 +74,7 @@ export default OriginalComponent =>
           getHeight={getHeight}
           setWrapperRef={setWrapperRef}
           hourHeight={hourHeight}
+          handleShow={handleShow}
         />
       );
     }

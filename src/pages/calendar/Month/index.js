@@ -85,7 +85,7 @@ class Month extends Component {
         </div>
         {windowWidth > 768 && (
           <div className="calendar__day-sidebar">
-            <DaySidebar />
+            <DaySidebar {...this.props} />
           </div>
         )}
       </div>

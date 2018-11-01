@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import Moment from 'moment';
 import CardLoader from 'components/CardLoader';
 import TypeLabel from 'components/TypeLabel';
@@ -28,10 +27,16 @@ class EventCard extends Component {
     deleteEvent(id);
   };
 
+  handleShow = () => {
+    const { history, id } = this.props;
+    history.push(`/event/${id}`);
+  };
+
   render() {
     const { id, type, title, startDate, endDate, description, priority } = this.props;
     const { deletingItem, deleting } = this.state;
     const isDeleting = deleting && id === deletingItem;
+    const isEditable = type !== 'google';
     return (
       <CardWrapper>
         {isDeleting && <CardLoader />}
@@ -40,8 +45,9 @@ class EventCard extends Component {
           type="event"
           handleDelete={this.handleDelete(id)}
           handleEdit={this.handleEdit(id)}
+          isEditable={isEditable}
         />
-        <Card to={`/event/${id}`} data-qa="event-card">
+        <Card onClick={isEditable ? this.handleShow : undefined} data-qa="event-card">
           {type && !isDeleting && <TypeLabel color={typesOptions[type]}>{type}</TypeLabel>}
           <div>
             <Title>{title}</Title>
@@ -135,8 +141,7 @@ const CardWrapper = styled.div`
   }
 `;
 
-const Card = styled(Link)`
-  display: block;
+const Card = styled.div`
   color: #3366b4;
   font-weight: 400;
   font-size: 16px;

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { Link } from 'react-router-dom';
 import { withWindowWidth } from 'components/hocs/window-context';
 import classNames from 'classnames';
 import { typesOptions } from 'config';
@@ -27,7 +26,7 @@ class Week extends Component {
   };
 
   getEvents = today => {
-    const { events, startTime, getHeight, windowWidth } = this.props;
+    const { events, startTime, getHeight, windowWidth, handleShow } = this.props;
 
     if (events.length) {
       const eventList = events
@@ -43,10 +42,11 @@ class Week extends Component {
             type === 'entertainment' || 'google' ? this.lightTextColor : this.mainTextColor;
           const eventLength = millisecToMinutes(end - start);
           const isEventSmall = eventLength < this.minutesInSmallEvent;
+          const isEditable = type !== 'google';
 
           return (
-            <Link
-              to={`/event/${ev.id}`}
+            <div                                                   // eslint-disable-line
+              onClick={isEditable ? handleShow(ev.id) : undefined}
               className={`event-block event-block--week ${isEventSmall && 'event-block--small'}`}
               key={ev.id}
               style={{
@@ -62,7 +62,7 @@ class Week extends Component {
                 </div>
               )}
               <div className="event-block__title">{title}</div>
-            </Link>
+            </div>
           );
         });
 
@@ -170,7 +170,7 @@ class Week extends Component {
           </div>
           {windowWidth > 768 && (
             <div className="calendar__day-sidebar">
-              <DaySidebar />
+              <DaySidebar {...this.props} />
             </div>
           )}
         </div>
@@ -207,6 +207,7 @@ Week.propTypes = {
   hourHeight: PropTypes.number.isRequired,
   hours: PropTypes.func.isRequired,
   setWrapperRef: PropTypes.func.isRequired,
+  handleShow: PropTypes.func.isRequired,
   // form Context
   windowWidth: PropTypes.number.isRequired,
 };

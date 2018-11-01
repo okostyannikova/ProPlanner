@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { typesOptions } from 'config';
 import { millisecToMinutes } from 'utils/helpers';
 import RoundButton from 'components/RoundButton';
@@ -41,7 +40,7 @@ class Day extends Component {
   };
 
   displayEvents = () => {
-    const { events, startTime, getHeight } = this.props;
+    const { events, startTime, getHeight, handleShow } = this.props;
 
     if (events.length) {
       return events.map(ev => {
@@ -50,14 +49,15 @@ class Day extends Component {
         const blockHeight = getHeight(start.clone().valueOf(), end.clone().valueOf());
         const textColor =
           type === 'entertainment' || 'google' ? this.lightTextColor : this.mainTextColor;
+        const isEditable = type !== 'google';
         const eventLength = millisecToMinutes(end - start);
         const isEventSmall = eventLength < this.minutesInSmallEvent;
         const isEventMiddle =
           eventLength >= this.minutesInSmallEvent && eventLength < this.minutesInMiddleEvent;
 
         return (
-          <Link
-            to={`/event/${ev.id}`}
+          <div                                                                            // eslint-disable-line
+            onClick={isEditable ? handleShow(ev.id) : undefined}
             className={`event-block ${isEventSmall && 'event-block--small'}`}
             key={ev.id}
             style={{
@@ -74,7 +74,7 @@ class Day extends Component {
             <span className={`event-block__title ${isEventMiddle && 'event-block__title--middle'}`}>
               {title}
             </span>
-          </Link>
+          </div>
         );
       });
     }
@@ -82,7 +82,7 @@ class Day extends Component {
   };
 
   render() {
-    const { selectedDay, hours, setWrapperRef, prevDay, nextDay, events } = this.props; // eslint-disable-line
+    const { selectedDay, hours, setWrapperRef, prevDay, nextDay, } = this.props; // eslint-disable-line
     this.getDaySummary();
     return (
       <div className="calendar-day">
@@ -140,4 +140,5 @@ Day.propTypes = {
   getHeight: PropTypes.func.isRequired,
   hours: PropTypes.func.isRequired,
   setWrapperRef: PropTypes.func.isRequired,
+  handleShow: PropTypes.func.isRequired,
 };

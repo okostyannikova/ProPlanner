@@ -42,7 +42,7 @@ class EditCardMenu extends Component {
   };
 
   render() {
-    const { iconColor, type, classes, handleEdit, handleDelete } = this.props;
+    const { iconColor, type, classes, handleEdit, handleDelete, isEditable } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
@@ -72,13 +72,15 @@ class EditCardMenu extends Component {
             horizontal: 'right',
           }}
         >
-          <MenuItem
-            onClick={handleEdit}
-            className={`${classes.menuItem} ${classes[type]}`}
-            data-qa={`edit-${type}-card`}
-          >
-            Edit
-          </MenuItem>
+          {isEditable && (
+            <MenuItem
+              onClick={handleEdit}
+              className={`${classes.menuItem} ${classes[type]}`}
+              data-qa={`edit-${type}-card`}
+            >
+              Edit
+            </MenuItem>
+          )}
           <MenuItem
             onClick={() => {
               handleDelete();
@@ -94,6 +96,9 @@ class EditCardMenu extends Component {
     );
   }
 }
+EditCardMenu.defaultProps = {
+  isEditable: true,
+};
 
 EditCardMenu.propTypes = {
   iconColor: PropTypes.string.isRequired,
@@ -101,6 +106,7 @@ EditCardMenu.propTypes = {
   classes: PropTypes.object.isRequired,
   handleEdit: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
+  isEditable: PropTypes.bool,
 };
 
 export default withStyles(styles)(EditCardMenu);
