@@ -41,7 +41,7 @@
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
-    "serve": "serve -s build",
+    "serve": "serve -s build -l 3000",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
