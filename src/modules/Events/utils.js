@@ -5,6 +5,7 @@ export const normalizeData = data =>
     id: ev.id,
     attributes: {
       ...ev.attributes,
+      'event-type': ev.attributes['event-type'] || 'google',
       'start-date': moment(ev.attributes['start-date']),
       'end-date': moment(ev.attributes['end-date']),
     },

@@ -48,7 +48,8 @@ class Day extends Component {
         const { 'start-date': start, 'end-date': end, 'event-type': type, title } = ev.attributes;
         const startPos = startTime(start.clone());
         const blockHeight = getHeight(start.clone().valueOf(), end.clone().valueOf());
-        const textColor = type === 'entertainment' ? this.lightTextColor : this.mainTextColor;
+        const textColor =
+          type === 'entertainment' || 'google' ? this.lightTextColor : this.mainTextColor;
         const eventLength = millisecToMinutes(end - start);
         const isEventSmall = eventLength < this.minutesInSmallEvent;
         const isEventMiddle =
