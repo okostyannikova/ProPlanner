@@ -18,6 +18,8 @@ import {
   deleteEventFail,
   restoreEventsState,
   setEventsFilter,
+  syncStart,
+  syncSuccess,
 } from './actions';
 import {
   normalizeData,
@@ -117,6 +119,13 @@ const restoreEvents = () => dispatch => dispatch(restoreEventsState());
 
 const setFilter = value => dispatch => dispatch(setEventsFilter(value));
 
+const syncWithGoogle = () => dispatch => {
+  dispatch(syncStart());
+  axios(`${apiURL}/sync`).then(res => {
+    dispatch(syncSuccess());
+  });
+};
+
 export default {
   loadEvents,
   loadSingleEvent,
@@ -126,4 +135,5 @@ export default {
   deleteEvent,
   restoreEvents,
   setFilter,
+  syncWithGoogle,
 };

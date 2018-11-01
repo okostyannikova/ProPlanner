@@ -8,6 +8,7 @@ const initialState = {
   lastPageNumber: 1,
   error: null,
   filter: [],
+  synchronising: false,
 };
 
 export default (state = initialState, action) => {
@@ -125,6 +126,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         filter: payload.filter,
+      };
+    case types.SYNC_EVENTS_START:
+      return {
+        ...state,
+        synchronising: true,
+      };
+    case types.SYNC_EVENTS_SUCCESS:
+      return {
+        ...state,
+        synchronising: false,
       };
     default:
       return state;

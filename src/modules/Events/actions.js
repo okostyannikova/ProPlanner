@@ -84,3 +84,16 @@ export const setEventsFilter = filter => ({
   type: types.SET_FILTER,
   payload: { filter },
 });
+
+export const syncStart = () => ({
+  type: types.SYNC_EVENTS_START,
+});
+
+export const syncSuccess = () => ({
+  type: types.SYNC_EVENTS_SUCCESS,
+});
+
+export const syncFail = error => ({
+  type: types.SYNC_EVENTS_FAIL,
+  error,
+});
