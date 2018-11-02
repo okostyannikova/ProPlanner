@@ -15,6 +15,7 @@ import Events from './pages/Events';
 import Settings from './pages/Settings';
 import Navigation from './components/Navigation';
 import EventForm from './pages/EventForm';
+import GoalForm from './pages/GoalForm';
 import Error404 from './pages/Error404';
 import ErrorPopUp from './components/ErrorPopUp';
 
@@ -31,6 +32,9 @@ const DefaultContainer = props => (
       <Route exact path="/event/add" component={EventForm} />
       <Route exact path="/event/:id" component={EventForm} />
       <Route exact path="/event/:id/edit" component={EventForm} />
+      <Route exact path="/goal/add" component={GoalForm} />
+      <Route exact path="/goal/:id" component={GoalForm} />
+      <Route exact path="/goal/:id/edit" component={GoalForm} />
       <Route path="/settings" component={Settings} />
       <Redirect to="/page-not-found" />
     </Switch>

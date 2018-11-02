@@ -7,7 +7,6 @@ import * as moment from 'moment';
 import TextComponent from 'components/TextComponent/TextComponent';
 import Time from 'components/TimePickerComponent/Time';
 import { required, maxTitleLength, maxDescriptionLength } from 'utils/validate';
-// import ImageDropzone from './eventform/ImageDropzone';
 import Tasks from './eventform/Tasks';
 import DropsContainer from './eventform/DropsContainer.js';
 import { eventsOperations } from '../modules/Events';
@@ -21,8 +20,8 @@ class EventForm extends Component {
   componentDidMount = () => {
     const { match, loadSingleEvent, loadTasks } = this.props;
 
-    loadSingleEvent(match.params.id);
-    loadTasks(match.params.id);
+    !match.path.includes('add') && loadSingleEvent(match.params.id);
+    !match.path.includes('add') && loadTasks(match.params.id);
   };
 
   componentWillUnmount = () => {
@@ -64,7 +63,6 @@ class EventForm extends Component {
     return (
       <div>
         <form onSubmit={handleSubmit(submit)} className="container-fluid">
-          {/* <ImageDropzone /> */}
           <div className="main-container">
             <ul className="component-list">
               <li>
