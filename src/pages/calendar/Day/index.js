@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { typesOptions } from 'config';
-import { millisecToMinutes } from 'utils/helpers';
+import { millisecToMinutes, getTextColor } from 'utils/helpers';
 import RoundButton from 'components/RoundButton';
 import RenderEventsContainer from '../render-events';
 import { prevDay, nextDay } from '../../../modules/Calendar';
@@ -16,8 +15,6 @@ class Day extends Component {
     super(props);
     this.minutesInSmallEvent = 75;
     this.minutesInMiddleEvent = 100;
-    this.mainTextColor = '#4278bb';
-    this.lightTextColor = '#fff';
   }
 
   componentDidMount = () => {
@@ -41,29 +38,29 @@ class Day extends Component {
   };
 
   displayEvents = () => {
-    const { events, startTime, getHeight } = this.props;
+    const { events, startTime, getHeight, handleShow } = this.props;
 
     if (events.length) {
       return events.map(ev => {
         const { 'start-date': start, 'end-date': end, 'event-type': type, title } = ev.attributes;
         const startPos = startTime(start.clone());
         const blockHeight = getHeight(start.clone().valueOf(), end.clone().valueOf());
-        const textColor = type === 'entertainment' ? this.lightTextColor : this.mainTextColor;
+        const isEditable = type !== 'google';
         const eventLength = millisecToMinutes(end - start);
         const isEventSmall = eventLength < this.minutesInSmallEvent;
         const isEventMiddle =
           eventLength >= this.minutesInSmallEvent && eventLength < this.minutesInMiddleEvent;
 
         return (
-          <Link
-            to={`/event/${ev.id}`}
+          <div                                                                            // eslint-disable-line
+            onClick={isEditable ? handleShow(ev.id) : undefined}
             className={`event-block ${isEventSmall && 'event-block--small'}`}
             key={ev.id}
             style={{
               top: startPos,
               height: blockHeight,
               backgroundColor: typesOptions[type],
-              color: textColor,
+              color: getTextColor(typesOptions[type]),
             }}
           >
             <span className="event-block__time">
@@ -73,7 +70,7 @@ class Day extends Component {
             <span className={`event-block__title ${isEventMiddle && 'event-block__title--middle'}`}>
               {title}
             </span>
-          </Link>
+          </div>
         );
       });
     }
@@ -81,7 +78,7 @@ class Day extends Component {
   };
 
   render() {
-    const { selectedDay, hours, setWrapperRef, prevDay, nextDay, events } = this.props; // eslint-disable-line
+    const { selectedDay, hours, setWrapperRef, prevDay, nextDay, } = this.props; // eslint-disable-line
     this.getDaySummary();
     return (
       <div className="calendar-day">
@@ -139,4 +136,5 @@ Day.propTypes = {
   getHeight: PropTypes.func.isRequired,
   hours: PropTypes.func.isRequired,
   setWrapperRef: PropTypes.func.isRequired,
+  handleShow: PropTypes.func.isRequired,
 };

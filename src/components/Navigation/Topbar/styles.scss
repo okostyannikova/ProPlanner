@@ -1,5 +1,4 @@
 @import '../../../styles/variables.scss';
-
 .topbar {
   position: fixed;
   box-sizing: border-box;
@@ -48,6 +47,16 @@
   display: none;
 }
 
+.topbar_loader-wrapper {
+  display: flex;
+  width: 27px;
+  height: 27px;
+}
+
+.topbar_loader {
+  margin: auto;
+}
+
 @media (max-width: $screen-md-max) {
   .topbar {
     padding: 0 0 0 18px;
@@ -76,5 +85,9 @@
       width: 20px;
       height: 20px;
     }
+  }
+  .topbar_loader-wrapper {
+    width: 20px;
+    height: 20px;
   }
 }

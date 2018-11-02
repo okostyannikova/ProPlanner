@@ -5,6 +5,7 @@ export const normalizeData = data =>
     id: ev.id,
     attributes: {
       ...ev.attributes,
+      'event-type': ev.attributes['event-type'] || 'google',
       'start-date': moment(ev.attributes['start-date']),
       'end-date': moment(ev.attributes['end-date']),
     },
@@ -55,3 +56,13 @@ export const normalizeCreateData = data => ({
 
 export const convertFilter = filters =>
   filters.reduce((prev, item) => ({ ...prev, ...item.value }), {});
+
+export const notificationSync = {
+  title: 'Synchronization successful',
+  position: 'br',
+  autoDismiss: 10,
+  dismissible: false,
+  action: {
+    label: 'GOT IT',
+  },
+};

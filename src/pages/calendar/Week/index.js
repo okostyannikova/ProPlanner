@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { Link } from 'react-router-dom';
 import { withWindowWidth } from 'components/hocs/window-context';
 import classNames from 'classnames';
 import { typesOptions } from 'config';
-import { millisecToMinutes } from 'utils/helpers';
+import { millisecToMinutes, getTextColor } from 'utils/helpers';
 import RenderEventsContainer from '../render-events';
 import { prevWeek, nextWeek, selectDay } from '../../../modules/Calendar';
 import './styles.css';
@@ -17,8 +16,6 @@ class Week extends Component {
   constructor(props) {
     super(props);
     this.minutesInSmallEvent = 50;
-    this.mainTextColor = '#4278bb';
-    this.lightTextColor = '#fff';
   }
 
   componentDidMount = () => {
@@ -27,7 +24,7 @@ class Week extends Component {
   };
 
   getEvents = today => {
-    const { events, startTime, getHeight, windowWidth } = this.props;
+    const { events, startTime, getHeight, windowWidth, handleShow } = this.props;
 
     if (events.length) {
       const eventList = events
@@ -39,20 +36,20 @@ class Week extends Component {
           const { 'start-date': start, 'end-date': end, 'event-type': type, title } = ev.attributes;
           const startPos = startTime(start.clone());
           const blockHeight = getHeight(start.clone().valueOf(), end.clone().valueOf());
-          const textColor = type === 'entertainment' ? this.lightTextColor : this.mainTextColor;
           const eventLength = millisecToMinutes(end - start);
           const isEventSmall = eventLength < this.minutesInSmallEvent;
+          const isEditable = type !== 'google';
 
           return (
-            <Link
-              to={`/event/${ev.id}`}
+            <div                                                   // eslint-disable-line
+              onClick={isEditable ? handleShow(ev.id) : undefined}
               className={`event-block event-block--week ${isEventSmall && 'event-block--small'}`}
               key={ev.id}
               style={{
                 top: startPos,
                 height: blockHeight,
                 backgroundColor: typesOptions[type],
-                color: textColor,
+                color: getTextColor(typesOptions[type]),
               }}
             >
               {windowWidth > 630 && (
@@ -61,7 +58,7 @@ class Week extends Component {
                 </div>
               )}
               <div className="event-block__title">{title}</div>
-            </Link>
+            </div>
           );
         });
 
@@ -169,7 +166,7 @@ class Week extends Component {
           </div>
           {windowWidth > 768 && (
             <div className="calendar__day-sidebar">
-              <DaySidebar />
+              <DaySidebar {...this.props} />
             </div>
           )}
         </div>
@@ -206,6 +203,7 @@ Week.propTypes = {
   hourHeight: PropTypes.number.isRequired,
   hours: PropTypes.func.isRequired,
   setWrapperRef: PropTypes.func.isRequired,
+  handleShow: PropTypes.func.isRequired,
   // form Context
   windowWidth: PropTypes.number.isRequired,
 };

@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { eventsOperations } from 'modules/Events';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Logo from '../../Logo';
 import SearchInput from '../SearchInput';
 import BellIcon from '../../Icons/BellIcon';
@@ -8,7 +11,7 @@ import UpdateIcon from '../../Icons/UpdateIcon';
 import MobileMenuIcon from '../../Icons/MobileMenuIcon';
 import './styles.css';
 
-const Topbar = ({ setButtonRef }) => (
+const Topbar = ({ setButtonRef, syncWithGoogle, synchronising }) => (
   <nav className="topbar">
     <button
       className="topbar__mobile-menu-btn"
@@ -30,15 +33,35 @@ const Topbar = ({ setButtonRef }) => (
       <li className="topbar__menu-item">
         <BellIcon />
       </li>
-      <li className="topbar__menu-item">
-        <UpdateIcon />
+      <li onClick={syncWithGoogle} className="topbar__menu-item" title="Sync with Google Calendar">      {/* eslint-disable-line */}
+        {!synchronising ? (
+          <UpdateIcon />
+        ) : (
+          <span className="topbar_loader-wrapper">
+            <CircularProgress
+              className="topbar_loader"
+              thickness={5}
+              style={{ color: '#fff' }}
+              size={20}
+            />
+          </span>
+        )}
       </li>
     </ul>
   </nav>
 );
 
-Topbar.propTypes = {
-  setButtonRef: PropTypes.func.isRequired,
+Topbar.defaultProps = {
+  synchronising: false,
 };
 
-export default Topbar;
+Topbar.propTypes = {
+  setButtonRef: PropTypes.func.isRequired,
+  syncWithGoogle: PropTypes.func.isRequired,
+  synchronising: PropTypes.bool,
+};
+
+export default connect(
+  state => ({ synchronising: state.events.synchronising }),
+  { syncWithGoogle: eventsOperations.syncWithGoogle }
+)(Topbar);
