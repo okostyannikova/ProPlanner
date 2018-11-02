@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { error, info } from 'react-notification-system-redux';
 import { authorizeOperations } from 'modules/Authentication';
+import { notificationSync } from 'modules/Events/utils';
 import store from 'modules/configureStore';
 
 export const notificationErrorOpts = ({ response }) => ({
@@ -13,16 +14,6 @@ export const notificationErrorOpts = ({ response }) => ({
     label: 'GOT IT',
   },
 });
-
-export const notificationSync = {
-  title: 'Synchronization successful',
-  position: 'br',
-  autoDismiss: 10,
-  dismissible: false,
-  action: {
-    label: 'GOT IT',
-  },
-};
 
 axios.interceptors.response.use(
   config => config,

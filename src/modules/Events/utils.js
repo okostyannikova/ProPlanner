@@ -56,3 +56,13 @@ export const normalizeCreateData = data => ({
 
 export const convertFilter = filters =>
   filters.reduce((prev, item) => ({ ...prev, ...item.value }), {});
+
+export const notificationSync = {
+  title: 'Synchronization successful',
+  position: 'br',
+  autoDismiss: 10,
+  dismissible: false,
+  action: {
+    label: 'GOT IT',
+  },
+};
