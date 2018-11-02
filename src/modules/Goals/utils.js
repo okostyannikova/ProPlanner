@@ -10,3 +10,59 @@ export const normalizeData = data =>
     },
     events: goal.relationships.events.data,
   }));
+
+export const normalizeSingleData = data => ({
+  id: data.id,
+  attributes: {
+    ...data.attributes,
+    'start-date': moment(data.attributes['start-date']),
+    'end-date': moment(data.attributes['end-date']),
+  },
+  events: data.relationships.events.data,
+});
+
+export const normalizePatchData = data => ({
+  data: {
+    type: 'goals',
+    attributes: {
+      title: data.title || 'Bionic',
+      description: data.description || 'beaver',
+      picture:
+        data.picture ||
+        'https://digitalsynopsis.com/wp-content/uploads/2017/07/beautiful-color-ui-gradients-backgrounds-endless-river.png',
+      start_date: data.startTime || moment(),
+      end_date: data.endTime || moment(),
+      goal_type: data.type.toLowerCase() || 'work',
+      s: data.specific || 'monkey',
+      m: data.measurable || 'crazy',
+      a: data.achievable || 'step',
+      r: data.relevant || 'to stars',
+      t: data.timeFramed || 'banannas',
+    },
+  },
+});
+
+export const normalizeCreateData = data => ({
+  data: {
+    type: 'goals',
+    attributes: {
+      title: data.title || 'Bionic',
+      description: data.description || 'beaver',
+      picture:
+        data.picture ||
+        'https://digitalsynopsis.com/wp-content/uploads/2017/07/beautiful-color-ui-gradients-backgrounds-endless-river.png',
+      start_date: data.startTime || moment(),
+      end_date:
+        data.endTime ||
+        moment()
+          .add(10, 'seconds')
+          .format(),
+      goal_type: data.type.toLowerCase() || 'work',
+      s: data.specific || 'monkey',
+      m: data.measurable || 'crazy',
+      a: data.achievable || 'step',
+      r: data.relevant || 'to stars',
+      t: data.timeFramed || 'banannas',
+    },
+  },
+});
