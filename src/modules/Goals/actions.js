@@ -31,3 +31,51 @@ export const deleteGoalFail = error => ({
 export const restoreGoalsState = () => ({
   type: types.RESTORE_GOALS_STATE,
 });
+
+export const loadSingleGoalStart = () => ({
+  type: types.LOAD_SINGLE_GOAL_START,
+});
+
+export const loadSingleGoalSuccess = goal => ({
+  type: types.LOAD_SINGLE_GOAL_SUCCESS,
+  payload: { goal },
+});
+
+export const loadSingleGoalFail = error => ({
+  type: types.LOAD_SINGLE_GOAL_FAIL,
+  error,
+});
+
+export const removeSingleGoal = () => ({
+  type: types.REMOVE_SINGLE_GOAL,
+});
+
+export const updateGoalStart = data => ({
+  type: types.UPDATE_SINGLE_GOAL_START,
+  payload: { data },
+});
+
+export const updateGoalSuccess = goal => ({
+  type: types.UPDATE_SINGLE_GOAL_SUCCESS,
+  payload: { goal },
+});
+
+export const updateGoalFail = error => ({
+  type: types.UPDATE_SINGLE_GOAL_FAIL,
+  error,
+});
+
+export const createGoalStart = data => ({
+  type: types.CREATE_SINGLE_GOAL_START,
+  payload: { data },
+});
+
+export const createGoalSuccess = goal => ({
+  type: types.CREATE_SINGLE_GOAL_SUCCESS,
+  payload: { goal },
+});
+
+export const createGoalFail = error => ({
+  type: types.CREATE_SINGLE_GOAL_FAIL,
+  error,
+});

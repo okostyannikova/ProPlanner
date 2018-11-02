@@ -3,6 +3,7 @@ import types from './types';
 const initialState = {
   loading: false,
   goalsList: [],
+  goalsSingleGoal: null,
   error: null,
   lastPageNumber: 1,
 };
@@ -48,6 +49,71 @@ export default (state = initialState, action) => {
         ...state,
         eventsList: [],
       };
+
+    case types.LOAD_SINGLE_GOAL_START:
+      return {
+        ...state,
+        loading: true,
+      };
+    case types.LOAD_SINGLE_GOAL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        goalsSingleGoal: payload.goal,
+      };
+    case types.LOAD_SINGLE_GOAL_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error,
+      };
+
+    case types.REMOVE_SINGLE_GOAL:
+      return {
+        ...state,
+        loading: false,
+        goalsSingleGoal: null,
+      };
+
+    case types.UPDATE_SINGLE_GOAL_START:
+      return {
+        ...state,
+        loading: true,
+      };
+    case types.UPDATE_SINGLE_GOAL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+      };
+    case types.UPDATE_SINGLE_GOAL_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error,
+      };
+
+    case types.CREATE_SINGLE_GOAL_START:
+      return {
+        ...state,
+        loading: true,
+      };
+    case types.CREATE_SINGLE_GOAL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        goalsSingleGoal: payload.res,
+        goalsList: [payload.goal, ...state.goalsList],
+      };
+    case types.CREATE_SINGLE_GOAL_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error,
+      };
+
     default:
       return state;
   }

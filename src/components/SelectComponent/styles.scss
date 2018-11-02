@@ -1,0 +1,61 @@
+
+.component-list .text-field{
+  margin-top: 0;
+  background-color: rgba(51, 51, 51, 0.03);
+  border-radius: 2px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-bottom: 2px solid #fff;
+  transition: all .3s;
+
+  &:hover{
+    border-bottom: 2px solid #00BCD4;
+  }
+}
+
+.component-list .text-field--error{
+  border-bottom: 2px solid red;
+  transition: all .3s;
+
+  &:hover{
+    border-bottom: 2px solid red;
+  }
+}
+
+.error-text{
+  margin-top: 5px;
+  margin-left: 10px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 12px;
+  font-size: 12px;
+
+  color: #DB4437;
+  position: relative;
+
+  &::after{
+    display: inline;
+    right: 5px;
+    top: -4px;
+    position: absolute;
+    content: url('../../assets/images/warning-icon.svg');
+    width: 18px;
+    height: 18px;
+  }
+}
+
+
+.component-list .text-field-view{
+  margin-top: 0;
+  background-color: #fff;
+  border-radius: 2px;
+  padding-left: 20px;
+  border-bottom: 2px solid #fff;
+  transition: all .3s;
+
+}
+
+.input-field{
+  margin: 10px 0;
+}

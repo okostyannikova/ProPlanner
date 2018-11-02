@@ -7,8 +7,23 @@ import {
   deleteGoalSuccess,
   deleteGoalFail,
   restoreGoalsState,
+  loadSingleGoalStart,
+  loadSingleGoalSuccess,
+  loadSingleGoalFail,
+  removeSingleGoal,
+  updateGoalStart,
+  updateGoalSuccess,
+  updateGoalFail,
+  createGoalStart,
+  createGoalSuccess,
+  createGoalFail,
 } from './actions';
-import { normalizeData } from './utils';
+import {
+  normalizeData,
+  normalizeSingleData,
+  normalizePatchData,
+  normalizeCreateData,
+} from './utils';
 import { getLastPageNumber } from '../utils';
 import { apiURL } from '../../config';
 
@@ -45,8 +60,62 @@ const deleteGoal = id => dispatch => {
 
 const restoreGoals = () => dispatch => dispatch(restoreGoalsState());
 
+const loadSingleGoal = id => dispatch => {
+  dispatch(loadSingleGoalStart());
+
+  axios(`${goalsURL}/${id}`)
+    .then(res => {
+      const goal = normalizeSingleData(res.data.data);
+      dispatch(loadSingleGoalSuccess(goal));
+    })
+    .catch(error => {
+      dispatch(loadSingleGoalFail(error));
+      // throw new Error(error);
+    });
+};
+
+const deleteSingleGoal = () => dispatch => {
+  dispatch(removeSingleGoal());
+};
+
+const patchGoal = (data, id) => dispatch => {
+  const normalizedData = normalizePatchData(data);
+  dispatch(updateGoalStart());
+
+  axios
+    .patch(`${goalsURL}/${id}`, normalizedData)
+    .then(res => {
+      dispatch(updateGoalSuccess(res));
+    })
+    .catch(error => {
+      dispatch(updateGoalFail(error));
+      // throw new Error(error);
+    });
+};
+
+const addGoal = data => dispatch => {
+  const normalizedData = normalizeCreateData(data);
+  dispatch(createGoalStart());
+
+  axios
+    .post(`${goalsURL}`, normalizedData)
+    .then(res => {
+      const goal = normalizeSingleData(res.data.data);
+      dispatch(createGoalSuccess(goal));
+    })
+    .catch(error => {
+      console.log(error);
+      dispatch(createGoalFail(error));
+      // throw new Error(error);
+    });
+};
+
 export default {
   loadGoals,
   deleteGoal,
   restoreGoals,
+  loadSingleGoal,
+  deleteSingleGoal,
+  patchGoal,
+  addGoal,
 };
