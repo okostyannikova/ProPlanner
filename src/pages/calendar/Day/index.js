@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { typesOptions } from 'config';
-import { millisecToMinutes } from 'utils/helpers';
+import { millisecToMinutes, getTextColor } from 'utils/helpers';
 import RoundButton from 'components/RoundButton';
 import RenderEventsContainer from '../render-events';
 import { prevDay, nextDay } from '../../../modules/Calendar';
@@ -15,8 +15,6 @@ class Day extends Component {
     super(props);
     this.minutesInSmallEvent = 75;
     this.minutesInMiddleEvent = 100;
-    this.mainTextColor = '#4278bb';
-    this.lightTextColor = '#fff';
   }
 
   componentDidMount = () => {
@@ -47,8 +45,6 @@ class Day extends Component {
         const { 'start-date': start, 'end-date': end, 'event-type': type, title } = ev.attributes;
         const startPos = startTime(start.clone());
         const blockHeight = getHeight(start.clone().valueOf(), end.clone().valueOf());
-        const textColor =
-          type === 'entertainment' || 'google' ? this.lightTextColor : this.mainTextColor;
         const isEditable = type !== 'google';
         const eventLength = millisecToMinutes(end - start);
         const isEventSmall = eventLength < this.minutesInSmallEvent;
@@ -64,7 +60,7 @@ class Day extends Component {
               top: startPos,
               height: blockHeight,
               backgroundColor: typesOptions[type],
-              color: textColor,
+              color: getTextColor(typesOptions[type]),
             }}
           >
             <span className="event-block__time">

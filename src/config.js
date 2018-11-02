@@ -3,11 +3,11 @@ import { convertToFilterOptions } from './utils/helpers';
 export const apiURL = 'http://backend.proplanner.formula1.cloud.provectus-it.com';
 
 export const typesOptions = {
-  work: '#FFBFD4',
-  personal: '#FFE07F',
-  entertainment: '#AD67CD',
-  other: '#A9EFEA',
-  google: '#F86256',
+  work: 'rgb(245,194,211)',
+  personal: 'rgb(250,224,140)',
+  entertainment: 'rgb(163,109,199)',
+  other: 'rgb(184,237,233)',
+  google: 'rgb(231,107,93)',
 };
 
 export const filtersTypesOptions = {

@@ -63,7 +63,6 @@ export default OriginalComponent =>
         setWrapperRef,
         handleShow,
       } = this;
-      console.log(this.props);
 
       return (
         <OriginalComponent

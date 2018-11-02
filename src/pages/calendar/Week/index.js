@@ -5,7 +5,7 @@ import { compose } from 'redux';
 import { withWindowWidth } from 'components/hocs/window-context';
 import classNames from 'classnames';
 import { typesOptions } from 'config';
-import { millisecToMinutes } from 'utils/helpers';
+import { millisecToMinutes, getTextColor } from 'utils/helpers';
 import RenderEventsContainer from '../render-events';
 import { prevWeek, nextWeek, selectDay } from '../../../modules/Calendar';
 import './styles.css';
@@ -16,8 +16,6 @@ class Week extends Component {
   constructor(props) {
     super(props);
     this.minutesInSmallEvent = 50;
-    this.mainTextColor = '#4278bb';
-    this.lightTextColor = '#fff';
   }
 
   componentDidMount = () => {
@@ -38,8 +36,6 @@ class Week extends Component {
           const { 'start-date': start, 'end-date': end, 'event-type': type, title } = ev.attributes;
           const startPos = startTime(start.clone());
           const blockHeight = getHeight(start.clone().valueOf(), end.clone().valueOf());
-          const textColor =
-            type === 'entertainment' || 'google' ? this.lightTextColor : this.mainTextColor;
           const eventLength = millisecToMinutes(end - start);
           const isEventSmall = eventLength < this.minutesInSmallEvent;
           const isEditable = type !== 'google';
@@ -53,7 +49,7 @@ class Week extends Component {
                 top: startPos,
                 height: blockHeight,
                 backgroundColor: typesOptions[type],
-                color: textColor,
+                color: getTextColor(typesOptions[type]),
               }}
             >
               {windowWidth > 630 && (
