@@ -37,10 +37,13 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   list-style: none;
-  padding: 0 27px;
+  padding: 0 10px;
   height: 60px;
   &:hover {
     opacity: 0.75;
+  }
+  @media (max-width: 670px) {
+    padding: 0 5px;
   }
 `;
 

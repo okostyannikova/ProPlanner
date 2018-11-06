@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 const UpdateIcon = ({ color }) => (
-  <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <Svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -10,10 +11,16 @@ const UpdateIcon = ({ color }) => (
       transform="translate(4.5 4.5)"
       fill={color}
     />
-  </svg>
+  </Svg>
 );
 UpdateIcon.propTypes = {
   color: PropTypes.string.isRequired,
 };
 
 export default UpdateIcon;
+
+const Svg = styled.svg`
+  @media (max-width: 670px) {
+    width: 18px;
+  }
+`;

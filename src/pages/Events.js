@@ -152,6 +152,9 @@ const PageContainer = styled.div`
   @media (max-width: 992px) {
     padding: 34px 20px 10px 20px;
   }
+  @media (max-width: 670px) {
+    padding-top: 10px;
+  }
 `;
 
 const Header = styled.header`
@@ -159,6 +162,9 @@ const Header = styled.header`
   justify-content: space-between;
   align-items: center;
   color: rgba(51, 102, 180, 0.87);
+  @media (max-width: 670px) {
+    flex-wrap: wrap;
+  }
 `;
 const Title = styled.span`
   font-size: 20px;

@@ -13,7 +13,7 @@ const SearchInput = ({ search }) => {
       onChange={ev => {
         handleSearch(ev.target.value);
       }}
-      placeholder="Search"
+      placeholder="Search..."
     />
   );
 };
@@ -40,9 +40,19 @@ const Input = styled.input`
     font-family: inherit;
     font-size: 16px;
     color: rgb(51, 102, 180);
+    @media (max-width: 670px) {
+      font-size: 12px;
+    }
   }
   &:focus {
     outline: none;
     border: 2px solid '#3366B4';
+  }
+  @media (max-width: 670px) {
+    font-size: 12px;
+    width: 160px;
+    height: 29px;
+    order: 2;
+    margin-right: 0;
   }
 `;
