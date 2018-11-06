@@ -1,39 +1,50 @@
 import React, { Component } from 'react';
 
 class SmartItem extends Component {
-  state = {
-    value: '',
-    defaultValue: '',
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value: '',
+    };
+  }
 
   componentWillReceiveProps = newProps => {
-    this.setState({ value: newProps.input.value, defaultValue: newProps.input.value });
+    this.setState({ value: newProps.input.value });
   };
 
   changeHandle = e => {
+    const { input } = this.props;
+
+    input.onChange(e.target.value);
     this.setState({ value: e.target.value });
   };
 
-  acceptHandle = () => {
-    const { input, clickHandler, index } = this.props;
-    input.onChange(this.state.value);
-    clickHandler(index);
-  };
-
-  resetHandle = () => {
+  nextCriteriaHandle = e => {
     const { clickHandler, index } = this.props;
-    const { defaultValue } = this.state;
+    if (e.shiftKey && e.keyCode === 9) {
+      if (index - 1 !== -1) {
+        e.preventDefault();
+        clickHandler(index - 1);
+      }
+      return;
+    }
 
-    this.setState({ value: defaultValue });
-    clickHandler(index);
+    if (index + 1 !== 5 && e.keyCode === 9) {
+      clickHandler(index + 1);
+      e.preventDefault();
+    }
   };
 
   render() {
-    const { isOpen, clickHandler, icon, text, input, view, index } = this.props;
+    const { isOpen, clickHandler, icon, text, input, view, index, tabToched } = this.props;
     const { value } = this.state;
 
+    const headerTitle = value.length > 20 ? `${value.slice(0, 20)}...` : value;
+    const touched = !tabToched && index === 0;
+
     return (
-      <li className="list__block">
+      <li className="list__block" onKeyDown={this.nextCriteriaHandle} tabIndex="-1">
         <div
           className={`list__header ${isOpen ? 'list__header--active' : ''} ${
             view ? 'list__header--view' : ''
@@ -41,7 +52,7 @@ class SmartItem extends Component {
           onClick={() => clickHandler(index)}
         >
           <span className="list__header-icon">{icon}</span>
-          <span className="list__header-text">{text}</span>
+          <span className="list__header-text">{view && !isOpen ? headerTitle : text}</span>
         </div>
 
         {view ? (
@@ -65,15 +76,12 @@ class SmartItem extends Component {
                 placeholder="Specify your requirement"
                 value={value}
                 onChange={this.changeHandle}
+                ref={input => {
+                  if (input != null && !touched) {
+                    input.focus();
+                  }
+                }}
               />
-              <div className="list__buttons">
-                <div className="list__button list__button--cancel" onClick={this.resetHandle}>
-                  CANCEL
-                </div>
-                <div className="list__button list__button--accept" onClick={this.acceptHandle}>
-                  ACCEPT
-                </div>
-              </div>
             </div>
           </div>
         )}
