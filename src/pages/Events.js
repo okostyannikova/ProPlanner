@@ -7,9 +7,11 @@ import RoundButton from 'components/RoundButton';
 import Loader from 'components/Loader';
 import NoItemsMessage from 'components/NoItemsMessage';
 import CardsPagination from 'components/hocs/CardsPagination';
+import SearchInput from 'components/Navigation/SearchInput.js';
+import SyncGoogle from 'components/Navigation/SyncGoogle';
+import FilterDropDown from 'components/FilterDropDown';
 import { eventsOperations } from '../modules/Events';
 import EventCard from './events/EventCard';
-import FilterDropDown from '../components/FilterDropDown';
 
 class Events extends Component {
   getBody = () => {
@@ -73,6 +75,8 @@ class Events extends Component {
       <PageContainer className="page-content events-list">
         <Header>
           <Title>The Events</Title>
+          <SyncGoogle />
+          <SearchInput />
           <FilterDropDown setFilter={this.setFilterValue} filter={filter} />
           <RoundButton to="/event/add" type="event" />
         </Header>
