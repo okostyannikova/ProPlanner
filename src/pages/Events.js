@@ -70,13 +70,21 @@ class Events extends Component {
   };
 
   render() {
-    const { loading, restoreData, loadData, lastPageNumber, filter } = this.props;
+    const {
+      loading,
+      restoreData,
+      loadData,
+      lastPageNumber,
+      filter,
+      setSearch,
+      search,
+    } = this.props;
     return (
       <PageContainer className="page-content events-list">
         <Header>
           <Title>The Events</Title>
           <SyncGoogle />
-          <SearchInput />
+          <SearchInput search={setSearch} />
           <FilterDropDown setFilter={this.setFilterValue} filter={filter} />
           <RoundButton to="/event/add" type="event" />
         </Header>
@@ -87,6 +95,7 @@ class Events extends Component {
           cardHeight={219}
           numberOfCards={20}
           filter={filter}
+          search={search}
         >
           <EventsList>{this.getBody()}</EventsList>
         </CardsPagination>
@@ -99,6 +108,7 @@ class Events extends Component {
 Events.defaultProps = {
   events: null,
   filter: [],
+  search: null,
 };
 
 Events.propTypes = {
@@ -108,10 +118,12 @@ Events.propTypes = {
   loading: PropTypes.bool.isRequired,
   lastPageNumber: PropTypes.number.isRequired,
   filter: PropTypes.array,
+  search: PropTypes.string,
   loadData: PropTypes.func.isRequired,
   deleteEvent: PropTypes.func.isRequired,
   restoreData: PropTypes.func.isRequired,
   setFilter: PropTypes.func.isRequired,
+  setSearch: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -120,12 +132,14 @@ export default connect(
     loading: state.events.loading,
     lastPageNumber: state.events.lastPageNumber,
     filter: state.events.filter,
+    search: state.events.search,
   }),
   {
     loadData: eventsOperations.loadEvents,
     deleteEvent: eventsOperations.deleteEvent,
     restoreData: eventsOperations.restoreEvents,
     setFilter: eventsOperations.setFilter,
+    setSearch: eventsOperations.setSearch,
   }
 )(Events);
 

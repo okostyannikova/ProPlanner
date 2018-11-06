@@ -25,6 +25,7 @@ const SYNC_EVENTS_FAIL = 'Events/SYNC_EVENTS_FAIL';
 
 const RESTORE_EVENTS_STATE = 'Events/RESTORE_EVENTS_STATE';
 const SET_FILTER = 'Events/SET_FILTER';
+const SEARCH_EVENTS = 'Events/SEARCH_EVENTS';
 
 export default {
   LOAD_EVENTS_START,
@@ -48,4 +49,5 @@ export default {
   SYNC_EVENTS_FAIL,
   RESTORE_EVENTS_STATE,
   SET_FILTER,
+  SEARCH_EVENTS,
 };

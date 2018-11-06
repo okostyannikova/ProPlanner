@@ -1,9 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import debounce from 'lodash.debounce';
 
-const SearchInput = () => <Input type="search" placeholder="Search" />;
+const SearchInput = ({ search }) => {
+  const handleSearch = debounce(value => {
+    search(value);
+  }, 500);
+  return (
+    <Input
+      type="search"
+      onChange={ev => {
+        handleSearch(ev.target.value);
+      }}
+      placeholder="Search"
+    />
+  );
+};
+
+SearchInput.propTypes = {
+  search: PropTypes.func.isRequired,
+};
 
 export default SearchInput;
 
