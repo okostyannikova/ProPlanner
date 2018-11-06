@@ -1,13 +1,13 @@
 import moment from 'moment';
 
-const NEXT_MONTH = 'NEXT_MONTH';
-const PREV_MONTH = 'PREV_MONTH';
-const NEXT_WEEK = 'NEXT_WEEK';
-const PREV_WEEK = 'PREV_WEEK';
-const NEXT_DAY = 'NEXT_DAY';
-const PREV_DAY = 'PREV_DAY';
-const SELECT_DAY = 'SELECT_DAY';
-const RESTORE_CALENDAR = 'RESTORE_CALENDAR';
+export const NEXT_MONTH = 'NEXT_MONTH';
+export const PREV_MONTH = 'PREV_MONTH';
+export const NEXT_WEEK = 'NEXT_WEEK';
+export const PREV_WEEK = 'PREV_WEEK';
+export const NEXT_DAY = 'NEXT_DAY';
+export const PREV_DAY = 'PREV_DAY';
+export const SELECT_DAY = 'SELECT_DAY';
+export const RESTORE_CALENDAR = 'RESTORE_CALENDAR';
 
 const initialDate = {
   currentDate: moment(),
