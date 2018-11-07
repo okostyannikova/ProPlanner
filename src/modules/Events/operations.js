@@ -21,6 +21,7 @@ import {
   setEventsFilter,
   syncStart,
   syncSuccess,
+  seacrhEvents,
 } from './actions';
 import {
   normalizeData,
@@ -35,7 +36,7 @@ import { apiURL } from '../../config';
 
 const eventsURL = `${apiURL}/events`;
 
-const loadEvents = (number = 1, size = 50, filter) => dispatch => {
+const loadEvents = (number = 1, size = 50, filter, search = null) => dispatch => {
   dispatch(loadEventsStart());
   const filters = filter && convertFilter(filter);
 
@@ -45,6 +46,7 @@ const loadEvents = (number = 1, size = 50, filter) => dispatch => {
       order: 'DESC',
       'page[number]': number,
       'page[size]': size,
+      'q[title]': search,
       ...filters,
     },
   })
@@ -121,6 +123,8 @@ const restoreEvents = () => dispatch => dispatch(restoreEventsState());
 
 const setFilter = value => dispatch => dispatch(setEventsFilter(value));
 
+const setSearch = value => dispatch => dispatch(seacrhEvents(value));
+
 const syncWithGoogle = () => dispatch => {
   dispatch(syncStart());
   axios(`${apiURL}/sync`).then(res => {
@@ -139,4 +143,5 @@ export default {
   restoreEvents,
   setFilter,
   syncWithGoogle,
+  setSearch,
 };

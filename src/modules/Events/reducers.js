@@ -8,6 +8,7 @@ const initialState = {
   lastPageNumber: 1,
   error: null,
   filter: [],
+  search: null,
   synchronising: false,
 };
 
@@ -126,6 +127,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         filter: payload.filter,
+      };
+    case types.SEARCH_EVENTS:
+      return {
+        ...state,
+        search: payload.search,
       };
     case types.SYNC_EVENTS_START:
       return {

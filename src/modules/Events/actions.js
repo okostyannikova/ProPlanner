@@ -85,6 +85,11 @@ export const setEventsFilter = filter => ({
   payload: { filter },
 });
 
+export const seacrhEvents = search => ({
+  type: types.SEARCH_EVENTS,
+  payload: { search },
+});
+
 export const syncStart = () => ({
   type: types.SYNC_EVENTS_START,
 });
