@@ -33,7 +33,7 @@ class EventCard extends Component {
   };
 
   render() {
-    const { id, type, title, startDate, endDate, description, priority } = this.props;
+    const { id, type, title, startDate, endDate, description, priority, tasksCount } = this.props;
     const { deletingItem, deleting } = this.state;
     const isDeleting = deleting && id === deletingItem;
     const isEditable = type !== 'google';
@@ -80,7 +80,8 @@ class EventCard extends Component {
                 {priority}
               </Priority>
               <TasksSummary>
-                3/6 <img src={tasksSummaryIcon} alt="task summary" />
+                {`${tasksCount.completed}/${tasksCount.total}`}
+                <img src={tasksSummaryIcon} alt="task summary" />
               </TasksSummary>
             </Footer>
           </div>
@@ -103,6 +104,7 @@ EventCard.propTypes = {
   endDate: PropTypes.instanceOf(Moment).isRequired,
   description: PropTypes.string,
   priority: PropTypes.string.isRequired,
+  tasksCount: PropTypes.object.isRequired,
   deleteEvent: PropTypes.func.isRequired,
 };
 
