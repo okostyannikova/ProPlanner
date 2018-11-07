@@ -27,6 +27,7 @@ class Events extends Component {
               'event-type': type,
               description,
               priority,
+              'tasks-count': tasksCount,
             } = event.attributes;
             return (
               <CSSTransition key={event.id} in appear classNames="card" timeout={400}>
@@ -41,6 +42,7 @@ class Events extends Component {
                   priority={priority}
                   deleteEvent={deleteEvent}
                   history={history}
+                  tasksCount={tasksCount}
                 />
               </CSSTransition>
             );
