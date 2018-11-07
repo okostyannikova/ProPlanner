@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { Field } from 'redux-form';
 
 import SmartComponent from './dropsContainer/SmartComponent.js';
 import MainButton from './dropsContainer/MainButton.js';

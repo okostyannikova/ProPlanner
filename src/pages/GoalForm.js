@@ -14,12 +14,9 @@ import DropsContainer from './goalform/DropsContainer.js';
 import { goalsOperations } from '../modules/Goals';
 
 class GoalForm extends Component {
-  //   state = {
-  //     event: null,
-  //   };
-
   componentDidMount = () => {
     const { match, loadSingleGoal } = this.props;
+
     !match.path.includes('add') && loadSingleGoal(match.params.id);
   };
 
@@ -67,6 +64,7 @@ class GoalForm extends Component {
                   placeholder="Add a title..."
                   validate={[required, maxTitleLength]}
                   isaddpath={isAddPath.toString()}
+                  autoFocus
                 />
               </li>
               <li>

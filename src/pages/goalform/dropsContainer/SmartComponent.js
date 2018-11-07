@@ -19,19 +19,20 @@ const items = [
 class SmartComponent extends Component {
   state = {
     openIndex: 0,
+    tabToched: false,
   };
 
   clickHandle = index => {
     if (index === this.state.openIndex) {
-      this.setState({ openIndex: 5 });
+      this.setState({ openIndex: 5, tabToched: true });
       return;
     }
 
-    this.setState({ openIndex: index });
+    this.setState({ openIndex: index, tabToched: true });
   };
 
   render() {
-    const { openIndex } = this.state;
+    const { openIndex, tabToched } = this.state;
     const { view } = this.props;
 
     return (
@@ -51,6 +52,7 @@ class SmartComponent extends Component {
                 isOpen={isOpen}
                 clickHandler={this.clickHandle}
                 view={view}
+                tabToched={tabToched}
               />
             );
           })}
