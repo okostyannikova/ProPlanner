@@ -79,3 +79,8 @@ export const createGoalFail = error => ({
   type: types.CREATE_SINGLE_GOAL_FAIL,
   error,
 });
+
+export const seacrhGoals = search => ({
+  type: types.SEARCH_GOALS,
+  payload: { search },
+});

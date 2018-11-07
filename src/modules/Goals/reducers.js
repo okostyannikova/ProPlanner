@@ -6,6 +6,7 @@ const initialState = {
   goalsSingleGoal: null,
   error: null,
   lastPageNumber: 1,
+  search: null,
 };
 
 export default (state = initialState, action) => {
@@ -47,7 +48,7 @@ export default (state = initialState, action) => {
     case types.RESTORE_GOALS_STATE:
       return {
         ...state,
-        eventsList: [],
+        goalsList: [],
       };
 
     case types.LOAD_SINGLE_GOAL_START:
@@ -112,6 +113,11 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         error,
+      };
+    case types.SEARCH_GOALS:
+      return {
+        ...state,
+        search: payload.search,
       };
 
     default:
