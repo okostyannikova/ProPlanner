@@ -7,6 +7,7 @@ import RoundButton from 'components/RoundButton';
 import Loader from 'components/Loader';
 import NoItemsMessage from 'components/NoItemsMessage';
 import CardsPagination from 'components/hocs/CardsPagination';
+import SearchInput from 'components/Navigation/SearchInput.js';
 import { goalsOperations } from '../modules/Goals';
 import GoalCard from './goals/GoalCard';
 
@@ -59,11 +60,12 @@ class Goals extends Component {
   };
 
   render() {
-    const { loading, loadData, restoreData, lastPageNumber } = this.props;
+    const { loading, loadData, restoreData, lastPageNumber, setSearch, search } = this.props;
     return (
       <PageContainer className="page-content goals-list">
         <Header>
           <Title>My Goals</Title>
+          <SearchInput search={setSearch} />
           <RoundButton to="/goal/add" type="goal" />
         </Header>
         <CardsPagination
@@ -72,6 +74,7 @@ class Goals extends Component {
           lastPageNumber={lastPageNumber}
           cardHeight={393}
           numberOfCards={15}
+          search={search}
         >
           <GoalsList>{this.getBody()}</GoalsList>
         </CardsPagination>
@@ -83,6 +86,7 @@ class Goals extends Component {
 
 Goals.defaultProps = {
   goals: null,
+  search: null,
 };
 
 Goals.propTypes = {
@@ -90,9 +94,11 @@ Goals.propTypes = {
   // from connect
   goals: PropTypes.arrayOf(PropTypes.object),
   loading: PropTypes.bool.isRequired,
+  search: PropTypes.string,
   loadData: PropTypes.func.isRequired,
   deleteGoal: PropTypes.func.isRequired,
   restoreData: PropTypes.func.isRequired,
+  setSearch: PropTypes.func.isRequired,
   lastPageNumber: PropTypes.number.isRequired,
 };
 
@@ -101,11 +107,13 @@ export default connect(
     goals: state.goals.goalsList,
     loading: state.goals.loading,
     lastPageNumber: state.goals.lastPageNumber,
+    search: state.goals.search,
   }),
   {
     loadData: goalsOperations.loadGoals,
     deleteGoal: goalsOperations.deleteGoal,
     restoreData: goalsOperations.restoreGoals,
+    setSearch: goalsOperations.setSearch,
   }
 )(Goals);
 

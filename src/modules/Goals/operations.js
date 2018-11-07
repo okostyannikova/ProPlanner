@@ -17,6 +17,7 @@ import {
   createGoalStart,
   createGoalSuccess,
   createGoalFail,
+  seacrhGoals,
 } from './actions';
 import {
   normalizeData,
@@ -29,10 +30,10 @@ import { apiURL } from '../../config';
 
 const goalsURL = `${apiURL}/goals`;
 
-const loadGoals = (number = 1, size = 15) => dispatch => {
+const loadGoals = (number = 1, size = 15, filter, search = null) => dispatch => {
   dispatch(loadGoalsStart());
 
-  axios(goalsURL, { params: { 'page[number]': number, 'page[size]': size } })
+  axios(goalsURL, { params: { 'page[number]': number, 'page[size]': size, 'q[title]': search } })
     .then(res => {
       const goals = normalizeData(res.data.data);
       const lastPageNumber = getLastPageNumber(res.data.links.last);
@@ -110,6 +111,8 @@ const addGoal = data => dispatch => {
     });
 };
 
+const setSearch = value => dispatch => dispatch(seacrhGoals(value));
+
 export default {
   loadGoals,
   deleteGoal,
@@ -118,4 +121,5 @@ export default {
   deleteSingleGoal,
   patchGoal,
   addGoal,
+  setSearch,
 };
