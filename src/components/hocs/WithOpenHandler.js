@@ -48,6 +48,7 @@ const WithOpenHandler = OriginalComponent =>
           setWrapperRef={this.setWrapperRef}
           setButtonRef={this.setButtonRef}
           handleMenuClick={this.handleMenuClick}
+          {...this.props}
         />
       );
     }

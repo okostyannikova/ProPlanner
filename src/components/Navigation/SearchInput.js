@@ -9,6 +9,7 @@ const SearchInput = ({ search }) => {
   }, 500);
   return (
     <Input
+      className="searchInput"
       type="search"
       onChange={ev => {
         handleSearch(ev.target.value);
