@@ -162,7 +162,7 @@ class Settings extends Component {
                 <Priority priority={0} />
               </Content>
             </SettingsItem>
-            <SettingsItem>
+            <SettingsItemSwitch>
               <StyledSwitch
                 checked={checkedB}
                 onChange={this.handleChange('checkedB')}
@@ -174,7 +174,7 @@ class Settings extends Component {
                 }}
               />
               <Title>Disable auto sync with Google Calendar</Title>
-            </SettingsItem>
+            </SettingsItemSwitch>
           </ul>
         </SettingsContainer>
       </PageContainer>
@@ -215,12 +215,27 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps)(withStyles(styles)(Settings));
 
 const PageContainer = styled.div`
-  padding: 64px 118px 0px 118px;
+  padding: 64px 9% 0px 9%;
   display: flex;
+  justify-content: space-between;
+  @media (max-width: 890px) {
+    padding: 50px 5% 0px 5%;
+  }
+  @media (max-width: 630px) {
+    flex-direction: column;
+    padding: 24px 20px 0px 20px;
+  }
 `;
 
 const UserInfo = styled.div`
+  display: flex;
+  flex-direction: column;
   flex: 1 2 341px;
+  max-width: 360px;
+  @media (max-width: 630px) {
+    width: 100%;
+    max-width: 100%;
+  }
 `;
 const AvatarContainer = styled.div`
   display: block;
@@ -232,6 +247,9 @@ const AvatarContainer = styled.div`
   box-sizing: border-box;
   margin-left: 21px;
   margin-bottom: 25px;
+  @media (max-width: 630px) {
+    margin: 0 auto 25px;
+  }
 `;
 const Avatar = styled.img`
   border-radius: 10px;
@@ -255,18 +273,38 @@ const UserText = styled.p`
   font-size: 20px;
   color: #344662;
   margin: 5px 0 26px 37px;
+  word-wrap: break-word;
+  @media (max-width: 630px) {
+    margin-bottom: 16px;
+  }
 `;
 
 const SettingsContainer = styled.div`
   flex: 3 1 561px;
-  margin-top: 20px;
-  margin-left: 10px;
+  margin-top: 15px;
+  margin-left: 20px;
+  @media (max-width: 630px) {
+    width: 100%;
+    margin-top: 60px;
+    margin-left: 0;
+  }
 `;
 const SettingsItem = styled.li`
   list-style: none;
-  margin-bottom: 43px;
+  &:not(:last-child) {
+    margin-bottom: 38px;
+  }
+  @media (max-width: 630px) {
+    &:not(:last-child) {
+      margin-bottom: 25px;
+    }
+  }
 `;
-const Title = styled.div`
+const SettingsItemSwitch = styled(SettingsItem)`
+  display: flex;
+  align-items: center;
+`;
+const Title = styled.span`
   font-size: 18px;
   color: rgba(52, 70, 98, 0.87);
   font-weight: 500;
@@ -284,5 +322,6 @@ const Content = styled.div`
   margin-left: 48px;
 `;
 const StyledSwitch = styled(Switch)`
-  margin-left: -15px;
+  margin-left: -10px;
+  margin-right: 12px;
 `;

@@ -38,7 +38,7 @@ TimePickers.propTypes = {
 export default TimePickers;
 
 const StyledDatePicker = styled(DatePicker)`
-  width: 158px;
+  width: 100%;
   height: 49px;
   font-family: inherit;
   text-align: center;
@@ -46,7 +46,6 @@ const StyledDatePicker = styled(DatePicker)`
   font-size: 16px;
   border: none;
   background-color: #f9f9f9;
-  margin-right: 32px;
   &:focus {
     outline: none;
   }

@@ -1,14 +1,28 @@
+.react-datepicker-wrapper {
+  width: 158px;
+  &:first-child {
+     margin-right: 6%;
+  }
+  @media (max-width: 890px) {
+    width: 47%;
+  }
+}
+
+.react-datepicker__input-container {
+  width: 100%;
+}
+
 .react-datepicker {
   font-family: inherit !important;
   color: rgba(52, 70, 98, 0.87) !important;
   font-size: 16px !important;
   border: none;
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 .react-datepicker-popper {
   left: 32px !important;
   top: -67px !important;
   border-radius: 4px;
-  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .react-datepicker__time-container {
