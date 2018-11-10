@@ -1,0 +1,53 @@
+.react-datepicker {
+  font-family: inherit !important;
+  color: rgba(52, 70, 98, 0.87) !important;
+  font-size: 16px !important;
+  border: none;
+}
+.react-datepicker-popper {
+  left: 32px !important;
+  top: -67px !important;
+  border-radius: 4px;
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.react-datepicker__time-container {
+  width: 100px !important;
+}
+
+.react-datepicker-time__header {
+  font-size: 18px !important;
+  color: #344662 !important;
+  font-weight: 500;
+}
+
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box {
+  width: 100px !important;
+  border-radius: 0;
+}
+
+.react-datepicker__triangle {
+  display: none;
+}
+
+.settings {
+  .list-item-secondary-item {
+    font-size: 16px;
+    background-color: rgba(51, 51, 51, 0.03);
+    height: 51px;
+    padding: 16px;
+    padding-top: 14px;
+    box-sizing: border-box;
+    svg {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  .list-item-secondary-text{
+    color: rgba(52, 70, 98, 0.87);
+    vertical-align: middle;
+  }
+}
+
+
+
