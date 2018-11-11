@@ -39,7 +39,7 @@ export default class CardsPagination extends Component {
     const { loadData, lastPageNumber, numberOfCards, filter, search } = this.props;
     const { page } = this.state;
     if (page <= lastPageNumber) {
-      loadData(null, null, null, search);
+      loadData(page, numberOfCards, filter, search);
       this.setState(prevState => ({ page: prevState.page + 1 }));
     }
   };
