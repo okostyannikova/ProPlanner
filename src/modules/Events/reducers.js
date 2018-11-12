@@ -1,20 +1,23 @@
 import types from './types';
+import { convertFilter } from './utils';
 
 const initialState = {
   loading: false,
   deleting: false,
   eventsList: [],
+  eventsDayList: [],
   eventsSingleEvent: null,
   lastPageNumber: 1,
   error: null,
   filter: [],
+  params: {},
   search: null,
   synchronising: false,
 };
 
 export default (state = initialState, action) => {
   const { type, payload, error } = action;
-  const { eventsList } = state;
+  const { eventsList, config } = state;
 
   switch (type) {
     case types.LOAD_EVENTS_START:
@@ -29,6 +32,13 @@ export default (state = initialState, action) => {
         error: null,
         eventsList: [...eventsList, ...payload.events],
         lastPageNumber: payload.lastPageNumber,
+      };
+    case types.LOAD_DAY_EVENTS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        eventsDayList: payload.events,
       };
     case types.LOAD_EVENTS_FAIL:
       return {
@@ -127,6 +137,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         filter: payload.filter,
+        params: { ...config, ...convertFilter(payload.filter) },
       };
     case types.SEARCH_EVENTS:
       return {

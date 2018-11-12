@@ -6,8 +6,9 @@ import { withWindowWidth } from 'components/hocs/window-context';
 import classNames from 'classnames';
 import { typesOptions } from 'config';
 import { millisecToMinutes, getTextColor } from 'utils/helpers';
+import { prevWeek, nextWeek, selectDay } from 'modules/Calendar';
+import { eventsOperations } from 'modules/Events';
 import RenderEventsContainer from '../render-events';
-import { prevWeek, nextWeek, selectDay } from '../../../modules/Calendar';
 import './styles.css';
 import Navigation from '../Navigation';
 import DaySidebar from '../Day';
@@ -21,6 +22,32 @@ class Week extends Component {
   componentDidMount = () => {
     const { setHeight } = this.props;
     setHeight(70);
+
+    const { loadEvents, firstWeekDay } = this.props;
+    const lastWeekDay = firstWeekDay.clone().endOf('week');
+    const range = {
+      'q[start_date[btw[d1]]]': firstWeekDay,
+      'q[start_date[btw[d2]]]': lastWeekDay,
+    };
+    loadEvents(null, null, range);
+  };
+
+  componentWillReceiveProps = nextProps => {
+    const { loadEvents, restoreEvents, firstWeekDay } = this.props;
+    if (firstWeekDay.format('YYYY-MM-DD') !== nextProps.firstWeekDay.format('YYYY-MM-DD')) {
+      const lastWeekDay = nextProps.firstWeekDay.clone().endOf('week');
+      const range = {
+        'q[start_date[btw[d1]]]': nextProps.firstWeekDay,
+        'q[start_date[btw[d2]]]': lastWeekDay,
+      };
+      restoreEvents();
+      loadEvents(null, null, range);
+    }
+  };
+
+  componentWillUnmount = () => {
+    const { restoreEvents } = this.props;
+    restoreEvents();
   };
 
   getEvents = today => {
@@ -182,7 +209,13 @@ const mapStateToProps = state => ({
 export default compose(
   connect(
     mapStateToProps,
-    { prevWeek, nextWeek, selectDay }
+    {
+      prevWeek,
+      nextWeek,
+      selectDay,
+      loadEvents: eventsOperations.loadEvents,
+      restoreEvents: eventsOperations.restoreEvents,
+    }
   ),
   RenderEventsContainer,
   withWindowWidth
@@ -196,6 +229,8 @@ Week.propTypes = {
   nextWeek: PropTypes.func.isRequired,
   selectDay: PropTypes.func.isRequired,
   selectedDay: PropTypes.object.isRequired,
+  loadEvents: PropTypes.func.isRequired,
+  restoreEvents: PropTypes.func.isRequired,
   // from hoc
   setHeight: PropTypes.func.isRequired,
   startTime: PropTypes.func.isRequired,

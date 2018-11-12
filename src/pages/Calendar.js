@@ -11,9 +11,8 @@ import { restoreCalendar } from '../modules/Calendar';
 
 class Calendar extends Component {
   componentDidMount = () => {
-    const { loadEvents, restoreEvents } = this.props;
+    const { restoreEvents } = this.props;
     restoreEvents();
-    loadEvents();
   };
 
   componentWillUnmount = () => {
@@ -40,7 +39,6 @@ class Calendar extends Component {
 
 Calendar.propTypes = {
   match: PropTypes.object.isRequired,
-  loadEvents: PropTypes.func.isRequired,
   restoreEvents: PropTypes.func.isRequired,
   restoreCalendar: PropTypes.func.isRequired,
 };
@@ -48,7 +46,6 @@ Calendar.propTypes = {
 export default connect(
   null,
   {
-    loadEvents: eventsOperations.loadEvents,
     restoreEvents: eventsOperations.restoreEvents,
     restoreCalendar,
   }
