@@ -28,7 +28,6 @@ import {
   normalizeSingleData,
   normalizePatchData,
   normalizeCreateData,
-  convertFilter,
   notificationSync,
 } from './utils';
 import { getLastPageNumber } from '../utils';
@@ -36,9 +35,8 @@ import { apiURL } from '../../config';
 
 const eventsURL = `${apiURL}/events`;
 
-const loadEvents = (number = 1, size = 50, filter, search = null) => dispatch => {
+const loadEvents = (number = 1, size = 50, params, search = null) => dispatch => {
   dispatch(loadEventsStart());
-  const filters = filter && convertFilter(filter);
 
   axios(eventsURL, {
     params: {
@@ -47,7 +45,7 @@ const loadEvents = (number = 1, size = 50, filter, search = null) => dispatch =>
       'page[number]': number,
       'page[size]': size,
       'q[title]': search,
-      ...filters,
+      ...params,
     },
   })
     .then(res => {

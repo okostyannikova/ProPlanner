@@ -5,6 +5,7 @@ import { compose } from 'redux';
 import { withWindowWidth } from 'components/hocs/window-context';
 import moment from 'moment';
 import { prevMonth, nextMonth, selectDay } from 'modules/Calendar';
+import { eventsOperations } from 'modules/Events';
 import './styles.css';
 import Day from './Day';
 import Navigation from '../Navigation';
@@ -12,10 +13,33 @@ import DaysLabels from '../DaysLabels';
 import DaySidebar from '../Day';
 
 class Month extends Component {
+  componentWillReceiveProps = nextProps => {
+    const { loadEvents, restoreEvents, currentDate } = this.props;
+    const prevFirstDay = currentDate.clone().startOf('month');
+    const nextFirstDay = nextProps.currentDate.clone().startOf('month');
+
+    if (prevFirstDay.format('YYYY-MM-DD') !== nextFirstDay.format('YYYY-MM-DD')) {
+      const firstMonthDay = nextProps.currentDate
+        .clone()
+        .startOf('month')
+        .format('YYYY-MM-DD');
+      const lastMonthDay = nextProps.currentDate
+        .clone()
+        .endOf('month')
+        .format('YYYY-MM-DD');
+      const range = {
+        'q[start_date[btw[d1]]]': firstMonthDay,
+        'q[start_date[btw[d2]]]': lastMonthDay,
+      };
+      restoreEvents();
+      loadEvents(null, null, range);
+    }
+  };
+
   weekDay = date => (date.getDay() - 1 < 0 ? 6 : date.getDay() - 1);
 
   generateDays = date => {
-    const { selectDay, selectedDay } = this.props;
+    const { selectDay, selectedDay } = this.props;                       // eslint-disable-line
     const currentDate = date.startOf('month');
     const endOfMonth = currentDate.clone().endOf('month');
     const prevMonthDate = currentDate.clone();
@@ -64,7 +88,7 @@ class Month extends Component {
   };
 
   render() {
-    const { currentDate, currentYear, prevMonth, nextMonth, windowWidth } = this.props;
+    const { currentDate, currentYear, prevMonth, nextMonth, windowWidth } = this.props;            // eslint-disable-line
     return (
       <div>
         <div className="calendar-main calendar-main--mobile">
@@ -102,7 +126,13 @@ const mapStateToProps = state => ({
 export default compose(
   connect(
     mapStateToProps,
-    { prevMonth, nextMonth, selectDay }
+    {
+      prevMonth,
+      nextMonth,
+      selectDay,
+      loadEvents: eventsOperations.loadEvents,
+      restoreEvents: eventsOperations.restoreEvents,
+    }
   ),
   withWindowWidth
 )(Month);
@@ -115,4 +145,6 @@ Month.propTypes = {
   selectedDay: PropTypes.object.isRequired,
   currentYear: PropTypes.string.isRequired,
   windowWidth: PropTypes.number.isRequired,
+  loadEvents: PropTypes.func.isRequired,
+  restoreEvents: PropTypes.func.isRequired,
 };

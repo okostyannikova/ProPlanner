@@ -18,15 +18,15 @@ export default class CardsPagination extends Component {
   };
 
   componentWillReceiveProps = nextProps => {
-    const { restoreData, filter, search, loadData, numberOfCards } = this.props;
-    if (nextProps.filter !== filter) {
+    const { restoreData, params, search, loadData, numberOfCards } = this.props;
+    if (nextProps.params !== params) {
       restoreData();
-      loadData(1, numberOfCards, nextProps.filter, search);
+      loadData(1, numberOfCards, nextProps.params, search);
       this.setState(() => ({ page: 2 }));
     }
     if (nextProps.search !== search) {
       restoreData();
-      loadData(1, numberOfCards, filter, nextProps.search);
+      loadData(1, numberOfCards, params, nextProps.search);
       this.setState(() => ({ page: 2 }));
     }
   };
@@ -36,10 +36,10 @@ export default class CardsPagination extends Component {
   };
 
   fetchData = () => {
-    const { loadData, lastPageNumber, numberOfCards, filter, search } = this.props;
+    const { loadData, lastPageNumber, numberOfCards, params, search } = this.props;
     const { page } = this.state;
     if (page <= lastPageNumber) {
-      loadData(page, numberOfCards, filter, search);
+      loadData(page, numberOfCards, params, search);
       this.setState(prevState => ({ page: prevState.page + 1 }));
     }
   };
@@ -60,7 +60,7 @@ export default class CardsPagination extends Component {
 }
 
 CardsPagination.defaultProps = {
-  filter: [],
+  params: {},
   search: null,
 };
 
@@ -71,6 +71,6 @@ CardsPagination.propTypes = {
   cardHeight: PropTypes.number.isRequired,
   numberOfCards: PropTypes.number.isRequired,
   children: PropTypes.node.isRequired,
-  filter: PropTypes.array,
+  params: PropTypes.object,
   search: PropTypes.string,
 };

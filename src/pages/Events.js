@@ -80,6 +80,7 @@ class Events extends Component {
       filter,
       setSearch,
       search,
+      params,
     } = this.props;
     return (
       <PageContainer className="page-content events-list">
@@ -96,7 +97,7 @@ class Events extends Component {
           lastPageNumber={lastPageNumber}
           cardHeight={219}
           numberOfCards={20}
-          filter={filter}
+          params={params}
           search={search}
         >
           <EventsList>{this.getBody()}</EventsList>
@@ -111,6 +112,7 @@ Events.defaultProps = {
   events: null,
   filter: [],
   search: null,
+  params: {},
 };
 
 Events.propTypes = {
@@ -120,6 +122,7 @@ Events.propTypes = {
   loading: PropTypes.bool.isRequired,
   lastPageNumber: PropTypes.number.isRequired,
   filter: PropTypes.array,
+  params: PropTypes.object,
   search: PropTypes.string,
   loadData: PropTypes.func.isRequired,
   deleteEvent: PropTypes.func.isRequired,
@@ -134,6 +137,7 @@ export default connect(
     loading: state.events.loading,
     lastPageNumber: state.events.lastPageNumber,
     filter: state.events.filter,
+    params: state.events.params,
     search: state.events.search,
   }),
   {
