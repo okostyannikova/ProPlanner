@@ -23,31 +23,35 @@ class Week extends Component {
     const { setHeight } = this.props;
     setHeight(70);
 
-    const { loadEvents, firstWeekDay } = this.props;
-    const lastWeekDay = firstWeekDay.clone().endOf('week');
+    const { loadEvents, firstWeekDay, restoreEvents } = this.props;
+    const lastWeekDay = firstWeekDay
+      .clone()
+      .endOf('week')
+      .add(2, 'day')
+      .format('YYYY-MM-DD');
     const range = {
-      'q[start_date[btw[d1]]]': firstWeekDay,
+      'q[start_date[btw[d1]]]': firstWeekDay.format('YYYY-MM-DD'),
       'q[start_date[btw[d2]]]': lastWeekDay,
     };
+    restoreEvents();
     loadEvents(null, null, range);
   };
 
   componentWillReceiveProps = nextProps => {
     const { loadEvents, restoreEvents, firstWeekDay } = this.props;
     if (firstWeekDay.format('YYYY-MM-DD') !== nextProps.firstWeekDay.format('YYYY-MM-DD')) {
-      const lastWeekDay = nextProps.firstWeekDay.clone().endOf('week');
+      const lastWeekDay = nextProps.firstWeekDay
+        .clone()
+        .endOf('week')
+        .add(2, 'day')
+        .format('YYYY-MM-DD');
       const range = {
-        'q[start_date[btw[d1]]]': nextProps.firstWeekDay,
+        'q[start_date[btw[d1]]]': nextProps.firstWeekDay.format('YYYY-MM-DD'),
         'q[start_date[btw[d2]]]': lastWeekDay,
       };
       restoreEvents();
       loadEvents(null, null, range);
     }
-  };
-
-  componentWillUnmount = () => {
-    const { restoreEvents } = this.props;
-    restoreEvents();
   };
 
   getEvents = today => {

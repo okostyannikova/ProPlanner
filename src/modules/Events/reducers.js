@@ -1,5 +1,7 @@
+import moment from 'moment';
 import types from './types';
-import { convertFilter } from './utils';
+import { SELECT_DAY, NEXT_DAY, PREV_DAY } from '../Calendar';
+import { convertFilter, getEvents } from './utils';
 
 const initialState = {
   loading: false,
@@ -17,7 +19,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   const { type, payload, error } = action;
-  const { eventsList, config } = state;
+  const { eventsList, config, eventsDayList } = state;
 
   switch (type) {
     case types.LOAD_EVENTS_START:
@@ -31,14 +33,25 @@ export default (state = initialState, action) => {
         loading: false,
         error: null,
         eventsList: [...eventsList, ...payload.events],
+        eventsDayList: eventsDayList.length
+          ? eventsDayList
+          : getEvents(moment(), [...eventsList, ...payload.events]),
         lastPageNumber: payload.lastPageNumber,
       };
-    case types.LOAD_DAY_EVENTS_SUCCESS:
+    case SELECT_DAY:
       return {
         ...state,
-        loading: false,
-        error: null,
-        eventsDayList: payload.events,
+        eventsDayList: getEvents(moment(payload.day, 'YYYY-M-D'), eventsList),
+      };
+    case PREV_DAY:
+      return {
+        ...state,
+        eventsDayList: getEvents(payload.day, eventsList),
+      };
+    case NEXT_DAY:
+      return {
+        ...state,
+        eventsDayList: getEvents(payload.day, eventsList),
       };
     case types.LOAD_EVENTS_FAIL:
       return {

@@ -21,8 +21,8 @@ export const nextMonth = () => ({ type: NEXT_MONTH });
 export const prevWeek = () => ({ type: PREV_WEEK });
 export const nextWeek = () => ({ type: NEXT_WEEK });
 
-export const prevDay = () => ({ type: PREV_DAY });
-export const nextDay = () => ({ type: NEXT_DAY });
+export const prevDay = day => ({ type: PREV_DAY, payload: { day: day.clone().add(-1, 'day') } });
+export const nextDay = day => ({ type: NEXT_DAY, payload: { day: day.clone().add(1, 'day') } });
 
 export const selectDay = day => ({ type: SELECT_DAY, payload: { day } });
 export const restoreCalendar = () => ({ type: RESTORE_CALENDAR });

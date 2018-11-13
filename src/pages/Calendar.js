@@ -7,12 +7,25 @@ import Month from './calendar/Month';
 import Week from './calendar/Week';
 import Day from './calendar/Day';
 import { eventsOperations } from '../modules/Events';
-import { restoreCalendar } from '../modules/Calendar';
+import { restoreCalendar, selectDay } from '../modules/Calendar';
 
 class Calendar extends Component {
   componentDidMount = () => {
-    const { restoreEvents } = this.props;
+    const { loadEvents, currentDate, restoreEvents } = this.props;    //eslint-disable-line
+    const firstMonthDay = currentDate
+      .clone()
+      .startOf('month')
+      .format('YYYY-MM-DD');
+    const lastMonthDay = currentDate
+      .clone()
+      .endOf('month')
+      .format('YYYY-MM-DD');
+    const range = {
+      'q[start_date[btw[d1]]]': firstMonthDay,
+      'q[start_date[btw[d2]]]': lastMonthDay,
+    };
     restoreEvents();
+    loadEvents(null, null, range);
   };
 
   componentWillUnmount = () => {
@@ -39,14 +52,18 @@ class Calendar extends Component {
 
 Calendar.propTypes = {
   match: PropTypes.object.isRequired,
+  currentDate: PropTypes.object.isRequired,
+  loadEvents: PropTypes.func.isRequired,
   restoreEvents: PropTypes.func.isRequired,
   restoreCalendar: PropTypes.func.isRequired,
 };
 
 export default connect(
-  null,
+  state => ({ currentDate: state.calendar.currentDate.clone() }),
   {
     restoreEvents: eventsOperations.restoreEvents,
+    loadEvents: eventsOperations.loadEvents,
     restoreCalendar,
+    selectDay,
   }
 )(Calendar);

@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { typesOptions } from 'config';
 import { millisecToMinutes, getTextColor } from 'utils/helpers';
 import RoundButton from 'components/RoundButton';
+import { prevDay, nextDay } from 'modules/Calendar';
+import { eventsOperations } from 'modules/Events';
 import RenderEventsContainer from '../render-events';
-import { prevDay, nextDay } from '../../../modules/Calendar';
 import './styles.css';
 import Navigation from '../Navigation';
 import Summary from './Summary';
@@ -21,6 +22,23 @@ class Day extends Component {
     const { setHeight } = this.props;
     setHeight(50);
   };
+
+  /* componentWillReceiveProps = nextProps => {
+    const { loadEvents, restoreEvents, selectedDay } = this.props;
+    const prevFirstDay = selectedDay.clone().startOf('month');
+    const nextFirstDay = nextProps.selectedDay.clone().startOf('month');
+
+    if (prevFirstDay.format('YYYY-MM-DD') !== nextFirstDay.format('YYYY-MM-DD')) {
+      const firstMonthDay = nextProps.selectedDay.clone().startOf('month');
+      const lastMonthDay = nextProps.selectedDay.clone().endOf('month');
+      const range = {
+        'q[start_date[btw[d1]]]': firstMonthDay,
+        'q[start_date[btw[d2]]]': lastMonthDay,
+      };
+      restoreEvents();
+      loadEvents(null, null, range);
+    }
+  }; */
 
   getDaySummary = () => {
     const { events } = this.props;
@@ -77,8 +95,18 @@ class Day extends Component {
     return null;
   };
 
+  handlePrevDay = () => {
+    const { selectedDay, prevDay } = this.props;                  // eslint-disable-line
+    prevDay(selectedDay);
+  };
+
+  handleNextDay = () => {
+    const { selectedDay, nextDay } = this.props;                  // eslint-disable-line
+    nextDay(selectedDay);
+  };
+
   render() {
-    const { selectedDay, hours, setWrapperRef, prevDay, nextDay, } = this.props; // eslint-disable-line
+    const { selectedDay, hours, setWrapperRef } = this.props; // eslint-disable-line
     this.getDaySummary();
     return (
       <div className="calendar-day">
@@ -86,8 +114,8 @@ class Day extends Component {
           <Navigation
             label={selectedDay.format('dddd')}
             digit={selectedDay.format('DD')}
-            handlePrevDateClick={prevDay}
-            handleNextDateClick={nextDay}
+            handlePrevDateClick={this.handlePrevDay}
+            handleNextDateClick={this.handleNextDay}
           />
           <RoundButton to="/event/add" type="event" />
         </header>
@@ -105,23 +133,17 @@ class Day extends Component {
   }
 }
 
-const getEvents = (day, events) => {
-  if (events) {
-    const today = day.format('YYYY-MM-DD');
-    return events.filter(ev => {
-      const eventDay = ev.attributes['start-date'].clone().format('YYYY-MM-DD');
-      return today === eventDay;
-    });
-  }
-  return null;
-};
-
 export default connect(
   state => ({
     selectedDay: state.calendar.selectedDay.clone(),
-    events: getEvents(state.calendar.selectedDay.clone(), state.events.eventsList),
+    events: state.events.eventsDayList,
   }),
-  { prevDay, nextDay }
+  {
+    prevDay,
+    nextDay,
+    loadEvents: eventsOperations.loadEvents,
+    restoreEvents: eventsOperations.restoreEvents,
+  }
 )(RenderEventsContainer(Day));
 
 Day.propTypes = {
@@ -130,6 +152,8 @@ Day.propTypes = {
   selectedDay: PropTypes.object.isRequired,
   prevDay: PropTypes.func.isRequired,
   nextDay: PropTypes.func.isRequired,
+  loadEvents: PropTypes.func.isRequired,
+  restoreEvents: PropTypes.func.isRequired,
   // from hoc
   setHeight: PropTypes.func.isRequired,
   startTime: PropTypes.func.isRequired,

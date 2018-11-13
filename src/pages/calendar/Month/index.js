@@ -13,25 +13,20 @@ import DaysLabels from '../DaysLabels';
 import DaySidebar from '../Day';
 
 class Month extends Component {
-  componentDidMount = () => {
-    const { loadEvents, currentDate } = this.props;
-    const firstMonthDay = currentDate.clone().startOf('month');
-    const lastMonthDay = currentDate.clone().endOf('month');
-    const range = {
-      'q[start_date[btw[d1]]]': firstMonthDay,
-      'q[start_date[btw[d2]]]': lastMonthDay,
-    };
-    loadEvents(null, null, range);
-  };
-
   componentWillReceiveProps = nextProps => {
     const { loadEvents, restoreEvents, currentDate } = this.props;
     const prevFirstDay = currentDate.clone().startOf('month');
     const nextFirstDay = nextProps.currentDate.clone().startOf('month');
 
     if (prevFirstDay.format('YYYY-MM-DD') !== nextFirstDay.format('YYYY-MM-DD')) {
-      const firstMonthDay = nextProps.currentDate.clone().startOf('month');
-      const lastMonthDay = nextProps.currentDate.clone().endOf('month');
+      const firstMonthDay = nextProps.currentDate
+        .clone()
+        .startOf('month')
+        .format('YYYY-MM-DD');
+      const lastMonthDay = nextProps.currentDate
+        .clone()
+        .endOf('month')
+        .format('YYYY-MM-DD');
       const range = {
         'q[start_date[btw[d1]]]': firstMonthDay,
         'q[start_date[btw[d2]]]': lastMonthDay,
@@ -39,11 +34,6 @@ class Month extends Component {
       restoreEvents();
       loadEvents(null, null, range);
     }
-  };
-
-  componentWillUnmount = () => {
-    const { restoreEvents } = this.props;
-    restoreEvents();
   };
 
   weekDay = date => (date.getDay() - 1 < 0 ? 6 : date.getDay() - 1);
