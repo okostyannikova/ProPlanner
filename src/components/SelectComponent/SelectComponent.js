@@ -1,107 +1,141 @@
 import React, { Component } from 'react';
 
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import Chip from '@material-ui/core/Chip';
-import { withStyles } from '@material-ui/core/styles';
+import Select from 'react-select';
+import makeAnimated from 'react-select/lib/animated';
+
+import debounce from 'lodash.debounce';
 
 import './styles.css';
 
-const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  formControl: {
-    margin: theme.spacing.unit,
-    minWidth: 120,
-    maxWidth: 300,
-  },
-  chips: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  chip: {
-    margin: theme.spacing.unit / 4,
-  },
-});
-
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: 48 * 4.5 + 8,
-      width: 250,
+const customStyles = {
+  option: provided => ({
+    ...provided,
+    color: 'rgba(51, 102, 180, 0.87)',
+    cursor: 'pointer',
+  }),
+  control: (styles, props) => ({
+    ...styles,
+    border: 'none',
+    boxShadow: '#fff',
+    padding: '6px',
+    backgroundColor: props.selectProps.view ? '#FFFFFF' : ' #F9F9F9',
+    cursor: 'pointer',
+    '&:hover': {
+      backgroundColor: props.selectProps.view ? '#FFFFFF' : '#ebebeb',
     },
-  },
-};
+  }),
+  multiValue: styles => ({
+    ...styles,
+    backgroundColor: 'rgba(0, 188, 212, 0.1)',
+    padding: '3px ',
+  }),
+  multiValueLabel: (styles, props) => ({
+    ...styles,
+    color: 'rgba(51, 102, 180, 0.87)',
+    margin: props.selectProps.view ? '0 auto' : '',
+  }),
+  multiValueRemove: (styles, props) => ({
+    ...styles,
+    display: props.selectProps.view ? 'none' : 'flex',
+  }),
+  singleValue: provided => {
+    const transition = 'opacity 300ms';
 
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
+    return { ...provided, transition };
+  },
+  indicatorSeparator: (styles, props) => ({
+    ...styles,
+    backgroundColor: props.selectProps.view ? '#FFFFFF' : 'rgba(0, 0, 0, 0.12)',
+  }),
+  dropdownIndicator: (styles, props) => ({
+    ...styles,
+    color: props.selectProps.view ? '#FFFFFF' : 'rgba(0, 0, 0, 0.12)',
+    '&:hover': {
+      color: props.selectProps.view ? '#FFFFFF' : 'rgba(52, 70, 98, 0.87)',
+    },
+  }),
+};
 
 class SelectComponent extends Component {
   state = {
+    page: 1,
     name: [],
   };
 
-  handleChange = event => {
-    this.setState({ name: event.target.value });
+  componentDidMount = () => {
+    const { restoreData } = this.props;
+    restoreData();
+    this.fetchData();
   };
 
+  componentWillUnmount = () => {};
+
+  componentWillReceiveProps = nextProps => {
+    const { restoreData, filter, searchResult, loadData, numberOfCards } = this.props;
+
+    if (nextProps.searchResult !== searchResult) {
+      restoreData();
+      loadData(1, numberOfCards, filter, nextProps.searchResult);
+      this.setState(() => ({ page: 2 }));
+    }
+  };
+
+  fetchData = () => {
+    const { loadData, lastPageNumber, numberOfCards, filter, searchResult } = this.props;
+    const { page } = this.state;
+    if (page <= lastPageNumber) {
+      loadData(page, numberOfCards, filter, searchResult);
+      this.setState(prevState => ({ page: prevState.page + 1 }));
+    }
+  };
+
+  changeHandle = e => {
+    const { input } = this.props;
+    input.onChange(e);
+  };
+
+  bottomHandler = () => {
+    this.fetchData();
+  };
+
+  handleSearch = debounce(value => {
+    const { search } = this.props;
+    search(value);
+  }, 500);
+
   render() {
-    const { headerClass, headerContent, theme } = this.props;
+    const { headerClass, headerContent, view, placeholder, options, ...restProps } = this.props;
+    // const qwe = [
+    //   {
+    //     value: 1,
+    //     label: 2,
+    //   },
+    // ];
+
+    const normalizedOptions = options.map(option => ({
+      value: option.id,
+      label: option.attributes.title,
+    }));
 
     return (
       <div>
         <p className={headerClass}>{headerContent}</p>
-        <div>4545</div>
-        <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="select-multiple-chip">Chip</InputLabel>
-          <Select
-            multiple
-            value={this.state.name}
-            onChange={this.handleChange}
-            input={<Input id="select-multiple-chip" />}
-            renderValue={selected => (
-              <div className={classes.chips}>
-                {selected.map(value => (
-                  <Chip key={value} label={value} className={classes.chip} />
-                ))}
-              </div>
-            )}
-            MenuProps={MenuProps}
-          >
-            {names.map(name => (
-              <MenuItem
-                key={name}
-                value={name}
-                style={{
-                  fontWeight:
-                    this.state.name.indexOf(name) === -1
-                      ? theme.typography.fontWeightRegular
-                      : theme.typography.fontWeightMedium,
-                }}
-              >
-                {name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <Select
+          options={normalizedOptions}
+          components={makeAnimated()}
+          styles={customStyles}
+          placeholder={placeholder}
+          view={view}
+          isDisabled={!!view}
+          // value={qwe}
+          onChange={this.changeHandle}
+          onMenuScrollToBottom={this.bottomHandler}
+          onInputChange={e => this.handleSearch(e)}
+          {...restProps}
+        />
       </div>
     );
   }
 }
 
-export default withStyles(styles, { withTheme: true })(SelectComponent);
+export default SelectComponent;

@@ -27,9 +27,7 @@ export const normalizePatchData = data => ({
     attributes: {
       title: data.title || 'Bionic',
       description: data.description || 'beaver',
-      picture:
-        data.picture ||
-        'https://digitalsynopsis.com/wp-content/uploads/2017/07/beautiful-color-ui-gradients-backgrounds-endless-river.png',
+      picture: data.picture || '',
       start_date: data.startTime || moment(),
       end_date: data.endTime || moment(),
       goal_type: data.type.toLowerCase() || 'work',
@@ -48,9 +46,7 @@ export const normalizeCreateData = data => ({
     attributes: {
       title: data.title || 'Bionic',
       description: data.description || 'beaver',
-      picture:
-        data.picture ||
-        'https://digitalsynopsis.com/wp-content/uploads/2017/07/beautiful-color-ui-gradients-backgrounds-endless-river.png',
+      picture: data.picture || '',
       start_date: data.startTime || moment(),
       end_date:
         data.endTime ||

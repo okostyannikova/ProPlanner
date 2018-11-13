@@ -9,18 +9,16 @@
 	display: flex;
 	flex-direction: row;
 	padding: 0 20px 0 20px;
-	// flex-wrap: wrap;
+	flex-wrap: wrap;
 
 	@media (min-width: 1200px){
 		padding-left: 310px;
 		justify-content: space-between;
-		padding-top: 20px;
 	}
 
 	@media (min-width: 1025px) and (max-width: 1199.98px){
 		padding-left: 215px;
 		justify-content: space-between;
-		padding-top: 20px;
 	}
 
 	@media (max-width: 767.98px){
@@ -246,6 +244,7 @@
 	max-width: 200px;
 }
 
+
 .dropzone{
 	margin-left: 215px;
 	margin-bottom: 43px;
@@ -255,17 +254,37 @@
 	cursor: pointer;
 	transition: all 0.3s;
 
-	// display:flex;
-	// align-items: center;
-	// justify-content: center;
-	// width: 100%;
-	// @media (max-width: 575.98px){
-	// 	padding-left: 40px;
-	// }
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+	@media (max-width: 1024px){
+		margin-left: 0;
+	}
 
 	&:hover{
 		background-color: rgba(3, 171, 193, 0.2);
 	}
+}
+
+.dropzone-view{
+	margin-left: 215px;
+	margin-bottom: 43px;
+	height: 108px;
+
+	background-color: rgba(0, 188, 212, 0.1);
+	transition: all 0.3s;
+
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+	@media (max-width: 1024px){
+		margin-left: 0;
+	}
+
 }
 
 	.dropzone-plugin{
@@ -303,16 +322,23 @@
 			line-height: 24px;
 			font-size: 16px;
 			color: rgba(0, 188, 212, 0.87);
-			margin-left: -20px;
+			margin: 0;
 			margin-top: -2px;
 		}
 
 	.dropzone_close{
 		position: absolute;
-		right: 52px;
-		top:95px;
+		right: 20px;
+		top:80px;
 		cursor: pointer;
 		transition: all .3s;
+		outline: none;
+		border: none;
+		padding: 0;
+		width: 50px;
+		height: 50px;
+		display: block;
+
 
 		&:hover{
 			transform: scale(1.2);
