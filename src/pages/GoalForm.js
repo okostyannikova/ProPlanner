@@ -5,13 +5,14 @@ import { reduxForm, Field } from 'redux-form';
 import { compose } from 'redux';
 import * as moment from 'moment';
 import TextComponent from 'components/TextComponent/TextComponent';
-// import SelectComponent from 'components/SelectComponent/SelectComponent';
+import SelectComponent from 'components/SelectComponent/SelectComponent';
 import Time from 'components/TimePickerComponent/Time';
 import { required, maxTitleLength, maxDescriptionLength } from 'utils/validate';
 import Type from './goalform/goalTypeComponent.js';
 import ImageDropzone from './goalform/ImageDropzone';
 import DropsContainer from './goalform/DropsContainer.js';
 import { goalsOperations } from '../modules/Goals';
+import { eventsOperations } from '../modules/Events';
 
 class GoalForm extends Component {
   componentDidMount = () => {
@@ -26,7 +27,21 @@ class GoalForm extends Component {
   };
 
   render() {
-    const { goalsList, handleSubmit, reset, patchGoal, history, addGoal, match } = this.props;
+    const {
+      goalsList,
+      handleSubmit,
+      reset,
+      patchGoal,
+      history,
+      addGoal,
+      match,
+      setSearch,
+      restoreData,
+      loadData,
+      lastPageNumber,
+      search,
+      events,
+    } = this.props;
 
     const path = match.path;
     const isEditPath = path.includes('edit');
@@ -49,7 +64,7 @@ class GoalForm extends Component {
 
     return (
       <div>
-        <ImageDropzone />
+        <Field name="picture" component={ImageDropzone} view={view} />
         <form onSubmit={handleSubmit(submit)} className="container-fluid">
           <div className="main-container">
             <ul className="component-list">
@@ -73,15 +88,24 @@ class GoalForm extends Component {
               <li>
                 <Field name="type" component={Type} view={view} type={goalType} />
               </li>
-              {/* <li>
+              <li>
                 <Field
                   name="select"
                   component={SelectComponent}
                   headerClass="events-component"
                   headerContent="Events"
+                  isMulti
+                  placeholder="add events..."
+                  options={events}
                   view={view}
+                  search={setSearch}
+                  restoreData={restoreData}
+                  loadData={loadData}
+                  lastPageNumber={lastPageNumber}
+                  numberOfCards={15}
+                  searchResult={search}
                 />
-              </li> */}
+              </li>
               <li>
                 <Field
                   name="description"
@@ -128,6 +152,8 @@ const mapStateToProps = state => {
   let achievable = '';
   let relevant = '';
   let timeFramed = '';
+  let select = [];
+  let picture = '';
 
   if (state.goals.goalsSingleGoal) {
     id = state.goals.goalsSingleGoal.id;
@@ -141,10 +167,15 @@ const mapStateToProps = state => {
     achievable = state.goals.goalsSingleGoal.attributes.a;
     relevant = state.goals.goalsSingleGoal.attributes.r;
     timeFramed = state.goals.goalsSingleGoal.attributes.t;
+    select = state.goals.goalsSingleGoal.events;
+    picture = state.goals.goalsSingleGoal.attributes.picture;
   }
 
   return {
     goalsList: state.goals.goalsSingleGoal,
+    events: state.events.eventsList,
+    search: state.events.search,
+    lastPageNumber: state.events.lastPageNumber,
     initialValues: {
       id,
       title,
@@ -157,6 +188,8 @@ const mapStateToProps = state => {
       achievable,
       relevant,
       timeFramed,
+      select,
+      picture,
     },
   };
 };
@@ -170,6 +203,9 @@ export default (GoalForm = compose(
       patchGoal: goalsOperations.patchGoal,
       addGoal: goalsOperations.addGoal,
       deleteGoal: goalsOperations.deleteGoal,
+      loadData: eventsOperations.loadEvents,
+      restoreData: eventsOperations.restoreEvents,
+      setSearch: eventsOperations.setSearch,
     }
   ),
   reduxForm({
