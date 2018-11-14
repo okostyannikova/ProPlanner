@@ -1,7 +1,8 @@
 import moment from 'moment';
+import { getEvents } from 'utils/events';
 import types from './types';
 import { SELECT_DAY, NEXT_DAY, PREV_DAY } from '../Calendar';
-import { convertFilter, getEvents } from './utils';
+import { convertFilter } from './utils';
 
 const initialState = {
   loading: false,

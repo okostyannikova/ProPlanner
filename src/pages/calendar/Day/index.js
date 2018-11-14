@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { typesOptions } from 'config';
 import { millisecToMinutes, getTextColor } from 'utils/helpers';
+import { getDaySummary } from 'utils/events';
 import RoundButton from 'components/RoundButton';
 import { prevDay, nextDay } from 'modules/Calendar';
 import { eventsOperations } from 'modules/Events';
@@ -39,21 +40,6 @@ class Day extends Component {
       loadEvents(null, null, range);
     }
   }; */
-
-  getDaySummary = () => {
-    const { events } = this.props;
-    const summary = {};
-    events.forEach(ev => {
-      const { 'start-date': start, 'end-date': end, 'event-type': type } = ev.attributes;
-      const eventLength = millisecToMinutes(end - start);
-      if (summary[type]) {
-        summary[type] += eventLength;
-      } else {
-        summary[type] = eventLength;
-      }
-    });
-    return summary;
-  };
 
   displayEvents = () => {
     const { events, startTime, getHeight, handleShow } = this.props;
@@ -106,8 +92,7 @@ class Day extends Component {
   };
 
   render() {
-    const { selectedDay, hours, setWrapperRef } = this.props; // eslint-disable-line
-    this.getDaySummary();
+    const { selectedDay, hours, setWrapperRef, events } = this.props; // eslint-disable-line
     return (
       <div className="calendar-day">
         <header className="calendar-day__header">
@@ -120,7 +105,7 @@ class Day extends Component {
           <RoundButton to="/event/add" type="event" />
         </header>
         <main className="calendar-day__main">
-          <Summary summary={this.getDaySummary()} />
+          <Summary summary={getDaySummary(events)} />
           <div className="calendar__content" ref={setWrapperRef}>
             <ul className="calendar__hours-labels">{hours()}</ul>
             <div className="calendar__events">
@@ -152,8 +137,6 @@ Day.propTypes = {
   selectedDay: PropTypes.object.isRequired,
   prevDay: PropTypes.func.isRequired,
   nextDay: PropTypes.func.isRequired,
-  loadEvents: PropTypes.func.isRequired,
-  restoreEvents: PropTypes.func.isRequired,
   // from hoc
   setHeight: PropTypes.func.isRequired,
   startTime: PropTypes.func.isRequired,
