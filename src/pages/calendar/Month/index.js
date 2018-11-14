@@ -6,6 +6,7 @@ import { withWindowWidth } from 'components/hocs/window-context';
 import moment from 'moment';
 import { prevMonth, nextMonth, selectDay } from 'modules/Calendar';
 import { eventsOperations } from 'modules/Events';
+import { getEvents } from 'utils/events';
 import './styles.css';
 import Day from './Day';
 import Navigation from '../Navigation';
@@ -39,7 +40,7 @@ class Month extends Component {
   weekDay = date => (date.getDay() - 1 < 0 ? 6 : date.getDay() - 1);
 
   generateDays = date => {
-    const { selectDay, selectedDay } = this.props;                       // eslint-disable-line
+    const { selectDay, selectedDay, events } = this.props;                       // eslint-disable-line
     const currentDate = date.startOf('month');
     const endOfMonth = currentDate.clone().endOf('month');
     const prevMonthDate = currentDate.clone();
@@ -72,6 +73,7 @@ class Month extends Component {
             today={moment().format('YYYY-MM-DD') === currentDate.format('YYYY-MM-DD')}
             selectDay={selectDay}
             selectedDay={selectedDay.format('YYYY-MM-DD')}
+            events={getEvents(currentDate, events)}
           />
         );
         currentDate.add(1, 'day');
@@ -121,6 +123,7 @@ const mapStateToProps = state => ({
   currentDate: state.calendar.currentDate.clone(),
   currentYear: state.calendar.currentDate.clone().format('YYYY'),
   selectedDay: state.calendar.selectedDay.clone(),
+  events: state.events.eventsList,
 });
 
 export default compose(
@@ -138,6 +141,7 @@ export default compose(
 )(Month);
 
 Month.propTypes = {
+  events: PropTypes.array.isRequired,
   prevMonth: PropTypes.func.isRequired,
   nextMonth: PropTypes.func.isRequired,
   selectDay: PropTypes.func.isRequired,

@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withWindowWidth } from 'components/hocs/window-context';
 import { Link } from 'react-router-dom';
+import Summary from './Summary';
 
-const Day = ({ day, date, className, today, selectDay, selectedDay, windowWidth }) => {
+const Day = ({ day, date, className, today, selectDay, selectedDay, windowWidth, events }) => {
   const handleClick = () => {
     selectDay(date);
   };
@@ -19,12 +20,14 @@ const Day = ({ day, date, className, today, selectDay, selectedDay, windowWidth 
   const getDay = () => {
     if (date) {
       return windowWidth > 768 ? (
-        <a className={getClassNames} onClick={handleClick} data-qa={date}>
-          {dayBody()}
-        </a>
+        <span className="month__day-wrapper" onClick={handleClick} data-qa={date}>         {/* eslint-disable-line */}
+          <Summary events={events} />
+          <a className={`${getClassNames} month__day-link`}>{dayBody()}</a>
+        </span>
       ) : (
-        <Link to="/calendar/day" className={getClassNames} onClick={handleClick} data-qa={date}>
-          {dayBody()}
+        <Link to="/calendar/day" className="month__day-wrapper" onClick={handleClick} data-qa={date}>         {/* eslint-disable-line */}
+          <Summary events={events} />
+          <span className={`${getClassNames} month__day-link`}>{dayBody()}</span>
         </Link>
       );
     }
@@ -40,9 +43,11 @@ Day.defaultProps = {
   className: '',
   selectDay: null,
   selectedDay: null,
+  events: [],
 };
 
 Day.propTypes = {
+  events: PropTypes.array,
   day: PropTypes.string.isRequired,
   date: PropTypes.string,
   className: PropTypes.string,

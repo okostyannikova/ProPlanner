@@ -66,14 +66,3 @@ export const notificationSync = {
     label: 'GOT IT',
   },
 };
-
-export const getEvents = (day, events) => {
-  if (events) {
-    const today = day.format('YYYY-MM-DD');
-    return events.filter(ev => {
-      const eventDay = ev.attributes['start-date'].clone().format('YYYY-MM-DD');
-      return today === eventDay;
-    });
-  }
-  return [];
-};
