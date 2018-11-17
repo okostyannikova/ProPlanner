@@ -14,7 +14,8 @@ const initialState = user ? { user, loggedIn: true, loading: false, error: null 
 
 const authorizeReducer = (state = initialState, action) => {
   const newUser = JSON.parse(localStorage.getItem('user'));
-  const { error } = action;
+  const { error, payload } = action;
+  const { user: initialUser } = state;
 
   switch (action.type) {
     case types.AUTHORIZE_REQUEST:
@@ -30,6 +31,12 @@ const authorizeReducer = (state = initialState, action) => {
         user: newUser,
         loading: false,
         error: null,
+      };
+
+    case types.UPDATE_USER_DATA:
+      return {
+        ...state,
+        user: { ...initialUser, user: payload.updatedUser },
       };
 
     case types.AUTHORIZE_FAIL:

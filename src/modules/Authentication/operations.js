@@ -1,8 +1,12 @@
 import { go } from 'connected-react-router';
+import axios from 'axios';
 import actions from './actions';
-import authorization, { setTokenToStorage, logOut } from './utils';
+import authorization, { setTokenToStorage, updateLocalStorage, logOut } from './utils';
+import { apiURL } from '../../config';
 
-const { authorizeRequest, authorizeReceive, authorizeFail, logout } = actions;
+const { authorizeRequest, authorizeReceive, authorizeFail, logout, updateUser } = actions;
+
+const userDataURL = `${apiURL}/my_data`;
 
 const authorize = () => dispatch => {
   dispatch(authorizeRequest());
@@ -24,7 +28,17 @@ const logingOut = () => dispatch => {
   dispatch(logout());
 };
 
+const updateUserData = () => dispatch => {
+  axios(userDataURL).then(res => {
+    if (res.status === 200) {
+      dispatch(updateUser(res.data));
+      updateLocalStorage(res.data);
+    }
+  });
+};
+
 export default {
   authorize,
   logingOut,
+  updateUserData,
 };

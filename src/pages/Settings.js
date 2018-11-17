@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Switch from '@material-ui/core/Switch';
 import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
+import { settingsOperations } from 'modules/Settings';
 import TimePickers from './settings/TimePickers';
 import Priority from './settings/Priority';
 import Type from './settings/Type';
@@ -28,12 +29,8 @@ const styles = {
 class Settings extends Component {
   constructor(props) {
     super(props);
-    const { workingStartTime, workingEndTime } = props;
-
     this.state = {
       checkedB: true,
-      start: workingStartTime,
-      end: workingEndTime,
     };
   }
 
@@ -41,13 +38,27 @@ class Settings extends Component {
     this.setState({ [name]: event.target.checked });
   };
 
-  handleStartDateChange = date => this.setState(prevState => ({ ...prevState, start: date }));
+  handleStartDateChange = newTime => {
+    const { updateWorkTime, workingEndTime } = this.props;
+    const time = {
+      start: newTime.format('HH:mm:SS'),
+      end: workingEndTime.format('HH:mm:SS'),
+    };
+    updateWorkTime(time);
+  };
 
-  handleEndDateChange = date => this.setState(prevState => ({ ...prevState, end: date }));
+  handleEndDateChange = newTime => {
+    const { updateWorkTime, workingStartTime } = this.props;
+    const time = {
+      start: workingStartTime.format('HH:mm:SS'),
+      end: newTime.format('HH:mm:SS'),
+    };
+    updateWorkTime(time);
+  };
 
   render() {
-    const { avatar, name, email, classes } = this.props;
-    const { start, end, checkedB } = this.state;
+    const { avatar, name, email, classes, workingStartTime, workingEndTime } = this.props;
+    const { checkedB } = this.state;
     return (
       <PageContainer className="page-content settings">
         <UserInfo>
@@ -100,8 +111,8 @@ class Settings extends Component {
                 <TimePickers
                   handleStartDateChange={this.handleStartDateChange}
                   handleEndDateChange={this.handleEndDateChange}
-                  start={start}
-                  end={end}
+                  start={workingStartTime}
+                  end={workingEndTime}
                 />
               </Content>
             </SettingsItem>
@@ -189,6 +200,7 @@ Settings.propTypes = {
   workingStartTime: PropTypes.object.isRequired,
   workingEndTime: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  updateWorkTime: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => {
@@ -212,7 +224,10 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(Settings));
+export default connect(
+  mapStateToProps,
+  { updateWorkTime: settingsOperations.updateWorkTime }
+)(withStyles(styles)(Settings));
 
 const PageContainer = styled.div`
   padding: 64px 9% 0px 9%;

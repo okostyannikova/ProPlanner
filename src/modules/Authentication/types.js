@@ -2,10 +2,12 @@ const AUTHORIZE_REQUEST = 'Authentication/AUTHORIZE_REQUEST';
 const AUTHORIZE_RECEIVE = 'Authentication/AUTHORIZE_RECEIVE';
 const AUTHORIZE_FAIL = 'Authentication/AUTHORIZE_FAIL';
 const LOG_OUT = 'Authentication/LOG_OUT';
+const UPDATE_USER_DATA = 'Authentication/UPDATE_USER_DATA';
 
 export default {
   AUTHORIZE_REQUEST,
   AUTHORIZE_RECEIVE,
   AUTHORIZE_FAIL,
   LOG_OUT,
+  UPDATE_USER_DATA,
 };

@@ -58,6 +58,12 @@ export function setTokenToStorage(user) {
   localStorage.setItem('user', JSON.stringify(user));
 }
 
+export function updateLocalStorage(updatedUser) {
+  const user = JSON.parse(localStorage.getItem('user'));
+  user.user = updatedUser;
+  localStorage.setItem('user', JSON.stringify(user));
+}
+
 export function logOut() {
   localStorage.removeItem('user');
 }
