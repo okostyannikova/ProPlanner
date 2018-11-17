@@ -31,16 +31,7 @@ class EventForm extends Component {
   };
 
   render() {
-    const {
-      eventsList,
-      handleSubmit,
-      reset,
-      patchEvent,
-      tasksList,
-      history,
-      addEvent,
-      match,
-    } = this.props;
+    const { eventsList, handleSubmit, reset, patchEvent, history, addEvent, match } = this.props;
 
     const path = match.path;
     const isEditPath = path.includes('edit');
@@ -95,7 +86,7 @@ class EventForm extends Component {
                 />
               </li>
               <li>
-                <Tasks view={view} tasks={tasksList} id={eventsListId} />
+                <Field name="tasks" component={Tasks} view={view} />
               </li>
             </ul>
           </div>
@@ -126,6 +117,7 @@ const mapStateToProps = state => {
   let endTime = moment()
     .add(30, 'minutes')
     .format();
+  let tasks = [];
 
   if (state.events.eventsSingleEvent) {
     id = state.events.eventsSingleEvent.id;
@@ -135,6 +127,7 @@ const mapStateToProps = state => {
     type = state.events.eventsSingleEvent.attributes['event-type'];
     startTime = state.events.eventsSingleEvent.attributes['start-date'].format();
     endTime = state.events.eventsSingleEvent.attributes['end-date'].format();
+    tasks = state.tasks.tasksList;
   }
 
   return {
@@ -148,6 +141,7 @@ const mapStateToProps = state => {
       type,
       startTime,
       endTime,
+      tasks,
     },
   };
 };

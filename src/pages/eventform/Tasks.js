@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import LinearProgres from './tasks/LinearProgress';
 import TextComponent from 'components/TextComponent/TextComponent';
+import LinearProgres from './tasks/LinearProgress';
 import TaskList from './tasks/TaskList.js';
 import TaskListNewItem from './tasks/TaskListNewItem.js';
-import { tasksOperations } from '../../modules/Tasks';
 
 class Tasks extends Component {
   constructor(props) {
@@ -24,18 +22,27 @@ class Tasks extends Component {
     this.changeHandle = this.changeHandle.bind(this);
     this.addHandle = this.addHandle.bind(this);
     this.checkBoxHandle = this.checkBoxHandle.bind(this);
+    this.deleteHandle = this.deleteHandle.bind(this);
+    this.updateTask = this.updateTask.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.tasks.length) {
-      this.setState({
-        tasks: newProps.tasks.map(task => ({
-          id: task.id,
-          name: task.title,
-          checked: task.status !== 'open',
-        })),
-      });
-    }
+    this.setState({
+      tasks: newProps.input.value.map(task => {
+        const tasks = task.id
+          ? {
+              id: task.id,
+              name: task.name,
+              checked: task.checked,
+            }
+          : {
+              name: task.name,
+              checked: task.checked,
+            };
+
+        return tasks;
+      }),
+    });
   }
 
   openHandle() {
@@ -57,41 +64,52 @@ class Tasks extends Component {
   }
 
   addHandle() {
-    const { name } = this.state;
-    const { createTask, id } = this.props;
+    const { name, tasks } = this.state;
+    const { input } = this.props;
+    input.onChange([...tasks, { name, checked: false }]);
 
-    createTask({ name, id });
     this.setState({
-      tasks: [...this.state.tasks, { name: this.state.name, checked: false }],
       name: '',
     });
 
     this.focusRef.current.focus();
   }
 
-  checkBoxHandle({ index, name, revertedStatus, eventId, task }) {
-    const { updateTask } = this.props;
-    const status = revertedStatus;
+  checkBoxHandle(index) {
+    const { tasks } = this.state;
+    const { input } = this.props;
 
-    updateTask({ name, status, eventId, task });
+    const tempArray = JSON.parse(JSON.stringify(tasks));
 
-    const tempArray = this.state.tasks;
     tempArray[index].checked = !tempArray[index].checked;
+    input.onChange(tempArray);
+  }
 
-    this.setState({
-      tasks: tempArray,
-    });
+  updateTask(index, name) {
+    const { tasks } = this.state;
+    const { input } = this.props;
+
+    const tempArray = JSON.parse(JSON.stringify(tasks));
+    tempArray[index].name = name;
+    input.onChange(tempArray);
+  }
+
+  deleteHandle(index) {
+    const { tasks } = this.state;
+    const { input } = this.props;
+
+    input.onChange(tasks.filter((task, ind) => ind !== index));
   }
 
   render() {
     const { tasks, isOpen, name } = this.state;
-    const { view, id, deleteTask, updateTask } = this.props;
+    const { view } = this.props;
 
-    const allTasks = this.props.tasks.length
-      ? this.props.tasks.map(task => ({
+    const allTasks = tasks.length
+      ? tasks.map(task => ({
           id: task.id,
-          name: task.title,
-          checked: task.status !== 'open',
+          name: task.name,
+          checked: task.checked,
         }))
       : [];
 
@@ -106,9 +124,8 @@ class Tasks extends Component {
           tasks={allTasks}
           checkBoxHandle={this.checkBoxHandle}
           view={view}
-          deleteTask={deleteTask}
-          updateTask={updateTask}
-          eventId={id}
+          deleteTask={this.deleteHandle}
+          updateTask={this.updateTask}
           className="tasks-list"
         />
         <div hidden={view}>
@@ -131,13 +148,4 @@ class Tasks extends Component {
   }
 }
 
-export default connect(
-  state => ({
-    tasks: state.tasks.tasksList,
-  }),
-  {
-    createTask: tasksOperations.createTask,
-    deleteTask: tasksOperations.deleteTask,
-    updateTask: tasksOperations.updateTask,
-  }
-)(Tasks);
+export default Tasks;

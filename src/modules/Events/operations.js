@@ -93,7 +93,7 @@ const patchEvent = (data, id) => dispatch => {
   dispatch(updateEventStart());
 
   axios
-    .patch(`${eventsURL}/${id}`, normalizedData)
+    .put(`${eventsURL}/global/${id}`, normalizedData)
     .then(res => {
       dispatch(updateEventSuccess(res));
     })
@@ -103,12 +103,14 @@ const patchEvent = (data, id) => dispatch => {
 };
 
 const addEvent = data => dispatch => {
+  // console.log(data);
   const normalizedData = normalizeCreateData(data);
   dispatch(createEventStart());
 
   axios
-    .post(`${eventsURL}`, normalizedData)
+    .post(`${eventsURL}/global`, normalizedData)
     .then(res => {
+      // console.log(res);
       const event = normalizeSingleData(res.data.data);
       dispatch(createEventSuccess(event));
     })
