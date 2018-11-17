@@ -35,14 +35,14 @@ class Task extends Component {
   };
 
   handleClose = option => {
-    const { deleteTask, task, eventId } = this.props;
+    const { deleteTask, index } = this.props;
     const { name } = this.state;
 
     if (option === 'Edit') {
       this.setState({ isEdit: true, originTitle: name });
     }
     if (option === 'Delete') {
-      deleteTask({ task, eventId });
+      deleteTask(index);
     }
     this.setState({ anchorEl: null });
   };
@@ -52,11 +52,11 @@ class Task extends Component {
   };
 
   saveHandle = () => {
-    const { task, eventId, updateTask } = this.props;
+    const { updateTask, index } = this.props;
     const { name } = this.state;
-    const status = task.checked === true ? 2 : 0;
 
-    updateTask({ name, status, eventId, task });
+    updateTask(index, name);
+
     this.setState({ isEdit: false });
   };
 
@@ -66,21 +66,16 @@ class Task extends Component {
   };
 
   render() {
-    const { task, index, checkBoxHandle, view, eventId, classes } = this.props;
-    const { anchorEl, name, isEdit } = this.state;
+    const { task, index, checkBoxHandle, view, classes } = this.props;
+    const { anchorEl, isEdit, name } = this.state;
     const open = Boolean(anchorEl);
-
-    const revertedStatus = task.checked === true ? 0 : 2;
-
-    // console.log({ index, name, revertedStatus, eventId, task });
 
     return (
       <div>
         <li className="task-list__item">
           <Checkbox
             checked={task.checked}
-            onChange={() => checkBoxHandle({ index, name, revertedStatus, eventId, task })}
-            value={task.name}
+            onChange={() => checkBoxHandle(index)}
             style={{ color: '#00BCD4' }}
             color="primary"
             disabled={view}
@@ -97,7 +92,7 @@ class Task extends Component {
             </FormControl>
           ) : (
             <React.Fragment>
-              <span className={task.checked ? 'checked-task' : ''}>{name}</span>
+              <span className={task.checked ? 'checked-task' : ''}>{task.name}</span>
               {!view ? (
                 <span className="task-list__icon">
                   <IconButton
@@ -129,7 +124,7 @@ class Task extends Component {
             </React.Fragment>
           )}
         </li>
-        {isEdit ? (
+        {!view && isEdit ? (
           <div className="task-list__button-container">
             <Button
               variant="contained"
