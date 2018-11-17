@@ -131,6 +131,7 @@ class SelectComponent extends Component {
           onChange={this.changeHandle}
           onMenuScrollToBottom={this.bottomHandler}
           onInputChange={e => this.handleSearch(e)}
+          maxMenuHeight={150}
           {...restProps}
         />
       </div>

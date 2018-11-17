@@ -92,7 +92,7 @@ export default class ImageDropzone extends Component {
     const { open, fileURL, active, imagePreviewUrl } = this.state;
     const { view } = this.props;
     const imagePreview = imagePreviewUrl ? (
-      <img src={imagePreviewUrl} alt="probably best pic ever" />
+      <img src={imagePreviewUrl} alt="probably best pic ever" className="dropzone-image" />
     ) : null;
 
     return (
