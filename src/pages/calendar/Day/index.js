@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { typesOptions } from 'config';
-import { millisecToMinutes, getTextColor } from 'utils/helpers';
+import { millisecToMinutes, getTextColor, getWorkingTime } from 'utils/helpers';
 import { getDaySummary } from 'utils/events';
 import RoundButton from 'components/RoundButton';
 import { prevDay, nextDay } from 'modules/Calendar';
@@ -92,7 +92,7 @@ class Day extends Component {
   };
 
   render() {
-    const { selectedDay, hours, setWrapperRef, events } = this.props; // eslint-disable-line
+    const { selectedDay, hours, setWrapperRef, events, workingTime } = this.props; // eslint-disable-line
     return (
       <div className="calendar-day">
         <header className="calendar-day__header">
@@ -105,7 +105,7 @@ class Day extends Component {
           <RoundButton to="/event/add" type="event" />
         </header>
         <main className="calendar-day__main">
-          <Summary summary={getDaySummary(events)} />
+          <Summary summary={getDaySummary(events)} workingTime={workingTime} />
           <div className="calendar__content" ref={setWrapperRef}>
             <ul className="calendar__hours-labels">{hours()}</ul>
             <div className="calendar__events">
@@ -122,6 +122,11 @@ export default connect(
   state => ({
     selectedDay: state.calendar.selectedDay.clone(),
     events: state.events.eventsDayList,
+    workingTime: getWorkingTime(
+      state.auth.user.user.working_start_time,
+      state.auth.user.user.working_end_time
+    ),
+    workingStartTime: parseInt(state.auth.user.user.working_start_time, 10),
   }),
   {
     prevDay,

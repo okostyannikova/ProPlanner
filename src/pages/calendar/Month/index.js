@@ -7,6 +7,7 @@ import moment from 'moment';
 import { prevMonth, nextMonth, selectDay } from 'modules/Calendar';
 import { eventsOperations } from 'modules/Events';
 import { getEvents } from 'utils/events';
+import { getWorkingTime } from 'utils/helpers';
 import './styles.css';
 import Day from './Day';
 import Navigation from '../Navigation';
@@ -40,7 +41,7 @@ class Month extends Component {
   weekDay = date => (date.getDay() - 1 < 0 ? 6 : date.getDay() - 1);
 
   generateDays = date => {
-    const { selectDay, selectedDay, events } = this.props;                       // eslint-disable-line
+    const { selectDay, selectedDay, events, workingTime } = this.props;                       // eslint-disable-line
     const currentDate = date.startOf('month');
     const endOfMonth = currentDate.clone().endOf('month');
     const prevMonthDate = currentDate.clone();
@@ -74,6 +75,7 @@ class Month extends Component {
             selectDay={selectDay}
             selectedDay={selectedDay.format('YYYY-MM-DD')}
             events={getEvents(currentDate, events)}
+            workingTime={workingTime}
           />
         );
         currentDate.add(1, 'day');
@@ -124,6 +126,10 @@ const mapStateToProps = state => ({
   currentYear: state.calendar.currentDate.clone().format('YYYY'),
   selectedDay: state.calendar.selectedDay.clone(),
   events: state.events.eventsList,
+  workingTime: getWorkingTime(
+    state.auth.user.user.working_start_time,
+    state.auth.user.user.working_end_time
+  ),
 });
 
 export default compose(

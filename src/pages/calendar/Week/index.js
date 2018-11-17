@@ -209,6 +209,7 @@ const mapStateToProps = state => ({
   selectedDay: state.calendar.selectedDay.clone(),
   firstWeekDay: state.calendar.firstWeekDay.clone(),
   events: state.events.eventsList,
+  workingStartTime: parseInt(state.auth.user.user.working_start_time, 10),
 });
 export default compose(
   connect(

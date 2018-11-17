@@ -4,8 +4,9 @@ import 'react-datepicker/dist/react-datepicker.css';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import './styles.css';
+import moment from 'moment';
 
-const TimePickers = ({ handleStartDateChange, handleEndDateChange, start, end }) => (
+const TimePickers = ({ handleStartDateChange, handleEndDateChange, start, end, error }) => (
   <div>
     <StyledDatePicker
       showTimeSelect
@@ -15,6 +16,10 @@ const TimePickers = ({ handleStartDateChange, handleEndDateChange, start, end })
       timeFormat="HH:mm"
       dateFormat="HH:mm"
       timeCaption="Start"
+      minTime={moment()
+        .hours(0)
+        .minutes(0)}
+      maxTime={end}
     />
     <StyledDatePicker
       showTimeSelect
@@ -24,7 +29,14 @@ const TimePickers = ({ handleStartDateChange, handleEndDateChange, start, end })
       timeFormat="HH:mm"
       dateFormat="HH:mm"
       timeCaption="End"
+      minTime={start}
+      maxTime={moment()
+        .hours(23)
+        .minutes(30)}
     />
+    <ErrorMessage>
+      {error && 'Must be at least 8 hours between the start and the end.'}
+    </ErrorMessage>
   </div>
 );
 
@@ -33,6 +45,7 @@ TimePickers.propTypes = {
   end: PropTypes.object.isRequired,
   handleStartDateChange: PropTypes.func.isRequired,
   handleEndDateChange: PropTypes.func.isRequired,
+  error: PropTypes.bool.isRequired,
 };
 
 export default TimePickers;
@@ -49,4 +62,12 @@ const StyledDatePicker = styled(DatePicker)`
   &:focus {
     outline: none;
   }
+`;
+
+const ErrorMessage = styled.p`
+  font-size: 12px;
+  color: #db4437;
+  min-height: 14px;
+  margin-top: 5px;
+  margin-bottom: 0;
 `;

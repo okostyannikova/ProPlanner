@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-export default OriginalComponent =>
-  class RenderEventsContainer extends Component {
+const RenderEventsContainer = OriginalComponent =>
+  class RenderEvents extends Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -14,7 +15,8 @@ export default OriginalComponent =>
     componentDidMount = () => {
       setTimeout(() => {
         const { hourHeight } = this.state;
-        this.wrapperRef.scrollTop = hourHeight * this.displayStartTime;
+        const { workingStartTime } = this.props;
+        this.wrapperRef.scrollTop = hourHeight * workingStartTime - 4;
       });
     };
 
@@ -78,3 +80,10 @@ export default OriginalComponent =>
       );
     }
   };
+
+RenderEventsContainer.propTypes = {
+  workingStartTime: PropTypes.number.isRequired,
+  history: PropTypes.object.isRequired,
+};
+
+export default RenderEventsContainer;

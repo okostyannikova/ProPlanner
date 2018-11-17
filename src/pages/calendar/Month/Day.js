@@ -5,7 +5,17 @@ import { withWindowWidth } from 'components/hocs/window-context';
 import { Link } from 'react-router-dom';
 import Summary from './Summary';
 
-const Day = ({ day, date, className, today, selectDay, selectedDay, windowWidth, events }) => {
+const Day = ({
+  day,
+  date,
+  className,
+  today,
+  selectDay,
+  selectedDay,
+  windowWidth,
+  events,
+  workingTime,
+}) => {
   const handleClick = () => {
     selectDay(date);
   };
@@ -21,7 +31,7 @@ const Day = ({ day, date, className, today, selectDay, selectedDay, windowWidth,
     if (date) {
       return windowWidth > 768 ? (
         <span className="month__day-wrapper" onClick={handleClick} data-qa={date}>         {/* eslint-disable-line */}
-          <Summary events={events} />
+          <Summary events={events} workingTime={workingTime} />
           <a className={`${getClassNames} month__day-link`}>{dayBody()}</a>
         </span>
       ) : (
@@ -44,6 +54,7 @@ Day.defaultProps = {
   selectDay: null,
   selectedDay: null,
   events: [],
+  workingTime: null,
 };
 
 Day.propTypes = {
@@ -55,6 +66,7 @@ Day.propTypes = {
   selectDay: PropTypes.func,
   selectedDay: PropTypes.string,
   windowWidth: PropTypes.number.isRequired,
+  workingTime: PropTypes.number,
 };
 
 export default withWindowWidth(Day);

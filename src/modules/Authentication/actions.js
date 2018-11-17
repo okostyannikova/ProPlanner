@@ -21,10 +21,16 @@ const logout = () => ({
   type: types.LOG_OUT,
 });
 
+const updateUser = updatedUser => ({
+  type: types.UPDATE_USER_DATA,
+  payload: { updatedUser },
+});
+
 export default {
   authorizeRequest,
   authorizeReceive,
   authorizeFail,
   logout,
   initialization,
+  updateUser,
 };

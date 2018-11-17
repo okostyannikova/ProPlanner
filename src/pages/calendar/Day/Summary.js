@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { typesOptions, workingTime } from 'config';
+import { typesOptions } from 'config';
 import { minutesToCivilTime } from 'utils/helpers';
 
-const Summary = ({ summary }) => {
+const Summary = ({ summary, workingTime }) => {
   const width = num => `${(num * 100) / workingTime}%`;
 
   return (
@@ -28,6 +28,7 @@ const Summary = ({ summary }) => {
 
 Summary.propTypes = {
   summary: PropTypes.object.isRequired,
+  workingTime: PropTypes.number.isRequired,
 };
 
 export default Summary;

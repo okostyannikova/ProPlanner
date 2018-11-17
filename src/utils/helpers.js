@@ -24,3 +24,5 @@ export const getTextColor = bgColor => {
   }
   return lightTextColor;
 };
+
+export const getWorkingTime = (start, end) => (parseInt(end, 10) - parseInt(start, 10)) * 60;

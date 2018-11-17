@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { typesOptions, workingTime } from 'config';
+import { typesOptions } from 'config';
 import styled, { css } from 'styled-components';
 import { getDaySummary } from 'utils/events';
 import { withWindowWidth } from 'components/hocs/window-context';
 
 const colors = { ...typesOptions, blank: 'rgb(245,245,245)' };
 
-const Summary = ({ events, windowWidth }) => {
+const Summary = ({ events, windowWidth, workingTime }) => {
   const isDesktop = windowWidth > 576;
   const desktopRadius = 23.6;
   const mobileRadius = 16.8;
@@ -60,6 +60,7 @@ Summary.defaultProps = {
 Summary.propTypes = {
   events: PropTypes.array,
   windowWidth: PropTypes.number.isRequired,
+  workingTime: PropTypes.number.isRequired,
 };
 
 export default withWindowWidth(Summary);

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Switch from '@material-ui/core/Switch';
 import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
+import { settingsOperations } from 'modules/Settings';
 import TimePickers from './settings/TimePickers';
 import Priority from './settings/Priority';
 import Type from './settings/Type';
@@ -28,12 +29,9 @@ const styles = {
 class Settings extends Component {
   constructor(props) {
     super(props);
-    const { workingStartTime, workingEndTime } = props;
-
     this.state = {
       checkedB: true,
-      start: workingStartTime,
-      end: workingEndTime,
+      error: false,
     };
   }
 
@@ -41,13 +39,42 @@ class Settings extends Component {
     this.setState({ [name]: event.target.checked });
   };
 
-  handleStartDateChange = date => this.setState(prevState => ({ ...prevState, start: date }));
+  validateTime = time => {
+    const timeToMinutes = value => value.split(':')[0] * 60 + Number(value.split(':')[1]);
+    const start = timeToMinutes(time.start);
+    const end = timeToMinutes(time.end);
+    const range = 8 * 60;
+    if (end - start < range) {
+      this.setState(prevState => ({ ...prevState, error: true }));
+      setTimeout(() => {
+        this.setState(prevState => ({ ...prevState, error: false }));
+      }, 5000);
+      return false;
+    }
+    return true;
+  };
 
-  handleEndDateChange = date => this.setState(prevState => ({ ...prevState, end: date }));
+  handleStartDateChange = newTime => {
+    const { updateWorkTime, workingEndTime } = this.props;
+    const time = {
+      start: newTime.format('HH:mm:SS'),
+      end: workingEndTime.format('HH:mm:SS'),
+    };
+    if (this.validateTime(time)) updateWorkTime(time);
+  };
+
+  handleEndDateChange = newTime => {
+    const { updateWorkTime, workingStartTime } = this.props;
+    const time = {
+      start: workingStartTime.format('HH:mm:SS'),
+      end: newTime.format('HH:mm:SS'),
+    };
+    if (this.validateTime(time)) updateWorkTime(time);
+  };
 
   render() {
-    const { avatar, name, email, classes } = this.props;
-    const { start, end, checkedB } = this.state;
+    const { avatar, name, email, classes, workingStartTime, workingEndTime } = this.props;
+    const { checkedB, error } = this.state;
     return (
       <PageContainer className="page-content settings">
         <UserInfo>
@@ -100,8 +127,9 @@ class Settings extends Component {
                 <TimePickers
                   handleStartDateChange={this.handleStartDateChange}
                   handleEndDateChange={this.handleEndDateChange}
-                  start={start}
-                  end={end}
+                  start={workingStartTime}
+                  end={workingEndTime}
+                  error={error}
                 />
               </Content>
             </SettingsItem>
@@ -189,6 +217,7 @@ Settings.propTypes = {
   workingStartTime: PropTypes.object.isRequired,
   workingEndTime: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  updateWorkTime: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => {
@@ -212,7 +241,10 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(Settings));
+export default connect(
+  mapStateToProps,
+  { updateWorkTime: settingsOperations.updateWorkTime }
+)(withStyles(styles)(Settings));
 
 const PageContainer = styled.div`
   padding: 64px 9% 0px 9%;
@@ -294,9 +326,15 @@ const SettingsItem = styled.li`
   &:not(:last-child) {
     margin-bottom: 38px;
   }
+  &:first-child {
+    margin-bottom: 22px;
+  }
   @media (max-width: 630px) {
     &:not(:last-child) {
       margin-bottom: 25px;
+    }
+    &:first-child {
+      margin-bottom: 10px;
     }
   }
 `;

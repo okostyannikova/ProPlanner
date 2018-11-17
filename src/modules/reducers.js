@@ -8,6 +8,7 @@ import calendarReducer from './Calendar';
 import eventsReducer from './Events';
 import goalsReducer from './Goals';
 import tasksReducer from './Tasks';
+import settingsReducer from './Settings';
 
 const rootReducer = combineReducers({
   auth: authorizeReducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   events: eventsReducer,
   goals: goalsReducer,
   form: formReducer,
+  settings: settingsReducer,
   notifications,
 });
 
