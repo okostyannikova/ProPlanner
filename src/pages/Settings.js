@@ -31,11 +31,27 @@ class Settings extends Component {
     super(props);
     this.state = {
       checkedB: true,
+      error: false,
     };
   }
 
   handleChange = name => event => {
     this.setState({ [name]: event.target.checked });
+  };
+
+  validateTime = time => {
+    const timeToMinutes = value => value.split(':')[0] * 60 + Number(value.split(':')[1]);
+    const start = timeToMinutes(time.start);
+    const end = timeToMinutes(time.end);
+    const range = 8 * 60;
+    if (end - start < range) {
+      this.setState(prevState => ({ ...prevState, error: true }));
+      setTimeout(() => {
+        this.setState(prevState => ({ ...prevState, error: false }));
+      }, 5000);
+      return false;
+    }
+    return true;
   };
 
   handleStartDateChange = newTime => {
@@ -44,7 +60,7 @@ class Settings extends Component {
       start: newTime.format('HH:mm:SS'),
       end: workingEndTime.format('HH:mm:SS'),
     };
-    updateWorkTime(time);
+    if (this.validateTime(time)) updateWorkTime(time);
   };
 
   handleEndDateChange = newTime => {
@@ -53,12 +69,12 @@ class Settings extends Component {
       start: workingStartTime.format('HH:mm:SS'),
       end: newTime.format('HH:mm:SS'),
     };
-    updateWorkTime(time);
+    if (this.validateTime(time)) updateWorkTime(time);
   };
 
   render() {
     const { avatar, name, email, classes, workingStartTime, workingEndTime } = this.props;
-    const { checkedB } = this.state;
+    const { checkedB, error } = this.state;
     return (
       <PageContainer className="page-content settings">
         <UserInfo>
@@ -113,6 +129,7 @@ class Settings extends Component {
                   handleEndDateChange={this.handleEndDateChange}
                   start={workingStartTime}
                   end={workingEndTime}
+                  error={error}
                 />
               </Content>
             </SettingsItem>
@@ -309,9 +326,15 @@ const SettingsItem = styled.li`
   &:not(:last-child) {
     margin-bottom: 38px;
   }
+  &:first-child {
+    margin-bottom: 22px;
+  }
   @media (max-width: 630px) {
     &:not(:last-child) {
       margin-bottom: 25px;
+    }
+    &:first-child {
+      margin-bottom: 10px;
     }
   }
 `;
