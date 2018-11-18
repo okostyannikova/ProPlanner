@@ -7,10 +7,12 @@ import * as moment from 'moment';
 import TextComponent from 'components/TextComponent/TextComponent';
 import Time from 'components/TimePickerComponent/Time';
 import { required, maxTitleLength, maxDescriptionLength } from 'utils/validate';
+import SelectComponent from 'components/SelectComponent/SelectComponent';
 import Tasks from './eventform/Tasks';
 import DropsContainer from './eventform/DropsContainer.js';
 import { eventsOperations } from '../modules/Events';
 import { tasksOperations } from '../modules/Tasks';
+import { goalsOperations } from '../modules/Goals';
 
 class EventForm extends Component {
   state = {
@@ -31,7 +33,21 @@ class EventForm extends Component {
   };
 
   render() {
-    const { eventsList, handleSubmit, reset, patchEvent, history, addEvent, match } = this.props;
+    const {
+      eventsList,
+      handleSubmit,
+      reset,
+      patchEvent,
+      history,
+      addEvent,
+      match,
+      goals,
+      restoreData,
+      setSearch,
+      loadData,
+      lastPageNumber,
+      search,
+    } = this.props;
 
     const path = match.path;
     const isEditPath = path.includes('edit');
@@ -74,6 +90,23 @@ class EventForm extends Component {
               </li>
               <li>
                 <Field
+                  name="select"
+                  component={SelectComponent}
+                  headerClass="goal-component"
+                  headerContent="Goals"
+                  placeholder="add goal..."
+                  options={goals}
+                  view={view}
+                  search={setSearch}
+                  restoreData={restoreData}
+                  loadData={loadData}
+                  lastPageNumber={lastPageNumber}
+                  numberOfCards={15}
+                  searchResult={search}
+                />
+              </li>
+              <li>
+                <Field
                   name="description"
                   component={TextComponent}
                   value={event ? event.description : 'add a detailed description...'}
@@ -85,6 +118,7 @@ class EventForm extends Component {
                   validate={[maxDescriptionLength]}
                 />
               </li>
+
               <li>
                 <Field name="tasks" component={Tasks} view={view} />
               </li>
@@ -118,6 +152,7 @@ const mapStateToProps = state => {
     .add(30, 'minutes')
     .format();
   let tasks = [];
+  let select = '';
 
   if (state.events.eventsSingleEvent) {
     id = state.events.eventsSingleEvent.id;
@@ -128,11 +163,15 @@ const mapStateToProps = state => {
     startTime = state.events.eventsSingleEvent.attributes['start-date'].format();
     endTime = state.events.eventsSingleEvent.attributes['end-date'].format();
     tasks = state.tasks.tasksList;
+    select = state.events.eventsSingleEvent.attributes['goal-id'];
   }
 
   return {
     eventsList: state.events.eventsSingleEvent,
     tasksList: state.tasks.tasksList,
+    goals: state.goals.goalsList,
+    search: state.goals.search,
+    lastPageNumber: state.goals.lastPageNumber,
     initialValues: {
       id,
       title,
@@ -142,6 +181,7 @@ const mapStateToProps = state => {
       startTime,
       endTime,
       tasks,
+      select,
     },
   };
 };
@@ -157,6 +197,9 @@ export default (EventForm = compose(
       unloadTasks: tasksOperations.unloadTasks,
       addEvent: eventsOperations.addEvent,
       deleteEvent: eventsOperations.deleteEvent,
+      loadData: goalsOperations.loadGoals,
+      restoreData: goalsOperations.restoreGoals,
+      setSearch: goalsOperations.setSearch,
     }
   ),
   reduxForm({

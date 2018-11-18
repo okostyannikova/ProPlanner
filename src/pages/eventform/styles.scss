@@ -106,6 +106,17 @@
 			}
 		}
 
+		.goal-component::before{
+			@extend %input-icon;
+			content: url('../../assets/images/goals-icon.svg');
+			width: 24px;
+			height: 24px;
+
+			@media (max-width: 575.98px){
+				left: 0;
+			}
+		}
+
 		.description-component::before{
 			@extend %input-icon;
 			content: url('../../assets/images/description-icon.svg');
