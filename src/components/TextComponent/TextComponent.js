@@ -66,7 +66,7 @@ class TextComponent extends Component {
     const noAddPath = meta
       ? meta.error && meta.dirty && <div className="error-text">{meta.error}</div>
       : null;
-
+    // console.log(this.props);
     return (
       <div>
         <p className={headerClass}>{headerContent}</p>

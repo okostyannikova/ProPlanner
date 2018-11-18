@@ -53,9 +53,6 @@ const customStyles = {
     color: isSelected ? 'white' : 'rgba(51, 102, 180, 0.87)',
     backgroundColor: isSelected ? '#00bcd4' : isFocused ? 'rgba(0, 188, 212, 0.1)' : null,
     cursor: 'pointer',
-    '&hover': {
-      backgroundColor: 'red',
-    },
   }),
 };
 
