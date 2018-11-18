@@ -8,11 +8,6 @@ import debounce from 'lodash.debounce';
 import './styles.css';
 
 const customStyles = {
-  option: provided => ({
-    ...provided,
-    color: 'rgba(51, 102, 180, 0.87)',
-    cursor: 'pointer',
-  }),
   control: (styles, props) => ({
     ...styles,
     border: 'none',
@@ -38,11 +33,10 @@ const customStyles = {
     ...styles,
     display: props.selectProps.view ? 'none' : 'flex',
   }),
-  singleValue: provided => {
-    const transition = 'opacity 300ms';
-
-    return { ...provided, transition };
-  },
+  singleValue: styles => ({
+    ...styles,
+    transition: 'opacity 300ms',
+  }),
   indicatorSeparator: (styles, props) => ({
     ...styles,
     backgroundColor: props.selectProps.view ? '#FFFFFF' : 'rgba(0, 0, 0, 0.12)',
@@ -52,6 +46,15 @@ const customStyles = {
     color: props.selectProps.view ? '#FFFFFF' : 'rgba(0, 0, 0, 0.12)',
     '&:hover': {
       color: props.selectProps.view ? '#FFFFFF' : 'rgba(52, 70, 98, 0.87)',
+    },
+  }),
+  option: (styles, { isSelected, isFocused }) => ({
+    ...styles,
+    color: isSelected ? 'white' : 'rgba(51, 102, 180, 0.87)',
+    backgroundColor: isSelected ? '#00bcd4' : isFocused ? 'rgba(0, 188, 212, 0.1)' : null,
+    cursor: 'pointer',
+    '&hover': {
+      backgroundColor: 'red',
     },
   }),
 };
