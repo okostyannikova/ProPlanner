@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { required, maxDescriptionLength } from 'utils/validate';
+
 import { Field } from 'redux-form';
 import SpecificIcon from 'components/Icons/smartIcons/SpecificIcon';
 import MeasurableIcon from 'components/Icons/smartIcons/MeasurableIcon.js';
@@ -20,9 +22,21 @@ class SmartComponent extends Component {
   state = {
     openIndex: 0,
     tabToched: false,
+    errors: [false, false, false, false, false],
   };
 
-  clickHandle = index => {
+  errorHandler = (index, error, view) => {
+    if (view) {
+      this.setState({ errors: [false, false, false, false, false] });
+      return;
+    }
+    const { errors } = this.state;
+    const tempArray = [...errors];
+    tempArray[index] = !!error;
+    this.setState({ errors: tempArray });
+  };
+
+  clickHandler = index => {
     if (index === this.state.openIndex) {
       this.setState({ openIndex: 5, tabToched: true });
       return;
@@ -32,8 +46,9 @@ class SmartComponent extends Component {
   };
 
   render() {
-    const { openIndex, tabToched } = this.state;
+    const { openIndex, tabToched, errors } = this.state;
     const { view } = this.props;
+    const isError = errors.filter(error => !!error);
 
     return (
       <div>
@@ -50,13 +65,19 @@ class SmartComponent extends Component {
                 key={index}
                 index={index}
                 isOpen={isOpen}
-                clickHandler={this.clickHandle}
+                clickHandler={this.clickHandler}
                 view={view}
                 tabToched={tabToched}
+                validate={[required, maxDescriptionLength]}
+                errorHandler={this.errorHandler}
+                error={errors[index]}
               />
             );
           })}
         </ul>
+        {isError.length && !view ? (
+          <p className="error-text">All SMART-criteria fields must be filled</p>
+        ) : null}
       </div>
     );
   }

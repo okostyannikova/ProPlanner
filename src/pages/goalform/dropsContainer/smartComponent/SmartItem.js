@@ -6,10 +6,16 @@ class SmartItem extends Component {
 
     this.state = {
       value: '',
+      dirty: false,
     };
   }
 
   componentWillReceiveProps = newProps => {
+    const { errorHandler, index, view } = this.props;
+
+    !newProps.view
+      ? errorHandler(index, newProps.meta.error, view)
+      : errorHandler(index, undefined, view);
     this.setState({ value: newProps.input.value });
   };
 
@@ -17,7 +23,7 @@ class SmartItem extends Component {
     const { input } = this.props;
 
     input.onChange(e.target.value);
-    this.setState({ value: e.target.value });
+    this.setState({ value: e.target.value, dirty: true });
   };
 
   nextCriteriaHandle = e => {
@@ -37,18 +43,19 @@ class SmartItem extends Component {
   };
 
   render() {
-    const { isOpen, clickHandler, icon, text, input, view, index, tabToched } = this.props;
-    const { value } = this.state;
-
+    const { isOpen, clickHandler, icon, text, input, view, index, tabToched, error } = this.props;
+    const { value, dirty } = this.state;
     const headerTitle = value.length > 20 ? `${value.slice(0, 20)}...` : value;
     const touched = !tabToched && index === 0;
+    const additionalClass = error && dirty && !view ? 'list__header-error' : '';
+    const additionalTextAreaClass = error && dirty && !view ? 'list__text-area--error' : '';
 
     return (
       <li className="list__block" onKeyDown={this.nextCriteriaHandle} tabIndex="-1">
         <div
           className={`list__header ${isOpen ? 'list__header--active' : ''} ${
             view ? 'list__header--view' : ''
-          }`}
+          } ${additionalClass}`}
           onClick={() => clickHandler(index)}
         >
           <span className="list__header-icon">{icon}</span>
@@ -71,7 +78,7 @@ class SmartItem extends Component {
                 <p>Which resources or limits are involved?</p>
               </div>
               <textarea
-                className="list__text-area"
+                className={`list__text-area ${additionalTextAreaClass}`}
                 rows="2"
                 placeholder="Specify your requirement"
                 value={value}
