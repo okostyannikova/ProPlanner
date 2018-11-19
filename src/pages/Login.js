@@ -65,19 +65,6 @@ const Text = styled.p`
   }
 `;
 
-/* const Link = styled.a`
-  margin-left: 5px;
-
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
-  line-height: normal;
-  font-size: 18px;
-  text-decoration-line: underline;
-  cursor: pointer;
-  color: #00bcd4;
-`; */
-
 class Login extends React.Component {
   state = {
     redirectToReferrer: false,
@@ -128,8 +115,8 @@ class Login extends React.Component {
           <Header>Become a member</Header>
 
           <Text>
-            Lorem ipsum dolor sit amet, sed do eiusmod tempor ut labore et dolore magna aliqua ut
-            enim ad minim veniam.
+            ProPlanner - is a tool which help to put in order your work and personal goals using the
+            SMART methodology. Just try it and you will not be able to plan in a different way!
           </Text>
 
           <Button clickHandle={() => this.login(authorize)} loading={loading} />
