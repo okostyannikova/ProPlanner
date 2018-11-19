@@ -116,7 +116,7 @@ class Login extends React.Component {
 
           <Text>
             ProPlanner - is a tool which help to put in order your work and personal goals using the
-            SMART metodology. Just try it and you will not be able to plan in a different way!
+            SMART methodology. Just try it and you will not be able to plan in a different way!
           </Text>
 
           <Button clickHandle={() => this.login(authorize)} loading={loading} />
