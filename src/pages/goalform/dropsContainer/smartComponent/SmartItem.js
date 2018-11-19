@@ -43,7 +43,18 @@ class SmartItem extends Component {
   };
 
   render() {
-    const { isOpen, clickHandler, icon, text, input, view, index, tabToched, error } = this.props;
+    const {
+      isOpen,
+      clickHandler,
+      icon,
+      text,
+      input,
+      view,
+      index,
+      tabToched,
+      error,
+      description,
+    } = this.props;
     const { value, dirty } = this.state;
     const headerTitle = value.length > 20 ? `${value.slice(0, 20)}...` : value;
     const touched = !tabToched && index === 0;
@@ -73,10 +84,7 @@ class SmartItem extends Component {
         ) : (
           <div className={isOpen ? 'displayed' : 'hidden-block'}>
             <div className="list__edit">
-              <div className="list__description">
-                <p>What do I want to accomplish?</p>
-                <p>Which resources or limits are involved?</p>
-              </div>
+              <div className="list__description">{description}</div>
               <textarea
                 className={`list__text-area ${additionalTextAreaClass}`}
                 rows="2"
