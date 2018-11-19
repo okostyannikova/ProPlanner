@@ -33,7 +33,7 @@ const Home = () => (
         ad minim veniam.
       </p>
       <div className="home__buttons-wrapper">
-        <Link to="/" className="home__button" data-qa="set-goals-link">
+        <Link to="/goal/add" className="home__button" data-qa="set-goals-link">
           <GoalIcon />
           Goal Setter
         </Link>
