@@ -16,12 +16,12 @@ const styles = theme => ({
 
 const options = [
   {
-    tag: 'Personal',
-    icon: <TypeSquare fill={typesOptions.personal} />,
-  },
-  {
     tag: 'Work',
     icon: <TypeSquare fill={typesOptions.work} />,
+  },
+  {
+    tag: 'Personal',
+    icon: <TypeSquare fill={typesOptions.personal} />,
   },
   {
     tag: 'Entertainment',
@@ -44,6 +44,8 @@ class Type extends Component {
   };
 
   handleMenuItemClick = index => {
+    const { handleTypeChange } = this.props;
+    handleTypeChange(index);
     this.setState({ selectedIndex: index, anchorEl: null });
   };
 
@@ -88,6 +90,7 @@ class Type extends Component {
 Type.propTypes = {
   classes: PropTypes.object.isRequired,
   type: PropTypes.number.isRequired,
+  handleTypeChange: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(Type);
