@@ -42,10 +42,37 @@ const DefaultContainer = props => (
 );
 
 export default class App extends Component {
+  state = {
+    networkStatus: 'online',
+  };
+
+  componentDidMount() {
+    window.addEventListener('offline', () => this.setNetworkStatus('offline'), false);
+    window.addEventListener('online', () => this.setNetworkStatus('online'), false);
+  }
+
+  setNetworkStatus(status) {
+    const initialStatus = window.navigator.onLine ? 'online' : 'offline';
+    const networkStatus = status || initialStatus;
+    this.setState({ networkStatus });
+  }
+
+  getNetworkStatusTemplate() {
+    const { networkStatus } = this.state;
+    return (
+      <div className={`network-status ${networkStatus}`}>
+        {networkStatus === 'offline'
+          ? 'Seems you are offline. Please check your connection'
+          : 'You are online'}
+      </div>
+    );
+  }
+
   render() {
     return (
       <div>
         <WindowContextProvider>
+          {this.getNetworkStatusTemplate()}
           <Switch>
             <Route exact path="/login" component={LoginContainer} />
             <PrivateRoute path="/page-not-found" component={Error404} />

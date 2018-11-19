@@ -69,3 +69,28 @@ img {
     min-height: calc(100vh - 50px);
   }
 }
+
+.network-status {
+  text-align: center;
+  color: #ffffff;
+  position: fixed;
+  height: 2em;
+  line-height: 2em;
+  margin-top: -2em;
+  z-index: 120;
+  width: 100%;
+
+  &.online {
+    background: #64c37d;
+    & + div {
+      transition: margin .4s ease 2s;
+    }
+  }
+  &.offline {
+    background: #e44533;
+    & + div {
+      margin-top: 2em;
+      transition: margin .4s ease .3s;
+    }
+  }
+}
