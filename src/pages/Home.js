@@ -28,10 +28,7 @@ const Home = () => (
         <Logo />
       </div>
       <h1 className="home__title">Welcome</h1>
-      <p className="home__text">
-        Lorem ipsum dolor sit amet, sed do eiusmod tempor ut labore et dolore magna aliqua ut enim
-        ad minim veniam.
-      </p>
+      <p className="home__text">Set your goals and plan your time effectively with ProPlanner</p>
       <div className="home__buttons-wrapper">
         <Link to="/" className="home__button" data-qa="set-goals-link">
           <GoalIcon />
