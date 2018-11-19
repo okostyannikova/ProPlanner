@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { typesOptions } from 'config';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { getDaySummary } from 'utils/events';
 import { withWindowWidth } from 'components/hocs/window-context';
 
