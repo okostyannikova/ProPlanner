@@ -31,13 +31,13 @@ class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      checkedB: true,
       error: false,
     };
   }
 
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.checked });
+  handleChange = () => event => {
+    const { updateSyncToGoogleCalendar } = this.props;
+    updateSyncToGoogleCalendar(event.target.checked);
   };
 
   validateTime = time => {
@@ -101,8 +101,9 @@ class Settings extends Component {
       workingEndTime,
       defaultType,
       defaultPriority,
+      syncEnabled,
     } = this.props;
-    const { checkedB, error } = this.state;
+    const { error } = this.state;
     return (
       <PageContainer className="page-content settings">
         <UserInfo>
@@ -223,16 +224,18 @@ class Settings extends Component {
             </SettingsItem>
             <SettingsItemSwitch>
               <StyledSwitch
-                checked={checkedB}
-                onChange={this.handleChange('checkedB')}
-                value="checkedB"
+                checked={syncEnabled}
+                onChange={this.handleChange()}
+                value="syncEnabled"
                 classes={{
                   switchBase: classes.colorSwitchBase,
                   checked: classes.colorChecked,
                   bar: classes.colorBar,
                 }}
               />
-              <Title>Disable auto sync with Google Calendar</Title>
+              <Title>
+                {`${syncEnabled ? 'Disable' : 'Enable'} auto sync with Google Calendar`}
+              </Title>
             </SettingsItemSwitch>
           </ul>
         </SettingsContainer>
@@ -249,9 +252,11 @@ Settings.propTypes = {
   defaultPriority: PropTypes.number.isRequired,
   workingStartTime: PropTypes.object.isRequired,
   workingEndTime: PropTypes.object.isRequired,
+  syncEnabled: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
   updateWorkTime: PropTypes.func.isRequired,
   updateEventsSettings: PropTypes.func.isRequired,
+  updateSyncToGoogleCalendar: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => {
@@ -276,6 +281,7 @@ const mapStateToProps = state => {
       .milliseconds(0),
     defaultType: typesList.indexOf(user.default_events_type),
     defaultPriority: priorityList.indexOf(user.default_events_priority),
+    syncEnabled: user.sync_enabled,
   };
 };
 
@@ -284,6 +290,7 @@ export default connect(
   {
     updateWorkTime: settingsOperations.updateWorkTime,
     updateEventsSettings: settingsOperations.updateEventsSettings,
+    updateSyncToGoogleCalendar: settingsOperations.updateSyncToGoogleCalendar,
   }
 )(withStyles(styles)(Settings));
 
