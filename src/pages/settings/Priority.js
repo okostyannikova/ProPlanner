@@ -44,6 +44,8 @@ class Priority extends Component {
   };
 
   handleMenuItemClick = index => {
+    const { handlePriorityChange } = this.props;
+    handlePriorityChange(index);
     this.setState({ selectedIndex: index, anchorEl: null });
   };
 
@@ -88,6 +90,7 @@ class Priority extends Component {
 Priority.propTypes = {
   classes: PropTypes.object.isRequired,
   priority: PropTypes.number.isRequired,
+  handlePriorityChange: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(Priority);

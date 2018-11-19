@@ -6,6 +6,7 @@ import Switch from '@material-ui/core/Switch';
 import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import { settingsOperations } from 'modules/Settings';
+import { typesOptions, priorityOptions } from 'config';
 import TimePickers from './settings/TimePickers';
 import Priority from './settings/Priority';
 import Type from './settings/Type';
@@ -30,13 +31,13 @@ class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      checkedB: true,
       error: false,
     };
   }
 
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.checked });
+  handleChange = () => event => {
+    const { updateSyncToGoogleCalendar } = this.props;
+    updateSyncToGoogleCalendar(event.target.checked);
   };
 
   validateTime = time => {
@@ -72,9 +73,37 @@ class Settings extends Component {
     if (this.validateTime(time)) updateWorkTime(time);
   };
 
+  handleTypeChange = newType => {
+    const { updateEventsSettings, defaultPriority } = this.props;
+    const settings = {
+      default_events_type: newType,
+      default_events_priority: defaultPriority,
+    };
+    updateEventsSettings(settings);
+  };
+
+  handlePriorityChange = newPriority => {
+    const { updateEventsSettings, defaultType } = this.props;
+    const settings = {
+      default_events_type: defaultType,
+      default_events_priority: newPriority,
+    };
+    updateEventsSettings(settings);
+  };
+
   render() {
-    const { avatar, name, email, classes, workingStartTime, workingEndTime } = this.props;
-    const { checkedB, error } = this.state;
+    const {
+      avatar,
+      name,
+      email,
+      classes,
+      workingStartTime,
+      workingEndTime,
+      defaultType,
+      defaultPriority,
+      syncEnabled,
+    } = this.props;
+    const { error } = this.state;
     return (
       <PageContainer className="page-content settings">
         <UserInfo>
@@ -151,7 +180,7 @@ class Settings extends Component {
                 Default type
               </Title>
               <Content>
-                <Type type={0} />
+                <Type type={defaultType} handleTypeChange={this.handleTypeChange} />
               </Content>
             </SettingsItem>
             <SettingsItem>
@@ -187,21 +216,26 @@ class Settings extends Component {
                 Default priority
               </Title>
               <Content>
-                <Priority priority={0} />
+                <Priority
+                  priority={defaultPriority}
+                  handlePriorityChange={this.handlePriorityChange}
+                />
               </Content>
             </SettingsItem>
             <SettingsItemSwitch>
               <StyledSwitch
-                checked={checkedB}
-                onChange={this.handleChange('checkedB')}
-                value="checkedB"
+                checked={syncEnabled}
+                onChange={this.handleChange()}
+                value="syncEnabled"
                 classes={{
                   switchBase: classes.colorSwitchBase,
                   checked: classes.colorChecked,
                   bar: classes.colorBar,
                 }}
               />
-              <Title>Disable auto sync with Google Calendar</Title>
+              <Title>
+                {`${syncEnabled ? 'Disable' : 'Enable'} auto sync with Google Calendar`}
+              </Title>
             </SettingsItemSwitch>
           </ul>
         </SettingsContainer>
@@ -214,16 +248,23 @@ Settings.propTypes = {
   avatar: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
+  defaultType: PropTypes.number.isRequired,
+  defaultPriority: PropTypes.number.isRequired,
   workingStartTime: PropTypes.object.isRequired,
   workingEndTime: PropTypes.object.isRequired,
+  syncEnabled: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
   updateWorkTime: PropTypes.func.isRequired,
+  updateEventsSettings: PropTypes.func.isRequired,
+  updateSyncToGoogleCalendar: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => {
   const { user } = state.auth.user;
   const startTime = user.working_start_time.split(':');
   const endTime = user.working_end_time.split(':');
+  const typesList = Object.keys(typesOptions);
+  const priorityList = Object.keys(priorityOptions);
   return {
     avatar: user.avatar,
     name: `${user.first_name} ${user.last_name}`,
@@ -238,12 +279,23 @@ const mapStateToProps = state => {
       .minutes(endTime[1])
       .seconds(0)
       .milliseconds(0),
+    defaultType:
+      user.default_events_type !== null ? typesList.indexOf(user.default_events_type) : 0,
+    defaultPriority:
+      user.default_events_priority !== null
+        ? priorityList.indexOf(user.default_events_priority)
+        : 0,
+    syncEnabled: user.sync_enabled,
   };
 };
 
 export default connect(
   mapStateToProps,
-  { updateWorkTime: settingsOperations.updateWorkTime }
+  {
+    updateWorkTime: settingsOperations.updateWorkTime,
+    updateEventsSettings: settingsOperations.updateEventsSettings,
+    updateSyncToGoogleCalendar: settingsOperations.updateSyncToGoogleCalendar,
+  }
 )(withStyles(styles)(Settings));
 
 const PageContainer = styled.div`

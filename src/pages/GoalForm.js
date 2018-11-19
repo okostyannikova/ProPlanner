@@ -8,6 +8,7 @@ import TextComponent from 'components/TextComponent/TextComponent';
 import SelectComponent from 'components/SelectComponent/SelectComponent';
 import Time from 'components/TimePickerComponent/Time';
 import { required, maxTitleLength, maxDescriptionLength } from 'utils/validate';
+import { typesOptions } from 'config';
 import Type from './goalform/goalTypeComponent.js';
 import ImageDropzone from './goalform/ImageDropzone';
 import DropsContainer from './goalform/DropsContainer.js';
@@ -41,6 +42,7 @@ class GoalForm extends Component {
       lastPageNumber,
       search,
       events,
+      defaultType,
     } = this.props;
 
     const path = match.path;
@@ -50,7 +52,7 @@ class GoalForm extends Component {
 
     const goal = goalsList ? goalsList.attributes : '';
     const goalsListId = goalsList ? goalsList.id : '';
-    const goalType = goal ? goal['goal-type'] : '1';
+    const goalType = goal ? goal['goal-type'] : defaultType;
 
     const submit = values => {
       if (isAddPath) {
@@ -155,6 +157,9 @@ const mapStateToProps = state => {
   let select = [];
   let picture = '';
 
+  const { user } = state.auth.user;
+  const typesList = Object.keys(typesOptions);
+
   if (state.goals.goalsSingleGoal) {
     id = state.goals.goalsSingleGoal.id;
     title = state.goals.goalsSingleGoal.attributes.title;
@@ -191,6 +196,8 @@ const mapStateToProps = state => {
       select,
       picture,
     },
+    defaultType:
+      user.default_events_type !== null ? typesList.indexOf(user.default_events_type) : 0,
   };
 };
 
