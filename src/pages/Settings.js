@@ -279,8 +279,12 @@ const mapStateToProps = state => {
       .minutes(endTime[1])
       .seconds(0)
       .milliseconds(0),
-    defaultType: typesList.indexOf(user.default_events_type),
-    defaultPriority: priorityList.indexOf(user.default_events_priority),
+    defaultType:
+      user.default_events_type !== null ? typesList.indexOf(user.default_events_type) : 0,
+    defaultPriority:
+      user.default_events_priority !== null
+        ? priorityList.indexOf(user.default_events_priority)
+        : 0,
     syncEnabled: user.sync_enabled,
   };
 };

@@ -17,12 +17,12 @@ const styles = theme => ({
 
 const options = [
   {
-    tag: 'Personal',
-    icon: <TypeSquare fill={typesOptions.personal} />,
-  },
-  {
     tag: 'Work',
     icon: <TypeSquare fill={typesOptions.work} />,
+  },
+  {
+    tag: 'Personal',
+    icon: <TypeSquare fill={typesOptions.personal} />,
   },
   {
     tag: 'Entertainment',

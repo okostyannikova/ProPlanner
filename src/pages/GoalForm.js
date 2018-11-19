@@ -8,7 +8,7 @@ import TextComponent from 'components/TextComponent/TextComponent';
 import SelectComponent from 'components/SelectComponent/SelectComponent';
 import Time from 'components/TimePickerComponent/Time';
 import { required, maxTitleLength, maxDescriptionLength } from 'utils/validate';
-import { typesOptions} from 'config';
+import { typesOptions } from 'config';
 import Type from './goalform/goalTypeComponent.js';
 import ImageDropzone from './goalform/ImageDropzone';
 import DropsContainer from './goalform/DropsContainer.js';
@@ -196,7 +196,8 @@ const mapStateToProps = state => {
       select,
       picture,
     },
-    defaultType: typesList.indexOf(user.default_events_type),
+    defaultType:
+      user.default_events_type !== null ? typesList.indexOf(user.default_events_type) : 0,
   };
 };
 

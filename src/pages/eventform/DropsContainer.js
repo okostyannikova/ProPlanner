@@ -85,7 +85,11 @@ export default connect(state => {
   const typesList = Object.keys(typesOptions);
   const priorityList = Object.keys(priorityOptions);
   return {
-    defaultPriority: priorityList.indexOf(user.default_events_priority),
-    defaultType: typesList.indexOf(user.default_events_type),
+    defaultType:
+      user.default_events_type !== null ? typesList.indexOf(user.default_events_type) : 0,
+    defaultPriority:
+      user.default_events_priority !== null
+        ? priorityList.indexOf(user.default_events_priority)
+        : 0,
   };
 })(DropsContainer);
