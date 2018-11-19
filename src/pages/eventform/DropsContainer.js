@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
-// import Notification from './dropsContainer/Notification.js';
-// import Location from './dropsContainer/Location.js';
+import { typesOptions, priorityOptions } from 'config';
 import Priority from 'components/PriorityComponent/Priority';
 import Type from 'components/TypeComponent/Type';
+import { connect } from 'react-redux';
 import MainButton from './dropsContainer/MainButton.js';
 import SecondaryButton from './dropsContainer/SecondaryButton.js';
 
@@ -25,6 +25,8 @@ class DropsContainer extends Component {
       valid,
       deleteEvent,
       eventsListId,
+      defaultPriority,
+      defaultType,
     } = this.props;
 
     let mainButtonLink = '';
@@ -38,8 +40,8 @@ class DropsContainer extends Component {
 
     const secondaryButtonLink = view || isAddPath ? '/events' : `/event/${match.params.id}`;
 
-    const priority = event ? event.priority : '1';
-    const eventType = event ? event['event-type'] : '1';
+    const priority = event ? event.priority : defaultPriority;
+    const eventType = event ? event['event-type'] : defaultType;
 
     return (
       <div>
@@ -78,4 +80,12 @@ class DropsContainer extends Component {
   }
 }
 
-export default DropsContainer;
+export default connect(state => {
+  const { user } = state.auth.user;
+  const typesList = Object.keys(typesOptions);
+  const priorityList = Object.keys(priorityOptions);
+  return {
+    defaultPriority: priorityList.indexOf(user.default_events_priority),
+    defaultType: typesList.indexOf(user.default_events_type),
+  };
+})(DropsContainer);

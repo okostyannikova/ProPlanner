@@ -19,10 +19,6 @@ const styles = theme => ({
 });
 
 const options = [
-  /*  {
-    tag: 'Important',
-    icon: <PriorityArrow fill={priorityOptions.important.color} />,
-  }, */
   {
     tag: 'High',
     icon: <PriorityArrow fill={priorityOptions.high.color} />,
