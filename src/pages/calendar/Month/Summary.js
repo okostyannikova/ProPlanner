@@ -19,7 +19,11 @@ const Summary = ({ events, windowWidth, workingTime }) => {
   let prevLength = 0;
   if (events.length) eventsSummary = { ...getDaySummary(events), blank: workingTime };
   return (
-    <StyledSvg width={isDesktop ? 50 : 35.3} height={isDesktop ? 50 : 35.3}>
+    <StyledSvg
+      width={isDesktop ? 50 : 35.3}
+      height={isDesktop ? 50 : 35.3}
+      xmlns="http://www.w3.org/2000/svg"
+    >
       {Object.keys(eventsSummary).map((type, i) => {
         const svgLenght = getSvgLenght(getEventWidth(eventsSummary[type]));
         offset += prevLength;
@@ -33,7 +37,7 @@ const Summary = ({ events, windowWidth, workingTime }) => {
             strokeDashoffset={-offset}
             strokeWidth={isDesktop ? 3 : 2}
             fill="none"
-            radius={isDesktop ? desktopRadius : mobileRadius}
+            r={isDesktop ? desktopRadius : mobileRadius}
           />
         );
         prevLength = +svgLenght + 5;
@@ -47,7 +51,7 @@ const Summary = ({ events, windowWidth, workingTime }) => {
           strokeDasharray="5, 157"
           strokeWidth={isDesktop ? 3 : 2}
           fill="none"
-          radius={isDesktop ? desktopRadius : mobileRadius}
+          r={isDesktop ? desktopRadius : mobileRadius}
         />
       )}
     </StyledSvg>
@@ -70,17 +74,11 @@ const StyledSvg = styled.svg`
   top: 0;
   left: 0;
 `;
-const StyledCircle = styled.circle(
-  ({ radius }) => css`
-    r: ${radius};
-    transform: rotate(-90deg);
-    transform-origin: center;
-  `
-);
-const WhiteCircle = styled.circle(
-  ({ radius }) => css`
-    r: ${radius};
-    transform: rotate(-102deg);
-    transform-origin: center;
-  `
-);
+const StyledCircle = styled.circle`
+  transform: rotate(-90deg);
+  transform-origin: center;
+`;
+const WhiteCircle = styled.circle`
+  transform: rotate(-102deg);
+  transform-origin: center;
+`;
