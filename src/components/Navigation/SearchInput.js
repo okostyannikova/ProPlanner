@@ -1,22 +1,32 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import debounce from 'lodash.debounce';
 
-const SearchInput = ({ search }) => {
-  const handleSearch = debounce(value => {
-    search(value);
-  }, 500);
-  return (
-    <Input
-      type="search"
-      onChange={ev => {
-        handleSearch(ev.target.value);
-      }}
-      placeholder="Search..."
-    />
-  );
-};
+class SearchInput extends Component {
+  constructor(props) {
+    super(props);
+    this.handleSearch = debounce(value => {
+      const { search } = this.props;
+      search(value);
+    }, 500);
+  }
+
+  componentWillUnmount = () => {
+    const { search } = this.props;
+    search(null);
+  };
+
+  render() {
+    return (
+      <Input
+        type="search"
+        onChange={ev => this.handleSearch(ev.target.value)}
+        placeholder="Search..."
+      />
+    );
+  }
+}
 
 SearchInput.propTypes = {
   search: PropTypes.func.isRequired,
