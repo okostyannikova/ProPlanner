@@ -65,7 +65,9 @@ class Goals extends Component {
       <PageContainer className="page-content goals-list">
         <Header>
           <Title>My Goals</Title>
-          <SearchInput search={setSearch} />
+          <InputWrapper>
+            <SearchInput search={setSearch} />
+          </InputWrapper>
           <RoundButton to="/goal/add" type="goal" />
         </Header>
         <CardsPagination
@@ -137,6 +139,11 @@ const Header = styled.header`
 const Title = styled.span`
   font-size: 20px;
   font-weight: 700;
+`;
+
+const InputWrapper = styled.div`
+  margin-left: auto;
+  margin-right: 70px;
 `;
 
 const GoalsList = styled.div`
