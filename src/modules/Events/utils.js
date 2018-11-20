@@ -47,6 +47,7 @@ export const normalizePatchData = data => {
         event_type: data.type.toLowerCase() || 'work',
         start_date: data.startTime || moment(),
         end_date: data.endTime || moment(),
+        goal_id: data.select || null,
       },
       relationships: {
         task: {
@@ -88,6 +89,7 @@ export const normalizeCreateData = data => {
             .add(10, 'seconds')
             .format(),
         event_type: data.type.toLowerCase() || 'work',
+        goal_id: data.select || null,
       },
       relationships: {
         task: {
