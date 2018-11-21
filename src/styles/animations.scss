@@ -8,6 +8,16 @@
     transform: translate3d(0, 0, 0);
   }
 }
+@keyframes fadeInUpText {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
 
 @keyframes zoomOutDown {
   40% {
@@ -23,6 +33,32 @@
   }
 }
 
+@keyframes flipInX {
+  from {
+    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+
+  40% {
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    animation-timing-function: ease-in;
+  }
+
+  60% {
+    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+    opacity: 1;
+  }
+
+  80% {
+    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+  }
+
+  to {
+    transform: perspective(400px);
+  }
+}
+
 .card-appear {
   animation-duration: 500ms;
   animation-name: fadeInUp;
@@ -31,4 +67,26 @@
 .card-exit {
   animation-duration: 400ms;
   animation-name: zoomOutDown;
+}
+
+.calendar-animation-enter {
+  animation-duration: 400ms;
+  animation-name: fadeInUp;
+}
+
+.calendar-animation-exit {
+  opacity: 0;
+}
+
+.calendar-text-animation-appear {
+  opacity: 0;
+}
+.calendar-text-animation-enter-done {
+  animation-duration: 300ms;
+  backface-visibility: visible !important;
+  animation-name: flipInX;
+}
+
+.calendar-text-animation-exit {
+  opacity: 0;
 }
