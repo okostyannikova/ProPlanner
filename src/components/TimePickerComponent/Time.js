@@ -169,9 +169,7 @@ export default class Time extends Component {
   render() {
     const { view } = this.props;
     const { meta, autoStartDate, autoEndDate } = this.state;
-    // console.log(meta && Boolean(meta.error));
-    // console.log(this.props);
-    // console.log('old state', this.state);
+
     return (
       <MuiPickersUtilsProvider utils={MomentUtils}>
         <MuiThemeProvider theme={materialTheme}>
@@ -182,7 +180,6 @@ export default class Time extends Component {
               component={timeField}
               view={view}
               error={meta && Boolean(meta.error)}
-              // validate={[startTimeCheck]}
               selectedDate={autoStartDate}
               pickDate={this.selectStartDate}
             />
@@ -191,7 +188,6 @@ export default class Time extends Component {
               name="endTime"
               component={timeField}
               view={view}
-              // validate={[startTimeValidation, timeValidation]}
               validationHandler={this.validationHandler}
               error={meta && Boolean(meta.error)}
               selectedDate={autoEndDate}

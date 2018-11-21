@@ -13,7 +13,6 @@ export default class timeField extends Component {
 
   componentWillReceiveProps(newProps) {
     const { pickDate, input } = newProps;
-    // console.log(newProps);
 
     pickDate(newProps.input.value, input, 'auto');
   }
