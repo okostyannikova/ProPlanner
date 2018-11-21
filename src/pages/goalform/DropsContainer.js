@@ -21,6 +21,7 @@ class DropsContainer extends Component {
       valid,
       deleteGoal,
       goalsListId,
+      isDeleting,
     } = this.props;
 
     let mainButtonLink = '';
@@ -54,6 +55,7 @@ class DropsContainer extends Component {
           link={secondaryButtonLink}
           id={goalsListId}
           deleteHandle={deleteGoal}
+          isDeleting={isDeleting}
         />
       </div>
     );
