@@ -1,11 +1,11 @@
-export const paralax = () => {
-  const layer1 = document.querySelectorAll('.paralax-layer1');
-  const layer2 = document.querySelector('.paralax-layer2');
+export const parallax = () => {
+  const layer1 = document.querySelectorAll('.parallax-layer1');
+  const layer2 = document.querySelector('.parallax-layer2');
   const container = document.querySelector('.home');
   const walk = 10;
   container.focus();
 
-  const addParalax = ev => {
+  const addParallax = ev => {
     const { offsetWidth: width, offsetHeight: height } = container;
     let { offsetX: x, offsetY: y } = ev;
 
@@ -24,5 +24,5 @@ export const paralax = () => {
     }
   };
 
-  container.addEventListener('mousemove', addParalax);
+  container.addEventListener('mousemove', addParallax);
 };
