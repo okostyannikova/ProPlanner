@@ -6,6 +6,7 @@ import monkey from 'assets/images/home/monkey.svg';
 import satellite from 'assets/images/home/satellite.svg';
 import starImg from 'assets/images/home/star.svg';
 import { CSSTransition } from 'react-transition-group';
+import { paralax } from 'utils/paralax';
 import Logo from '../components/Logo';
 import CalendarIcon from '../components/Icons/CalendarIcon';
 import GoalIcon from '../components/Icons/GoalIcon';
@@ -22,7 +23,7 @@ const stars = [
 ];
 
 const Home = () => (
-  <div className="page-content home">
+  <div className="page-content home" tabIndex={0} autoFocus onLoad={paralax}>                      {/*  eslint-disable-line */}
     <div className="home__wrapper">
       <div className="home__logo">
         <Logo />
@@ -40,26 +41,23 @@ const Home = () => (
         </Link>
       </div>
     </div>
-
     <div className="home__bcg1">
       <div className="home__bcg-monkey">
         <img src={monkey} alt="monkey" />
       </div>
       <img src={moon} className="home__bcg-moon" alt="moon" />
     </div>
-
     <CSSTransition in appear classNames="satellite" timeout={1000}>
-      <div className="home__bcg2">
+      <div className="home__bcg2 paralax-layer2">
         <img src={satellite} className="home__bcg-satellite" alt="satellite" />
       </div>
     </CSSTransition>
-
     {stars.map((star, i) => (
       <CSSTransition key={i} in appear classNames="stars" timeout={400}>
         <img
           key={i}
           src={starImg}
-          className="home__bcg3 home__bcg-star"
+          className="home__bcg3 home__bcg-star paralax-layer1"
           style={{ top: star.top, left: star.left, width: star.width }}
           alt="star"
         />
