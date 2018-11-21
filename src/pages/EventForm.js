@@ -142,11 +142,12 @@ class EventForm extends Component {
 }
 
 const mapStateToProps = state => {
+  const { user } = state.auth.user;
   let id = 0;
   let title = '';
   let description = '';
-  let priority = 'normal';
-  let type = 'work';
+  let priority = user.default_events_priority || 'normal';
+  let type = user.default_events_type || 'work';
   let startTime = moment().format();
   let endTime = moment()
     .add(30, 'minutes')

@@ -141,10 +141,13 @@ class GoalForm extends Component {
 }
 
 const mapStateToProps = state => {
+  const { user } = state.auth.user;
+  const typesList = Object.keys(typesOptions);
+
   let id = 0;
   let title = '';
   let description = '';
-  let type = 'work';
+  let type = user.default_events_type || 'work';
   let startTime = moment().format();
   let endTime = moment()
     .add(30, 'minutes')
@@ -156,9 +159,6 @@ const mapStateToProps = state => {
   let timeFramed = '';
   let select = [];
   let picture = '';
-
-  const { user } = state.auth.user;
-  const typesList = Object.keys(typesOptions);
 
   if (state.goals.goalsSingleGoal) {
     id = state.goals.goalsSingleGoal.id;
