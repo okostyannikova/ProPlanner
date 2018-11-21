@@ -91,7 +91,9 @@ class SelectComponent extends Component {
 
   changeHandle = e => {
     const { input } = this.props;
-    input.onChange(e);
+
+    const value = e ? e.value : null;
+    input.onChange(value);
   };
 
   bottomHandler = () => {
@@ -104,18 +106,27 @@ class SelectComponent extends Component {
   }, 500);
 
   render() {
-    const { headerClass, headerContent, view, placeholder, options, ...restProps } = this.props;
-    // const qwe = [
-    //   {
-    //     value: 1,
-    //     label: 2,
-    //   },
-    // ];
+    const {
+      headerClass,
+      headerContent,
+      view,
+      placeholder,
+      options,
+      input,
+      ...restProps
+    } = this.props;
 
     const normalizedOptions = options.map(option => ({
       value: option.id,
       label: option.attributes.title,
     }));
+
+    // {value: id, label: 123}
+    // console.log('input.value', input.value);
+    // console.log('normalizedOptions', normalizedOptions);
+    const chosenValue = normalizedOptions.filter(option => option.value === input.value);
+    // const chosenValue = normalizedOptions.filter(option => option.value === input.value[0].id);
+    // console.log('chosenValue', chosenValue);
 
     return (
       <div>
@@ -127,11 +138,12 @@ class SelectComponent extends Component {
           placeholder={placeholder}
           view={view}
           isDisabled={!!view}
-          // value={qwe}
+          value={chosenValue[0]}
           onChange={this.changeHandle}
           onMenuScrollToBottom={this.bottomHandler}
           onInputChange={e => this.handleSearch(e)}
           maxMenuHeight={150}
+          isClearable
           {...restProps}
         />
       </div>
