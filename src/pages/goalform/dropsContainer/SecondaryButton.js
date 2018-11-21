@@ -32,6 +32,11 @@ export default class SecondaryButton extends Component {
     open: false,
   };
 
+  componentWillReceiveProps = () => {
+    const { isDeleting, history, link } = this.props;
+    isDeleting && history.push(link);
+  };
+
   handleClickOpen = () => {
     this.setState({ open: true });
   };
@@ -70,8 +75,6 @@ export default class SecondaryButton extends Component {
     const goalDeleteHandler = () => {
       this.setState({ open: false });
       deleteHandle(id);
-      !view && reset();
-      history.push(link);
     };
 
     const clickHandle = () => {
