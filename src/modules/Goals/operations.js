@@ -33,7 +33,15 @@ const goalsURL = `${apiURL}/goals`;
 const loadGoals = (number = 1, size = 15, filter, search = null) => dispatch => {
   dispatch(loadGoalsStart());
 
-  axios(goalsURL, { params: { 'page[number]': number, 'page[size]': size, 'q[title]': search } })
+  axios(goalsURL, {
+    params: {
+      attribute: 'start_date',
+      order: 'DESC',
+      'page[number]': number,
+      'page[size]': size,
+      'q[title]': search,
+    },
+  })
     .then(res => {
       const goals = normalizeData(res.data.data);
       const lastPageNumber = getLastPageNumber(res.data.links.last);
