@@ -126,8 +126,13 @@ const setSearch = value => dispatch => dispatch(seacrhEvents(value));
 const syncWithGoogle = () => dispatch => {
   dispatch(syncStart());
   axios(`${apiURL}/sync`).then(res => {
-    if (res && res.status === 200) dispatch(info(notificationSync));
-    dispatch(syncSuccess());
+    if (res && res.status === 200) {
+      dispatch(info(notificationSync));
+      dispatch(syncSuccess());
+      dispatch(restoreEventsState());
+      dispatch(setFilter([]));
+      dispatch(loadEvents(1, 20));
+    }
   });
 };
 

@@ -2,6 +2,7 @@ import types from './types';
 
 const initialState = {
   loading: false,
+  deleting: false,
   goalsList: [],
   goalsSingleGoal: null,
   error: null,
@@ -34,15 +35,22 @@ export default (state = initialState, action) => {
         error,
       };
 
+    case types.DELETE_GOAL_START:
+      return {
+        ...state,
+        deleting: true,
+      };
     case types.DELETE_GOAL_SUCCESS:
       return {
         ...state,
         error: null,
         goalsList: state.goalsList.filter(goal => goal.id !== payload.id),
+        deleting: false,
       };
     case types.DELETE_GOAL_FAIL:
       return {
         ...state,
+        deleting: false,
         error,
       };
     case types.RESTORE_GOALS_STATE:

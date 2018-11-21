@@ -178,6 +178,7 @@ const mapStateToProps = state => {
 
   return {
     goalsList: state.goals.goalsSingleGoal,
+    isDeleting: state.goals.deleting,
     events: state.events.eventsList,
     search: state.events.search,
     lastPageNumber: state.events.lastPageNumber,
