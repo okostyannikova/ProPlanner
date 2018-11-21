@@ -48,6 +48,7 @@ class Month extends Component {
     const nextMonthDate = currentDate.clone().add(1, 'month');
     const days = [];
     let weeks = Array(6).fill(0);
+    console.log('month', workingTime);
 
     for (let i = 1, day = 1; i < 6 * 8; i += 1) {
       const weekDay = +currentDate.format('d') === 0 ? 7 : currentDate.format('d');
