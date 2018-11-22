@@ -129,9 +129,6 @@ const syncWithGoogle = () => dispatch => {
     if (res && res.status === 200) {
       dispatch(info(notificationSync));
       dispatch(syncSuccess());
-      dispatch(restoreEventsState());
-      dispatch(setFilter([]));
-      dispatch(loadEvents(1, 20));
     }
   });
 };

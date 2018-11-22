@@ -104,9 +104,10 @@ export const convertFilter = filters =>
   filters.reduce((prev, item) => ({ ...prev, ...item.value }), {});
 
 export const notificationSync = {
-  title: 'Synchronization successful',
+  title: 'Synchronization successful.',
+  message: 'It may takes some time to deliver new events from Google Calendar to ProPlanner.',
   position: 'br',
-  autoDismiss: 10,
+  autoDismiss: 15,
   dismissible: false,
   action: {
     label: 'GOT IT',
