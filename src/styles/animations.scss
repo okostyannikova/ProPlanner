@@ -9,6 +9,17 @@
   }
 }
 
+@keyframes fadeInUpCalendar {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 @keyframes zoomOutDown {
   40% {
     opacity: 1;
@@ -30,18 +41,8 @@
     opacity: 0;
   }
 
-  40% {
-    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
-    animation-timing-function: ease-in;
-  }
-
   60% {
-    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
     opacity: 1;
-  }
-
-  80% {
-    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
   }
 
   to {
@@ -60,8 +61,8 @@
 }
 
 .calendar-animation-enter {
-  animation-duration: 400ms;
-  animation-name: fadeInUp;
+  animation-duration: 300ms;
+  animation-name: fadeInUpCalendar;
 }
 
 .calendar-animation-exit {
@@ -72,7 +73,7 @@
   opacity: 0;
 }
 .calendar-text-animation-enter-done {
-  animation-duration: 300ms;
+  animation-duration: 150ms;
   backface-visibility: visible !important;
   animation-name: flipInX;
 }

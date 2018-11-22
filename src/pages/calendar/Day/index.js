@@ -105,7 +105,7 @@ class Day extends Component {
                 in
                 appear
                 classNames="calendar-text-animation"
-                timeout={{ enter: 300, exit: 200 }}
+                timeout={{ enter: 100, exit: 100 }}
               >
                 <div className="event-block__text">
                   <span className="event-block__time">
