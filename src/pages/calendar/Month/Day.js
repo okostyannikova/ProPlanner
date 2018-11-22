@@ -36,7 +36,7 @@ const Day = ({
         </span>
       ) : (
         <Link to="/calendar/day" className="month__day-wrapper" onClick={handleClick} data-qa={date}>         {/* eslint-disable-line */}
-          <Summary events={events} />
+          <Summary events={events} workingTime={workingTime} />
           <span className={`${getClassNames} month__day-link`}>{dayBody()}</span>
         </Link>
       );
