@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { eventsOperations } from 'modules/Events';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import UpdateIcon from '../Icons/UpdateIcon';
+import SyncGCIcon from '../Icons/SyncGCIcon';
 import './styles.css';
 
 const SyncGoogle = ({ syncWithGoogle, synchronising }) => (
   <Button type="button" onClick={syncWithGoogle} title="Sync with Google Calendar">
     {!synchronising ? (
-      <UpdateIcon color="rgba(51,102,180,0.87)" />
+      <SyncGCIcon color="rgba(51,102,180,0.87)" />
     ) : (
       <LoaderWrapper>
         <Loader thickness={5} style={{ color: 'rgba(51,102,180,0.87)' }} size={20} />
@@ -41,9 +41,6 @@ const Button = styled.button`
   height: 60px;
   &:hover {
     opacity: 0.75;
-  }
-  @media (max-width: 670px) {
-    padding: 0 5px;
   }
 `;
 
