@@ -21,18 +21,19 @@ class Day extends Component {
   }
 
   componentDidMount = () => {
-    const { setHeight } = this.props;
+    const { setHeight, location } = this.props;
     setHeight(50);
-  };
 
-  /* componentWillReceiveProps = nextProps => {
-    const { loadEvents, restoreEvents, selectedDay } = this.props;
-    const prevFirstDay = selectedDay.clone().startOf('month');
-    const nextFirstDay = nextProps.selectedDay.clone().startOf('month');
-
-    if (prevFirstDay.format('YYYY-MM-DD') !== nextFirstDay.format('YYYY-MM-DD')) {
-      const firstMonthDay = nextProps.selectedDay.clone().startOf('month');
-      const lastMonthDay = nextProps.selectedDay.clone().endOf('month');
+    if (location.pathname === '/calendar/day') {
+      const { loadEvents, restoreEvents, selectedDay } = this.props;    //eslint-disable-line
+      const firstMonthDay = selectedDay
+        .clone()
+        .startOf('month')
+        .format('YYYY-MM-DD');
+      const lastMonthDay = selectedDay
+        .clone()
+        .endOf('month')
+        .format('YYYY-MM-DD');
       const range = {
         'q[start_date[btw[d1]]]': firstMonthDay,
         'q[start_date[btw[d2]]]': lastMonthDay,
@@ -40,7 +41,31 @@ class Day extends Component {
       restoreEvents();
       loadEvents(null, null, range);
     }
-  }; */
+  };
+
+  componentWillReceiveProps = nextProps => {
+    const { loadEvents, restoreEvents, selectedDay, location } = this.props;
+    const prevFirstDay = selectedDay.clone().startOf('month');
+    const nextFirstDay = nextProps.selectedDay.clone().startOf('month');
+    if (location.pathname === '/calendar/day') {
+      if (prevFirstDay.format('YYYY-MM-DD') !== nextFirstDay.format('YYYY-MM-DD')) {
+        const firstMonthDay = nextProps.selectedDay
+          .clone()
+          .startOf('month')
+          .format('YYYY-MM-DD');
+        const lastMonthDay = nextProps.selectedDay
+          .clone()
+          .endOf('month')
+          .format('YYYY-MM-DD');
+        const range = {
+          'q[start_date[btw[d1]]]': firstMonthDay,
+          'q[start_date[btw[d2]]]': lastMonthDay,
+        };
+        restoreEvents();
+        loadEvents(null, null, range);
+      }
+    }
+  };
 
   displayEvents = () => {
     const { events, startTime, getHeight, handleShow } = this.props;
@@ -173,4 +198,5 @@ Day.propTypes = {
   hours: PropTypes.func.isRequired,
   setWrapperRef: PropTypes.func.isRequired,
   handleShow: PropTypes.func.isRequired,
+  location: PropTypes.object.isRequired,
 };

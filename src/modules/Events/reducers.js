@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { getEvents } from 'utils/events';
 import types from './types';
-import { SELECT_DAY, NEXT_DAY, PREV_DAY } from '../Calendar';
+import { SELECT_DAY, NEXT_DAY, PREV_DAY, RESTORE_CALENDAR } from '../Calendar';
 import { convertFilter } from './utils';
 
 const initialState = {
@@ -53,6 +53,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         eventsDayList: getEvents(payload.day, eventsList),
+      };
+    case RESTORE_CALENDAR:
+      return {
+        ...state,
+        eventsDayList: [],
       };
     case types.LOAD_EVENTS_FAIL:
       return {

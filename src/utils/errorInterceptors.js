@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { error, info } from 'react-notification-system-redux';
+import { error } from 'react-notification-system-redux';
 import { authorizeOperations } from 'modules/Authentication';
-import { notificationSync } from 'modules/Events/utils';
 import store from 'modules/configureStore';
 
 export const notificationErrorOpts = ({ response }) => ({
@@ -19,7 +18,6 @@ axios.interceptors.response.use(
   config => config,
   err => {
     if (err.response.status === 403) store.dispatch(authorizeOperations.logingOut());
-    if (err.response.status === 422) store.dispatch(info(notificationSync));
     else store.dispatch(error(notificationErrorOpts(err)));
   }
 );

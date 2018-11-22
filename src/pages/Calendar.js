@@ -10,24 +10,6 @@ import { eventsOperations } from '../modules/Events';
 import { restoreCalendar, selectDay } from '../modules/Calendar';
 
 class Calendar extends Component {
-  componentDidMount = () => {
-    const { loadEvents, currentDate, restoreEvents } = this.props;    //eslint-disable-line
-    const firstMonthDay = currentDate
-      .clone()
-      .startOf('month')
-      .format('YYYY-MM-DD');
-    const lastMonthDay = currentDate
-      .clone()
-      .endOf('month')
-      .format('YYYY-MM-DD');
-    const range = {
-      'q[start_date[btw[d1]]]': firstMonthDay,
-      'q[start_date[btw[d2]]]': lastMonthDay,
-    };
-    restoreEvents();
-    loadEvents(null, null, range);
-  };
-
   componentWillUnmount = () => {
     const { restoreCalendar } = this.props;   //eslint-disable-line
     restoreCalendar();

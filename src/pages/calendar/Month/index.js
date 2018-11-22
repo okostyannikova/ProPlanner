@@ -15,6 +15,24 @@ import DaysLabels from '../DaysLabels';
 import DaySidebar from '../Day';
 
 class Month extends Component {
+  componentDidMount = () => {
+    const { loadEvents, currentDate, restoreEvents } = this.props;    //eslint-disable-line
+    const firstMonthDay = currentDate
+      .clone()
+      .startOf('month')
+      .format('YYYY-MM-DD');
+    const lastMonthDay = currentDate
+      .clone()
+      .endOf('month')
+      .format('YYYY-MM-DD');
+    const range = {
+      'q[start_date[btw[d1]]]': firstMonthDay,
+      'q[start_date[btw[d2]]]': lastMonthDay,
+    };
+    restoreEvents();
+    loadEvents(null, null, range);
+  };
+
   componentWillReceiveProps = nextProps => {
     const { loadEvents, restoreEvents, currentDate } = this.props;
     const prevFirstDay = currentDate.clone().startOf('month');
@@ -48,7 +66,6 @@ class Month extends Component {
     const nextMonthDate = currentDate.clone().add(1, 'month');
     const days = [];
     let weeks = Array(6).fill(0);
-    console.log('month', workingTime);
 
     for (let i = 1, day = 1; i < 6 * 8; i += 1) {
       const weekDay = +currentDate.format('d') === 0 ? 7 : currentDate.format('d');
