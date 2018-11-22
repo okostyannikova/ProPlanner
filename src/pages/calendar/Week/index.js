@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { compose } from 'redux';
 import { withWindowWidth } from 'components/hocs/window-context';
 import classNames from 'classnames';
@@ -72,24 +73,42 @@ class Week extends Component {
           const isEditable = type !== 'google';
 
           return (
-            <div                                                   // eslint-disable-line
-              onClick={isEditable ? handleShow(ev.id) : undefined}
-              className={`event-block event-block--week ${isEventSmall && 'event-block--small'}`}
+            <CSSTransition
               key={ev.id}
-              style={{
-                top: startPos,
-                height: blockHeight,
-                backgroundColor: typesOptions[type],
-                color: getTextColor(typesOptions[type]),
-              }}
+              in
+              appear
+              classNames="calendar-animation"
+              timeout={{ enter: 400, exit: 300 }}
             >
-              {windowWidth > 630 && (
-                <div className="event-block__time">
-                  {start.format('HH:mm')} - {end.format('HH:mm')}
-                </div>
-              )}
-              <div className="event-block__title">{title}</div>
-            </div>
+              <div // eslint-disable-line
+                onClick={isEditable ? handleShow(ev.id) : undefined}
+                className={`event-block event-block--week ${isEventSmall && 'event-block--small'}`}
+                key={ev.id}
+                style={{
+                  top: startPos,
+                  height: blockHeight,
+                  backgroundColor: typesOptions[type],
+                  color: getTextColor(typesOptions[type]),
+                }}
+              >
+                <CSSTransition
+                  key={ev.id}
+                  in
+                  appear
+                  classNames="calendar-text-animation"
+                  timeout={{ enter: 300, exit: 200 }}
+                >
+                  <div className="event-block__text">
+                    {windowWidth > 630 && (
+                      <div className="event-block__time">
+                        {start.format('HH:mm')} - {end.format('HH:mm')}
+                      </div>
+                    )}
+                    <div className="event-block__title">{title}</div>
+                  </div>
+                </CSSTransition>
+              </div>
+            </CSSTransition>
           );
         });
 
@@ -115,7 +134,9 @@ class Week extends Component {
           tabIndex="0"
         >
           {this.dividingLines()}
-          {this.getEvents(currentDay.format('YYYY-MM-DD'))}
+          <TransitionGroup component={null}>
+            {this.getEvents(currentDay.format('YYYY-MM-DD'))}
+          </TransitionGroup>
         </div>
       );
     });

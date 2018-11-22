@@ -38,6 +38,7 @@
   border: 6px solid white;
   border-radius: 100%;
   box-sizing: border-box;
+  transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
   @include mq(xs-max,
   max) {
    width: 35px;
@@ -58,4 +59,5 @@
 .month__day-link.month__day--active {
   color: #fff !important;
   background-color: $main-text-color;
+  transition: all 300ms ease-in-out;
 }

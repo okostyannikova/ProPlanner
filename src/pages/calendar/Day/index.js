@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { typesOptions } from 'config';
 import { millisecToMinutes, getTextColor, getWorkingTime } from 'utils/helpers';
 import { getDaySummary } from 'utils/events';
@@ -56,25 +57,46 @@ class Day extends Component {
           eventLength >= this.minutesInSmallEvent && eventLength < this.minutesInMiddleEvent;
 
         return (
-          <div                                                                            // eslint-disable-line
-            onClick={isEditable ? handleShow(ev.id) : undefined}
-            className={`event-block ${isEventSmall && 'event-block--small'}`}
+          <CSSTransition
             key={ev.id}
-            style={{
-              top: startPos,
-              height: blockHeight,
-              backgroundColor: typesOptions[type],
-              color: getTextColor(typesOptions[type]),
-            }}
+            in
+            appear
+            classNames="calendar-animation"
+            timeout={{ enter: 400, exit: 300 }}
           >
-            <span className="event-block__time">
-              {start.format('HH:mm')} - {end.format('HH:mm')}
-            </span>
-            {eventLength >= 60 ? <br /> : null}
-            <span className={`event-block__title ${isEventMiddle && 'event-block__title--middle'}`}>
-              {title}
-            </span>
-          </div>
+            <div // eslint-disable-line
+              onClick={isEditable ? handleShow(ev.id) : undefined}
+              className={`event-block ${isEventSmall && 'event-block--small'}`}
+              key={ev.id}
+              style={{
+                top: startPos,
+                height: blockHeight,
+                backgroundColor: typesOptions[type],
+                color: getTextColor(typesOptions[type]),
+              }}
+            >
+              <CSSTransition
+                key={ev.id}
+                in
+                appear
+                classNames="calendar-text-animation"
+                timeout={{ enter: 300, exit: 200 }}
+              >
+                <div className="event-block__text">
+                  <span className="event-block__time">
+                    {start.format('HH:mm')} - {end.format('HH:mm')}
+                  </span>
+                  {eventLength >= 60 ? <br /> : null}
+                  <span
+                    className={`event-block__title ${isEventMiddle &&
+                      'event-block__title--middle'}`}
+                  >
+                    {title}
+                  </span>
+                </div>
+              </CSSTransition>
+            </div>
+          </CSSTransition>
         );
       });
     }
@@ -109,7 +131,9 @@ class Day extends Component {
           <div className="calendar__content" ref={setWrapperRef}>
             <ul className="calendar__hours-labels">{hours()}</ul>
             <div className="calendar__events">
-              <div className="calendar__events-container">{this.displayEvents()}</div>
+              <div className="calendar__events-container">
+                <TransitionGroup component={null}>{this.displayEvents()} </TransitionGroup>
+              </div>
             </div>
           </div>
         </main>
