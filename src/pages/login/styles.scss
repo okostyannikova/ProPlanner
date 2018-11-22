@@ -8,11 +8,19 @@
   display: flex;
   flex-direction: column;
   text-align: center;
+
+  @media (max-width: 768px) {
+   height: calc(100vh - 10px);
+  }
+  @media (max-width: 767px) {
+   height: calc(100vh - 30px);
+  }
 }
 
 .contentBottom {
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  margin-top: auto;
 
   &::before {
     content: '';
@@ -20,9 +28,13 @@
     width: 100%;
     height: 1px;
     left: 0;
-    top: -40px;
+    top: -15px;
     border-bottom: 1px solid rgba(165, 164, 164, 0.5);
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  p {
+    font-size: 14px;
   }
 }
 
