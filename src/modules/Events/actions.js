@@ -102,3 +102,21 @@ export const syncFail = error => ({
   type: types.SYNC_EVENTS_FAIL,
   error,
 });
+
+export const showSelectedGoalStart = () => ({
+  type: types.SHOW_SELECTED_GOAL_START,
+});
+
+export const showSelectedGoalSuccess = id => ({
+  type: types.SHOW_SELECTED_GOAL_SUCCES,
+  payload: { id },
+});
+
+export const showSelectedGoalFail = error => ({
+  type: types.SHOW_SELECTED_GOAL_FAIL,
+  error,
+});
+
+export const removeSelectedGoal = () => ({
+  type: types.REMOVE_SELECTED_GOAL,
+});

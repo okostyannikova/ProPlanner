@@ -8,6 +8,7 @@ const initialState = {
   error: null,
   lastPageNumber: 1,
   search: null,
+  selectedEvents: null,
 };
 
 export default (state = initialState, action) => {
@@ -126,6 +127,28 @@ export default (state = initialState, action) => {
       return {
         ...state,
         search: payload.search,
+      };
+
+    case types.SHOW_SELECTED_EVENTS_START:
+      return {
+        ...state,
+      };
+
+    case types.SHOW_SELECTED_EVENTS_SUCCES:
+      return {
+        ...state,
+        selectedEvents: payload.data,
+      };
+    case types.SHOW_SELECTED_EVENTS_FAIL:
+      return {
+        ...state,
+        error,
+      };
+
+    case types.REMOVE_SELECTED_EVENTS:
+      return {
+        ...state,
+        selectedEvents: null,
       };
 
     default:
