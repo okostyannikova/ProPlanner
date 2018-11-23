@@ -31,7 +31,9 @@ const customStyles = {
   }),
   multiValueRemove: (styles, props) => ({
     ...styles,
-    display: props.selectProps.view ? 'none' : 'flex',
+    display: props.selectProps.view ? 'flex' : 'flex',
+    visibility: props.selectProps.view ? 'hidden' : 'visible',
+    padding: props.selectProps.view ? '0' : '0 4px',
   }),
   singleValue: styles => ({
     ...styles,

@@ -228,6 +228,30 @@
 		background-color: #f9f9f9;
 	}
 
+	.task-list__text{
+		overflow: hidden;
+
+		@media (min-width: 1200px){
+			width: 82%;
+		}
+
+		@media (max-width: 1199.98px){
+			width: 77%;
+		}
+
+		@media (max-width: 1024px){
+			width: 77%;
+		}
+
+		@media (max-width: 767.98px){
+			width: 80%;
+		}
+
+		@media (max-width: 575.98px){
+			width: 65%;
+		}
+	}
+
 	.task-list__icon{
 		right: 0px;
 		position: absolute;
