@@ -24,6 +24,7 @@ class Tasks extends Component {
     this.checkBoxHandle = this.checkBoxHandle.bind(this);
     this.deleteHandle = this.deleteHandle.bind(this);
     this.updateTask = this.updateTask.bind(this);
+    this.keyDownHandle = this.keyDownHandle.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
@@ -60,6 +61,7 @@ class Tasks extends Component {
   }
 
   changeHandle(e) {
+    // console.log(e);
     this.setState({ name: e.target.value });
   }
 
@@ -101,6 +103,18 @@ class Tasks extends Component {
     input.onChange(tasks.filter((task, ind) => ind !== index));
   }
 
+  keyDownHandle(e) {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      this.addHandle();
+    }
+
+    if (e.keyCode === 27) {
+      e.preventDefault();
+      this.cancelHandle();
+    }
+  }
+
   render() {
     const { tasks, isOpen, name } = this.state;
     const { view } = this.props;
@@ -138,6 +152,7 @@ class Tasks extends Component {
               cancelHandle={this.cancelHandle}
               name={name}
               referece={this.focusRef}
+              keyDownHandle={this.keyDownHandle}
             />
           ) : (
             <TextComponent placeholder="Add element..." value={name} onClick={this.openHandle} />
