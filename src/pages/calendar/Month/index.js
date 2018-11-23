@@ -30,7 +30,7 @@ class Month extends Component {
       'q[start_date[btw[d2]]]': lastMonthDay,
     };
     restoreEvents();
-    loadEvents(null, null, range);
+    loadEvents(undefined, 500, range);
   };
 
   componentWillReceiveProps = nextProps => {
@@ -52,7 +52,7 @@ class Month extends Component {
         'q[start_date[btw[d2]]]': lastMonthDay,
       };
       restoreEvents();
-      loadEvents(null, null, range);
+      loadEvents(undefined, 500, range);
     }
   };
 

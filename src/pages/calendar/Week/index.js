@@ -35,7 +35,7 @@ class Week extends Component {
       'q[start_date[btw[d2]]]': lastWeekDay,
     };
     restoreEvents();
-    loadEvents(null, null, range);
+    loadEvents(undefined, 500, range);
   };
 
   componentWillReceiveProps = nextProps => {
@@ -51,7 +51,7 @@ class Week extends Component {
         'q[start_date[btw[d2]]]': lastWeekDay,
       };
       restoreEvents();
-      loadEvents(null, null, range);
+      loadEvents(undefined, 500, range);
     }
   };
 

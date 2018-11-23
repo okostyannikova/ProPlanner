@@ -40,7 +40,7 @@ import { apiURL } from '../../config';
 const eventsURL = `${apiURL}/events`;
 const goalsURL = `${apiURL}/goals`;
 
-const loadEvents = (number = 1, size = 50, params, search = null) => dispatch => {
+const loadEvents = (number = 1, size = 100, params, search = null) => dispatch => {
   dispatch(loadEventsStart());
 
   axios(eventsURL, {
