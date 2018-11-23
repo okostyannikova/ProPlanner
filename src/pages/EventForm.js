@@ -101,7 +101,7 @@ class EventForm extends Component {
                   name="select"
                   component={SelectComponent}
                   headerClass="goal-component"
-                  headerContent="Goals"
+                  headerContent="Goal"
                   placeholder="add goal..."
                   options={goals}
                   view={view}
