@@ -16,7 +16,7 @@ import DaySidebar from '../Day';
 
 class Month extends Component {
   componentDidMount = () => {
-    const { loadEvents, currentDate, restoreEvents } = this.props;    //eslint-disable-line
+    const { loadEvents, currentDate, restoreEvents, selectDay, selectedDay } = this.props;    //eslint-disable-line
     const firstMonthDay = currentDate
       .clone()
       .startOf('month')
@@ -30,7 +30,7 @@ class Month extends Component {
       'q[start_date[btw[d2]]]': lastMonthDay,
     };
     restoreEvents();
-    loadEvents(undefined, 500, range);
+    loadEvents(undefined, 500, range).then(() => selectDay(selectedDay));
   };
 
   componentWillReceiveProps = nextProps => {
