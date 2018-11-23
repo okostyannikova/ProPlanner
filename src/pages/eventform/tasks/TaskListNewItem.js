@@ -11,6 +11,7 @@ class TaskListNewItem extends Component {
       name,
       addHandle,
       cancelHandle,
+      keyDownHandle,
       referece,
     } = this.props;
 
@@ -19,6 +20,7 @@ class TaskListNewItem extends Component {
         <TextComponent
           placeholder="Add element..."
           onChange={changeHandle}
+          onKeyDown={keyDownHandle}
           multiline
           autoFocus
           inputRef={referece}
