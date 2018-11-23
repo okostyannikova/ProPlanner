@@ -43,7 +43,7 @@ export const normalizePatchData = data => {
     data: {
       attributes: {
         title: data.title || 'UpdatedEvent',
-        description: data.description || 'Test Event',
+        description: data.description || '',
         location: data.location || 'Dreamland',
         priority: data.priority.toLowerCase() || 'low',
         event_type: data.type.toLowerCase() || 'work',
@@ -83,7 +83,7 @@ export const normalizeCreateData = data => {
       type: 'events',
       attributes: {
         title: data.title || 'Some Great Event',
-        description: data.description || 'Super detailed description',
+        description: data.description || '',
         location: data.location || 'Dreamland',
         priority: data.priority ? data.priority.toLowerCase() : 'normal',
         start_date: data.startTime || moment().format(),

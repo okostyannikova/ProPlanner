@@ -26,7 +26,7 @@ export const normalizePatchData = data => ({
     type: 'goals',
     attributes: {
       title: data.title || 'Bionic',
-      description: data.description || 'beaver',
+      description: data.description || '',
       picture: data.picture || '',
       start_date: data.startTime || moment(),
       end_date: data.endTime || moment(),
@@ -48,7 +48,7 @@ export const normalizeCreateData = data => {
       type: 'goals',
       attributes: {
         title: data.title || 'Bionic',
-        description: data.description || 'beaver',
+        description: data.description || '',
         picture: data.picture || '',
         start_date: data.startTime || moment(),
         end_date:
