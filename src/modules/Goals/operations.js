@@ -99,7 +99,7 @@ const patchGoal = (data, id) => dispatch => {
   dispatch(updateGoalStart());
 
   axios
-    .patch(`${goalsURL}/${id}`, normalizedData)
+    .put(`${goalsURL}/${id}/assigned`, normalizedData)
     .then(res => {
       dispatch(updateGoalSuccess(res));
     })
