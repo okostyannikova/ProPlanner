@@ -6,7 +6,7 @@ import { typesOptions } from 'config';
 import { millisecToMinutes, getTextColor, getWorkingTime } from 'utils/helpers';
 import { getDaySummary } from 'utils/events';
 import RoundButton from 'components/RoundButton';
-import { prevDay, nextDay } from 'modules/Calendar';
+import { prevDay, nextDay, selectDay } from 'modules/Calendar';
 import { eventsOperations } from 'modules/Events';
 import RenderEventsContainer from '../render-events';
 import './styles.css';
@@ -21,7 +21,7 @@ class Day extends Component {
   }
 
   componentDidMount = () => {
-    const { setHeight, location } = this.props;
+    const { setHeight, selectDay, location } = this.props;   //eslint-disable-line
     setHeight(50);
 
     if (location.pathname === '/calendar/day') {
@@ -39,7 +39,7 @@ class Day extends Component {
         'q[start_date[btw[d2]]]': lastMonthDay,
       };
       restoreEvents();
-      loadEvents(undefined, 500, range);
+      loadEvents(undefined, 500, range).then(() => selectDay(selectedDay));
     }
   };
 
@@ -180,6 +180,7 @@ export default connect(
   {
     prevDay,
     nextDay,
+    selectDay,
     loadEvents: eventsOperations.loadEvents,
     restoreEvents: eventsOperations.restoreEvents,
   }
@@ -191,6 +192,7 @@ Day.propTypes = {
   selectedDay: PropTypes.object.isRequired,
   prevDay: PropTypes.func.isRequired,
   nextDay: PropTypes.func.isRequired,
+  selectDay: PropTypes.func.isRequired,
   // from hoc
   setHeight: PropTypes.func.isRequired,
   startTime: PropTypes.func.isRequired,
