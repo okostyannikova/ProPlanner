@@ -37,17 +37,19 @@ export const normalizePatchData = data => {
     return tasks;
   });
 
+  const goalId = data.select ? data.select[0].value : null;
+
   return {
     data: {
       attributes: {
         title: data.title || 'UpdatedEvent',
-        description: data.description || 'Test Event',
+        description: data.description || '',
         location: data.location || 'Dreamland',
         priority: data.priority.toLowerCase() || 'low',
         event_type: data.type.toLowerCase() || 'work',
         start_date: data.startTime || moment(),
         end_date: data.endTime || moment(),
-        goal_id: data.select || null,
+        goal_id: goalId,
       },
       relationships: {
         task: {
@@ -74,12 +76,14 @@ export const normalizeCreateData = data => {
     return tasks;
   });
 
+  const goalId = data.select ? data.select[0].value : null;
+
   return {
     data: {
       type: 'events',
       attributes: {
         title: data.title || 'Some Great Event',
-        description: data.description || 'Super detailed description',
+        description: data.description || '',
         location: data.location || 'Dreamland',
         priority: data.priority ? data.priority.toLowerCase() : 'normal',
         start_date: data.startTime || moment().format(),
@@ -89,7 +93,7 @@ export const normalizeCreateData = data => {
             .add(10, 'seconds')
             .format(),
         event_type: data.type.toLowerCase() || 'work',
-        goal_id: data.select || null,
+        goal_id: goalId,
       },
       relationships: {
         task: {

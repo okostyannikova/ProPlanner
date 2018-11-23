@@ -16,6 +16,7 @@ const initialState = {
   params: {},
   search: null,
   synchronising: false,
+  selectedGoal: null,
 };
 
 export default (state = initialState, action) => {
@@ -172,6 +173,33 @@ export default (state = initialState, action) => {
       return {
         ...state,
         synchronising: false,
+      };
+
+    case types.SHOW_SELECTED_GOAL_START:
+      return {
+        ...state,
+      };
+
+    case types.SHOW_SELECTED_GOAL_SUCCES:
+      return {
+        ...state,
+        selectedGoal: [
+          {
+            value: payload.id.id,
+            label: payload.id.attributes.title,
+          },
+        ],
+      };
+    case types.SHOW_SELECTED_GOAL_FAIL:
+      return {
+        ...state,
+        error,
+      };
+
+    case types.REMOVE_SELECTED_GOAL:
+      return {
+        ...state,
+        selectedGoal: null,
       };
     default:
       return state;
