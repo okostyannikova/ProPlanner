@@ -61,13 +61,17 @@ class Tasks extends Component {
   }
 
   changeHandle(e) {
-    // console.log(e);
     this.setState({ name: e.target.value });
   }
 
   addHandle() {
     const { name, tasks } = this.state;
     const { input } = this.props;
+
+    if (!name.length) {
+      return;
+    }
+
     input.onChange([...tasks, { name, checked: false }]);
 
     this.setState({
@@ -129,6 +133,7 @@ class Tasks extends Component {
 
     const completed = (tasks.filter(task => task.checked).length * 100) / tasks.length;
     const completeness = isNaN(completed) ? 0 : completed;
+    const disabled = !name.length;
 
     return (
       <div>
@@ -153,6 +158,7 @@ class Tasks extends Component {
               name={name}
               referece={this.focusRef}
               keyDownHandle={this.keyDownHandle}
+              disabled={disabled}
             />
           ) : (
             <TextComponent placeholder="Add element..." value={name} onClick={this.openHandle} />

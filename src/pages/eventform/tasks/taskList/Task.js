@@ -54,6 +54,9 @@ class Task extends Component {
   saveHandle = () => {
     const { updateTask, index } = this.props;
     const { name } = this.state;
+    if (!name.length) {
+      return;
+    }
 
     updateTask(index, name);
 
@@ -69,6 +72,7 @@ class Task extends Component {
     const { task, index, checkBoxHandle, view, classes } = this.props;
     const { anchorEl, isEdit, name } = this.state;
     const open = Boolean(anchorEl);
+    const disabled = !name.length;
 
     return (
       <div>
@@ -92,7 +96,9 @@ class Task extends Component {
             </FormControl>
           ) : (
             <React.Fragment>
-              <span className={task.checked ? 'checked-task' : ''}>{task.name}</span>
+              <span className={`task-list__text ${task.checked ? 'checked-task' : ''}`}>
+                {task.name}
+              </span>
               {!view ? (
                 <span className="task-list__icon">
                   <IconButton
@@ -129,7 +135,14 @@ class Task extends Component {
             <Button
               variant="contained"
               onClick={() => this.saveHandle()}
-              style={{ backgroundColor: '#00BCD4', color: 'white', marginRight: '5px' }}
+              style={{
+                backgroundColor: disabled ? '#e1e4e8' : '#00BCD4',
+                boxShadow: disabled
+                  ? '0px 2px 2px rgba(52, 70, 98, 0.24), 0px 0px 2px rgba(52, 70, 98, 0.12)'
+                  : 'none',
+                color: disabled ? 'rgba(52, 70, 98, 0.5)' : 'white',
+                marginRight: '5px',
+              }}
             >
               Save
             </Button>
