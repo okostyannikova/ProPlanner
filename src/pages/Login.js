@@ -122,7 +122,7 @@ class Login extends React.Component {
           <Button clickHandle={() => this.login(authorize)} loading={loading} />
 
           <div className="contentBottom">
-            <Text>With &hearts; from the ProPlanner team</Text>
+            <Text>Made with &hearts; from the ProPlanner team</Text>
           </div>
         </div>
         <div className="imgWrapper" />
