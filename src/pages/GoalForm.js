@@ -27,6 +27,12 @@ class GoalForm extends Component {
     removeSingleGoal();
   };
 
+  valueRequest = id => {
+    const { showSelectedEvents } = this.props;
+
+    showSelectedEvents(id);
+  };
+
   render() {
     const {
       goalsList,
@@ -43,6 +49,9 @@ class GoalForm extends Component {
       search,
       events,
       defaultType,
+      eventsValue,
+      selectedEvents,
+      deleteSelectedEvents,
     } = this.props;
 
     const path = match.path;
@@ -106,6 +115,10 @@ class GoalForm extends Component {
                   lastPageNumber={lastPageNumber}
                   numberOfCards={15}
                   searchResult={search}
+                  valueRequest={this.valueRequest}
+                  id={eventsValue}
+                  selectedValue={selectedEvents}
+                  clearValue={deleteSelectedEvents}
                 />
               </li>
               <li>
@@ -172,12 +185,18 @@ const mapStateToProps = state => {
     achievable = state.goals.goalsSingleGoal.attributes.a;
     relevant = state.goals.goalsSingleGoal.attributes.r;
     timeFramed = state.goals.goalsSingleGoal.attributes.t;
-    select = state.goals.goalsSingleGoal.events;
+    // select = state.goals.goalsSingleGoal.events;
     picture = state.goals.goalsSingleGoal.attributes.picture;
   }
 
+  select = state.goals.selectedEvents;
+
   return {
     goalsList: state.goals.goalsSingleGoal,
+    eventsValue: state.goals.goalsSingleGoal
+      ? state.goals.goalsSingleGoal.events.map(event => event.id)
+      : null,
+    selectedEvents: state.goals.selectedEvents,
     isDeleting: state.goals.deleting,
     events: state.events.eventsList,
     search: state.events.search,
@@ -214,6 +233,8 @@ export default (GoalForm = compose(
       loadData: eventsOperations.loadEvents,
       restoreData: eventsOperations.restoreEvents,
       setSearch: eventsOperations.setSearch,
+      showSelectedEvents: goalsOperations.showSelectedEvents,
+      deleteSelectedEvents: goalsOperations.deleteSelectedEvents,
     }
   ),
   reduxForm({

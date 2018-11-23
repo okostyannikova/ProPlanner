@@ -68,7 +68,18 @@ class SelectComponent extends Component {
     this.fetchData();
   };
 
-  componentWillUnmount = () => {};
+  componentWillUpdate = newProps => {
+    const { valueRequest, id } = newProps;
+
+    if (valueRequest && id) {
+      valueRequest(id);
+    }
+  };
+
+  componentWillUnmount = () => {
+    const { clearValue } = this.props;
+    clearValue();
+  };
 
   componentWillReceiveProps = nextProps => {
     const { restoreData, filter, searchResult, loadData, numberOfCards } = this.props;
@@ -92,8 +103,12 @@ class SelectComponent extends Component {
   changeHandle = e => {
     const { input } = this.props;
 
-    const value = e ? e.value : null;
-    input.onChange(value);
+    let chosenValue = e;
+    if (e !== null && !Array.isArray(e)) {
+      chosenValue = [e];
+    }
+
+    input.onChange(chosenValue);
   };
 
   bottomHandler = () => {
@@ -113,6 +128,9 @@ class SelectComponent extends Component {
       placeholder,
       options,
       input,
+      selectedValue,
+      valueRequest,
+      id,
       ...restProps
     } = this.props;
 
@@ -121,12 +139,12 @@ class SelectComponent extends Component {
       label: option.attributes.title,
     }));
 
-    // {value: id, label: 123}
-    // console.log('input.value', input.value);
-    // console.log('normalizedOptions', normalizedOptions);
-    const chosenValue = normalizedOptions.filter(option => option.value === input.value);
-    // const chosenValue = normalizedOptions.filter(option => option.value === input.value[0].id);
-    // console.log('chosenValue', chosenValue);
+    const normalizedValue =
+      input.value &&
+      input.value.map(option => ({
+        value: option.value,
+        label: option.label,
+      }));
 
     return (
       <div>
@@ -138,7 +156,7 @@ class SelectComponent extends Component {
           placeholder={placeholder}
           view={view}
           isDisabled={!!view}
-          value={chosenValue[0]}
+          value={normalizedValue}
           onChange={this.changeHandle}
           onMenuScrollToBottom={this.bottomHandler}
           onInputChange={e => this.handleSearch(e)}

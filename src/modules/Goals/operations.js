@@ -18,17 +18,24 @@ import {
   createGoalSuccess,
   createGoalFail,
   seacrhGoals,
+  showSelectedEventsStart,
+  showSelectedEventsSuccess,
+  showSelectedEventsFail,
+  removeSelectedEvents,
 } from './actions';
 import {
   normalizeData,
   normalizeSingleData,
   normalizePatchData,
   normalizeCreateData,
+  normalizeSelectedData,
+  normalizeShowingData,
 } from './utils';
 import { getLastPageNumber } from '../utils';
 import { apiURL } from '../../config';
 
 const goalsURL = `${apiURL}/goals`;
+const selectedEventsURL = `${apiURL}/events/show_many`;
 
 const loadGoals = (number = 1, size = 15, filter, search = null) => dispatch => {
   dispatch(loadGoalsStart());
@@ -107,7 +114,7 @@ const addGoal = data => dispatch => {
   dispatch(createGoalStart());
 
   axios
-    .post(`${goalsURL}`, normalizedData)
+    .post(`${goalsURL}/assigned`, normalizedData)
     .then(res => {
       const goal = normalizeSingleData(res.data.data);
       dispatch(createGoalSuccess(goal));
@@ -121,6 +128,25 @@ const addGoal = data => dispatch => {
 
 const setSearch = value => dispatch => dispatch(seacrhGoals(value));
 
+const showSelectedEvents = data => dispatch => {
+  const normalizedData = normalizeSelectedData(data);
+  dispatch(showSelectedEventsStart());
+
+  axios
+    .post(`${selectedEventsURL}`, normalizedData)
+    .then(res => {
+      const normalizedShowingData = normalizeShowingData(res.data);
+      dispatch(showSelectedEventsSuccess(normalizedShowingData));
+    })
+    .catch(error => {
+      dispatch(showSelectedEventsFail(error));
+    });
+};
+
+const deleteSelectedEvents = () => dispatch => {
+  dispatch(removeSelectedEvents());
+};
+
 export default {
   loadGoals,
   deleteGoal,
@@ -130,4 +156,6 @@ export default {
   patchGoal,
   addGoal,
   setSearch,
+  showSelectedEvents,
+  deleteSelectedEvents,
 };

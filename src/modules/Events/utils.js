@@ -37,6 +37,8 @@ export const normalizePatchData = data => {
     return tasks;
   });
 
+  const goalId = data.select ? data.select[0].value : null;
+
   return {
     data: {
       attributes: {
@@ -47,7 +49,7 @@ export const normalizePatchData = data => {
         event_type: data.type.toLowerCase() || 'work',
         start_date: data.startTime || moment(),
         end_date: data.endTime || moment(),
-        goal_id: data.select || null,
+        goal_id: goalId,
       },
       relationships: {
         task: {
@@ -74,6 +76,8 @@ export const normalizeCreateData = data => {
     return tasks;
   });
 
+  const goalId = data.select ? data.select[0].value : null;
+
   return {
     data: {
       type: 'events',
@@ -89,7 +93,7 @@ export const normalizeCreateData = data => {
             .add(10, 'seconds')
             .format(),
         event_type: data.type.toLowerCase() || 'work',
-        goal_id: data.select || null,
+        goal_id: goalId,
       },
       relationships: {
         task: {

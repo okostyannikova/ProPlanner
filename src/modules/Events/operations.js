@@ -22,6 +22,10 @@ import {
   syncStart,
   syncSuccess,
   seacrhEvents,
+  showSelectedGoalStart,
+  showSelectedGoalSuccess,
+  showSelectedGoalFail,
+  removeSelectedGoal,
 } from './actions';
 import {
   normalizeData,
@@ -34,6 +38,7 @@ import { getLastPageNumber } from '../utils';
 import { apiURL } from '../../config';
 
 const eventsURL = `${apiURL}/events`;
+const goalsURL = `${apiURL}/goals`;
 
 const loadEvents = (number = 1, size = 50, params, search = null) => dispatch => {
   dispatch(loadEventsStart());
@@ -71,19 +76,6 @@ const deleteEvent = id => dispatch => {
     });
 };
 
-const loadSingleEvent = id => dispatch => {
-  dispatch(loadSingleEventStart());
-
-  axios(`${eventsURL}/${id}`)
-    .then(res => {
-      const event = normalizeSingleData(res.data.data);
-      dispatch(loadSingleEventSuccess(event));
-    })
-    .catch(error => {
-      dispatch(loadSingleEventFail(error));
-    });
-};
-
 const deleteSingleEvent = () => dispatch => {
   dispatch(removeSingleEvent());
 };
@@ -93,7 +85,7 @@ const patchEvent = (data, id) => dispatch => {
   dispatch(updateEventStart());
 
   axios
-    .put(`${eventsURL}/global/${id}`, normalizedData)
+    .put(`${eventsURL}/${id}/global`, normalizedData)
     .then(res => {
       dispatch(updateEventSuccess(res));
     })
@@ -133,6 +125,35 @@ const syncWithGoogle = () => dispatch => {
   });
 };
 
+const loadSingleEvent = id => dispatch => {
+  dispatch(loadSingleEventStart());
+
+  axios(`${eventsURL}/${id}`)
+    .then(res => {
+      const event = normalizeSingleData(res.data.data);
+      dispatch(loadSingleEventSuccess(event));
+    })
+    .catch(error => {
+      dispatch(loadSingleEventFail(error));
+    });
+};
+
+const showSelectedGoal = id => dispatch => {
+  dispatch(showSelectedGoalStart());
+
+  axios(`${goalsURL}/${id}`)
+    .then(res => {
+      dispatch(showSelectedGoalSuccess(res.data.data));
+    })
+    .catch(error => {
+      dispatch(showSelectedGoalFail(error));
+    });
+};
+
+const deleteSelectedGoal = () => dispatch => {
+  dispatch(removeSelectedGoal());
+};
+
 export default {
   loadEvents,
   loadSingleEvent,
@@ -144,4 +165,6 @@ export default {
   setFilter,
   syncWithGoogle,
   setSearch,
+  showSelectedGoal,
+  deleteSelectedGoal,
 };

@@ -84,3 +84,21 @@ export const seacrhGoals = search => ({
   type: types.SEARCH_GOALS,
   payload: { search },
 });
+
+export const showSelectedEventsStart = () => ({
+  type: types.SHOW_SELECTED_EVENTS_START,
+});
+
+export const showSelectedEventsSuccess = data => ({
+  type: types.SHOW_SELECTED_EVENTS_SUCCES,
+  payload: { data },
+});
+
+export const showSelectedEventsFail = error => ({
+  type: types.SHOW_SELECTED_EVENTS_FAIL,
+  error,
+});
+
+export const removeSelectedEvents = () => ({
+  type: types.REMOVE_SELECTED_EVENTS,
+});

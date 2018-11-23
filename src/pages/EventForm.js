@@ -21,7 +21,6 @@ class EventForm extends Component {
 
   componentDidMount = () => {
     const { match, loadSingleEvent, loadTasks } = this.props;
-
     !match.path.includes('add') && loadSingleEvent(match.params.id);
     !match.path.includes('add') && loadTasks(match.params.id);
   };
@@ -30,6 +29,12 @@ class EventForm extends Component {
     const { removeSingleEvent, unloadTasks } = this.props;
     removeSingleEvent();
     unloadTasks();
+  };
+
+  valueRequest = id => {
+    const { showSelectedGoal } = this.props;
+
+    showSelectedGoal(id);
   };
 
   render() {
@@ -47,6 +52,9 @@ class EventForm extends Component {
       loadData,
       lastPageNumber,
       search,
+      goalValue,
+      selectedGoal,
+      deleteSelectedGoal,
     } = this.props;
 
     const path = match.path;
@@ -103,6 +111,10 @@ class EventForm extends Component {
                   lastPageNumber={lastPageNumber}
                   numberOfCards={15}
                   searchResult={search}
+                  valueRequest={this.valueRequest}
+                  id={goalValue}
+                  selectedValue={selectedGoal}
+                  clearValue={deleteSelectedGoal}
                 />
               </li>
               <li>
@@ -153,7 +165,7 @@ const mapStateToProps = state => {
     .add(30, 'minutes')
     .format();
   let tasks = [];
-  let select = '';
+  let select = null;
 
   if (state.events.eventsSingleEvent) {
     id = state.events.eventsSingleEvent.id;
@@ -164,11 +176,16 @@ const mapStateToProps = state => {
     startTime = state.events.eventsSingleEvent.attributes['start-date'].format();
     endTime = state.events.eventsSingleEvent.attributes['end-date'].format();
     tasks = state.tasks.tasksList;
-    select = state.events.eventsSingleEvent.attributes['goal-id'];
   }
+
+  select = state.events.selectedGoal;
 
   return {
     eventsList: state.events.eventsSingleEvent,
+    goalValue: state.events.eventsSingleEvent
+      ? state.events.eventsSingleEvent.attributes['goal-id']
+      : null,
+    selectedGoal: state.events.selectedGoal,
     tasksList: state.tasks.tasksList,
     goals: state.goals.goalsList,
     search: state.goals.search,
@@ -194,10 +211,12 @@ export default (EventForm = compose(
       loadSingleEvent: eventsOperations.loadSingleEvent,
       removeSingleEvent: eventsOperations.deleteSingleEvent,
       patchEvent: eventsOperations.patchEvent,
+      deleteSelectedGoal: eventsOperations.deleteSelectedGoal,
       loadTasks: tasksOperations.loadTasks,
       unloadTasks: tasksOperations.unloadTasks,
       addEvent: eventsOperations.addEvent,
       deleteEvent: eventsOperations.deleteEvent,
+      showSelectedGoal: eventsOperations.showSelectedGoal,
       loadData: goalsOperations.loadGoals,
       restoreData: goalsOperations.restoreGoals,
       setSearch: goalsOperations.setSearch,
