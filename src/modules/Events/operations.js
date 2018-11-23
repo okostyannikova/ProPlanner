@@ -43,7 +43,7 @@ const goalsURL = `${apiURL}/goals`;
 const loadEvents = (number = 1, size = 100, params, search = null) => dispatch => {
   dispatch(loadEventsStart());
 
-  axios(eventsURL, {
+  return axios(eventsURL, {
     params: {
       attribute: 'start_date',
       order: 'DESC',
