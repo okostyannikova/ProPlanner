@@ -21,6 +21,19 @@
     "jest": true
   },
   "rules": {
+    "import/no-unresolved": [
+      "error",
+      {
+        "ignore": [
+          "assets",
+          "modules",
+          "components",
+          "styles",
+          "utils",
+          "config"
+        ]
+      }
+    ],
     "no-debugger": 0,
     "no-alert": 0,
     "no-unused-vars": [

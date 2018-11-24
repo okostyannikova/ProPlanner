@@ -1,0 +1,79 @@
+.time-container{
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: normal;
+	line-height: normal;
+	font-size: 16px;
+
+	color: rgba(51, 102, 180, 0.87);
+}
+
+
+.date{
+	display: inline-flex;
+	width: 140px;
+	height: 40px;
+	left: 330px;
+	top: 299px;
+
+	background: #FFF;
+	border-radius: 2px;
+	align-items: center;
+	padding: 5px 20px;
+	margin-bottom: 4px;
+
+	@media (max-width: 575.98px){
+		width: 100%;
+		display: block;
+		text-align: center;
+		box-sizing: border-box;
+		margin-bottom: 10px;
+		padding: 0;
+		line-height: 40px;
+	}
+}
+
+.time{
+	margin-left: 8px;
+}
+
+.separator{
+	display: inline-flex;
+	width: 8px;
+	height: 2px;
+	top: -5px;
+	margin: 0 8px 5px;
+	align-items: center;
+
+
+	background: rgba(51, 102, 180, 0.87);
+
+	@media (max-width: 575.98px){
+		margin: 0 auto;
+		display:block;
+		margin-bottom: 10px;
+	}
+}
+
+.error-text{
+	margin-top: 5px;
+	margin-left: 10px;
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 12px;
+	font-size: 12px;
+
+	color: #DB4437;
+	position: relative;
+
+	&::after{
+	  display: inline;
+	  right: 5px;
+	  top: -4px;
+	  position: absolute;
+	  content: url('../../assets/images/warning-icon.svg');
+	  width: 18px;
+	  height: 18px;
+	}
+  }

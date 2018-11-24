@@ -5,7 +5,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="ProPlanner">
+  <meta name="msapplication-TileImage" content="app-icon-192x192.png">
   <title>ProPlanner</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/app-icon-192x192.png" sizes="144x144">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=cyrillic" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" ref="../src/index.css">
 </head>
 
 <body>
@@ -13,6 +22,9 @@
     You need to enable JavaScript to run this app.
   </noscript>
   <div id="root"></div>
+
+  <script type="text/javascript" src="https://apis.google.com/js/client:plus.js?onload=gpAsyncInit" async defer></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6Bj8gMhugcOqZHC7SeSE3LvqrIrvG_XE&libraries=places"></script>
 </body>
 
 </html>

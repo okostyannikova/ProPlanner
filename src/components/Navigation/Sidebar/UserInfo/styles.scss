@@ -1,0 +1,75 @@
+$circle-radius: 36px;
+
+.user-info {
+  padding-left: 24px;
+}
+
+.user-info__avatar {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  svg {
+    position: absolute;
+    width: 76px;
+    height: 76px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+  }
+}
+
+.user-info__avatar-wrapper {
+  width: 68px;
+  height: 68px;
+  border: 4px solid #d9d9da;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.user-info__progress-bar {
+  fill: none;
+  r: $circle-radius;
+  stroke: #00BCD4;
+  stroke-width: 4px;
+  stroke-dasharray: 237;
+  transform: translate($circle-radius+2, $circle-radius+2) rotate(-90deg) translate(-($circle-radius+2), -($circle-radius+2));
+}
+
+.user-info__progress-number {
+  font-size: 9px;
+  font-weight: 700;
+  text-align: center;
+  color: #ffffff;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  padding: 1.7px;
+  position: absolute;
+  left: 31px;
+  top: -4px;
+  z-index: 20;
+  background-color: #00BCD4;
+  border-radius: 100%;
+  box-sizing: border-box;
+}
+
+.user-info__name {
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+.user-info__email {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(52, 70, 98, 0.54);
+  margin: 10px 0 5px;
+  overflow: hidden; 
+}
+
+@media (max-width: 767.98px) {
+  .user-info__email {
+    color: rgba(52, 70, 98, 0.87);
+    margin: 5px 0 13px;
+  }
+}

@@ -1,19 +1,195 @@
 import React, { Component } from 'react';
-import { NavLink } from "react-router-dom";
-import PageTemplate from '../components/PageTemplate';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import RoundButton from 'components/RoundButton';
+import Loader from 'components/Loader';
+import NoItemsMessage from 'components/NoItemsMessage';
+import CardsPagination from 'components/hocs/CardsPagination';
+import SearchInput from 'components/Navigation/SearchInput.js';
+import SyncGoogle from 'components/Navigation/SyncGoogle';
+import FilterDropDown from 'components/FilterDropDown';
+import { eventsOperations } from '../modules/Events';
+import EventCard from './events/EventCard';
 
-const eventsList = [1, 2, 3]
+class Events extends Component {
+  getBody = () => {
+    const { events, loading, deleteEvent, history } = this.props;
+    if (events.length) {
+      return (
+        <TransitionGroup component={null}>
+          {events.map(event => {
+            const {
+              title,
+              'start-date': startDate,
+              'end-date': endDate,
+              'event-type': type,
+              description,
+              priority,
+              'tasks-count': tasksCount,
+            } = event.attributes;
+            return (
+              <CSSTransition key={event.id} in appear classNames="card" timeout={400}>
+                <EventCard
+                  key={event.id}
+                  id={event.id}
+                  type={type}
+                  title={title}
+                  startDate={startDate}
+                  endDate={endDate}
+                  description={description}
+                  priority={priority}
+                  deleteEvent={deleteEvent}
+                  history={history}
+                  tasksCount={tasksCount}
+                />
+              </CSSTransition>
+            );
+          })}
+        </TransitionGroup>
+      );
+    }
+    if (!loading && !events.length) {
+      return (
+        <NoItemsMessage item="event" url="/event/add">
+          Unfortunately you have no events yet.
+        </NoItemsMessage>
+      );
+    }
+  };
 
-export default class Events extends Component {
+  setFilterValue = (value, actionMeta) => {
+    const { action, option } = actionMeta;
+    const { setFilter } = this.props;
+    if (action === 'select-option') {
+      const checkedValue = value.map(el => (el.group === option.group ? option : el));
+      const uniqValue = [...new Set(checkedValue)];
+      setFilter(uniqValue);
+    } else {
+      setFilter(value);
+    }
+  };
 
   render() {
+    const {
+      loading,
+      restoreData,
+      loadData,
+      lastPageNumber,
+      filter,
+      setSearch,
+      search,
+      params,
+    } = this.props;
     return (
-      <PageTemplate>
-        <div>
-          Events:
-          <ul>{eventsList.map(id => <li key={id}><NavLink to={`/events/${id}`}>Event {id}</NavLink></li>)}</ul>
-        </div>
-      </PageTemplate>
-    )
+      <PageContainer className="page-content events-list">
+        <Header>
+          <Title>The Events</Title>
+          <SyncGoogle />
+          <SearchInput search={setSearch} />
+          <FilterDropDown setFilter={this.setFilterValue} filter={filter} />
+          <RoundButton to="/event/add" type="event" />
+        </Header>
+        <CardsPagination
+          restoreData={restoreData}
+          loadData={loadData}
+          lastPageNumber={lastPageNumber}
+          cardHeight={219}
+          numberOfCards={20}
+          params={params}
+          search={search}
+        >
+          <EventsList>{this.getBody()}</EventsList>
+        </CardsPagination>
+        {loading && <Loader />}
+      </PageContainer>
+    );
   }
 }
+
+Events.defaultProps = {
+  events: null,
+  filter: [],
+  search: null,
+  params: {},
+};
+
+Events.propTypes = {
+  history: PropTypes.object.isRequired,
+  // from connect
+  events: PropTypes.arrayOf(PropTypes.object),
+  loading: PropTypes.bool.isRequired,
+  lastPageNumber: PropTypes.number.isRequired,
+  filter: PropTypes.array,
+  params: PropTypes.object,
+  search: PropTypes.string,
+  loadData: PropTypes.func.isRequired,
+  deleteEvent: PropTypes.func.isRequired,
+  restoreData: PropTypes.func.isRequired,
+  setFilter: PropTypes.func.isRequired,
+  setSearch: PropTypes.func.isRequired,
+};
+
+export default connect(
+  state => ({
+    events: state.events.eventsList,
+    loading: state.events.loading,
+    lastPageNumber: state.events.lastPageNumber,
+    filter: state.events.filter,
+    params: state.events.params,
+    search: state.events.search,
+  }),
+  {
+    loadData: eventsOperations.loadEvents,
+    deleteEvent: eventsOperations.deleteEvent,
+    restoreData: eventsOperations.restoreEvents,
+    setFilter: eventsOperations.setFilter,
+    setSearch: eventsOperations.setSearch,
+  }
+)(Events);
+
+const PageContainer = styled.div`
+  background-color: #f2f6ff;
+  padding: 34px 36px 10px 44px;
+  @media (max-width: 1200px) {
+    padding: 34px 30px 0 30px;
+  }
+  @media (max-width: 992px) {
+    padding: 34px 20px 10px 20px;
+  }
+  @media (max-width: 670px) {
+    padding-top: 10px;
+  }
+`;
+
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgba(51, 102, 180, 0.87);
+  @media (max-width: 670px) {
+    flex-wrap: wrap;
+  }
+`;
+const Title = styled.span`
+  font-size: 20px;
+  font-weight: 700;
+`;
+
+const EventsList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -2%;
+  @media (max-width: 992px) {
+    margin-right: -3%;
+  }
+  @media (max-width: 737px) {
+    margin-right: -2%;
+  }
+  @media (max-width: 500px) {
+    margin-right: 0;
+    flex-direction: column;
+    align-items: center;
+  }
+`;

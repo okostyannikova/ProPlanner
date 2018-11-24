@@ -1,0 +1,119 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
+.calendar-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @include mq(xs-max, max) {
+    flex-direction: column;
+  }
+  li {
+    list-style: none;
+  }
+}
+
+.calendar-nav__prev-btn,
+.calendar-nav__next-btn {
+  width: 10px;
+  height: 17px;
+  position: absolute;
+  top: 4px;
+  border: none;
+  background: center center no-repeat;
+  cursor: pointer;
+  outline: none;
+}
+
+.calendar-nav__prev-btn {
+  background-image: url('../../../assets/images/arrow-left.png');
+  left: 0;
+}
+
+.calendar-nav__next-btn {
+  background-image: url('../../../assets/images/arrow-right.png');
+  right: 0;
+}
+
+.calendar-nav__label {
+  width: 250px;
+  @include mq(lg-max, max) {
+    width: 225px;
+  }
+  position: relative;
+  text-align: center;
+  span {
+    text-transform: uppercase;
+    font-size: 20px;
+  }
+}
+
+.calendar-nav__text {
+  color: $main-text-color;
+  font-weight: 500;
+}
+
+.calendar-nav__digit {
+  color: $light-text-color;
+  padding-left: 10px;
+}
+
+.calendar-nav--week {
+  .calendar-nav__label {
+    span {
+      font-size: 18px;
+    }
+  }
+  .calendar-nav__next-btn,
+  .calendar-nav__prev-btn {
+    top: 2px
+  }
+}
+
+.calendar-nav__dash {
+  font-size: 30px;
+  padding: 0 10px;
+}
+
+.calendar-nav__views-btn-list {
+  display: flex;
+  @include mq(xs-max, max) {
+    margin-top: 24px;
+  }
+}
+
+.calendar-nav__views-btn {
+  display: inline-block;
+  position: relative;
+  width: 102px;
+  @include mq(lg-max, max) {
+    width: 90px;
+  }
+  height: 45px;
+  padding: 12px 0;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: $light-text-color;
+  background-color: #fff;
+  border: none;
+  border-top: $view-bth-border;
+  border-bottom: $view-bth-border;
+  outline: none;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(0, 188, 212, 0.05);
+  }
+}
+
+.calendar-nav__views-btn--first {
+  border-left: $view-bth-border;
+  border-radius: 5px 0 0 5px;
+  left: 4px;
+}
+
+.calendar-nav__views-btn--last {
+  border-right: $view-bth-border;
+  border-radius: 0 5px 5px 0;
+  right: 4px;
+}

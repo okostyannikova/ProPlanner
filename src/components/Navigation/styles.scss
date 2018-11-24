@@ -1,0 +1,29 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+.navigation-topbar {
+  height: 65px;
+}
+
+.navigation-sidebar {
+  position: fixed;
+  width: 214px;
+  z-index: 100;
+  height: calc(100vh - 65px);
+  @include mq(md-max, max) {
+    height: calc(100vh - 50px);
+  }
+}
+
+@media (max-width: $screen-md-max) {
+  .nav--hidden {
+    left: -250px;
+    transition: all 0.3s linear;
+  }
+  .nav--show {
+    left: 0;
+    transition: all 0.3s linear;
+  }
+  .navigation-topbar {
+    height: 50px;
+  }
+}

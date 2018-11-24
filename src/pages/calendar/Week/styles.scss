@@ -1,0 +1,76 @@
+@import "../../../styles/variables.scss";
+@import "../../../styles/mixins.scss";
+$active-day-border: 2px solid rgba(51, 103, 180, 0.5);
+ul.days-labels {
+  display: flex;
+  justify-content: space-around;
+  padding-left: 48px;
+  li {
+    list-style: none;
+    text-align: right;
+  }
+  p {
+    margin: 0;
+    text-align: right;
+    font-size: 14px;
+  }
+}
+
+.calendar__content--week {
+  margin-top: 8px;
+}
+
+.calendar__events--week {
+  position: relative;
+  display: flex;
+  width: 95%;
+  overflow: hidden;
+}
+
+.calendar__week-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(249, 250, 254);
+  box-sizing: border-box;
+  outline: none;
+  &:nth-child(even) {
+    background-color: rgb(253, 253, 255);
+  }
+}
+
+li.calendar__selected-weekday {
+  color: $main-text-color
+}
+
+.divisor {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  right: 0;
+  background-color: #e0edf9;
+}
+
+.event-block--week {
+  padding: 5px;
+  .event-block__time {
+    font-size: 10px;
+  }
+  .event-block__title {
+    height: 82%;
+  }
+}
+
+.event-block--week.event-block--small {
+  font-size: 12px;
+}
+
+@media (max-width: 630px) {
+  .event-block--week {
+    .event-block__title {
+      height: 97%;
+      white-space: normal;
+      font-size: 12px;
+    }
+  }
+}

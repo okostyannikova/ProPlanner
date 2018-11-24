@@ -1,0 +1,84 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+.calendar {
+  color: $main-text-color;
+  position: relative;
+  height: 1px;
+}
+
+.calendar-main {
+  padding: 30px 30px 30px 50px;
+  width: 73%;
+  box-sizing: border-box;
+  table {
+    width: 110%;
+    margin-left: -5%;
+    @include mq(md-max, max) {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+  @include mq(lg-max, max) {
+    padding: 30px 20px 30px 30px;
+    width: 70%;
+  }
+  @include mq(sm-max, max) {
+    width: 100%;
+    padding: 25px 30px 0 30px;
+  }
+}
+
+.calendar-main--mobile {
+  @include mq(xs-max, max) {
+    padding: 25px 5px 0 5px;
+  }
+}
+
+.calendar-main__content {
+  margin-top: 30px;
+}
+
+.calendar__day-sidebar {
+  width: 27%;
+  @include mq(md-max, max) {
+    width: 31%;
+  }
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  .calendar-day__main {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .calendar-day {
+    padding: 0 30px 0 6%;
+    box-sizing: border-box;
+    @include mq(md-max, max) {
+      padding-right: 15px;
+    }
+  }
+  .calendar__events {
+    margin-left: 15px;
+  }
+  .calendar-nav__label {
+    text-align: left;
+  }
+  .calendar-nav__views-btn-list,
+  .calendar-nav__prev-btn,
+  .calendar-nav__next-btn {
+    display: none;
+  }
+}
+
+.days-labels {
+  font-size: 20px;
+  font-weight: 500;
+  color: $light-text-color;
+  th {
+    text-align: center;
+  }
+  @include mq(sm-max, max) {
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,14 @@
+deploy:
+  script:
+    - printf "$\e[34m%b%s\n\e[0m" "------------------------  Pull last changes  ------------------------";
+    - git pull origin develop
+    - printf "$\e[34m%b%s\n\e[0m" "------------------------  Install packages  ------------------------";
+    - npm install
+    - printf "$\e[34m%b%s\n\e[0m" "------------------------  Remove old build  ------------------------";
+    - rm -rf build
+    - printf "$\e[34m%b%s\n\e[0m" "------------------------  Build project  ------------------------";
+    - npm run build
+    - printf "$\e[34m%b%s\n\e[0m" "------------------------  Copy to nginx folder  ------------------------";
+    - sudo cp -r ./build/* /var/www/html
+  only:
+    - develop
