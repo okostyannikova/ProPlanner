@@ -1,8 +1,7 @@
 <img src="/public/icons/app-icon-512x512.png"  width="120" height="120">
 
 # ProPlanner
-Look at this app,
-this app is amazing!
+This app was created as part of the [Provectus Formula-1 Intership](https://www.facebook.com/provectuslife/posts/2246473915365831?__xts__[0]=68.ARCuU-6tlceBbZer8-j54Q7wkcjSmvk_tPjw2DVfasuc16FvFc9aca2m5vhkkjsluQxLtrRPS1i1hZARhenXNQrWrghd2ZPScBY-UOnY5vn5nUv3ncEzSwm62Xv9dnu4VMxqxQIdE7B1akEAOI4ER-FDufeYtZ6RLR8ibj5DQCA2E6YjXq9plgEk-xUvGeYzEt7VW7eAY9CtgkB6qhzF7OJL-rgMcxSGNzae1KEgY6qvfKGnL3JbP8SM067KsbsbW5CZnPJo7cI7DnUYeUW6uXhFNkXjIVAYKRacQo29PPKdaP62vziiNYy_Loo5YYUMjQtyoj2JHpcRlz_VNe94HVRZj4S-vBiNzC_zgauj3XGJMoR72HscuDo5A4OqGFF8du597-7zWSj-rzzPDsQrC-9-WzK2tZMIhcYnGXZ7mWdEvmw&__tn__=-UC-R)
 
 ## How to start
 - install dependencies - `npm install` or `npm i`
