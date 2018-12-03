@@ -1,7 +1,7 @@
 <img src="/public/icons/app-icon-512x512.png"  width="120" height="120">
 
 # ProPlanner
-ProPlanner - it's web application that hepls to manage your goals effectively. It is based on [SMART planning model](https://en.wikipedia.org/wiki/SMART_criteria)
+ProPlanner - web application that helps to manage your goals effectively. It is based on [SMART planning model](https://en.wikipedia.org/wiki/SMART_criteria)
 
 You can see the running application [here](http://frontend.proplanner.formula1.cloud.provectus-it.com/)
 
